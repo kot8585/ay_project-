@@ -120,6 +120,7 @@
 </form>
 
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist"></c:import>
+<c:import url="${ pageContext.request.contextPath }/pquestion/plist"></c:import>
 
 </body>
 </html>

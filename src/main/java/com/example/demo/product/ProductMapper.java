@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.example.demo.review.Review;
                                
 @Mapper
 public interface ProductMapper {
@@ -21,6 +23,7 @@ public interface ProductMapper {
 	void update(Product p);
 	void delete(int num);
 	int getNum();
+	
 
 	
 }

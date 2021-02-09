@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.pquestion.PquestionMapper">
+<resultMap type="com.example.demo.pquestion.Pquestion" id="pquestion">
+	<result column="num" property="num" />
+	<result column="p_num" property="p_num" />
+	<result column="writer" property="writer" />
+	<result column="title" property="title" />
+	<result column="content" property="content" />
+	<result column="p_date" property="p_date" />
+	<result column="path" property="path" />
+	
+</resultMap>
+
+<insert id="insert" parameterType="com.example.demo.pquestion.Pquestion">
+insert into pquestion values(seq_review.NEXTVAL, #{p_num}, #{writer}, #{title}, #{content},sysdate, #{path} )
+</insert>
+
+<select id="select" resultMap="pquestion" parameterType="int">
+		select * from pquestion where num=#{num}
+	</select>
+	
+<select id="selectAll" resultMap="pquestion">
+		select * from pquestion order by num
+	</select>
+
+
+
+</mapper>
+

@@ -25,7 +25,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
 </script>
 </head>
 <body>
-<a href="${pageContext.request.contextPath }/member/main">Maim</a>
+<a href="${pageContext.request.contextPath }/member/main">Main</a>
 	<h3>1:1 문의</h3>
 	<table border="1" cellspacing="0">
 		<thead>

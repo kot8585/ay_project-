@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.board.Board;
+
 @Controller
 public class ProductController {
 
@@ -103,8 +105,7 @@ public class ProductController {
       return result;
    }
    
-   
+  
 }
-   
    
    
