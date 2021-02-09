@@ -8,6 +8,8 @@ public class Member {
 	private String name;
 	private Date birth;
 	private String gender;
+	private String postalCode;
+	private String roadAddress;
 	private String address;
 	private String tel;
 	private String email;
@@ -16,14 +18,16 @@ public class Member {
 		super();
 	}
 
-	public Member(String id, String password, String name, Date birth, String gender, String address, String tel,
-			String email) {
+	public Member(String id, String password, String name, Date birth, String gender, String postalCode,
+			String roadAddress, String address, String tel, String email) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.birth = birth;
 		this.gender = gender;
+		this.postalCode = postalCode;
+		this.roadAddress = roadAddress;
 		this.address = address;
 		this.tel = tel;
 		this.email = email;
@@ -69,6 +73,22 @@ public class Member {
 		this.gender = gender;
 	}
 
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -95,11 +115,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member\n id,password,name,birth,gender,address,tel,email\n"
-				+ id + "," + password + "," + name + "," + birth + "," 
-				+ gender + "," + address + "," + tel + "," + email;
+		return "Member [id=" + id + ", password=" + password + ", name=" + name + ", birth=" + birth + ", gender="
+				+ gender + ", postalCode=" + postalCode + ", roadAddress=" + roadAddress + ", address=" + address
+				+ ", tel=" + tel + ", email=" + email + "]";
 	}
 
-	
-	
 }

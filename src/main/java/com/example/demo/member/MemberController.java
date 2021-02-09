@@ -42,7 +42,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/idCheck")
 	public ModelAndView idCheck(HttpServletRequest req, 
-			@RequestParam(value = "id") String id) {
+		@RequestParam(value = "id") String id) {
 		System.out.println("MemController.idCheck() id : " + id);
 		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("member/idCheck");
