@@ -34,10 +34,31 @@ public class MemberController {
 	
 
 	@RequestMapping("/member/joinForm")
-	public void joinForm() {
+	public void joinForm(HttpServletRequest req) {
 		//joinForm.jsp를 불러와 화면에 보여준다.
+		HttpSession session = req.getSession();
+		session.setAttribute("idCheck", false);
 		}
 	
+	@RequestMapping(value = "/member/idCheck")
+	public ModelAndView idCheck(HttpServletRequest req, 
+			@RequestParam(value = "id") String id) {
+		System.out.println("MemController.idCheck() id : " + id);
+		HttpSession session = req.getSession(false);
+		ModelAndView mav = new ModelAndView("member/idCheck");
+		String result = "";
+		Member m = service.getMember(id);
+		if (m == null) {
+			result = "사용가능"; // joinForm.jsp의 div(id=idResult)에 텍스트 채워줄 용
+			session.setAttribute("idCheck", true);
+		} else {
+			result = "사용불가능"; // joinForm.jsp의 div(id=idResult)에 텍스트 채워줄 용
+			session.setAttribute("idCheck", false);
+		}
+		System.out.println(session.getAttribute("idCheck"));
+		mav.addObject("result", result);
+		return mav;
+	}
 	@RequestMapping("/member/join")
 	public String join(Member m) {
 		//joinForm에서 입력받은 값을 m에 담고 db에 저장한다.
@@ -89,34 +110,13 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("member/findResult");
 		String result="";
 		if(m == null) {
-			result = "이메일 또는 이름이 등록되지 않았습니다.";
+			result = "이메일 또는 이름이 입력되지 않았습니다.";
 			mav.setViewName("member/failResult");
 			mav.addObject("result", result);
 			System.out.println(result);
 		} else {
 			mav.addObject("m", m);
 		}
-		return mav;
-	}
-	
-	
-	@RequestMapping(value = "/member/idCheck")
-	public ModelAndView idCheck(HttpServletRequest req, 
-			@RequestParam(value = "id") String id) {
-		System.out.println("MemController.idCheck() id : " + id);
-		HttpSession session = req.getSession(false);
-		ModelAndView mav = new ModelAndView("member/idCheck");
-		String result = "";
-		Member m = service.getMember(id);
-		if (m == null) {
-			result = "사용가능"; // joinForm.jsp의 div(id=idResult)에 텍스트 채워줄 용
-			session.setAttribute("idCheck", true);
-		} else {
-			result = "사용불가능"; // joinForm.jsp의 div(id=idResult)에 텍스트 채워줄 용
-			session.setAttribute("idCheck", false);
-		}
-		System.out.println(session.getAttribute("idCheck"));
-		mav.addObject("result", result);
 		return mav;
 	}
 	
