@@ -17,20 +17,33 @@
   		var m_id = $("#m_id").val();
   		var p_num = $("#p_num").val();
   		var cost = $("#cost").val();
-  		alert(m_id + " + " + p_num + " + " + cost);
-  		$.post("/cart/addCart", { m_id: m_id, p_num: p_num, cost: cost })
-  		.done(function(data) {
-  			// 중복 불가능하게 하는건 다음번에 잡자.
+  		if (m_id != "") {
   			alert("장바구니에 추가되었습니다!");
-  		});
+  			$.post("/cart/addCart", { m_id: m_id, p_num: p_num, cost: cost })
+  	  		.done(function(data) {
+  	  			alert("장바구니에 추가되었습니다!");
+  	  		});
+		} else {
+			alert("로그인 후 이용바랍니다.");
+		}
   	});
 });
+   
+   function check() {
+		var quantity = document.f.quantity;
+		if (quantity.value == "") {
+			alert("주문수량을 기재해주세요.");
+			quantity.value = "";
+			quantity.focus();
+			return false;
+		}
+   }
 </script>
 </head>
 <body>
 <h5>세션 id : ${ sessionScope.id }</h5>
 <h3>상품 상제 정보</h3>
-<form action="${ pageContext.request.contextPath }/order/orderForm" method="post">
+<form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
 <table border="1" cellspacing="0">
 <tr>
 
@@ -98,7 +111,8 @@
 
 <tr>
 <td colspan="2">
-	<input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }"><input type="submit" value="구매">
+	<input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
+	<input type="submit" value="구매" >
 	<input type="button" value="장바구니로" id="cart">
 </td>
 </tr>
@@ -106,6 +120,7 @@
 </form>
 
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist"></c:import>
+<c:import url="${ pageContext.request.contextPath }/pquestion/plist"></c:import>
 
 </body>
 </html>

@@ -16,13 +16,14 @@
 <c:if test="${not empty list }">
 <a href="${pageContext.request.contextPath }/admin/write">새 상품 등록</a>
 <table border="1">
-<tr><th>num</th><th>name</th><th>maker</th>
+<tr><th>num</th><th>img</th><th>name</th><th>maker</th>
 <th>price</th><th>origin</th><th>material</th>
 <th>quantity</th><th>imgPath</th><th>event_num</th>
 <th>상품관리</th>
 <c:forEach var="p" items="${list }">
 <tr>
 	<td>${ p.num }</td>
+	 <td><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${p.imgPath }&num=${p.num}" style="width:60px;height:60px"></td>
 	<td>${ p.name }</td>
 	<td>${ p.maker }</td>
 	<td>${ p.price }</td>

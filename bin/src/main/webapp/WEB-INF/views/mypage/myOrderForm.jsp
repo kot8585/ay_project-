@@ -14,6 +14,7 @@
 </script>
 </head>
 <body>
+<h3>주문내역</h3>
 <c:if test="${empty list }">
  주문 내역이 없다. 
 </c:if>

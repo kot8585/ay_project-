@@ -65,4 +65,5 @@ delete product where num=#{num}
 select seq_product.nextval from dual
 </select>
 
+
 </mapper>
