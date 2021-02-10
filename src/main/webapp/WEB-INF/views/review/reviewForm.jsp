@@ -10,7 +10,7 @@
 
 
 <form action="${pageContext.request.contextPath }/review/write">
-<table border="300">
+<table border="1">
 <tr>
 <td>제목<td>
 <td><input type="text" name="title"><td>
