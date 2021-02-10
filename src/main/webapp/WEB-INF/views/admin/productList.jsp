@@ -23,7 +23,8 @@
 <c:forEach var="p" items="${list }">
 <tr>
 	<td>${ p.num }</td>
-	 <td><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${p.imgPath }&num=${p.num}" style="width:60px;height:60px"></td>
+	<!-- 김평기 : 이미지 추가함. -->
+	<td><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${p.imgPath }&num=${p.num}" style="width:60px;height:60px"></td>
 	<td>${ p.name }</td>
 	<td>${ p.maker }</td>
 	<td>${ p.price }</td>

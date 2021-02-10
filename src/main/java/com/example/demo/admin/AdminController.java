@@ -60,6 +60,25 @@ public class AdminController {
 		return "admin/adminLoginForm";
 	}
 	
+
+	@RequestMapping("/admin/admin")
+	public ModelAndView admin(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView("admin/admin");
+		String id = "";
+		HttpSession session = req.getSession(false);
+		// TODO 공통 함수로 리팩토링 필요
+		if (session == null) {
+			System.out.println("session null");
+			mav.setViewName("admin/adminLoginForm");
+		} else {
+			id = (String) session.getAttribute("id");
+		}
+		if (id.isBlank()) {
+			mav.setViewName("admin/adminLoginForm");
+		}
+		return mav;
+	}
+	
 	@RequestMapping("/admin/login")
 	public String login(Admin ad, HttpServletRequest req) {
 		Admin admin = adminService.getAdmin(ad.getId());
@@ -90,10 +109,37 @@ public class AdminController {
 			mav.setViewName("admin/adminLoginForm");
 		}
 		System.out.println("id = " + id +", mav = " + mav.getViewName());
+		
 		ArrayList<Order> list = orderService.getAllOrderList();
+		 //리스트 갯수만큼 반복
+	      for (int i = 0; i < list.size(); i++) {
+	    	  
+	    	 //path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
+	         String path = basePath + "p" + list.get(i).getP_num() + "\\";
+	         
+	         //imDir에 path를 저장
+	         File imgDir = new File(path);   
+	        
+	         //files에 imgDir을 저장
+	         String[] files = imgDir.list();
+	         //mav에 files에 저장된 값을 저장한다
+	         if(imgDir.exists()) {
+	            for(int j = 0; j < files.length; j++) {
+	               mav.addObject("file" + j, files[j]);
+	            }
+	            
+	            list.get(i).setImgPath(files[0]);
+	         }
+	      }
 		mav.addObject("list", list);
 		return mav;
 		
+	}
+	
+	@RequestMapping("admin/changeState")
+	public void changeState(@RequestParam("num") int num, @RequestParam("state") int state) {
+		System.out.println(num + "," +state);
+		orderService.changeState(num, state); 
 	}
 	
 	@RequestMapping("/admin/productList")

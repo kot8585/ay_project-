@@ -76,9 +76,15 @@ public class Reply {
 
 	@Override
 	public String toString() {
-		return "Reply\n"+"num,board_num,writer,content"
-				+ ",r_date,path\n" 
-				+ num + "," + board_num + "," + writer + "," + content + "," + r_date + "," + path;
+		return "Reply [num=" + num + ", board_num=" + board_num + ", writer=" + writer + ", content=" + content
+				+ ", r_date=" + r_date + ", path=" + path + "]";
 	}
 
+	public String category() {
+		return "num,board_num,writer,content,methodName\n";
+	}
+
+	public String content() {
+		return num + "," + board_num + "," + writer + "," + content + "," + r_date + "," + path;
+	}
 }
