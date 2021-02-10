@@ -63,7 +63,7 @@ public class BoardController {
 	public void saveBoardImg(int num, MultipartFile file) { //이미지 저장하기
 		String fileName = file.getOriginalFilename();
 		if(fileName != null && !fileName.equals("")) {
-			File dir = new File(basePath + num);
+			File dir = new File(basePath + "b" + num);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
@@ -130,7 +130,7 @@ public class BoardController {
 		service.delBoard(num);
 		
 		//이미지 삭제하기
-		String path = basePath + "b" + num+"\\"; 
+		String path = basePath + "b" + num+ "\\"; 
 		File imgDir = new File(path);
 		
 		if (imgDir.exists()) {

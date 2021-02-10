@@ -114,7 +114,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("member/findResult");
 		String result="";
 		if(m == null) {
-			result = "이메일 또는 이름이 입력되지 않았습니다.";
+			result = "이메일 또는 이름이 등록되지 않았습니다.";
 			mav.setViewName("member/failResult");
 			mav.addObject("result", result);
 			System.out.println(result);
