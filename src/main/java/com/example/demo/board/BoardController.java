@@ -53,21 +53,21 @@ public class BoardController {
 	public String write(Board b) {
 		int num = service.getNum();
 		b.setNum(num);
-		saveImg(num, b.getFile1());
-		saveImg(num, b.getFile2());
-		saveImg(num, b.getFile3());
+		saveBoardImg(num, b.getFile1());
+		saveBoardImg(num, b.getFile2());
+		saveBoardImg(num, b.getFile3());
 		service.addBoard(b);
 		return "redirect:/board/list";
 	}
 	
-	public void saveImg(int num, MultipartFile file) { //이미지 저장하기
+	public void saveBoardImg(int num, MultipartFile file) { //이미지 저장하기
 		String fileName = file.getOriginalFilename();
 		if(fileName != null && !fileName.equals("")) {
 			File dir = new File(basePath + num);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			File f = new File(basePath + num + "\\" + fileName);
+			File f = new File(basePath + "b" + num + "\\" + fileName);
 			try {
 				file.transferTo(f);
 			} catch (IllegalStateException e) {
@@ -90,7 +90,7 @@ public class BoardController {
 		b.setReps(reps);
 				
 
-		String path = basePath + b.getNum() + "\\";
+		String path = basePath + "b" +b.getNum() + "\\";
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
 			String[] files  = imgDir.list();
@@ -105,7 +105,7 @@ public class BoardController {
 	
 	@RequestMapping("/board/img")
 	public ResponseEntity<byte[]> getImg(String fname, int num){
-		String path = basePath + num + "\\" + fname;
+		String path = basePath + "b" + num + "\\" + fname;
 		File f = new File(path);
 		HttpHeaders header = new HttpHeaders();
 		ResponseEntity<byte[]> result = null;
@@ -130,7 +130,7 @@ public class BoardController {
 		service.delBoard(num);
 		
 		//이미지 삭제하기
-		String path = basePath + num+"\\"; 
+		String path = basePath + "b" + num+"\\"; 
 		File imgDir = new File(path);
 		
 		if (imgDir.exists()) {

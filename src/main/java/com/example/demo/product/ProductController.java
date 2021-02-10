@@ -28,7 +28,7 @@ public class ProductController {
    @Autowired
    private ProductService service;
    
-   public static String basePath = "C:\\shopimg\\";
+   public static String basePath = "C:\\shopimg\\p";
    
    
    @RequestMapping("/product/list")

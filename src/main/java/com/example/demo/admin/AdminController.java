@@ -115,7 +115,7 @@ public class AdminController {
 		
 		ArrayList<Product> list = (ArrayList<Product>) productService.getProductAll();
 		for (int i = 0; i < list.size(); i++) {
-	         String path = basePath + list.get(i).getNum() + "\\";
+	         String path = basePath + "p" + list.get(i).getNum() + "\\";
 	         File imgDir = new File(path);   
 	        
 	         String[] files = imgDir.list();
@@ -169,21 +169,41 @@ public class AdminController {
 	public String write(Product p) {
 		int num = productService.getNum();
 		p.setNum(num);
-		saveImg(num, p.getFile1());
-		saveImg(num, p.getFile2());
-		saveImg(num, p.getFile3());
+		saveProductImg(num, p.getFile1());
+		saveProductImg(num, p.getFile2());
+		saveProductImg(num, p.getFile3());
 		productService.addProduct(p);
 		return "/admin/admin";
 	}
 	
-	public void saveImg(int num, MultipartFile file) { //이미지 저장하기
+	public void saveProductImg(int num, MultipartFile file) { //이미지 저장하기
 		String fileName = file.getOriginalFilename();
 		if(fileName != null && !fileName.equals("")) {
-			File dir = new File(basePath + num);
+			File dir = new File(basePath + "p" +num);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			File f = new File(basePath + num + "\\" + fileName);
+			File f = new File(basePath + "p" + num + "\\" + fileName);
+			try {
+				file.transferTo(f);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void saveBoardImg(int num, MultipartFile file) { //이미지 저장하기
+		String fileName = file.getOriginalFilename();
+		if(fileName != null && !fileName.equals("")) {
+			File dir = new File(basePath + "b" +num);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File f = new File(basePath + "b" + num + "\\" + fileName);
 			try {
 				file.transferTo(f);
 			} catch (IllegalStateException e) {
@@ -211,9 +231,9 @@ public class AdminController {
 	public String write(Board b) {
 		int num = boardService.getNum();
 		b.setNum(num);
-		saveImg(num, b.getFile1());
-		saveImg(num, b.getFile2());
-		saveImg(num, b.getFile3());
+		saveBoardImg(num, b.getFile1());
+		saveBoardImg(num, b.getFile2());
+		saveBoardImg(num, b.getFile3());
 		boardService.addBoard(b);
 		return "/admin/admin";
 	}
@@ -230,7 +250,7 @@ public class AdminController {
 		
 	    Product p = productService.getProductByNum(num);
 	      
-	    String path = basePath + p.getNum() + "\\";
+	    String path = basePath + "p" + p.getNum() + "\\";
 	    File imgDir = new File(path);
 	    if(imgDir.exists()) {
 	       String[] files = imgDir.list();
@@ -250,7 +270,6 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/boardDetail")
-
 	public ModelAndView boardDetail(@RequestParam("num") int num, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("admin/boardDetail");
@@ -261,7 +280,7 @@ public class AdminController {
 
 		Board b = boardService.getBoardByNum(num);
 		
-		String path = basePath + b.getNum() + "\\";
+		String path = basePath + "b" + b.getNum() + "\\";
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
 			String[] files  = imgDir.list();
