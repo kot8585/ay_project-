@@ -14,6 +14,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<h3>장바구니 </h3>
 <c:if test="${empty list }">
  등록된 상품이 없다. 
 </c:if>

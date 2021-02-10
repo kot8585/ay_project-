@@ -39,43 +39,7 @@ public class PquestionController {
 	   
 	}
 	
-	/*@GetMapping("/question/writeForm")
-	public void writeForm() {
-	}
-	
-	@PostMapping("/pquestion/writeForm")
-	public String write(Pquestion p) {
-		int num = service.getNum();
-		p.setNum(num);
-		service.addPquestion(p);
-		return "redirect:/pquestion/plist";
-	}*/
-	
-	@RequestMapping("/pquestion/writeForm")
-	public ModelAndView reviewForm(HttpServletRequest req, @RequestParam("pnum") int pnum) {
-		System.out.println("PquestionController.reviewForm()");
-	// 로그인한 id를 리뷰작성 페이지의 작성자로 보내주기 위해 서버에서 session값을 받아온다.
-	HttpSession session = req.getSession();
-	String id = (String) session.getAttribute("id");
-	//int num = service.getNum();
-	Product p = pservice.getProductByNum(pnum);
-	// 객체에 저장된 정보를 writeForm.jsp로 보내준다.
-	ModelAndView mav = new ModelAndView("pquestion/writeForm");
-	mav.addObject("p", p);
-	return mav;
-	
-}
-	
-	@RequestMapping("/pquestion/write")
-	public String write(Pquestion p) {
-		System.out.println("PquestionController.write()");
-		//작성한 폼을 DB에 저장한다.
-		service.addPquestion(p);
-		return "redirect:/member/main";
-	}
-	
-	
-	
+
 	
 	
 	

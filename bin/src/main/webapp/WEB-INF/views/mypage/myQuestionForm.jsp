@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%  %>
+<h3>문의내역</h3>
 <c:if test="${empty list }">
- 등록된 상품이 없다. 
+ 등록된 문의가 없다. 
 </c:if>
 <c:if test="${not empty list }">
 <table>
