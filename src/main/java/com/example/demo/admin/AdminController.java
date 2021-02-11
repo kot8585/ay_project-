@@ -178,35 +178,13 @@ public class AdminController {
 		return mav;
 	}
 	
-//	@RequestMapping("/admin/boardList") --공지사항 목록을 관리자한테도 띄울까요,,?? 이건 어떻게 할지 잘 모르겟네요ㅜ
-//	public ModelAndView boardList(HttpServletRequest req) {
-//		String id = "";
-//		HttpSession session = req.getSession(false);
-//		ModelAndView mav = new ModelAndView("admin/boardList");
-//		
-//		if (session == null) {
-//			System.out.println("session null");
-//			mav.setViewName("admin/adminLoginForm");
-//		} else {
-//			id = (String) session.getAttribute("id");
-//		}
-//		
-//
-//		if (id.isBlank()) {
-//			mav.setViewName("admin/adminLoginForm");
-//		}
-//		
-//		ArrayList<Board> list = (ArrayList<Board>) boardService.getAllBoard();
-//		mav.addObject("list", list);
-//		return mav;
-//		
-//	}
-	
+
+	//1:1문의 리스트
 	@RequestMapping("/admin/qnaList")
-	public ModelAndView boardList(HttpServletRequest req) {
+	public ModelAndView qnaList(HttpServletRequest req) {
 		String id = "";
 		HttpSession session = req.getSession(false);
-		ModelAndView mav = new ModelAndView("admin/boardList");
+		ModelAndView mav = new ModelAndView("admin/qnaList");
 		
 		if (session == null) {
 			System.out.println("session null");
@@ -220,7 +198,7 @@ public class AdminController {
 			mav.setViewName("admin/adminLoginForm");
 		}
 		
-		ArrayList<Board> list = (ArrayList<Board>) boardService.getAllBoard();
+		ArrayList<Qna> list = (ArrayList<Qna>) qnaService.getAllQna();
 		mav.addObject("list", list);
 		return mav;
 		
@@ -270,7 +248,8 @@ public class AdminController {
 		}
 	}
 	
-//	public void saveQnaImg(int num, MultipartFile file) { //이미지 저장하기
+	//qna는 구매자만 하고 공지사항은 이미지 안넣을거라 주석처리 했습니다
+//	public void saveQnaImg(int num, MultipartFile file) { 
 //		String fileName = file.getOriginalFilename();
 //		if(fileName != null && !fileName.equals("")) {
 //			File dir = new File(basePath + "q" +num);
@@ -343,36 +322,13 @@ public class AdminController {
 		return "/admin/admin";
 	}
 	
-	//게시판 상세보기
-//	@RequestMapping("/admin/boardDetail")
-//	public ModelAndView boardDetail(@RequestParam("num") int num, HttpServletRequest req) {
-//		HttpSession session = req.getSession(false);
-//		ModelAndView mav = new ModelAndView("admin/boardDetail");
-//
-//		if (session == null) {
-//			mav.setViewName("admin/adminLoginForm");
-//		}
-//
-//		Board b = boardService.getBoardByNum(num);
-//		
-//		String path = basePath + "b" + b.getNum() + "\\";
-//		File imgDir = new File(path);
-//		if(imgDir.exists()) {
-//			String[] files  = imgDir.list();
-//			for (int j = 0; j < files.length; j++) {
-//				mav.addObject("file" + j, files[j]); 
-//			}
-//			b.setPath(files[0]);
-//		}
-//		mav.addObject("b", b);
-//		return mav;
-//	}
+
 	
 	//1:1문의 상세보기
 	@RequestMapping("/admin/qnaDetail")
 	public ModelAndView qnaDetail(@RequestParam("num") int num, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-		ModelAndView mav = new ModelAndView("admin/boardDetail");
+		ModelAndView mav = new ModelAndView("admin/qnaDetail");
 
 		if (session == null) {
 			mav.setViewName("admin/adminLoginForm");

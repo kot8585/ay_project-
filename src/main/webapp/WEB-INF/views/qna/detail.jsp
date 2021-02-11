@@ -41,7 +41,7 @@ function showReplyList(){
 	       });
 		
 		//게시판 삭제
-		$("#edit").click(function(){
+		$("#del").click(function(){
 			var result = confirm("글을 삭제하시겠습니까?");
 			if(result){
 				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";

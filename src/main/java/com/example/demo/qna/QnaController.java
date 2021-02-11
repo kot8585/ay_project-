@@ -45,18 +45,6 @@ public class QnaController {
 	 * author : 문효정
 	 */
 	
-	//admin에서 쓰는지 확인하고 쓰면 admin으로 옮기기 //qnd/list로 바꿔야함
-	@GetMapping("/qna/myList")
-	public ModelAndView list() {
-		System.out.println("/board/list()");
-//		ArrayList<Qna> list = (ArrayList<Qna>) service.getAllBoard();
-		ModelAndView mav = new ModelAndView("board/list");
-//		mav.addObject("list", list);
-		return mav;
-	}
-	
-	
-	
 	//로그인을 하지 않고 해당 url로 바로 들어올 경우를 대비해 한번더 검사하기
 	@GetMapping("/qna/QuestionForm") 
 	public String writeForm(HttpServletRequest req) {
