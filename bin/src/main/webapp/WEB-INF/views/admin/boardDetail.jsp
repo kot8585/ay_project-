@@ -124,9 +124,9 @@ function fn_delReply(num){
                      style="width:150px;height:150px"></td>
                   </tr>
                   <tr>
-                     <td><img src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${b.num }" class="img" width="50" height="50"></td>
-                     <td><img src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${b.num }" class="img" width="50" height="50"></td>
-                     <td><img src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${b.num }" class="img" width="50" height="50"></td>
+                     <td><img src="${pageContext.request.contextPath }/board/img?fname=${file0 }&num=${b.num }" class="img" width="50" height="50"></td>
+                     <td><img src="${pageContext.request.contextPath }/board/img?fname=${file1 }&num=${b.num }" class="img" width="50" height="50"></td>
+                     <td><img src="${pageContext.request.contextPath }/board/img?fname=${file2 }&num=${b.num }" class="img" width="50" height="50"></td>
                </table>
             </c:if></td>
       </tr>

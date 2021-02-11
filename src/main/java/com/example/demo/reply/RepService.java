@@ -16,9 +16,9 @@ public class RepService {
 		return mapper.getReplyById(writer);
 	}
 
-	public ArrayList<Reply> getReplyByBoardNum(int num) {
+	public ArrayList<Reply> getReplyByQnaNum(int num) {
 		// TODO Auto-generated method stub
-		return mapper.getReplyByBoardNum(num);
+		return mapper.getReplyByQnaNum(num);
 	}
 	
 	public Reply getReply(int num) {

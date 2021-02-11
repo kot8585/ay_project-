@@ -119,8 +119,7 @@
 </table>
 </form>
 
-<c:import url="${ pageContext.request.contextPath }/review/reviewlist"></c:import>
-<c:import url="${ pageContext.request.contextPath }/pquestion/plist"></c:import>
+<c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }"></c:import>
 
 </body>
 </html>

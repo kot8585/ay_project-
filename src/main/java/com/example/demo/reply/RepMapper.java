@@ -10,7 +10,7 @@ public interface RepMapper {
 
 	ArrayList<Reply> getReplyById(String writer);
 
-	ArrayList<Reply> getReplyByBoardNum(int board_num);
+	ArrayList<Reply> getReplyByQnaNum(int qna_num);
 	
 	void insert(Reply r);
 

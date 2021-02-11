@@ -2,7 +2,6 @@ package com.example.demo.admin;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.board.Board;
 import com.example.demo.board.BoardService;
-import com.example.demo.member.Member;
 import com.example.demo.order.Order;
 import com.example.demo.order.OrderService;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
-import com.example.demo.reply.Reply;
+import com.example.demo.qna.Qna;
+import com.example.demo.qna.QnaService;
 
 @Controller
 public class AdminController {
@@ -49,6 +48,9 @@ public class AdminController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private QnaService qnaService;
 	
 	@RequestMapping("/admin")
 	public String admin_root() {
@@ -176,7 +178,31 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping("/admin/boardList")
+//	@RequestMapping("/admin/boardList") --공지사항 목록을 관리자한테도 띄울까요,,?? 이건 어떻게 할지 잘 모르겟네요ㅜ
+//	public ModelAndView boardList(HttpServletRequest req) {
+//		String id = "";
+//		HttpSession session = req.getSession(false);
+//		ModelAndView mav = new ModelAndView("admin/boardList");
+//		
+//		if (session == null) {
+//			System.out.println("session null");
+//			mav.setViewName("admin/adminLoginForm");
+//		} else {
+//			id = (String) session.getAttribute("id");
+//		}
+//		
+//
+//		if (id.isBlank()) {
+//			mav.setViewName("admin/adminLoginForm");
+//		}
+//		
+//		ArrayList<Board> list = (ArrayList<Board>) boardService.getAllBoard();
+//		mav.addObject("list", list);
+//		return mav;
+//		
+//	}
+	
+	@RequestMapping("/admin/qnaList")
 	public ModelAndView boardList(HttpServletRequest req) {
 		String id = "";
 		HttpSession session = req.getSession(false);
@@ -199,6 +225,8 @@ public class AdminController {
 		return mav;
 		
 	}
+	
+	
 	
 	@GetMapping("/admin/write")
 	public String writeForm(HttpServletRequest req) {
@@ -242,25 +270,25 @@ public class AdminController {
 		}
 	}
 	
-	public void saveBoardImg(int num, MultipartFile file) { //이미지 저장하기
-		String fileName = file.getOriginalFilename();
-		if(fileName != null && !fileName.equals("")) {
-			File dir = new File(basePath + "b" +num);
-			if (!dir.exists()) {
-				dir.mkdirs();
-			}
-			File f = new File(basePath + "b" + num + "\\" + fileName);
-			try {
-				file.transferTo(f);
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+//	public void saveQnaImg(int num, MultipartFile file) { //이미지 저장하기
+//		String fileName = file.getOriginalFilename();
+//		if(fileName != null && !fileName.equals("")) {
+//			File dir = new File(basePath + "q" +num);
+//			if (!dir.exists()) {
+//				dir.mkdirs();
+//			}
+//			File f = new File(basePath + "q" + num + "\\" + fileName);
+//			try {
+//				file.transferTo(f);
+//			} catch (IllegalStateException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 	
 	@GetMapping("/admin/writeBoard")
 	public String writeBoardForm(HttpServletRequest req) {
@@ -275,11 +303,11 @@ public class AdminController {
 	
 	@PostMapping("/admin/writeBoard")
 	public String write(Board b) {
-		int num = boardService.getNum();
-		b.setNum(num);
-		saveBoardImg(num, b.getFile1());
-		saveBoardImg(num, b.getFile2());
-		saveBoardImg(num, b.getFile3());
+		//int num = boardService.getNum();
+		//b.setNum(num);
+		//saveBoardImg(num, b.getFile1());
+		//saveBoardImg(num, b.getFile2());
+		//saveBoardImg(num, b.getFile3());
 		boardService.addBoard(b);
 		return "/admin/admin";
 	}
@@ -315,8 +343,34 @@ public class AdminController {
 		return "/admin/admin";
 	}
 	
-	@RequestMapping("/admin/boardDetail")
-	public ModelAndView boardDetail(@RequestParam("num") int num, HttpServletRequest req) {
+	//게시판 상세보기
+//	@RequestMapping("/admin/boardDetail")
+//	public ModelAndView boardDetail(@RequestParam("num") int num, HttpServletRequest req) {
+//		HttpSession session = req.getSession(false);
+//		ModelAndView mav = new ModelAndView("admin/boardDetail");
+//
+//		if (session == null) {
+//			mav.setViewName("admin/adminLoginForm");
+//		}
+//
+//		Board b = boardService.getBoardByNum(num);
+//		
+//		String path = basePath + "b" + b.getNum() + "\\";
+//		File imgDir = new File(path);
+//		if(imgDir.exists()) {
+//			String[] files  = imgDir.list();
+//			for (int j = 0; j < files.length; j++) {
+//				mav.addObject("file" + j, files[j]); 
+//			}
+//			b.setPath(files[0]);
+//		}
+//		mav.addObject("b", b);
+//		return mav;
+//	}
+	
+	//1:1문의 상세보기
+	@RequestMapping("/admin/qnaDetail")
+	public ModelAndView qnaDetail(@RequestParam("num") int num, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("admin/boardDetail");
 
@@ -324,18 +378,18 @@ public class AdminController {
 			mav.setViewName("admin/adminLoginForm");
 		}
 
-		Board b = boardService.getBoardByNum(num);
+		Qna q = qnaService.getQnaByNum(num);
 		
-		String path = basePath + "b" + b.getNum() + "\\";
+		String path = basePath + "q" + q.getNum() + "\\";
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
 			String[] files  = imgDir.list();
 			for (int j = 0; j < files.length; j++) {
 				mav.addObject("file" + j, files[j]); 
 			}
-			b.setPath(files[0]);
+			q.setPath(files[0]);
 		}
-		mav.addObject("b", b);
+		mav.addObject("q", q);
 		return mav;
 	}
 }

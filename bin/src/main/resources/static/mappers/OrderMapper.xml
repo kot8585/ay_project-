@@ -21,11 +21,19 @@
 	
 	
 	<insert id="insertOrder" parameterType="com.example.demo.order.Order">
-	INSERT INTO order1 VALUES(SEQ_ORDER1.nextval, #{m_id}, #{p_num}, #{quantity}, #{address}, #{tel}, sysdate, #{cost} ,#{state})
+	INSERT INTO order1 VALUES(#{num}, #{m_id}, #{p_num}, #{quantity}, #{address}, #{tel}, sysdate, #{cost} ,#{state})
 	</insert>
 	
 	<select id="getAllOrderList" resultMap="order">
 	SELECT * FROM order1 ORDER BY num
 	</select>
+	
+	<update id="updateState" parameterType="com.example.demo.order.Order">
+	UPDATE order1 SET state=#{state} WHERE num=#{num}
+	</update>
+
+	<select id="getNum" resultType="int">
+	SELECT SEQ_ORDER1.nextval FROM dual
+	</select>	
 	
 </mapper>

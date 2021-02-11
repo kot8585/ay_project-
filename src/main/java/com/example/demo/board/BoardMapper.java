@@ -10,10 +10,8 @@ public interface BoardMapper {
 
 	void insert(Board b);
 	Board select(int num);
-	List selectById(String id);
-	List selectAll();
+	ArrayList<Board> selectByType(String Type);
+	ArrayList<Board> selectAll();
 	void delete(int num);
 	void update(Board b);
-	ArrayList<Board> getMyQuestionListById(String id);
-	int getNum();
 }	

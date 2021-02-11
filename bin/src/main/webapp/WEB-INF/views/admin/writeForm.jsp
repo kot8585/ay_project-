@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -11,34 +11,35 @@
 	<form action="${pageContext.request.contextPath }/admin/write" method="post"  enctype="multipart/form-data">
 		<table border="1">
 			<tr>
-				<th>»óÇ°¸í</th><td><input type="text" name="name"></td>
+				<th>ìƒí’ˆëª…</th><td><input type="text" name="name"></td>
 			</tr>
 			<tr>
-				<th>Á¦Á¶»ç</th><td><input type="text" name="maker"></td>
+				<th>ì œì¡°ì‚¬</th><td><input type="text" name="maker"></td>
 			</tr>
 			<tr>
-				<th>°¡°Ý</th><td><input type="text" name="price" ></td>
+				<th>ê°€ê²©</th><td><input type="text" name="price" ></td>
 			</tr>
 			<tr>
-				<th>¿ø»êÁö</th><td><input type="text" name="origin" ></td>
+				<th>ì›ì‚°ì§€</th><td><input type="text" name="origin" ></td>
 			</tr>
 			<tr>
-				<th>¿øÀç·á</th><td><input type="text" name="material" ></td>
+				<th>ì›ìž¬ë£Œ</th><td><input type="text" name="material" ></td>
 			</tr>
 			<tr>
-				<th>Àç°í</th><td><input type="text" name="quantity" ></td>
+				<th>ìž¬ê³ </th><td><input type="text" name="quantity" ></td>
 			</tr>
 			<tr>
-				<th>ÆÄÀÏÃ·ºÎ1</th><td><input type="file" name="file1"></td>
+				<th>íŒŒì¼ì²¨ë¶€1</th><td><input type="file" name="file1"></td>
 			</tr>
 			<tr>
-				<th>ÆÄÀÏÃ·ºÎ2</th><td><input type="file" name="file2"></td>
+				<th>íŒŒì¼ì²¨ë¶€2</th><td><input type="file" name="file2"></td>
 			</tr>
 			<tr>
-				<th>ÆÄÀÏÃ·ºÎ3</th><td><input type="file" name="file3"></td>
+				<th>íŒŒì¼ì²¨ë¶€3</th><td><input type="file" name="file3"></td>
 			</tr>
-			<tr><td><input type="reset" value="Ãë¼Ò"></td>
-			<td><input type="submit" value="µî·Ï"></td></tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="ë“±ë¡"><input type="reset" value="ì·¨ì†Œ"></td>
+			</tr>
 		</table>
 		<input type="hidden" name="imgPath" value="C:\\shopimg\\"> 
 		<input type="hidden" name="event_num" value="0"> 

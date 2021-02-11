@@ -10,10 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.board.Board;
 import com.example.demo.board.BoardService;
 import com.example.demo.order.Order;
 import com.example.demo.order.OrderService;
+import com.example.demo.qna.Qna;
+import com.example.demo.qna.QnaService;
 import com.example.demo.reply.RepService;
 import com.example.demo.reply.Reply;
 import com.example.demo.shoppingcart.CartService;
@@ -42,7 +43,7 @@ public class MyPageController {
 	private OrderService orderService;
 	
 	/** 
-	 * 1:1문의 기능과 관련된 서비스입니다. 
+	 * 공지사항 기능과 관련된 서비스입니다. 
 	 */
 	@Autowired
 	private BoardService boardService;
@@ -52,6 +53,12 @@ public class MyPageController {
 	 */
 	@Autowired
 	private RepService repService;
+	
+	/**
+	 * 1:1문의 기능과 관련된 서비스입니다.
+	 */
+	@Autowired
+	private QnaService qnaService;
 	
 	/**
 	 * 마이페이지 이동시 호출되는 메소드입니다.
@@ -139,11 +146,11 @@ public class MyPageController {
 		String id = (String) session.getAttribute("id");
 
 		// 문의내역 리스트를 받아오고, foreach 문을 활용해 각 문의내역에 달린 댓글 또한 받아와 set함.  
-		ArrayList<Board> list = boardService.getMyQuestionListById(id);
-		for (Board board : list) {
-			ArrayList<Reply> reply = repService.getReplyByBoardNum(board.getNum());
-			board.setReps(reply);
-		}
+		ArrayList<Qna> list = qnaService.getMyQnaListByWriter(id);
+//		for (Qna qna : list) {
+//			ArrayList<Reply> reply = repService.getReplyByBoardNum(qna.getNum());
+//			qna.setReps(reply);
+//		}
 		
 		// 문의내역 리스트를 mav에 담아 리턴한다.
 		mav.addObject("list", list);
