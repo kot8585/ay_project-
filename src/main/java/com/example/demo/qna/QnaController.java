@@ -76,14 +76,14 @@ public class QnaController {
 		System.out.println("q_cate : " + q.getQ_cate());
 		System.out.println("writer : " + q.getWriter());
 		q.setNum(num);
-		saveImg(num, q.getFile1());
-		saveImg(num, q.getFile2());
-		saveImg(num, q.getFile3());
+		saveQnaImg(num, q.getFile1());
+		saveQnaImg(num, q.getFile2());
+		saveQnaImg(num, q.getFile3());
 		service.addQna(q);
 		return "redirect:/mypage/myQuestionForm";
 	}
 	
-	public void saveImg(int num, MultipartFile file) { //이미지 저장하기
+	public void saveQnaImg(int num, MultipartFile file) { //이미지 저장하기
 		String fileName = file.getOriginalFilename();
 		if(fileName != null && !fileName.equals("")) {
 			File dir = new File(basePath + "q" +num);
@@ -115,6 +115,7 @@ public class QnaController {
 		if(imgDir.exists()) {
 			String[] files  = imgDir.list();
 			for (int j = 0; j < files.length; j++) {
+				System.out.println(files[j].toString());
 				mav.addObject("file" + j, files[j]); 
 			}
 			q.setPath(files[0]);
@@ -125,7 +126,8 @@ public class QnaController {
 	
 	@RequestMapping("/qna/img")
 	public ResponseEntity<byte[]> getImg(String fname, int num){
-		String path = basePath + num + "\\" + fname;
+		
+		String path = basePath + "q" + num + "\\" + fname;
 		File f = new File(path);
 		HttpHeaders header = new HttpHeaders();
 		ResponseEntity<byte[]> result = null;
@@ -150,7 +152,7 @@ public class QnaController {
 		service.delQna(num);
 		
 		//이미지 삭제하기
-		String path = basePath + num+"\\"; 
+		String path = basePath + "q" + num+"\\"; 
 		File imgDir = new File(path);
 		
 		if (imgDir.exists()) {
