@@ -62,9 +62,9 @@ public class BoardController {
 	
 	@PostMapping("/board/write")
 	public String write(Board b) {
-	
+		String type = b.getType();
 		service.addBoard(b);
-		return "redirect:/board/list";
+		return "redirect:/admin/admin";
 	}
 	
 	

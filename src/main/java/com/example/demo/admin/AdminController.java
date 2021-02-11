@@ -177,7 +177,8 @@ public class AdminController {
 		mav.addObject("list", list);
 		return mav;
 	}
-	
+
+
 
 	//1:1문의 리스트
 	@RequestMapping("/admin/qnaList")
@@ -247,28 +248,7 @@ public class AdminController {
 			}
 		}
 	}
-	
-	//qna는 구매자만 하고 공지사항은 이미지 안넣을거라 주석처리 했습니다
-//	public void saveQnaImg(int num, MultipartFile file) { 
-//		String fileName = file.getOriginalFilename();
-//		if(fileName != null && !fileName.equals("")) {
-//			File dir = new File(basePath + "q" +num);
-//			if (!dir.exists()) {
-//				dir.mkdirs();
-//			}
-//			File f = new File(basePath + "q" + num + "\\" + fileName);
-//			try {
-//				file.transferTo(f);
-//			} catch (IllegalStateException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//	}
-	
+
 	@GetMapping("/admin/writeBoard")
 	public String writeBoardForm(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -282,11 +262,6 @@ public class AdminController {
 	
 	@PostMapping("/admin/writeBoard")
 	public String write(Board b) {
-		//int num = boardService.getNum();
-		//b.setNum(num);
-		//saveBoardImg(num, b.getFile1());
-		//saveBoardImg(num, b.getFile2());
-		//saveBoardImg(num, b.getFile3());
 		boardService.addBoard(b);
 		return "/admin/admin";
 	}

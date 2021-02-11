@@ -14,7 +14,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.example.demo.board.Board">
-		insert into board values(seq_board_nextval, #{type}, #{writer},	#{title}, #{content}, sysdate, sysdate)
+		insert into board values(seq_board.nextval, #{type}, #{writer},	#{title}, #{content}, sysdate, sysdate)
 	</insert>
 	
 	<select id="select" resultMap="board" parameterType="int">

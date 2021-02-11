@@ -14,7 +14,8 @@
 		<table border="1">
 			<tr>
 				<th>타입</th>
-				<td><select>
+				<td><select name="type">
+						<option value="" selected="selected">--타입을 선택해주세요--</option>
 						<option value="faq">자주묻는 질문</option>
 						<option value="notice">공지사항</option>
 					</select></td>
@@ -25,10 +26,10 @@
 			<tr>
 				<th>내용</th><td><textarea name="content" rows="10" cols="33" ></textarea></td>
 			</tr>
-		
 			<tr><td><input type="reset" value="취소"></td>
 			<td><input type="submit" value="등록"></td></tr>
 		</table>
+			<input type="hidden" name="writer" value="${sessionScope.id }" >
 	</form>
 </body>
 </html>

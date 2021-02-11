@@ -25,10 +25,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
 </script>
 </head>
 <body>
-<c:if test="${sessionScope.id ne 'admin'}">
-<a href="${pageContext.request.contextPath }/member/main">Main</a>
-	<h3>고객센터</h3>
-</c:if>
+
 	<a href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a>
 	<a href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
 <c:if test="${sessionScope.id eq 'admin' }">
