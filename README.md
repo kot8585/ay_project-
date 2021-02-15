@@ -37,3 +37,17 @@ create table board(
     regdate date default sysdate,
     updatedate date default sysdate
 );
+
+NSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문1', '자주묻는 내용1', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문2', '자주묻는 내용2', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문3', '자주묻는 내용3', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문4', '자주묻는 내용4', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문5', '자주묻는 내용5', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문6', '자주묻는 내용6', sysdate, sysdate);
+
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항1', '공지사항내용입니다1', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항2', '공지사항내용입니다2', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항3', '공지사항내용입니다3', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항4', '공지사항내용입니다4', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항5', '공지사항내용입니다5', sysdate,sysdate);
+commit; 
