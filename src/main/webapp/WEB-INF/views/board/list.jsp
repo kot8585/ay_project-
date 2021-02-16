@@ -20,7 +20,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
-
    $(document).ready(function(){ //한글확인하기
       $("#write").click(function(){
          if(sessionId == '' || sessionId == 'null'){
@@ -30,6 +29,17 @@ var sessionId = '<%=session.getAttribute("id") %>'
          
          location.href="${pageContext.request.contextPath }/qna/QuestionForm";
       }});
+   
+   
+var actionForm = $("#actionForm")
+   //페이지 번호 누르면 동작
+   	 $(".paginate_button a").on("click", function(e){
+   		 e.preventDefault();
+   		 console.log("click");
+   		 
+   		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+   		 actionForm.submit();
+   	 });
    });
 
 </script>
@@ -83,19 +93,23 @@ var sessionId = '<%=session.getAttribute("id") %>'
   <ul class="pagination">
   
   <c:if test="${pageMaker.prev }">
-    <li>
-      <a href="#" aria-label="Previous">
+    <li class="paginate_button prev">
+      <a href="${pageMaker.startPage-1 }" aria-label="Previous">
         <span aria-hidden="true">&lt;</span>
       </a>
     </li>
    </c:if>
 
   <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-    <li><a href="#">${num }</a></li>
+    <li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : '' } ">
+    	<a href="${num}">${num }</a>
+    </li>
   </c:forEach>    
+  
+  
   <c:if test="${pageMaker.next }">
-    <li>
-      <a href="#" aria-label="Next">
+    <li class="paginate_button next">
+      <a href="${pageMaker.endPage+1 }" aria-label="Next">
         <span aria-hidden="true">&gt;</span>
       </a>
     </li>
@@ -107,5 +121,11 @@ var sessionId = '<%=session.getAttribute("id") %>'
 	<c:if test="${sessionScope.id ne 'admin'}">
 	<input type="button" id ="write" value="1:1문의">
 	</c:if>
+	
+	<!-- 페이지 번호를 누르면 실제로 동작하는 부분 -->
+	<form id="actionForm" action="board/${type}/list" method='get'>
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+	</form> 
 </body>
 </html>

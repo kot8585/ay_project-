@@ -45,6 +45,7 @@ public class BoardController {
 		ArrayList<Board> list = (ArrayList<Board>) service.getList(type, cri);
 		ModelAndView mav = new ModelAndView("board/list");
 		mav.addObject("list", list);
+		mav.addObject("type", type);
 		mav.addObject("pageMaker", new PageDTO(cri, 123)); //총 개수 구현해야함
 		return mav;
 	}
