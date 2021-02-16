@@ -51,7 +51,7 @@ INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항3', 
 INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항4', '공지사항내용입니다4', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항5', '공지사항내용입니다5', sysdate,sysdate);
 commit; 
-
+ ```
 ## 변경사항
 1. 구매자가 올리는 문의사항과 관리자가 올리는 자주묻는질문, 공지사항 분리
 2. 문의사항은 Qna 테이블로 나누었고 / 자주묻는질문과 공지사항은 Board테이블에 type을 추가해 구분
