@@ -15,6 +15,7 @@ public class Order {
 	private String tel;
 	private int cost;
 	private int state;
+	private String imgPath;
 	private Product p = new Product();
 	private Member m = new Member();
 	
@@ -152,12 +153,28 @@ public class Order {
 		this.m = m;
 	}
 
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
 	@Override
 	public String toString() {
-		return "Order\n num,m_id,p_num,quantity,o_date,address,tel,cost,state,p,m\n" 
-				+ num + "," + m_id + "," + p_num + "," + quantity + "," 
-				+ o_date + "," + address + "," + tel + "," + cost + "," 
-				+ state + "," + p.toString() + "," + m.toString();
+		return "Order [num=" + num + ", m_id=" + m_id + ", p_num=" + p_num + ", quantity=" + quantity + ", o_date="
+				+ o_date + ", address=" + address + ", tel=" + tel + ", cost=" + cost + ", state=" + state
+				+ ", imgPath=" + imgPath + ", p=" + p + ", m=" + m + "]";
+	}
+
+	public String category() {
+		return "num,p_num,quantity,address,tel,cost,log_date\n";
+	}
+
+	public String content() {
+		return num + "," + m.getGender() + "," + m.getBirth() + "," +  address + "," + tel 
+				+ "," + m_id + "," + p_num + "," + quantity + "," + cost + ",";
 	}
 
 }

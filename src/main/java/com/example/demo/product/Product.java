@@ -187,6 +187,19 @@ public String toString() {
 			+ event_num + ", file1=" + file1 + ", file2=" + file2 + ", file3=" + file3 + "]";
 }
 
+public String category() {
+	return "num,name,maker,price,origin," 
+			+ "material,quantity,imgPath,category1_id,"
+			+ "category2_id,category3_id,event_num,file1,file2,file3,methodName\n";
+}
+
+public String content() {
+	return num + "," + name + "," + maker + "," + price + ","
+			+ origin + "," + material + "," + quantity + "," + imgPath + "," 
+			+ category1_id + "," + category2_id + "," + category3_id + "," + event_num + ","
+			+ file1.getName() + "," + file2.getName() + "," + file3.getName();
+}
+
 
 
 }

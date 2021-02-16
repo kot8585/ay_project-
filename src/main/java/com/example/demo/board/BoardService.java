@@ -21,11 +21,11 @@ public class BoardService {
 		return mapper.select(num);
 	}
 	
-	public List getBoardById(String id) {
-		return mapper.selectById(id);
+	public ArrayList<Board> getBoardByType(String type) {
+		return mapper.selectByType(type);
 	}
 	
-	public List getAllBoard() {
+	public ArrayList<Board> getAllBoard() {
 		return mapper.selectAll();
 	}
 	
@@ -37,15 +37,6 @@ public class BoardService {
 		mapper.update(b);
 	}
 	
-	public ArrayList<Board> getMyQuestionListById(String id) {
-		// TODO Auto-generated method stub
-		return mapper.getMyQuestionListById(id);
-	}
-	
-	public int getNum() {
-		return mapper.getNum();
-	}
 
-	
-	
+
 }

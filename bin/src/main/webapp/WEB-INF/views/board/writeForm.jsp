@@ -33,8 +33,9 @@
 			<tr>
 				<th>파일첨부3</th><td><input type="file" name="file3"></td>
 			</tr>
-			<tr><td><input type="reset" value="취소">	</td>
-			<td><input type="submit" value="등록"></td></tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="등록"><input type="reset" value="취소"></td>
+			</tr>
 		</table>
 		<input type="hidden" name="path" value="123"> 
 	</form>

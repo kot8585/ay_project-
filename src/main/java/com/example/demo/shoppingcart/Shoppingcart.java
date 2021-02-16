@@ -64,10 +64,16 @@ public class Shoppingcart {
 
 	@Override
 	public String toString() {
-		return "Shoppingcart\n"
-				+ "m_id,p_num,cost,o_date,name\n"
-				+ m_id + "," + p_num + "," + cost + "," + o_date + "," + name;
+		return "Shoppingcart [m_id=" + m_id + ", p_num=" + p_num + ", cost=" + cost + ", o_date=" + o_date + ", name="
+				+ name + "]";
 	}
 
+	public String category() {
+		return "m_id,p_num,cost,o_date,name,methodName\n";
+	}
+
+	public String content() {
+		return  m_id + "," + p_num + "," + cost + "," + o_date + "," + name;
+	}   
 	
 }

@@ -33,10 +33,8 @@ public class PquestionController {
 		  System.out.println("PquestionController.pList()");
 	      ArrayList<Pquestion> plist = (ArrayList<Pquestion>) service.getAllPquestion();
 	      ModelAndView mav = new ModelAndView("pquestion/plist");
-	      System.out.println(plist.get(0).toString());
 	      mav.addObject("plist", plist);
-			return mav;
-	   
+	      return mav;
 	}
 	
 

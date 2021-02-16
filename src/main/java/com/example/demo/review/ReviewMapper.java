@@ -16,4 +16,6 @@ public interface ReviewMapper {
 	void update(Review r);
 	   
 	void delete(int num);
+
+	ArrayList<Review> selectByPnum(int p_num);
 }

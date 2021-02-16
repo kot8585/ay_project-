@@ -32,6 +32,8 @@
 		DELETE review WHERE num=#{num}
 	</delete>
    
-  
+ 	 <select id="selectByPnum" resultMap="review" parameterType="int">
+		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY num
+	</select>
    
    </mapper>

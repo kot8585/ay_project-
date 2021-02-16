@@ -19,6 +19,10 @@
 <c:import url="${ pageContext.request.contextPath }/admin/productList"></c:import>
 <hr>
 <h3>전체 문의 목록</h3>
-<c:import url="${ pageContext.request.contextPath }/admin/boardList"></c:import>
+<c:import url="${ pageContext.request.contextPath }/admin/qnaList"></c:import>
+<hr>
+<h3>전체 고객센터 목록</h3>
+<c:import url="${ pageContext.request.contextPath }/board/faq/list"></c:import>
+
 </body>
 </html>

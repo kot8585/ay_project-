@@ -39,9 +39,10 @@ https://victorydntmd.tistory.com/173
          <!-- 파일로 로그를 남김 -->
          <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>c:\LogExample\logexample2.log</file>
+            <append>true</append>
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <!-- <Pattern>%d{HH:mm:ss.SSS} [%-5level] - %C{4} %M %msg%n</Pattern> -->
-                <Pattern>%d{HH:mm:ss.SSS}%n%msg</Pattern>
+                <Pattern>%n%msg%d{HH:mm:ss.SSS}</Pattern>
             </encoder>
           <!-- 로그를 남기는 파일의 용량이 10MB가 넘으면 이를 압축 파일로 만들고 새로 로그 파일로 만들라는 정책 -->
             <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
@@ -49,10 +50,57 @@ https://victorydntmd.tistory.com/173
             </triggeringPolicy>
           
           <!-- 파일을 덮어쓰는 정책 -->
-			<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-				<FileNamePattern>C:\LogExample\logexample2.%i.log.zip</FileNamePattern>
-				<MinIndex>1</MinIndex>
-				<MaxIndex>10</MaxIndex>
+         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>C:\LogExample\logexample2.%i.log.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
+            </rollingPolicy>
+         </appender>
+         
+         <!-- 파일로 로그를 남김 -->
+         <appender name="orderAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>c:\LogExample\order.log</file>
+            <append>true</append>
+            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+              <layout class="ch.qos.logback.classic.PatternLayout">
+                  <fileHeader>order.num, member.gender, member.birth, order.address, order.tel, order.id, order.p_num, order.quantity, order.cost, log_date</fileHeader>
+                  <pattern>%n%msg%d{HH:mm:ss.SSS}</pattern>
+              </layout>
+          </encoder>
+          <!-- 로그를 남기는 파일의 용량이 10MB가 넘으면 이를 압축 파일로 만들고 새로 로그 파일로 만들라는 정책 -->
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>10MB</MaxFileSize>
+            </triggeringPolicy>
+          
+          <!-- 파일을 덮어쓰는 정책 -->
+         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>C:\LogExample\order.%i.log.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
+            </rollingPolicy>
+         </appender>
+         
+
+      <!-- 파일로 로그를 남김 -->
+         <appender name="loginAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>c:\LogExample\loginDoc.log</file>
+            <append>true</append>
+            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+              <layout class="ch.qos.logback.classic.PatternLayout">
+                  <fileHeader>id,method,log_date</fileHeader>
+                  <pattern>%n%msg%d{HH:mm:ss.SSS}</pattern>
+              </layout>
+          </encoder>
+          <!-- 로그를 남기는 파일의 용량이 10MB가 넘으면 이를 압축 파일로 만들고 새로 로그 파일로 만들라는 정책 -->
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>10MB</MaxFileSize>
+            </triggeringPolicy>
+          
+          <!-- 파일을 덮어쓰는 정책 -->
+         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>C:\LogExample\loginDoc.%i.log.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
             </rollingPolicy>
          </appender>
 
@@ -60,12 +108,16 @@ https://victorydntmd.tistory.com/173
                   com.victolee.logExample 아래 패키지 로그들만  consoleAppender, fileAppender 방법으로 로그를 남긴다.
                   물론 <appender-ref ref="consoleAppender" />를 추가하여 콘솔로도 로그를 남길 수 있다.         
          -->
-         <logger name="com.example.demo"  level="info" additivity="false">
-            <appender-ref ref="fileAppender" />
+         <logger name="com.example.demo.order"  level="info" additivity="false">
+            <appender-ref ref="orderAppender" />
          </logger>
-
+         
+         <logger name="com.example.demo.member"  level="info" additivity="false">
+            <appender-ref ref="loginAppender" />
+         </logger>
+         
          <!-- root는 글로벌 로거를 의미하며, 위의 logger에 해당하지 않으면 root 로거가 실행된다. -->
-         <root level="warn">
-                  <appender-ref ref="consoleAppender" />
+         <root level="info">
+             <appender-ref ref="fileAppender" />
          </root>
 </configuration>

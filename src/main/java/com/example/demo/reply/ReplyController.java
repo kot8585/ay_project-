@@ -19,14 +19,14 @@ public class ReplyController {
 	@RequestMapping("/rep/write")
 	public String write(Reply r) {
 		service.addReply(r);
-		return "redirect:/rep/list?board_num=" + r.getBoard_num();
+		return "redirect:/rep/list?qna_num=" + r.getQna_num();
 	}
 
 	// 댓글 목록
 	@ResponseBody
 	@RequestMapping(value = "/rep/list")
-	public List<Reply> list(int board_num) {
-		return service.getReplyByBoardNum(board_num);
+	public List<Reply> list(int qna_num) {
+		return service.getReplyByQnaNum(qna_num);
 	}
 
 	//댓글 수정 - 안됌

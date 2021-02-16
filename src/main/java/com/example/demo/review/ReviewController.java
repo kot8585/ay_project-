@@ -65,9 +65,9 @@ public class ReviewController {
 	 * @return 작성됨 리뷰들을 리스트로 화면에 출력
 	 */
 	@RequestMapping("/review/reviewlist")
-	public ModelAndView viewlist() {
+	public ModelAndView viewlist(@RequestParam("p_num") int p_num) {
 		// 작성된 모든 리뷰를 리스트에 저장	
-		ArrayList<Review> reviewlist = (ArrayList<Review>) service.getAll();
+		ArrayList<Review> reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/reviewlist");
 		mav.addObject("list", reviewlist);
@@ -80,7 +80,7 @@ public class ReviewController {
 	 * @return 특정번호에 해당하는 리뷰를 화면에 출력
 	 */
 	@RequestMapping("/review/reviewDetail")
-	public ModelAndView detail(@RequestParam("num")int num) {
+	public ModelAndView detail(@RequestParam("num") int num) {
 		// 특정 번호에 해당하는 리뷰에 대한 정보를 가져와 객체에 담는다.
 		Review r = service.getDetail(num);	
 		// 객체에 담긴 정보를 reviewDetail.jsp에 보냄

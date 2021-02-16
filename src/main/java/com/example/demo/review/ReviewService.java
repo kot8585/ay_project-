@@ -31,4 +31,9 @@ public class ReviewService {
 	   public void delReview(int num) {
 		   mapper.delete(num);
 	   }
+
+	public ArrayList<Review> getByPnum(int p_num) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPnum(p_num);
+	}
 }

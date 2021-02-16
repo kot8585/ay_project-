@@ -23,6 +23,9 @@ function go() {
 </script>
 </head>
 <body>
+<header>
+	<a href="${pageContext.request.contextPath }/member/main">Main</a>
+</header>
 <form name="f" method="POST" action="${pageContext.request.contextPath }/member/login">
 	<table border="1">
 		<tr>

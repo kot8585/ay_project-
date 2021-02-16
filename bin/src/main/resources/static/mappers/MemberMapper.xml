@@ -7,16 +7,19 @@
 		<result property="name" column="name" />
 		<result property="birth" column="birth" />
 		<result property="gender" column="gender" />
+		<result property="postalCode" column="postalCode" />
+		<result property="roadAddress" column="roadAddress" />
+		<result property="address" column="address" />
 		<result property="tel" column="tel" />
 		<result property="email" column="email" />
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.example.demo.member.Member">
-		insert into member values(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{address}, #{tel}, #{email})
+		insert into member values(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{postalCode}, #{roadAddress}, #{address}, #{tel}, #{email})
 	</insert>
 	
 	<insert id="addMember" parameterType="com.example.demo.member.Member">
-		INSERT INTO member VALUES(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{address}, #{tel}, #{email})
+		INSERT INTO member VALUES(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{postalCode}, #{roadAddress}, #{address}, #{tel}, #{email})
 	</insert>
 	
 	<select id="getMember" resultMap="member" parameterType="String">
@@ -24,7 +27,7 @@
 	</select>
 	
 	<update id="update" parameterType="com.example.demo.member.Member">
-		UPDATE member SET password=#{password}, name=#{name}, birth=#{birth}, gender=#{gender}, address=#{address}, tel=#{tel}, email=#{email} WHERE id = #{id} 
+		UPDATE member SET password=#{password}, name=#{name}, birth=#{birth}, gender=#{gender}, postalCode=#{postalCode}, roadAddress=#{roadAddress}, address=#{address}, tel=#{tel}, email=#{email} WHERE id = #{id} 
 	</update>
 	
 	<select id="getIdPwd" resultMap="member" parameterType="String">

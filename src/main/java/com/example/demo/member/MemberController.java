@@ -16,6 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MemberController {
 
+	/**
+	 * @author 김평기
+	 * 로그 찍는 용
+	 */
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
@@ -77,12 +81,12 @@ public class MemberController {
 		Member m2 = service.getMember(m.getId());
 		// DB로부터 받아온 값이 없고, 받아온 비밀번호가 입력한 비밀번호값과 일치하지않으면 로그인 실패 -> loginForm으로 되돌린다.
 		if (m2 == null || !m2.getPassword().equals(m.getPassword())) {
-			log.error("로그인 실패 : " + m.toString());
 			return "member/loginForm";
 		// 로그인 성공시 session을 통해 id 값을 저장한다.
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", m2.getId());
+			log.info(m2.getId()+",login,");
 			return "/member/main";
 		}
 	}
@@ -110,7 +114,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("member/findResult");
 		String result="";
 		if(m == null) {
-			result = "이메일 또는 이름이 입력되지 않았습니다.";
+			result = "이메일 또는 이름이 등록되지 않았습니다.";
 			mav.setViewName("member/failResult");
 			mav.addObject("result", result);
 			System.out.println(result);
@@ -144,6 +148,10 @@ public class MemberController {
 	public String logout(HttpServletRequest req) {
 		//로그인된 아이디 값을 session을 통해 받아온다.
 		HttpSession session = req.getSession(false);
+		// 세션이 말소되기 전 id를 가져오고
+				String id = (String) session.getAttribute("id");
+				// 그 id를 이용해 로그를 찍습니다. , 뒤에는 로그 시간이 찍힙니다. 
+				log.info(id+",logout,");
 		session.removeAttribute("id");
 		//id에 대한 세션을 지운다.
 		session.invalidate();

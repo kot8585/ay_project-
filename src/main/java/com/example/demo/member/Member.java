@@ -119,5 +119,15 @@ public class Member {
 				+ gender + ", postalCode=" + postalCode + ", roadAddress=" + roadAddress + ", address=" + address
 				+ ", tel=" + tel + ", email=" + email + "]";
 	}
+	
+	public String category() {
+		return "id,password,name,birth,gender,address,tel,email,methodName\n";
+	}
+
+	// 로그를 위한 세팅
+	public String content() {
+		return id + "," + password + "," + name + "," + birth 
+				+ "," + gender + "," + address + "," + tel + "," + email;
+	}
 
 }
