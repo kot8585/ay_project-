@@ -40,11 +40,12 @@ public class BoardController {
 	
 	//타입에 맞는 게시판 목록 가져오기
 	@RequestMapping(value="/board/{type}/list")
-	public ModelAndView list(@PathVariable String type) {
-		System.out.println("board/type = " + type);
-		ArrayList<Board> list = (ArrayList<Board>) service.getBoardByType(type);
+	public ModelAndView list(@PathVariable String type,  Criteria cri) {
+		System.out.println("board/type = " + type);           
+		ArrayList<Board> list = (ArrayList<Board>) service.getList(type, cri);
 		ModelAndView mav = new ModelAndView("board/list");
 		mav.addObject("list", list);
+		mav.addObject("pageMaker", new PageDTO(cri, 123)); //총 개수 구현해야함
 		return mav;
 	}
 	

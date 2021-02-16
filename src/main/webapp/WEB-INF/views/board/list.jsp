@@ -7,6 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
@@ -29,18 +39,24 @@ var sessionId = '<%=session.getAttribute("id") %>'
 <a href="${pageContext.request.contextPath }/member/main">Main</a>
 	<h3>고객센터</h3>
 </c:if>
-	<a href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a>
-	<a href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
+
+	<ul class="nav nav-tabs nav-justified">
+		<li><a href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a></li>
+		<li><a href="${pageContext.request.contextPath }/board/notice/list">공지사항</a></li>
+	</ul>
+	
 <c:if test="${sessionScope.id eq 'admin' }">
 	<a href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
 </c:if>
+
+
+<!-- 글 목록 -->
 <c:if test="${empty list }">
  작성된 글이 없습니다.
 </c:if>
+
 <c:if test="${not empty list }">
-
-
-	<table border="1" cellspacing="0">
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>글번호</th>
@@ -60,7 +76,34 @@ var sessionId = '<%=session.getAttribute("id") %>'
 		</c:forEach>
 	</table>
 </c:if>
-	세션 ID : <c:out value="${sessionScope.id}" />
+
+
+<!-- 페이지 버튼 -->
+	<nav aria-label="Page navigation">
+  <ul class="pagination">
+  
+  <c:if test="${pageMaker.prev }">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&lt;</span>
+      </a>
+    </li>
+   </c:if>
+
+  <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+    <li><a href="#">${num }</a></li>
+  </c:forEach>    
+  <c:if test="${pageMaker.next }">
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&gt;</span>
+      </a>
+    </li>
+   </c:if>
+  </ul>
+</nav>
+
+
 	<c:if test="${sessionScope.id ne 'admin'}">
 	<input type="button" id ="write" value="1:1문의">
 	</c:if>

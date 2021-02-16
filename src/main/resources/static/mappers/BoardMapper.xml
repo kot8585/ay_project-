@@ -36,5 +36,21 @@
 	<update id="update" parameterType="com.example.demo.board.Board">
 		update board set pwd=#{pwd}, title=#{title}, content=#{content} where num=#{num}
 	</update>
+	
+	
+	<select id="countAll" resultType="int">
+		select count(*) from board;
+	</select>
+	
+	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
+		<![CDATA[SELECT B.num, B.title, B.writer, B.updatedate
+		FROM(
+			 SELECT ROWNUM as rn, A.num, A.title, A.writer, A.updatedate 
+  			 FROM (
+     			   SELECT * FROM board 
+     			   WHERE type=#{type} ORDER BY regdate DESC) A 
+   			  WHERE rownum <=#{cri.pageNum} * #{cri.amount}) B 
+		WHERE rn>(#{cri.pageNum}-1) * #{cri.amount}]]>
 
+	</select>
 </mapper>
