@@ -62,5 +62,10 @@ public class ProductService {
 	public int getNum() {
 		return mapper.getNum();
 	}
+
+	public ArrayList<Product> getProductByEvent() {
+		// TODO Auto-generated method stub
+		return mapper.selectByEvent();
+	}
 	
 }

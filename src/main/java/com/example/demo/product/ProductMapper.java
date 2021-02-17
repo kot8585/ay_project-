@@ -23,6 +23,7 @@ public interface ProductMapper {
 	void update(Product p);
 	void delete(int num);
 	int getNum();
+	ArrayList<Product> selectByEvent();
 	
 
 	

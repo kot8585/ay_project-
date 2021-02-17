@@ -170,4 +170,6 @@ public class MemberController {
 		session.invalidate();
 		return "member/loginForm";
 	}
+	
+	
 }
