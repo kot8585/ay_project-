@@ -30,19 +30,17 @@ public class BoardService {
 		map.put("cri", cri);
 		return mapper.getListWithPaging(map);
 	}
-	
-	//public ArrayList<Board> getAllBoard() {
-	//	return mapper.selectAll();
-	//}
-	
-	void delBoard(int num) {
+		
+	public void delBoard(int num) {
 		mapper.delete(num);
 	}
 	
-	void update(Board b) {
+	public void update(Board b) {
 		mapper.update(b);
 	}
 	
-
+	public int getTotal(String type) {
+		return mapper.countAll(type);
+	}
 
 }

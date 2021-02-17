@@ -14,4 +14,5 @@ public interface BoardMapper {
 	//ArrayList<Board> selectAll();
 	void delete(int num);
 	void update(Board b);
+	int countAll(String type);
 }	

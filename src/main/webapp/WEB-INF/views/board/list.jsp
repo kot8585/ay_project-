@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -17,7 +18,6 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
    $(document).ready(function(){ //한글확인하기
@@ -123,7 +123,7 @@ var actionForm = $("#actionForm")
 	</c:if>
 	
 	<!-- 페이지 번호를 누르면 실제로 동작하는 부분 -->
-	<form id="actionForm" action="board/${type}/list" method='get'>
+	<form id="actionForm" action="/board/${type}/list" method='get'>
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 	</form> 

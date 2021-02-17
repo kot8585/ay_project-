@@ -21,9 +21,9 @@
 		select * from board where num=#{num}
 	</select>
 	
-	<select id="selectAll" resultMap="board">
+<!-- 	<select id="selectAll" resultMap="board">
 		select * from board order by num
-	</select>
+	</select> -->
 	
 	<select id="selectByType" resultMap="board" parameterType="String">
 		select * from board where type=#{type} order by num
@@ -34,12 +34,12 @@
 	</delete>
 	
 	<update id="update" parameterType="com.example.demo.board.Board">
-		update board set pwd=#{pwd}, title=#{title}, content=#{content} where num=#{num}
+		update board set  title=#{title}, content=#{content} where num=#{num}
 	</update>
 	
 	
 	<select id="countAll" resultType="int">
-		select count(*) from board;
+		select count(*) from board where type=#{type}
 	</select>
 	
 	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
