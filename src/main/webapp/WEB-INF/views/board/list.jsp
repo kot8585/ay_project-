@@ -9,14 +9,14 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+ <!-- Required meta tags -->
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+ <!-- Bootstrap CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+ <!-- Option 1: Bootstrap Bundle with Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
@@ -33,7 +33,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
    
 var actionForm = $("#actionForm")
    //페이지 번호 누르면 동작
-   	 $(".paginate_button a").on("click", function(e){
+   	 $(".page-item a").on("click", function(e){
    		 e.preventDefault();
    		 console.log("click");
    		 
@@ -45,15 +45,27 @@ var actionForm = $("#actionForm")
 </script>
 </head>
 <body>
-<c:if test="${sessionScope.id ne 'admin'}">
+<!-- header부분 -->
 <a href="${pageContext.request.contextPath }/member/main">Main</a>
-	<h3>고객센터</h3>
-</c:if>
 
-	<ul class="nav nav-tabs nav-justified">
-		<li><a href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a></li>
-		<li><a href="${pageContext.request.contextPath }/board/notice/list">공지사항</a></li>
-	</ul>
+<!-- visual 부분 -->
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <h1>고객센터</h1>
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="자주묻는 질문검색" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">search</button>
+    </form>
+    
+    <button type="button" class="btn btn-lg btn-primary" disabled>1:1문의하기</button>
+  </div>
+</nav>
+
+<nav class="nav nav-pills nav-fill">
+  <a class="nav-link ${type == 'faq'? 'active' : '' }" aria-current="page" href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a>
+  <a class="nav-link ${type == 'notice'? 'active' : '' }" href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
+</nav>
+
 	
 <c:if test="${sessionScope.id eq 'admin' }">
 	<a href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
@@ -89,11 +101,11 @@ var actionForm = $("#actionForm")
 
 
 <!-- 페이지 버튼 -->
-	<nav aria-label="Page navigation">
+<nav aria-label="Page navigation example">
   <ul class="pagination">
   
   <c:if test="${pageMaker.prev }">
-    <li class="paginate_button prev">
+    <li class="page-item">
       <a href="${pageMaker.startPage-1 }" aria-label="Previous">
         <span aria-hidden="true">&lt;</span>
       </a>
@@ -101,14 +113,14 @@ var actionForm = $("#actionForm")
    </c:if>
 
   <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-    <li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : '' } ">
+    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : '' } ">
     	<a href="${num}">${num }</a>
     </li>
   </c:forEach>    
   
   
   <c:if test="${pageMaker.next }">
-    <li class="paginate_button next">
+    <li class="page-item">
       <a href="${pageMaker.endPage+1 }" aria-label="Next">
         <span aria-hidden="true">&gt;</span>
       </a>

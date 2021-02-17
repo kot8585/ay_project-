@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-		<header id="header">
-<!-- navbar -->
+<header id="header">
+  <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
     <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">프로젝트명</a>
     <button class="navbar-toggler" 
@@ -37,5 +37,5 @@
         </li>
       </ul>
     </div>
-</nav>
+  </nav>
 </header>

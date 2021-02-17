@@ -64,7 +64,18 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 		
-
+	<!-- tilesViewResolver -->
+	<dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-jsp</artifactId>
+		<version>3.0.8</version>
+	</dependency>
+	
+	<!-- jsp변경 바로적용 -->
+   <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
