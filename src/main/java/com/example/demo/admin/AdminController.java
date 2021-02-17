@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.board.Board;
 import com.example.demo.board.BoardService;
+import com.example.demo.category.Category;
+import com.example.demo.category.CategoryService;
 import com.example.demo.order.Order;
 import com.example.demo.order.OrderService;
 import com.example.demo.product.Product;
@@ -51,6 +53,7 @@ public class AdminController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
 	
 	@RequestMapping("/admin")
 	public String admin_root() {
@@ -323,4 +326,5 @@ public class AdminController {
 		mav.addObject("q", q);
 		return mav;
 	}
+
 }

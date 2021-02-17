@@ -117,3 +117,19 @@ CREATE TABLE pquestion(
 );
 drop SEQUENCE seq_pquestion;
 CREATE SEQUENCE seq_pquestion;
+
+drop sequence seq_category1;
+drop sequence seq_category2;
+create sequence seq_category1;
+create sequence seq_category2;
+
+drop table category1;
+create table category1(
+id number primary key, 
+name varchar2(50) not null);
+
+drop table category2;
+create table category2(
+id number primary key, 
+name varchar2(50) not null, 
+p_id number references category1(id) on delete cascade);
