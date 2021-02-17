@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -13,6 +11,9 @@
  <!-- Required meta tags -->
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+ <!-- 인터넷 익스플로러에서 랜더링되는 방식 중 ie edge는 최신의 표준 버젼으로 랜더링해달라. -->
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
  <!-- Bootstrap CSS -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -22,7 +23,8 @@
  <script type="text/javascript"> 
  function goPage() { location.href="${pageContext.request.contextPath}/member/joinForm"; } 
  </script>
-
+<link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
 </head>
 <body>
 <!-- navbar -->

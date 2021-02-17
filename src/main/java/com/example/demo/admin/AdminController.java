@@ -93,7 +93,7 @@ public class AdminController {
 		} else { // 로그인 성공시
 			HttpSession session = req.getSession();
 			session.setAttribute("id", admin.getId());
-			return "/admin/admin";
+			return "redirect:/admin/admin";
 		}
 	}
 	

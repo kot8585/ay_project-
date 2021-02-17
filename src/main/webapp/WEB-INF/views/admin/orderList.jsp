@@ -11,12 +11,12 @@
 <script>
    var number = 0;
    $(document).ready(function() {
-		$("#stateBtn").click(function() {
+		$(".stateBtn").click(function() {
 			var check = prompt("변경할 상태를 입력하시오. 0 준비중 1 배송중 2 배송완료");
 			alert("check : " + check + ", number : " + number);
 			$.post("/admin/changeState", {num: $("#num"+number).val(), state: check});
 			setTimeout(() => {
-				location.href='${pageContext.request.contextPath}/admin/admin';
+				location.replace("${pageContext.request.contextPath}/admin/admin");
 			}, 500);
 		});
    });
@@ -81,8 +81,7 @@
 		<form method="post">
 			<input type="hidden" id="num${ p.num }" value="${ p.num }">
 			<input type="hidden" id="state${ p.num }" value="${ p.state }">
-			<input type="button" value="주문상태변경${p.num}" 
-			id="stateBtn" onclick="javascript:setNum(${p.num})">
+			<Button class="stateBtn" onclick="javascript:setNum(${p.num})">주문상태변경</Button>
 		</form>
 	</td>
 </tr>
