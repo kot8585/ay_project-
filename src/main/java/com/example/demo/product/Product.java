@@ -4,202 +4,189 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Product {
 
-   private int num;//번호
-   private String name;//이름
-   private String maker;//메이커
-   private int price;//가격
-   private String origin;//원산지
-   private String material;//재료
-   private int quantity;//수량
-   private String imgPath;////사진경로
-   
-   private int category1_id;//카테고리1
-   private int category2_id;//카테고리2
-   private int category3_id;//카테고리3
-   private int event_num;//이벤트페이지
-   
-   private MultipartFile file1;
-   private MultipartFile file2;
-   private MultipartFile file3;
-   
-   public Product() {
-      super();
-   }
-   
-   public Product(int num, String name, String maker, int price, String origin, String material, int quantity,
-		String imgPath) {
-	super();
-	this.num = num;
-	this.name = name;
-	this.maker = maker;
-	this.price = price;
-	this.origin = origin;
-	this.material = material;
-	this.quantity = quantity;
-	this.imgPath = imgPath;
-}
-public Product(int num, String name, String maker, int price, String origin, String material, int quantity,
-		String imgPath, int category1_id, int category2_id, int category3_id, int event_num, MultipartFile file1,
-		MultipartFile file2, MultipartFile file3) {
-	super();
-	this.num = num;
-	this.name = name;
-	this.maker = maker;
-	this.price = price;
-	this.origin = origin;
-	this.material = material;
-	this.quantity = quantity;
-	this.imgPath = imgPath;
-	this.category1_id = category1_id;
-	this.category2_id = category2_id;
-	this.category3_id = category3_id;
-	this.event_num = event_num;
-	this.file1 = file1;
-	this.file2 = file2;
-	this.file3 = file3;
-}
+	private int num;// 번호
+	private String name;// 이름
+	private String maker;// 메이커
+	private int price;// 가격
+	private String origin;// 원산지
+	private String material;// 재료
+	private int quantity;// 수량
+	private String imgPath;//// 사진경로
 
-public int getNum() {
-	return num;
-}
+	private int category1;// 카테고리1
+	private int category2;// 카테고리2
+	private int event_num;// 이벤트페이지
 
-public void setNum(int num) {
-	this.num = num;
-}
+	private MultipartFile file1;
+	private MultipartFile file2;
+	private MultipartFile file3;
 
-public String getName() {
-	return name;
-}
+	public Product() {
+		super();
+	}
 
-public void setName(String name) {
-	this.name = name;
-}
+	public Product(int num, String name, String maker, int price, String origin, String material, int quantity,
+			String imgPath) {
+		super();
+		this.num = num;
+		this.name = name;
+		this.maker = maker;
+		this.price = price;
+		this.origin = origin;
+		this.material = material;
+		this.quantity = quantity;
+		this.imgPath = imgPath;
+	}
 
-public String getMaker() {
-	return maker;
-}
+	public Product(int num, String name, String maker, int price, String origin, String material, int quantity,
+			String imgPath, int category1, int category2, int category3_id, int event_num, MultipartFile file1,
+			MultipartFile file2, MultipartFile file3) {
+		super();
+		this.num = num;
+		this.name = name;
+		this.maker = maker;
+		this.price = price;
+		this.origin = origin;
+		this.material = material;
+		this.quantity = quantity;
+		this.imgPath = imgPath;
+		this.category1 = category1;
+		this.category2 = category2;
+		this.event_num = event_num;
+		this.file1 = file1;
+		this.file2 = file2;
+		this.file3 = file3;
+	}
 
-public void setMaker(String maker) {
-	this.maker = maker;
-}
+	public int getNum() {
+		return num;
+	}
 
-public int getPrice() {
-	return price;
-}
+	public void setNum(int num) {
+		this.num = num;
+	}
 
-public void setPrice(int price) {
-	this.price = price;
-}
+	public String getName() {
+		return name;
+	}
 
-public String getOrigin() {
-	return origin;
-}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-public void setOrigin(String origin) {
-	this.origin = origin;
-}
+	public String getMaker() {
+		return maker;
+	}
 
-public String getMaterial() {
-	return material;
-}
+	public void setMaker(String maker) {
+		this.maker = maker;
+	}
 
-public void setMaterial(String material) {
-	this.material = material;
-}
+	public int getPrice() {
+		return price;
+	}
 
-public int getQuantity() {
-	return quantity;
-}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
-public void setQuantity(int quantity) {
-	this.quantity = quantity;
-}
+	public String getOrigin() {
+		return origin;
+	}
 
-public String getImgPath() {
-	return imgPath;
-}
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
 
-public void setImgPath(String imgPath) {
-	this.imgPath = imgPath;
-}
+	public String getMaterial() {
+		return material;
+	}
 
-public int getCategory1_id() {
-	return category1_id;
-}
+	public void setMaterial(String material) {
+		this.material = material;
+	}
 
-public void setCategory1_id(int category1_id) {
-	this.category1_id = category1_id;
-}
+	public int getQuantity() {
+		return quantity;
+	}
 
-public int getCategory2_id() {
-	return category2_id;
-}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
-public void setCategory2_id(int category2_id) {
-	this.category2_id = category2_id;
-}
+	public String getImgPath() {
+		return imgPath;
+	}
 
-public int getCategory3_id() {
-	return category3_id;
-}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 
-public void setCategory3_id(int category3_id) {
-	this.category3_id = category3_id;
-}
+	public int getCategory1() {
+		return category1;
+	}
 
-public int getEvent_num() {
-	return event_num;
-}
+	public void setCategory1(int category1) {
+		this.category1 = category1;
+	}
 
-public void setEvent_num(int event_num) {
-	this.event_num = event_num;
-}
+	public int getCategory2() {
+		return category2;
+	}
 
-public MultipartFile getFile1() {
-	return file1;
-}
+	public void setCategory2(int category2) {
+		this.category2 = category2;
+	}
 
-public void setFile1(MultipartFile file1) {
-	this.file1 = file1;
-}
+	public int getEvent_num() {
+		return event_num;
+	}
 
-public MultipartFile getFile2() {
-	return file2;
-}
+	public void setEvent_num(int event_num) {
+		this.event_num = event_num;
+	}
 
-public void setFile2(MultipartFile file2) {
-	this.file2 = file2;
-}
+	public MultipartFile getFile1() {
+		return file1;
+	}
 
-public MultipartFile getFile3() {
-	return file3;
-}
+	public void setFile1(MultipartFile file1) {
+		this.file1 = file1;
+	}
 
-public void setFile3(MultipartFile file3) {
-	this.file3 = file3;
-}
+	public MultipartFile getFile2() {
+		return file2;
+	}
 
-@Override
-public String toString() {
-	return "Product [num=" + num + ", name=" + name + ", maker=" + maker + ", price=" + price + ", origin=" + origin
-			+ ", material=" + material + ", quantity=" + quantity + ", imgPath=" + imgPath + ", category1_id="
-			+ category1_id + ", category2_id=" + category2_id + ", category3_id=" + category3_id + ", event_num="
-			+ event_num + ", file1=" + file1 + ", file2=" + file2 + ", file3=" + file3 + "]";
-}
+	public void setFile2(MultipartFile file2) {
+		this.file2 = file2;
+	}
 
-public String category() {
-	return "num,name,maker,price,origin," 
-			+ "material,quantity,imgPath,category1_id,"
-			+ "category2_id,category3_id,event_num,file1,file2,file3,methodName\n";
-}
+	public MultipartFile getFile3() {
+		return file3;
+	}
 
-public String content() {
-	return num + "," + name + "," + maker + "," + price + ","
-			+ origin + "," + material + "," + quantity + "," + imgPath + "," 
-			+ category1_id + "," + category2_id + "," + category3_id + "," + event_num + ","
-			+ file1.getName() + "," + file2.getName() + "," + file3.getName();
-}
+	public void setFile3(MultipartFile file3) {
+		this.file3 = file3;
+	}
 
+	@Override
+	public String toString() {
+		return "Product [num=" + num + ", name=" + name + ", maker=" + maker + ", price=" + price + ", origin=" + origin
+				+ ", material=" + material + ", quantity=" + quantity + ", imgPath=" + imgPath + ", category1="
+				+ category1 + ", category2=" + category2 + ", event_num=" + event_num + ", file1=" + file1 + ", file2="
+				+ file2 + ", file3=" + file3 + "]";
+	}
 
+	public String category() {
+		return "num,name,maker,price,origin," + "material,quantity,imgPath,category1_id,"
+				+ "category2_id,event_num,file1,file2,file3,methodName\n";
+	}
+
+	public String content() {
+		return num + "," + name + "," + maker + "," + price + "," + origin + "," + material + "," + quantity + ","
+				+ imgPath + "," + category1 + "," + category2 + "," + event_num + "," + file1.getName() + ","
+				+ file2.getName() + "," + file3.getName();
+	}
 
 }

@@ -26,8 +26,4 @@
 	<update id="updateEvent" parameterType="com.example.demo.event.Event">
 		update event set name=#{name}, sale=#{sale} where num=#{num}
 	</update>
-	
-	<delete id="deleteEvent" parameterType="int">
-		delete from event where num=#{num}
-	</delete>
 </mapper>

@@ -234,7 +234,7 @@ public class AdminController {
 		saveProductImg(num, p.getFile2());
 		saveProductImg(num, p.getFile3());
 		productService.addProduct(p);
-		return "/admin/admin";
+		return "redirect:/admin/admin";
 	}
 	
 	public void saveProductImg(int num, MultipartFile file) { //이미지 저장하기

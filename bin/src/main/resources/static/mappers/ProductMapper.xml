@@ -65,5 +65,9 @@ delete product where num=#{num}
 select seq_product.nextval from dual
 </select>
 
+<select id="selectByEvent" resultMap="ProdResult">
+select*from product where event_num != 0
+</select>	
+
 
 </mapper>

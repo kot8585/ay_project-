@@ -30,5 +30,9 @@ public class EventService {
 	public void editEvent(Event e) {
 		mapper.updateEvent(e);
 	}
+
+	public void deleteEvent(int num) {
+		mapper.deleteEvent(num);
+	}
 	
 }

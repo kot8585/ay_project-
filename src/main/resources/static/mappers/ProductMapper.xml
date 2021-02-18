@@ -12,13 +12,14 @@
 	<result column="material" property="material" />
 	<result column="quantity" property="quantity" />
 	<result column="imgPath" property="imgPath" />
-	
+	<result column="category1" property="category1" />
+	<result column="category2" property="category2" />
 	<result column="event_num" property="event_num" />
 	
 </resultMap>
 	
 <insert id="insert" parameterType="com.example.demo.product.Product">
-insert into product values(#{num}, #{name}, #{maker}, #{price}, #{origin}, #{material}, #{quantity}, #{imgPath}, #{event_num})
+insert into product values(#{num}, #{name}, #{maker}, #{price}, #{origin}, #{material}, #{quantity}, #{imgPath}, #{category1}, #{category2}, #{event_num})
 </insert>
 	
 <select id="selectByNum" parameterType="int" resultMap="ProdResult">
@@ -38,23 +39,19 @@ select*from product where seller_id=#{seller_id} order by num
 </select>	
 	
 <select id="selectByC1" parameterType="int" resultMap="ProdResult">
-select*from product where category1_id = #{category1_id} order by num
+select*from product where category1 = #{category1} order by num
 </select>	
 	
 <select id="selectByC2" parameterType="int" resultMap="ProdResult">
-select*from product where category2_id = #{category2_id} order by num
+select*from product where category2 = #{category2} order by num
 </select>	
-	
-<select id="selectByC3" parameterType="int" resultMap="ProdResult">
-select*from product where category3_id = #{category3_id} order by num
-</select>	
-	
+
 <select id="selectAll" resultMap="ProdResult">
 select*from product
 </select>	
 	
 <update id="update" parameterType="com.example.demo.product.Product">
-update product set name=#{name}, maker=#{maker}, price=#{price}, origin=#{origin}, material=#{material}, quantity=#{quantity}, imgPath=#{imgPath}, event_num=#{event_num} where num=#{num}
+update product set name=#{name}, maker=#{maker}, price=#{price}, origin=#{origin}, material=#{material}, quantity=#{quantity}, imgPath=#{imgPath}, category1=#{category1}, category2=#{category2},  event_num=#{event_num} where num=#{num}
 </update>	
 
 <delete id="delete" parameterType="int">

@@ -35,6 +35,8 @@ CREATE TABLE product(
     material VARCHAR2(20) NOT NULL,
     quantity NUMBER NOT NULL,
     imgPath VARCHAR2(200) DEFAULT '',
+    category1 NUMBER REFERENCES category1(id) on delete cascade,
+    category2 NUMBER REFERENCES category2(id) on delete cascade,
     event_num NUMBER REFERENCES event(num) on delete SET NULL
 );
 

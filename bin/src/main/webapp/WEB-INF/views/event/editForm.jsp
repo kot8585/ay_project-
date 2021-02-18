@@ -11,11 +11,6 @@
 $(document).ready(function(){
    $("#delBtn").click(function(){
       alert("Clicked!");
-      $.post("/event/del", 
-    		  { num: $("#num").val() }
-      ).done(function(data) {
-			location.href = "${pageContext.request.contextPath}/admin/admin";
-	  });
    });
 });
 </script>
@@ -26,7 +21,7 @@ $(document).ready(function(){
 <table border="1" cellspacing="0">
 <tr>
 	<th>번호</th>
-	<td><input type="text" id="num" name="num" value="${e.num }" readonly></td>
+	<td><input type="text" name="num" value="${e.num }" readonly></td>
 </tr>
 <tr>
 	<th>이벤트명</th>

@@ -16,5 +16,7 @@ public interface EventMapper {
 	Event selectEventByNum(int num);
 
 	void updateEvent(Event e);
+
+	void deleteEvent(int num);
 	
 }

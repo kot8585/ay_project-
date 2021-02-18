@@ -29,7 +29,10 @@
 <body>
 <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
-    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">프로젝트명</a>
+    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">
+    	<!-- Controller로 로고 이미지를 받아오기. -->
+    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">
+    </a>
     <button class="navbar-toggler" 
 		    type="button" 
 		    data-bs-toggle="collapse" 
@@ -64,7 +67,10 @@
       </ul>
     </div>
 </nav>
-
+<hr>
+    
+<c:import url="${ pageContext.request.contextPath }/event/list"></c:import>    
+<hr>    
     
 <c:import url="${ pageContext.request.contextPath }/product/list"></c:import>    
 </body>
