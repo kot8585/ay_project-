@@ -1,29 +1,14 @@
 package com.example.demo.board;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.reply.RepService;
-import com.example.demo.reply.Reply;
 
 @Controller
 public class BoardController {
@@ -41,7 +26,7 @@ public class BoardController {
 	public ModelAndView list(@PathVariable String type, Criteria cri) {
 		System.out.println("board/type = " + type);
 		System.out.println("cri=" + cri);
-		int total = service.getTotal(type);
+		int total = service.getTotal(type, cri.getKeyword());
 		ArrayList<Board> list = (ArrayList<Board>) service.getList(type, cri);
 		ModelAndView mav = new ModelAndView("board/list");
 		mav.addObject("list", list);
@@ -61,21 +46,19 @@ public class BoardController {
 		return mav;
 	}
 
-	//admin으로 수정
+	// admin으로 수정
 	@RequestMapping("/board/edit")
 	public String edit(Board b) {
 		service.update(b);
 		return "redirect:/board/list";
 	}
-	
-	//admin으로 수정
+
+	// admin으로 수정
 	@RequestMapping("/board/del")
 	public String del(int num) {
 		System.out.println("BoardController.del()");
 		service.delBoard(num);
-		
-	
-		
+
 		return "redirect:/board/list";
 	}
 }

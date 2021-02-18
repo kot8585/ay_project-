@@ -34,8 +34,8 @@
 	</update>
 	
 	
-	<select id="countAll" resultType="int">
-		select count(*) from board where type=#{type}
+	<select id="countAll" resultType="int" >
+		select count(*) from board where type=#{type} AND title LIKE '%'||#{keyword}||'%'
 	</select>
 	
 	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
@@ -44,7 +44,7 @@
 			 SELECT ROWNUM as rn, A.num, A.title, A.writer, A.updatedate 
   			 FROM (
      			   SELECT * FROM board 
-     			   WHERE type=#{type} ORDER BY regdate DESC) A 
+     			   WHERE type=#{type} AND title LIKE '%'||#{cri.keyword}||'%' ORDER BY regdate DESC) A 
    			  WHERE rownum <=#{cri.pageNum} * #{cri.amount}) B 
 		WHERE rn>(#{cri.pageNum}-1) * #{cri.amount}]]>
 

@@ -40,6 +40,17 @@ var actionForm = $("#actionForm")
    		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
    		 actionForm.submit();
    	 });
+   	
+   	var searchForm = $("#searchForm");
+   	$("#searchForm button").on("click", function(){
+   		if(!searchForm.find("input[name='keyword']").val()){
+   			alert("키워드를 입력하세요");
+   			return false;
+   		}
+   		
+   		searchForm.submit();
+   	});
+   	 
    });
 
 </script>
@@ -52,9 +63,11 @@ var actionForm = $("#actionForm")
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <h1>고객센터</h1>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="자주묻는 질문검색" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">search</button>
+    
+    <!-- 검색하기 -->
+    <form class="d-flex" id="searchForm" action="/board/faq/list" method='get'>
+      <input class="form-control me-2" name="keyword" type="search" placeholder="자주묻는 질문검색" aria-label="Search">
+      <button class="btn btn-outline-success">search</button>
     </form>
     
     <button type="button" class="btn btn-lg btn-primary" disabled>1:1문의하기</button>
@@ -106,7 +119,7 @@ var actionForm = $("#actionForm")
   
   <c:if test="${pageMaker.prev }">
     <li class="page-item">
-      <a href="${pageMaker.startPage-1 }" aria-label="Previous">
+      <a class="page-link" href="${pageMaker.startPage-1 }" aria-label="Previous">
         <span aria-hidden="true">&lt;</span>
       </a>
     </li>
@@ -114,14 +127,14 @@ var actionForm = $("#actionForm")
 
   <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
     <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : '' } ">
-    	<a href="${num}">${num }</a>
+    	<a class="page-link" href="${num}">${num }</a>
     </li>
   </c:forEach>    
   
   
   <c:if test="${pageMaker.next }">
     <li class="page-item">
-      <a href="${pageMaker.endPage+1 }" aria-label="Next">
+      <a class="page-link" href="${pageMaker.endPage+1 }" aria-label="Next">
         <span aria-hidden="true">&gt;</span>
       </a>
     </li>
@@ -138,6 +151,7 @@ var actionForm = $("#actionForm")
 	<form id="actionForm" action="/board/${type}/list" method='get'>
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
 	</form> 
 </body>
 </html>

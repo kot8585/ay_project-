@@ -39,8 +39,8 @@ public class BoardService {
 		mapper.update(b);
 	}
 	
-	public int getTotal(String type) {
-		return mapper.countAll(type);
+	public int getTotal(String type, String keyword) {
+		return mapper.countAll(type, keyword);
 	}
 
 }
