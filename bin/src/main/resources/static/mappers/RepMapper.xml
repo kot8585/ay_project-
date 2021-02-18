@@ -5,7 +5,7 @@
 <mapper namespace="com.example.demo.reply.RepMapper">
 	<resultMap type="com.example.demo.reply.Reply" id="rep">
 		<result property="num" column="num"/>
-		<result property="board_num" column="board_num"/>
+		<result property="qna_num" column="qna_num"/>
 		<result property="writer" column="writer"/>
 		<result property="content" column="content"/>
 		<result property="path" column="path"/>
@@ -15,12 +15,12 @@
 	SELECT * FROM reply WHERE writer=#{writer}
 	</select>
 	
-	<select id="getReplyByBoardNum" parameterType="int" resultMap="rep">
-	SELECT * FROM reply WHERE board_num=#{board_num} order by num
+	<select id="getReplyByQnaNum" parameterType="int" resultMap="rep">
+	SELECT * FROM reply WHERE qna_num=#{qna_num} order by num
 	</select>
 	
 	<insert id="insert" parameterType="com.example.demo.reply.Reply">
-		insert into reply(num, board_num, writer, content, r_date, path) values(seq_reply.nextval, #{board_num}, #{writer}, #{content}, sysdate, 'path')
+		insert into reply(num, qna_num, writer, content, r_date, path) values(seq_reply.nextval, #{qna_num}, #{writer}, #{content}, sysdate, 'path')
 	</insert>
 	
 	<select id="select" resultMap="rep" parameterType="int">

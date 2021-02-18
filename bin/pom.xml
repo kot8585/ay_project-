@@ -64,8 +64,15 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 		
+	<!-- tilesViewResolver -->
+	<dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-jsp</artifactId>
+		<version>3.0.8</version>
+	</dependency>
+	
 
-	</dependencies>
+	</dependencies> 
 
 	<build>
 		<plugins>
