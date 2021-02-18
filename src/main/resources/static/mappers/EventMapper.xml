@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.event.EventMapper">
+	<resultMap type="com.example.demo.event.Event" id="event">
+		<result property="num" column="num" />
+		<result property="name" column="name" />
+		<result property="sale" column="sale" />
+	</resultMap>
+	
+	<select id="selectEventList" resultMap="event">
+		select * from event where num > 0 order by num DESC
+	</select>
+
+	<select id="getNum" resultType="int">
+		select SEQ_EVENT.nextval from dual 
+	</select>
+
+	<insert id="insertEvent" parameterType="com.example.demo.event.Event">
+		insert into event values(#{num}, #{name}, #{sale})
+	</insert>
+	
+	<select id="selectEventByNum" parameterType="int" resultMap="event">
+		select * from event where num=#{num}
+	</select>
+	
+	<update id="updateEvent" parameterType="com.example.demo.event.Event">
+		update event set name=#{name}, sale=#{sale} where num=#{num}
+	</update>
+</mapper>

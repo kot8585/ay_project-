@@ -31,8 +31,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
     <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">
     	<!-- Controller로 로고 이미지를 받아오기. -->
-    	<img src="favicon.ico" alt="logo" width="30" height="24" class="d-inline-block align-top">
-      	RedHouse
+    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">
     </a>
     <button class="navbar-toggler" 
 		    type="button" 
@@ -68,6 +67,7 @@
       </ul>
     </div>
 </nav>
+<hr>
     
 <c:import url="${ pageContext.request.contextPath }/event/list"></c:import>    
 <hr>    

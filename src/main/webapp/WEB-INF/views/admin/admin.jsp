@@ -126,8 +126,8 @@
 	</form>
 <hr>
 <h3 id="event">&nbsp;</h3><br>
-<h3>이벤트 TODO</h3>
-<!-- TODO 여기는 이벤트 이미지 크기를 확정 후 작성하도록 한다. -->
+<h3>이벤트</h3>
+<c:import url="${ pageContext.request.contextPath }/admin/eventList"></c:import>
 <hr>
 <h3 id="orderList">&nbsp;</h3><br>
 <h3>전체 구매 이력</h3>

@@ -35,7 +35,6 @@ public class LogAOPHelper {
 	 */
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	
 	@Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
 	public void RequestMapping() {}
 	
