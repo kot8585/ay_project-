@@ -17,13 +17,9 @@
 		insert into board values(seq_board.nextval, #{type}, #{writer},	#{title}, #{content}, sysdate, sysdate)
 	</insert>
 	
-	<select id="select" resultMap="board" parameterType="int">
+	<select id="select" resultMap="board" parameterType="String">
 		select * from board where num=#{num}
 	</select>
-	
-<!-- 	<select id="selectAll" resultMap="board">
-		select * from board order by num
-	</select> -->
 	
 	<select id="selectByType" resultMap="board" parameterType="String">
 		select * from board where type=#{type} order by num

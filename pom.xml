@@ -71,12 +71,12 @@
 		<version>3.0.8</version>
 	</dependency>
 	
-	<!-- jsp변경 바로적용 -->
+	<!-- jsp변경 바로적용 
    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-	</dependencies>
+        </dependency> -->
+	</dependencies> 
 
 	<build>
 		<plugins>
