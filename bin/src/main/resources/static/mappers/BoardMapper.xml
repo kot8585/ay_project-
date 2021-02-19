@@ -5,28 +5,24 @@
 <mapper namespace="com.example.demo.board.BoardMapper">
 	<resultMap type="com.example.demo.board.Board" id="board">
 		<result property="num" column="num"/>
-		<result property="pwd" column="pwd"/>
+		<result property="type" column="type"/>
 		<result property="writer" column="writer"/>
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
-		<result property="b_date" column="b_date"/>
-		<result property="path" column="path"/>
+		<result property="regdate" column="regdate"/>
+		<result property="updatedate" column="updatedate"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.example.demo.board.Board">
-		insert into board values(#{num}, #{pwd}, #{writer},	#{title}, #{content}, sysdate, #{path})
+		insert into board values(seq_board.nextval, #{type}, #{writer},	#{title}, #{content}, sysdate, sysdate)
 	</insert>
 	
-	<select id="select" resultMap="board" parameterType="int">
+	<select id="select" resultMap="board" parameterType="String">
 		select * from board where num=#{num}
 	</select>
 	
-	<select id="selectAll" resultMap="board">
-		select * from board order by num
-	</select>
-	
-	<select id="selectById" resultMap="board" parameterType="String">
-		select * from board where id=#{id} order by num
+	<select id="selectByType" resultMap="board" parameterType="String">
+		select * from board where type=#{type} order by num
 	</select>
 
 	<delete id="delete" parameterType="int">
@@ -34,14 +30,23 @@
 	</delete>
 	
 	<update id="update" parameterType="com.example.demo.board.Board">
-		update board set pwd=#{pwd}, title=#{title}, content=#{content} where num=#{num}
+		update board set  title=#{title}, content=#{content} where num=#{num}
 	</update>
 	
-	<select id="getMyQuestionListById" parameterType="String" resultMap="board">
-	SELECT * FROM board WHERE writer=#{writer}
+	
+	<select id="countAll" resultType="int" >
+		select count(*) from board where type=#{type} AND title LIKE '%'||#{keyword}||'%'
 	</select>
 	
-	<select id="getNum" resultType="int">
-		SELECT seq_board.nextval FROM dual
+	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
+		<![CDATA[SELECT B.num, B.title, B.writer, B.updatedate
+		FROM(
+			 SELECT ROWNUM as rn, A.num, A.title, A.writer, A.updatedate 
+  			 FROM (
+     			   SELECT * FROM board 
+     			   WHERE type=#{type} AND title LIKE '%'||#{cri.keyword}||'%' ORDER BY regdate DESC) A 
+   			  WHERE rownum <=#{cri.pageNum} * #{cri.amount}) B 
+		WHERE rn>(#{cri.pageNum}-1) * #{cri.amount}]]>
+
 	</select>
 </mapper>
