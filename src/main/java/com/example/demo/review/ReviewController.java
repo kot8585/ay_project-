@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.member.Member;
+import com.example.demo.member.MemberService;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
 /**
@@ -28,6 +30,9 @@ public class ReviewController {
 	
 	@Autowired
 	private ProductService pservice;
+	
+	@Autowired
+	private MemberService mservice;
 	
 	/**
 	 * 
@@ -99,6 +104,27 @@ public class ReviewController {
 		// 수정 폼에 입력된 자료를 DB에 저장
 		service.editReview(r);
 		return "/member/main";
+	}
+	
+	@RequestMapping("/review/pwdCheck")
+	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd) {
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("id");
+		
+		System.out.println(id);
+		System.out.println(pwd);
+		Member m = mservice.getMember(id);
+		String result = "";
+		if(m != null && m.getPassword().equals(pwd)) {
+			result = "비밀번호 확인 완료";
+		}
+		else {
+			result = "비밀번호가 다릅니다.";
+		}
+		ModelAndView mav = new ModelAndView("review/pwdCheck");
+		mav.addObject("result", result);
+		
+		return mav;
 	}
 	
 	/**

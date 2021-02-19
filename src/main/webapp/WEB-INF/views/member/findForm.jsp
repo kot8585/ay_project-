@@ -11,32 +11,32 @@
 function checkEmpty(){
    
 }   
-$(document).ready(function(){
-   
+$(document).ready(function(){  
    $("#find").click(function(){
       var email = document.getElementById("email");
       var name = document.getElementById("name");
+      
       if(email.value == ""){
          alert("email주소를 입력해주세요.");
          return;
       }
+      
       if(name.value == ""){
          alert("이름을 입력해주세요");
          return;
       }
+      
       else{
-         $.post("/member/find", {email: $("#email").val(), name: $("#name").val()})
-            .done(function(data){
-               alert(data);
-               if(data == "등록되지 않은 이메일주소 또는 이름입니다."){
-                  alert("등록되지 않은 이메일주소 또는 이름입니다.");
-               }
-               $("#findId").text(data);
-               
-            })
-      }
-      
-      
+          $.post("/member/find", {email: $("#email").val(), name: $("#name").val()})
+             .done(function(data){
+                alert(data);
+                if(data == "등록되지 않은 이메일주소 또는 이름입니다."){
+                   alert("등록되지 않은 이메일주소 또는 이름입니다.");
+                }
+                $("#findId").text(data);
+                
+             })
+       }
    })
 })
    
