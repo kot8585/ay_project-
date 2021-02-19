@@ -18,11 +18,11 @@ public interface ProductMapper {
 	List selectByPrice(Map map);
 	List selectByC1(int c1);
 	List selectByC2(int c2);
-	List selectByC3(int c3);
 	List selectAll();
 	void update(Product p);
 	void delete(int num);
 	int getNum();
+	ArrayList<Product> selectByEvent();
 	
 
 	

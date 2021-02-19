@@ -22,8 +22,8 @@
 </head>
 <body>
 <c:if test="${empty list }">
- 등록된 상품이 없습니다.
- <a href="${pageContext.request.contextPath }/admin/write">새 상품 등록</a>
+ 등록된 이벤트가 없습니다.
+ <a href="${pageContext.request.contextPath }/event/write">새 이벤트 등록</a>
 </c:if>
 <c:if test="${not empty list }">
 

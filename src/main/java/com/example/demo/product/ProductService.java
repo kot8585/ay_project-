@@ -43,10 +43,6 @@ public class ProductService {
 		return mapper.selectByC2(c2);
 	}
 	
-	public List getProductByC3(int c3) {
-		return mapper.selectByC3(c3);
-	}
-	
 	public List getProductAll() {
 		return mapper.selectAll();
 	}
@@ -61,6 +57,11 @@ public class ProductService {
 		
 	public int getNum() {
 		return mapper.getNum();
+	}
+
+	public ArrayList<Product> getProductByEvent() {
+		// TODO Auto-generated method stub
+		return mapper.selectByEvent();
 	}
 	
 }

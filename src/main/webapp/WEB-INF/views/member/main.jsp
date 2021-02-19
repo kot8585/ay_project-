@@ -12,10 +12,9 @@
 <title>Insert title here</title>
  <!-- Required meta tags -->
  <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
  <!-- 인터넷 익스플로러에서 랜더링되는 방식 중 ie edge는 최신의 표준 버젼으로 랜더링해달라. -->
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
 
  <!-- Bootstrap CSS -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -32,8 +31,12 @@
 <body>
 
  <!-- navbar -->
+ <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
-    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">프로젝트명</a>
+    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">
+    	<!-- Controller로 로고 이미지를 받아오기. -->
+    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">
+    </a>
     <button class="navbar-toggler" 
 		    type="button" 
 		    data-bs-toggle="collapse" 
@@ -67,7 +70,7 @@
         </li>
       </ul>
     </div>
-  </nav>
+</nav>
   <hr>
 <c:import url="${ pageContext.request.contextPath }/event/list"></c:import>    
 <hr>    

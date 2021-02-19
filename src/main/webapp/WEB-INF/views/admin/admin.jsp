@@ -74,7 +74,10 @@
 <body>
 <!-- navbar -->
   <nav class="navbar fixed-top navbar-expand-lg fixed-top navbar-light bg-light mr-3"> 
-	<a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">프로젝트명</a>
+	<a class="navbar-brand" href="${ pageContext.request.contextPath }/admin/admin">
+    	<!-- Controller로 로고 이미지를 받아오기. -->
+    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">
+    </a>
     <button class="navbar-toggler" 
 		    type="button" 
 		    data-bs-toggle="collapse" 
@@ -141,6 +144,6 @@
 <hr>
 <h3 id="boardList">&nbsp;</h3><br>
 <h3>전체 문의 목록</h3>
-<c:import url="${ pageContext.request.contextPath }/admin/boardList"></c:import>
+<c:import url="${ pageContext.request.contextPath }/admin/qnaList"></c:import>
 </body>
 </html>
