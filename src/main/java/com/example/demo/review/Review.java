@@ -9,12 +9,15 @@ public class Review {
 	 private String title;
 	 private String writer;
 	 private String content;
-	 private Date pdate;
+	 private String stars;
+
+
+	private Date pdate;
 	   
 	public Review() {
 		super();
 	}
-	public Review(int num, int pnum, String title, String writer, String content, Date pdate) {
+	public Review(int num, int pnum, String title, String writer, String content, Date pdate, String stars) {
 		super();
 		this.num = num;
 		this.pnum = pnum;
@@ -22,6 +25,13 @@ public class Review {
 		this.writer = writer;
 		this.content = content;
 		this.pdate = pdate;
+		this.stars = stars;
+	}
+	 public String getStars() {
+		return stars;
+	}
+	public void setStars(String stars) {
+		this.stars = stars;
 	}
 	public int getNum() {
 		return num;

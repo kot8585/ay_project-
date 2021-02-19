@@ -26,11 +26,11 @@
 		<tr>
 			<th>별점</th>
 			<td>
-				<input type="radio" name="1" value="1">★
-				<input type="radio" name="2" value="1">★★
-				<input type="radio" name="3" value="1">★★★
-				<input type="radio" name="4" value="1">★★★★
-				<input type="radio" name="5" value="1">★★★★★
+				<input type="radio" name="stars" value="1">★
+				<input type="radio" name="stars" value="2">★★
+				<input type="radio" name="stars" value="3">★★★
+				<input type="radio" name="stars" value="4">★★★★
+				<input type="radio" name="stars" value="5">★★★★★
 			</td>
 		</tr>
 		<tr>
