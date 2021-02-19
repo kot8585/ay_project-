@@ -1,15 +1,17 @@
 package com.example.demo.board;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardService {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private BoardMapper mapper;
 
@@ -21,22 +23,24 @@ public class BoardService {
 		return mapper.select(num);
 	}
 	
-	public ArrayList<Board> getBoardByType(String type) {
-		return mapper.selectByType(type);
+	public ArrayList<Board> getList(String type, Criteria cri) {
+		log.info("get List with type and critetia: " +type +cri );
+		HashMap<String , Object> map = new HashMap<>();
+		map.put("type", type);
+		map.put("cri", cri);
+		return mapper.getListWithPaging(map);
 	}
-	
-	public ArrayList<Board> getAllBoard() {
-		return mapper.selectAll();
-	}
-	
-	void delBoard(int num) {
+		
+	public void delBoard(int num) {
 		mapper.delete(num);
 	}
 	
-	void update(Board b) {
+	public void update(Board b) {
 		mapper.update(b);
 	}
 	
-
+	public int getTotal(String type, String keyword) {
+		return mapper.countAll(type, keyword);
+	}
 
 }

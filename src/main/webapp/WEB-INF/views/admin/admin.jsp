@@ -67,13 +67,14 @@
 					this.form.submit();
 				});
 			});
-</script>
+</script> 
+ 
  <title>Insert title here</title>
 </head>
 <body>
 <!-- navbar -->
   <nav class="navbar fixed-top navbar-expand-lg fixed-top navbar-light bg-light mr-3"> 
-	<a class="navbar-brand" href="${ pageContext.request.contextPath }/admin/admin">프로젝트명</a>
+	<a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">프로젝트명</a>
     <button class="navbar-toggler" 
 		    type="button" 
 		    data-bs-toggle="collapse" 
@@ -129,6 +130,7 @@
 <h3>이벤트</h3>
 <c:import url="${ pageContext.request.contextPath }/admin/eventList"></c:import>
 <hr>
+
 <h3 id="orderList">&nbsp;</h3><br>
 <h3>전체 구매 이력</h3>
 <c:import url="${ pageContext.request.contextPath }/admin/orderList"></c:import>
