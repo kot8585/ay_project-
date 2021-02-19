@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function del(num){
+	function change(type, num){
+		console.log(type);
+		console.log(typeof(type));
 		var pwdCheck = prompt("비밀번호를 입력해주세요");
 		console.log(pwdCheck);
 		console.log(typeof(pwdCheck));
@@ -16,15 +18,19 @@
 			if(xhttp.readyState === 4 && xhttp.status === 200){
 				console.log(pwdCheck);
 				console.log(xhttp.responseText);
-				if(xhttp.responseText === "비밀번호 확인 완료"){
+				if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
 					alert("비밀번호 확인 완료");	
 					location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
+				}else if(xhttp.responseText === "비밀번호 확인 완료" && type==="edit"){
+					alert("비밀번호 확인 완료");
+					f.submit();
+					
 				}else{
 					alert("비밀번호가 다릅니다.");
 					location.href="${pageContext.request.contextPath}/member/main";
 				}
 				
-			}
+			}			
 		}
 		xhttp.open("POST", "/review/pwdCheck?password=" + pwdCheck, true);
 		xhttp.send();
@@ -61,8 +67,8 @@
          </tr>
          <tr>
          	<td colspan="2">
-         		<input type="submit" value="수정">
-         		<input type="button" value="삭제" onclick="del(${r.num})">
+         		<input type="button" value="수정" id="edit" onclick="change('edit', ${r.num})">
+         		<input type="button" value="삭제" id="delete" onclick="change('del', ${r.num})">
          	</td>
          </tr>
           
