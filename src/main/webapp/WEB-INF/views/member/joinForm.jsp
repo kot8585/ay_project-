@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-	
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +23,38 @@
 				alert("id 중복체크 하셩");
 			}
 		});
+	});
+</script>
+<script>
+$(document).ready(function(){
+  $('#showPassword').on('click', function(){
+    var passwordField = $('#password');
+    var passwordFieldType = passwordField.attr('type');
+    if(passwordFieldType == 'password')
+    {
+    	passwordField.attr('type', 'text');
+    	$(this).val('Hide');
+    } else {
+    	passwordField.attr('type', 'password');
+    	$(this).val('Show');
+    }
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+	  $('#showPassword1').on('click', function(){
+	    var passwordField = $('#password1');
+	    var passwordFieldType = passwordField.attr('type');
+	    if(passwordFieldType == 'password')
+	    {
+	    	passwordField.attr('type', 'text');
+	    	$(this).val('Hide');
+	    } else {
+	    	passwordField.attr('type', 'password');
+	    	$(this).val('Show');
+	    }
+	  });
 	});
 </script>
 <script>
@@ -80,103 +110,42 @@
 			f.submit()
 		}
 	}
+	function checkpwd(){
+		var pwd = document.getElementById("password");
+		var pwdcheck = document.getElementById("password1");
+		if(pwd.value == null){
+			return;
+		} 
+		if(pwd.value != pwdcheck.value){
+			alert("입력된 비밀번호가 다름");
+		}
+	}
 </script>
- <!-- Required meta tags -->
- <meta name="viewport" content="width=device-width, initial-scale=1">
-
- <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
- <!-- Option 1: Bootstrap Bundle with Popper -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
- 
-<style type="text/css">
-.table th {
-    text-align: center;
-}
-
-.table {
-    border-radius: 5px;
-    width: 50%;
-    margin: 0px auto;
-    float: none;
-}
-
-.vertical-center {
-  min-height: 100%;
-  min-height: 100vh; 
-  display: flex;
-  align-items: center;
-}
-
-.table-bordered {
-	border: 1px;
-}
-</style> 
-
- <script type="text/javascript"> 
- function goPage() { location.href="${pageContext.request.contextPath}/member/joinForm"; } 
- </script>
 </head>
 <body>
-	<header>
-<!-- navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light ms-3">
-    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">프로젝트명</a>
-    <button class="navbar-toggler" 
-		    type="button" 
-		    data-bs-toggle="collapse" 
-		    data-bs-target="#navbarSupportedContent" 
-		    aria-controls="navbarSupportedContent" 
-		    aria-expanded="false" 
-		    aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <c:if test="${ empty sessionScope.id }">
-	        <li class="nav-item active">
-	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>
-	        </li>
-        </c:if>
-        <c:if test="${not empty sessionScope.id }">
-        	<li class="nav-item">
-          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>
-        	</li>
-        </c:if>
-        <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>
-        </li>
-        <li>
-          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-	<div class="container-fluid vertical-center justify-content-center">
+	<h3>액션빔</h3>
+	<h3>
+		<a href="${pageContext.request.contextPath }/member/main">Main</a>
+	</h3>
 	<form name="f" method="POST"
 		action="${pageContext.request.contextPath }/member/join">
-		<table class="table table-bordered">
-			<thead class="table-dark">
-				<tr>
-					<th colspan="2">회원가입 창</th>
-				</tr>
-			</thead>
+		<table border="1">
 			<tr>
 				<th>ID</th>
-				<td colspan="2">
-					<input type="text" name="id" id="id"><input type="button" value="id중복확인" id="idCheck"> 
-					<span id="idResult"></span>
-				</td>
+				<td colspan="2"><input type="text" name="id" id="id"> <input
+					type="button" value="id중복확인" id="idCheck"placeholder="아이디를 쓰세여"> 
+					<span id="idResult"></span></td>
 			</tr>
 			<tr>
 				<th>PWD</th>
-				<td><input type="password" name="password" id="password"></td>
+				<td><input type="password" name="password" id="password" placeholder="비밀번호를 쓰세여">
+				<input type="button" value="show" id="showPassword"></td>
+			</tr>
+			<tr>
+				<th>PWDCHK</th>
+				<td><input type="password" name="password1" id="password1" onchange="checkpwd()"
+				placeholder="비밀번호를 쓰세여">
+				<input type="button" value="show" id="showPassword1"></td>
 			</tr>
 			<tr>
 				<th>Name</th>
@@ -241,12 +210,11 @@
 				<td><input type="text" name="email" id="email"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="button" value="회원가입" id="join" onclick="go()"></td>
+				<td><input type="button" value="회원가입" id="join" onclick="go()"></td>
 			</tr>
 
 
 		</table>
 	</form>
-	</div>
 </body>
 </html>
