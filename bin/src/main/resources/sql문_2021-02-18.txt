@@ -1,0 +1,167 @@
+
+DROP TABLE member CASCADE CONSTRAINTS;
+CREATE TABLE member(
+    id VARCHAR2(200) PRIMARY KEY,
+    password VARCHAR2(200) NOT NULL,
+    name VARCHAR2(200) NOT NULL,
+    birth DATE,
+    gender VARCHAR2(5) NOT NULL,
+    postalCode VARCHAR2(500) NOT NULL,
+   roadAddress VARCHAR2(500) NOT NULL,
+    address VARCHAR2(500) NOT NULL,
+    tel VARCHAR2(500) NOT NULL,
+    email VARCHAR2(500) NOT NULL
+);
+
+DROP TABLE event;
+DROP SEQUENCE seq_event;
+CREATE SEQUENCE seq_event;
+CREATE TABLE event(
+    num NUMBER PRIMARY KEY,
+    name VARCHAR2(20) NOT NULL,
+    SALE FLOAT
+);
+insert into event values(0, 'no event', 1.0);
+
+DROP SEQUENCE seq_product;
+CREATE SEQUENCE seq_product;
+drop table product CASCADE CONSTRAINTS;
+CREATE TABLE product(
+    num NUMBER PRIMARY KEY,
+    name VARCHAR2(20) NOT NULL,
+    maker VARCHAR2(20) NOT NULL,
+    price NUMBER NOT NULL,
+    origin VARCHAR2(20) NOT NULL,
+    material VARCHAR2(20) NOT NULL,
+    quantity NUMBER NOT NULL,
+    imgPath VARCHAR2(200) DEFAULT '',
+    category1 NUMBER REFERENCES category1(id) on delete cascade,
+    category2 NUMBER REFERENCES category2(id) on delete cascade,
+    event_num NUMBER REFERENCES event(num) on delete SET NULL
+);
+
+
+DROP SEQUENCE seq_order1;
+CREATE SEQUENCE seq_order1;
+drop table order1 CASCADE CONSTRAINTS; 
+CREATE TABLE order1(
+    num NUMBER PRIMARY KEY,
+    m_id VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
+    p_num NUMBER REFERENCES product(num) on delete CASCADE,
+    quantity NUMBER NOT NULL,
+    address VARCHAR2(50) NOT NULL,
+    tel VARCHAR2(50) NOT NULL,
+    o_date DATE,
+    cost NUMBER not null,
+    state number not null
+);
+
+drop table cart CASCADE CONSTRAINTS;
+CREATE TABLE cart(
+    p_num NUMBER REFERENCES product(num) on delete CASCADE,
+    m_id VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
+    cost NUMBER NOT NULL,
+    o_date DATE not null,
+    
+    PRIMARY key(p_num, m_id)
+);
+
+DROP SEQUENCE seq_board;
+CREATE SEQUENCE seq_board;
+drop table board CASCADE CONSTRAINTS;
+create table board(
+    num NUMBER PRIMARY KEY,
+    type VARCHAR2(20) NOT NULL, 
+    writer VARCHAR2(20) NOT NULL REFERENCES admin(id) on delete CASCADE, 
+    title VARCHAR2(50) NOT NULL,
+    content VARCHAR2(1000), 
+    regdate date default sysdate,
+    updatedate date default sysdate
+);
+
+iNSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', 'asdf', '자주묻는 내용1', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문2', '자주묻는 내용2', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문3', '자주묻는 내용3', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문4', '자주묻는 내용4', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문5', '자주묻는 내용5', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문6', '자주묻는 내용6', sysdate, sysdate);
+
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항1', '공지사항내용입니다1', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항2', '공지사항내용입니다2', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항3', '공지사항내용입니다3', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항4', '공지사항내용입니다4', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항5', '공지사항내용입니다5', sysdate,sysdate);
+commit; 
+
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply;
+drop table reply cascade constraints;
+CREATE TABLE reply(
+    num NUMBER PRIMARY KEY NOT NULL,
+    qna_num NUMBER NOT NULL REFERENCES qna(num) on delete CASCADE,
+    writer VARCHAR2(20) NOT NULL,
+    content VARCHAR2(1000), 
+    r_date date,
+    path varchar2(500)
+);
+
+DROP TABLE review;
+CREATE TABLE review(
+    num NUMBER PRIMARY KEY,
+    pnum NUMBER REFERENCES product(num) on delete CASCADE,
+    title VARCHAR2(50) NOT NULL,
+    writer VARCHAR2(20) NOT NULL,
+    content VARCHAR2(500) NOT NULL,
+    pdate DATE);
+    
+DROP SEQUENCE seq_review;
+CREATE SEQUENCE seq_review;
+
+drop table admin;
+CREATE TABLE admin(id VARCHAR2(20) PRIMARY KEY,  password VARCHAR2(20) NOT NULL);
+insert into admin values('admin', 'admin');
+
+
+drop table pquestion;
+CREATE TABLE pquestion(
+    num NUMBER PRIMARY KEY,
+    p_num NUMBER REFERENCES product(num) on delete CASCADE,
+    writer VARCHAR2(20) NOT NULL REFERENCES member(id) on delete CASCADE, 
+    title VARCHAR2(50) NOT NULL,
+    content VARCHAR2(1000), 
+    path varchar2(500)  
+);
+drop SEQUENCE seq_pquestion;
+CREATE SEQUENCE seq_pquestion;
+
+drop sequence seq_category1;
+drop sequence seq_category2;
+create sequence seq_category1;
+create sequence seq_category2;
+
+drop table category1;
+create table category1(
+id number primary key, 
+name varchar2(50) not null);
+
+drop table category2;
+create table category2(
+id number primary key, 
+name varchar2(50) not null, 
+p_id number references category1(id) on delete cascade);
+
+
+create SEQUENCE seq_qna;
+drop table qna CASCADE CONSTRAINTS;
+CREATE TABLE qna(
+	num NUMBER PRIMARY KEY,
+	writer VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
+	
+    q_cate VARCHAR2(50) NOT NULL,
+    pwd VARCHAR2(50),
+    title VARCHAR2(50) NOT NULL,
+    content VARCHAR2(2000) NOT NULL,
+    state VARCHAR2(50) NOT NULL,
+    regdate date default sysdate,
+    updatedate date default sysdate,
+   path VARCHAR2(50) DEFAULT '');

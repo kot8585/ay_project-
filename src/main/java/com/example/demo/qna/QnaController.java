@@ -64,23 +64,25 @@ public class QnaController {
 		System.out.println("q_cate : " + q.getQ_cate());
 		System.out.println("writer : " + q.getWriter());
 		q.setNum(num);
-		saveQnaImg(num, q.getFile1());
-		saveQnaImg(num, q.getFile2());
-		saveQnaImg(num, q.getFile3());
+		if(q.getUploadFile()!=null) {
+			saveQnaImg(num, q.getUploadFile());
+		}
 		service.addQna(q);
 		return "redirect:/mypage/myQuestionForm";
 	}
 	
-	public void saveQnaImg(int num, MultipartFile file) { //이미지 저장하기
-		String fileName = file.getOriginalFilename();
-		if(fileName != null && !fileName.equals("")) {
+	public void saveQnaImg(int num, MultipartFile[] uploadFile) { //이미지 저장하기
+
 			File dir = new File(basePath + "q" +num);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			File f = new File(basePath + "q" + num + "\\" + fileName);
+			
+		for(MultipartFile multipartFile : uploadFile) {
+		String fileName = multipartFile.getOriginalFilename();
+			File f = new File(dir, fileName);
 			try {
-				file.transferTo(f);
+				multipartFile.transferTo(f);
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -90,6 +92,7 @@ public class QnaController {
 			}
 		}
 	}
+	
 	
 	@RequestMapping("/qna/detail")
 	public ModelAndView detail(int num) {
@@ -153,6 +156,27 @@ public class QnaController {
 		imgDir.delete();
 		
 		return "redirect:/mypage/myQuestion";
+	}
+	
+	@PostMapping("/uploadAjaxAction")
+	public void uploadAjaxPost(MultipartFile[] uploadFile) {
+		System.out.println(uploadFile);
+		String uploadFolder = "C:\\upload";
+
+		for(MultipartFile multipartFile : uploadFile) {
+			log.info("Upload File Name: " +  multipartFile.getOriginalFilename());
+			log.info("Upload File Size: " +  multipartFile.getSize());
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			File saveFile = new File(uploadFolder, uploadFileName);
+			
+			try {
+				multipartFile.transferTo(saveFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				log.error(e.getMessage());
+			}
+		}
 	}
 	
 //	@RequestMapping("/qna/getO_num"){ //상품명이랑 주문일자 가져오기

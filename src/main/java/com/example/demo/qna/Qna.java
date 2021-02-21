@@ -19,9 +19,8 @@ public class Qna {
 	private Date regdate;
 	private Date updatedate;
 	private String path;
-	private MultipartFile file1;
-	private MultipartFile file2;
-	private MultipartFile file3;
+	private MultipartFile[] uploadFile;
+
 	
 	public Qna() {}
 
@@ -40,8 +39,8 @@ public class Qna {
 		this.updatedate = updatedate;
 	}
 
-	public Qna(int num, String writer, int o_history, String q_cate, String pwd, String title, String content, String state,
-			Date regdate, Date updatedate, String path, MultipartFile file1, MultipartFile file2, MultipartFile file3) {
+	public Qna(int num, String writer, int o_history, String q_cate, String pwd, String title, String content,
+			String state, Date regdate, Date updatedate, String path, MultipartFile[] uploadFile) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -54,9 +53,7 @@ public class Qna {
 		this.regdate = regdate;
 		this.updatedate = updatedate;
 		this.path = path;
-		this.file1 = file1;
-		this.file2 = file2;
-		this.file3 = file3;
+		this.uploadFile = uploadFile;
 	}
 
 	public int getNum() {
@@ -80,7 +77,7 @@ public class Qna {
 	}
 
 	public void setO_history(int o_history) {
-		this.o_history= o_history;
+		this.o_history = o_history;
 	}
 
 	public String getQ_cate() {
@@ -147,38 +144,13 @@ public class Qna {
 		this.path = path;
 	}
 
-	public MultipartFile getFile1() {
-		return file1;
+	public MultipartFile[] getUploadFile() {
+		return uploadFile;
 	}
 
-	public void setFile1(MultipartFile file1) {
-		this.file1 = file1;
+	public void setUploadFile(MultipartFile[] uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
-	public MultipartFile getFile2() {
-		return file2;
-	}
 
-	public void setFile2(MultipartFile file2) {
-		this.file2 = file2;
-	}
-
-	public MultipartFile getFile3() {
-		return file3;
-	}
-
-	public void setFile3(MultipartFile file3) {
-		this.file3 = file3;
-	}
-
-	@Override
-	public String toString() {
-		return "Qna [num=" + num + ", writer=" + writer + ", o_history=" + o_history + ", q_cate=" + q_cate + ", pwd=" + pwd
-				+ ", title=" + title + ", content=" + content + ", state=" + state + ", regdate=" + regdate
-				+ ", updatedate=" + updatedate + ", path=" + path + ", file1=" + file1 + ", file2=" + file2 + ", file3="
-				+ file3 + "]";
-	}
-
-	
-	
 }
