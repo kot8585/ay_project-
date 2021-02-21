@@ -64,7 +64,7 @@ function fn_delReply(num){
 		
 		//댓글 작성
 		$("#repWrite").click(function() { 
-			$.post( "/rep/write", 
+			$.post( "/admin/rep/write", 
 					{ 
 				qna_num : ${q.num},
 				writer : $("#rep_writer").val(),

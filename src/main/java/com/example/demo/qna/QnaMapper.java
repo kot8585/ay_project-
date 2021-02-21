@@ -1,6 +1,7 @@
 package com.example.demo.qna;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,5 +17,5 @@ public interface QnaMapper {
 	ArrayList<Qna> selectByWriter(String writer);
 	int getNum();
 	String selectO_history(String writer);
-
+	void updateState(HashMap<String, Object> map);
 }	

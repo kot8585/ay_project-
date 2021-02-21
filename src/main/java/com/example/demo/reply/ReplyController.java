@@ -11,14 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.qna.QnaService;
+
 @Controller
 public class ReplyController {
 	@Autowired
 	private RepService service;
 
-	@RequestMapping("/rep/write")
+	@Autowired
+	private QnaService qnaService;
+	
+	@RequestMapping("/admin/rep/write")
 	public String write(Reply r) {
 		service.addReply(r);
+		//성공적으로 이루어졌으면 댓글 상태 바꾸기
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("num", r.getQna_num());
+		map.put("state", "답변완료");
+		qnaService.changeState(map);
+		
 		return "redirect:/rep/list?qna_num=" + r.getQna_num();
 	}
 

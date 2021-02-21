@@ -101,8 +101,7 @@ CREATE TABLE reply(
     qna_num NUMBER NOT NULL REFERENCES qna(num) on delete CASCADE,
     writer VARCHAR2(20) NOT NULL,
     content VARCHAR2(1000), 
-    r_date date,
-    path varchar2(500)
+    r_date date
 );
 
 DROP TABLE review;
@@ -165,3 +164,5 @@ CREATE TABLE qna(
     regdate date default sysdate,
     updatedate date default sysdate,
    path VARCHAR2(50) DEFAULT '');
+   
+   insert into review (select seq_review.nextval, pnum, title, writer, content, stars, pdate from review);
