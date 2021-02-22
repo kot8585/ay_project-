@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>	
 <html>
@@ -45,11 +46,17 @@
             <th>번호</th>
             <td><input type="text" name="num" value="${r.num}" readonly></td>
          </tr>
-           <tr>
+         <tr>
             <th>상품번호</th>
             <td><input type="text" name="pnum" value="${r.pnum}" readonly></td>
          </tr>
-           <tr>
+         <tr>
+         	<th>별점</th>
+         	<td>${r.stars }</td>
+         	
+         	
+         </tr> 
+         <tr>
             <th>제목</th>
             <td><input type="text" name="title" value="${r.title }"></td>
          </tr>

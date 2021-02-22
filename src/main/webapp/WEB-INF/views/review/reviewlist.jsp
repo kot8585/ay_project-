@@ -30,6 +30,10 @@
             <th>제목</th>
             <td><a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}">${r.title}</a></td>
          </tr>
+         <tr>
+         	<th>별점</th>
+         	<td>${r.stars }</td>
+         </tr>
            <tr>
             <th>작성자</th>
             <td>${r.writer}</td>
