@@ -106,6 +106,13 @@ public class ReviewController {
 		return "/member/main";
 	}
 	
+	
+	/**
+	 * 
+	 * @param req session에서 id값을 받아오기 위한 파라메터
+	 * @param pwd 입력받은 비밀번호를 받아온다
+	 * @return 비밀번호 체크에 대한 결과를 출력
+	 */
 	@RequestMapping("/review/pwdCheck")
 	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd) {
 		HttpSession session = req.getSession(false);

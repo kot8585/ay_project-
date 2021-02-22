@@ -9,16 +9,13 @@
 <title>Insert title here</title>
 <script>
 	function change(type, num){
-		console.log(type);
-		console.log(typeof(type));
+		console.log("선택한 기능 : " + type);
 		var pwdCheck = prompt("비밀번호를 입력해주세요");
-		console.log(pwdCheck);
-		console.log(typeof(pwdCheck));
+		console.log("입력된 값 : " + pwdCheck);
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
-				console.log(pwdCheck);
-				console.log(xhttp.responseText);
+				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
 				if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
 					alert("비밀번호 확인 완료");	
 					location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
@@ -52,9 +49,7 @@
          </tr>
          <tr>
          	<th>별점</th>
-         	<td>${r.stars }</td>
-         	
-         	
+			<td>${r.stars }</td>	
          </tr> 
          <tr>
             <th>제목</th>

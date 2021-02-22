@@ -9,13 +9,28 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-
+	function list(){
+		
+	}
 </script>
 </head>
 <body>
-   
    <h3>리뷰</h3>
-    <c:forEach var="r" items="${list}">
+   <form>
+	<select onchange="list">
+   		<option value="none">선택</option>   		
+   		<option value="none">최신순</option>   		
+	</select>
+	<select>
+		<option value="none">평점 별 정렬</option>
+		<option value="none">★☆☆☆☆</option>
+		<option value="none">★★☆☆☆</option>
+		<option value="none">★★★☆☆</option>
+		<option value="none">★★★★☆</option>
+		<option value="none">★★★★★</option>
+	</select>
+   </form>
+   <c:forEach var="r" items="${list}"> 
    <table border="1" cellspacing="0">
       <thead>
          <tr>
