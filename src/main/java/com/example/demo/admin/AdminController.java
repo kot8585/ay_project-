@@ -377,4 +377,28 @@ public class AdminController {
 	}
 	
 	
-}
+	@RequestMapping("/admin/delProduct")
+	/*public String del(int num) {
+		System.out.println("AdminController.del()");
+		productService.delProduct(num);
+		
+		return "admin/admin";*/
+		
+		public String del(@RequestParam(value = "num") int num) {
+			productService.delProduct(num);
+			String path = basePath + "p" + num + "\\";
+			File imgDir = new File(path);
+			if (imgDir.exists()) {
+				String[] files = imgDir.list();
+				for (int j = 0; j < files.length; j++) {
+					File f = new File(path + files[j]);
+					f.delete();
+				}
+			}
+			imgDir.delete();
+			return "admin/admin";
+		}
+	}
+	
+	
+

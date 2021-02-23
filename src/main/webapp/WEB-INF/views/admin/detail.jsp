@@ -15,7 +15,7 @@
 				 $(".img").mouseover(function() {
 			         $("#bigImg").attr('src', this.src);
 			      });
-				
+			
 				$.post("/event/getEvent", {}).done(
 						function(data) {
 							var c = eval("(" + data + ")");
@@ -73,12 +73,19 @@
 					$("#category2").val(cat2);
 				});
 			});
+	$(document).ready(function() {
+		
+		$("#del").click(function() {
+			$("#f1").attr('action', '/admin/delProduct');
+			$("#f1").submit();
+		});
+	});
 </script>
 </head>
 <body>
 <h5>세션 id : ${ sessionScope.id }</h5>
 <h3>상품 상세 정보</h3>
-<form action="${ pageContext.request.contextPath }/admin/edit" method="post">
+<form id="f1" action="${ pageContext.request.contextPath }/admin/edit" method="post">
 <table border="1" cellspacing="0">
 <tr>
 	<th>번호</th>
@@ -147,6 +154,7 @@
 		<input type="hidden" name="imgPath" value="C:\\shopimg\\"> 
 		<input type="hidden" name="event_num" value="0"> 
 		<input type="submit" value="수정">
+		<input type="button" value="삭제" id="del">
 	</td>
 </tr>
 </table>
