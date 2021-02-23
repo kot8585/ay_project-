@@ -20,4 +20,6 @@ public interface ReviewMapper {
 	ArrayList<Review> selectByPnum(int p_num);
 	
 	ArrayList<Review> selectByDate(int p_num);
+	
+	void updateRating(int num);
 }

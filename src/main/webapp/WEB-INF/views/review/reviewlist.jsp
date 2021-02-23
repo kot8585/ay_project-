@@ -39,9 +39,13 @@ function rating(hi){
 	
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState === 4 && xhttp.status === 200){
+			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
+			document.querySelector("#rating").innerHTML = xhttp.responseText;
+		}
 		
 	}
-	xhttp.open();
+	xhttp.open("POST", "/review/reviewRating?num=${r.num}", true);
 	xhttp.send();
 }
 </script>

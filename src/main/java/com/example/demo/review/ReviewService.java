@@ -40,4 +40,8 @@ public class ReviewService {
 		// TODO Auto-generated method stub
 		return mapper.selectByPnum(p_num);
 	}
+	
+	public void IncRating(int num) {
+		mapper.updateRating(num);
+	}
 }

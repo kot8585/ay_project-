@@ -173,6 +173,18 @@ public class ReviewController {
 		service.delReview(num);
 		return "redirect:/member/main";	
 	}
+	
+	@RequestMapping("/review/reviewRating")
+	public ModelAndView rating(@RequestParam("num") int num) {
+		System.out.println("Parameter : " + num);
+		//service.IncRating(num);
+		Review r = service.getDetail(num);
+		System.out.println(r);
+		
+		ModelAndView mav = new ModelAndView("review/reviewRating");
+		mav.addObject("r", r);
+		return mav;
+	}
 }
 
 
