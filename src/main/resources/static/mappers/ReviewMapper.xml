@@ -20,6 +20,10 @@
  	<select id="select" resultMap="review" parameterType="int">
  		SELECT * FROM review WHERE num=#{num} ORDER BY num
 	</select>
+	
+	<select id="selectByDate" resultMap="review" parameterType="int">
+		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY pdate
+	</select>
    
 	<select id="selectAll" resultMap="review" parameterType="String">
 		SELECT * FROM review ORDER BY num

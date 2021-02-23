@@ -65,16 +65,43 @@ public class ReviewController {
 		return "redirect:/member/main";
 	}
 	
+
 	/**
 	 * 
 	 * @return 작성됨 리뷰들을 리스트로 화면에 출력
 	 */
 	@RequestMapping("/review/reviewlist")
-	public ModelAndView viewlist(@RequestParam("p_num") int p_num) {
-		// 작성된 모든 리뷰를 리스트에 저장	
-		ArrayList<Review> reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
+	public ModelAndView viewlist(@RequestParam("p_num") int p_num, @RequestParam("what")String what) {
+		System.out.println(what);
+		System.out.println(what.getClass());
+		//System.out.println(p_num);
+		// 작성된 모든 리뷰를 리스트에 저장
+		ArrayList<Review> reviewlist = null;
+		if(what.equals("basic") || what.equals("none")) {
+			reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
+		}else if(what.equals("latest")) {
+			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
+		}
+		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/reviewlist");
+		//mav.setViewName("review/list");
+		mav.addObject("list", reviewlist);
+		return mav;
+	}
+	
+	@RequestMapping("/review/list")
+	public ModelAndView list(@RequestParam("what")String what, @RequestParam("p_num")int p_num) {
+		ArrayList<Review> reviewlist = null;
+		if(what.equals("basic") || what.equals("none")) {
+			reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
+		}else if(what.equals("latest")) {
+			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
+		}
+		System.out.println(reviewlist);
+		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
+		ModelAndView mav = new ModelAndView("review/list");
+		//mav.setViewName("review/list");
 		mav.addObject("list", reviewlist);
 		return mav;
 	}
@@ -106,6 +133,7 @@ public class ReviewController {
 		return "/member/main";
 	}
 	
+
 	
 	/**
 	 * 

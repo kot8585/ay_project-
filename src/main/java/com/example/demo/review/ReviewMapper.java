@@ -18,4 +18,6 @@ public interface ReviewMapper {
 	void delete(int num);
 
 	ArrayList<Review> selectByPnum(int p_num);
+	
+	ArrayList<Review> selectByDate(int p_num);
 }

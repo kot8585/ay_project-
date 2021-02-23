@@ -9,10 +9,13 @@
 <title>Insert title here</title>
 <script>
 	function change(type, num){
-		console.log("선택한 기능 : " + type);
+		console.log("선택한 기능(type) : " + type);
+		console.log("type은 타입에 따라 수정, 삭제 중 하나를 선택하는 기능을 합니다.")
 		var pwdCheck = prompt("비밀번호를 입력해주세요");
+		console.log("1단계 : 수정,삭제 권한을 확인하기 위하여 비밀번호 입력")
 		console.log("입력된 값 : " + pwdCheck);
 		var xhttp = new XMLHttpRequest();
+		
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
 				console.log("입력에 따른 반환 값 : " + xhttp.responseText);

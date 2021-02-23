@@ -23,6 +23,10 @@ public class ReviewService {
 		   return mapper.select(num);
 	   }
 	   
+	   public ArrayList<Review> getDetailByDate(int num) {
+		   return mapper.selectByDate(num);
+	   }
+	   
 	   
 	   public void editReview(Review r) {
 		   mapper.update(r);

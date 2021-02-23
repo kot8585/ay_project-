@@ -7,19 +7,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	function list(){
+	function sort(){
+		var what = document.getElementById("list");
+		var xhttp = new XMLHttpRequest();
+		console.log("선택된 기준에 따라 정렬");
+		console.log("선택된 기준 : " + what.value);
 		
+		xhttp.onreadystatechange = function(){
+			if(xhttp.readyState === 4 && xhttp.status === 200){
+				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
+				print(xhttp);
+				
+			}
+		}
+		
+		xhttp.open("POST", "/review/list?p_num=${p.num}&what=" + what.value, true);
+		xhttp.send();
+			
+		
+	}
+	
+	function print(xhttp){
+		console.log(xhttp.responseText);
+		document.querySelector("#ntable").innerHTML = xhttp.responseText;
 	}
 </script>
 </head>
 <body>
    <h3>리뷰</h3>
    <form>
-	<select onchange="list">
+	<select id="list" onchange="sort()">
    		<option value="none">선택</option>   		
-   		<option value="none">최신순</option>   		
+   		<option value="latest">최신순</option>   		
 	</select>
 	<select>
 		<option value="none">평점 별 정렬</option>
@@ -29,9 +51,9 @@
 		<option value="none">★★★★☆</option>
 		<option value="none">★★★★★</option>
 	</select>
-   </form>
-   <c:forEach var="r" items="${list}"> 
-   <table border="1" cellspacing="0">
+	<nav id="ntable">
+	<c:forEach var="r" items="${list}"> 
+   <table border="1" cellspacing="0" width="500px">
       <thead>
          <tr>
             <th>번호</th>
@@ -70,6 +92,8 @@
      
    </table>
     </c:forEach>
+	</nav>
+
 
    
 
