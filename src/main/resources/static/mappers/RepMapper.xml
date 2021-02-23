@@ -8,6 +8,7 @@
 		<result property="qna_num" column="qna_num"/>
 		<result property="writer" column="writer"/>
 		<result property="content" column="content"/>
+		<result property="r_date" column="r_date"/>
 	</resultMap>
 	
 	<select id="getReplyById" parameterType="String" resultMap="rep">
@@ -30,5 +31,8 @@
 		delete reply where num=#{num}
 	</delete>
 	
+	<update id="update" parameterType="com.example.demo.reply.Reply">
+		update reply set content=#{content} where num=#{num}
+	</update>
 
 </mapper>

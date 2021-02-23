@@ -12,13 +12,13 @@ public interface RepMapper {
 
 	ArrayList<Reply> getReplyByQnaNum(int qna_num);
 	
-	void insert(Reply r);
+	public int insert(Reply r);
 
 	Reply select(int num);
 
-	void delete(int num); //해당 댓글만 지우기
+	public int delete(int num); //해당 댓글만 지우기
 	
-	List selectAll();
+	public List selectAll();
 	
-	void updateState(int num);
+	public int update(Reply rep);
 }

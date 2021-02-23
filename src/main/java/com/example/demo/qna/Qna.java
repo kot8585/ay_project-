@@ -2,6 +2,7 @@ package com.example.demo.qna;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -150,6 +151,13 @@ public class Qna {
 
 	public void setUploadFile(MultipartFile[] uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+
+	@Override
+	public String toString() {
+		return "Qna [num=" + num + ", writer=" + writer + ", o_history=" + o_history + ", q_cate=" + q_cate + ", pwd="
+				+ pwd + ", title=" + title + ", content=" + content + ", state=" + state + ", regdate=" + regdate
+				+ ", updatedate=" + updatedate + ", path=" + path + ", uploadFile=" + Arrays.toString(uploadFile) + "]";
 	}
 
 
