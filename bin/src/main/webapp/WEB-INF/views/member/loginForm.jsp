@@ -15,7 +15,7 @@
 
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
- 
+ <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  <script type="text/javascript"> 
  function goPage() { location.href="${pageContext.request.contextPath}/member/joinForm"; } 
  </script>
@@ -35,6 +35,22 @@ function go() {
 		f.submit()
 	}
 }	
+</script>
+<script>
+$(document).ready(function(){
+  $('#showPassword').on('click', function(){
+    var passwordField = $('#password');
+    var passwordFieldType = passwordField.attr('type');
+    if(passwordFieldType == 'password')
+    {
+    	passwordField.attr('type', 'text');
+    	$(this).val('Hide');
+    } else {
+    	passwordField.attr('type', 'password');
+    	$(this).val('Show');
+    }
+  });
+});
 </script>
 <style type="text/css">
 .table th {
@@ -114,7 +130,8 @@ function go() {
 		</tr>
 		<tr>
 			<th>PWD</th>
-			<td><input type="password" name="password" id="password"></td>
+			<td><input type="password" name="password" id="password">
+			<input type="button" value="show" id="showPassword"></td>
 		</tr>
 		<tr>
 			<td colspan="2">

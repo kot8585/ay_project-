@@ -1,4 +1,4 @@
-package com.example.demo.board;
+package com.example.demo.page;
 
 public class PageDTO {
 	private int startPage; //화면에서 보여지는 페이지의 시작 번호

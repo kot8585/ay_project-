@@ -8,7 +8,7 @@
 		<result property="qna_num" column="qna_num"/>
 		<result property="writer" column="writer"/>
 		<result property="content" column="content"/>
-		<result property="path" column="path"/>
+		<result property="r_date" column="r_date"/>
 	</resultMap>
 	
 	<select id="getReplyById" parameterType="String" resultMap="rep">
@@ -20,7 +20,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.example.demo.reply.Reply">
-		insert into reply(num, qna_num, writer, content, r_date, path) values(seq_reply.nextval, #{qna_num}, #{writer}, #{content}, sysdate, 'path')
+		insert into reply(num, qna_num, writer, content, r_date) values(seq_reply.nextval, #{qna_num}, #{writer}, #{content}, sysdate)
 	</insert>
 	
 	<select id="select" resultMap="rep" parameterType="int">
@@ -30,4 +30,9 @@
 	<delete id="delete" parameterType="int">
 		delete reply where num=#{num}
 	</delete>
+	
+	<update id="update" parameterType="com.example.demo.reply.Reply">
+		update reply set content=#{content} where num=#{num}
+	</update>
+
 </mapper>

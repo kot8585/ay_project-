@@ -35,7 +35,7 @@ function go(i) {
 <thead class="table-warning" >
 <tr><th>num</th><th>pwd</th><th>writer</th>
 <th>title</th><th>content</th><th>updatedate</th>
-<th>답변하기</th>
+<th>답변상태</th><th>답변하기</th>
 	</tr>
 </thead>
 <c:forEach var="p" items="${list }">
@@ -46,6 +46,7 @@ function go(i) {
 	<td>${ p.title }</td>
 	<td>${ p.content }</td>
 	<td>${ p.updatedate }</td>
+	<td>${ p.state }</td>
 	<td><input type="button" value="답변하기" id="answerBtn" onclick="javascript:go(${p.num})"></td>
 </tr>
 </c:forEach>

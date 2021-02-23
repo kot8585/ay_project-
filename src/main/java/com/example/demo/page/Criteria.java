@@ -1,4 +1,4 @@
-package com.example.demo.board;
+package com.example.demo.page;
 
 public class Criteria {
 	private int pageNum; // 현재 페이지 번호

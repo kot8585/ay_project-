@@ -6,8 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+var maxSize = 5242880 //5MB
+function checkExtension(fileName, fileSize){
+	if(fileSize >= maxSize){
+		alert("파일 사이즈 초과");
+		return false;
+	}
+	
+var ext = fileName.split('.').pop().toLowerCase();
+	console.log(ext);
+	
+	if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'bmp']) == -1){
+		alert("이미지 파일만 가능합니다.");
+		return false;
+	}
+	return true;
+}
+
 	$(document).ready(function(){
 		$.ajax({
 			url : "${pageContext.request.contextPath}/rep/list",
@@ -33,13 +50,28 @@
 						$("#replyList").html(htmls);
 				     }
 		});
+
+		$("#uploadFile").on("change", function(e){
+				var inputFile = $("input[name='uploadFile']");
+				var files = inputFile[0].files;
+				console.log(files);
+
+				//add filedata to dormdata
+				for(var i=0; i<files.length; i++){
+					if(!checkExtension(files[i].name, files[i].size) ){
+						inputFile.val('');
+						return false;
+					}
+				}
+		});
+		
 	});
 </script>
 </head>
 <body>
 
 <h1>1:1문의하기</h1>
-	<form action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data">
+	<form id="QnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data">
 		
 		<!-- 질문 카테고리 -->
 		<select name="q_cate" id="q_cate">
@@ -66,23 +98,18 @@
 			<tr>
 				<th>내용</th><td><textarea name="content" rows="10" cols="33" ></textarea></td>
 			</tr>
-
 			<tr>
-				<th>파일첨부1</th><td><input type="file" name="file1"></td>
-			</tr>
-			<tr>
-				<th>파일첨부2</th><td><input type="file" name="file2"></td>
-			</tr>
-			<tr>
-				<th>파일첨부3</th><td><input type="file" name="file3"></td>
+				<th>첨부파일</th><td><input type='file' id="uploadFile" name="uploadFile" multiple ></td>
 			</tr>
 			
 			<tr><td><input type="reset" value="취소"></td>
 			<td><input type="submit" value="등록"></td></tr>
 		</table>
+		
 		<input type="hidden" name="path" value="123">
 		<input type="hidden" name="writer" value="${sessionScope.id }" >
 		<input type="hidden" name="state" value="답변대기"> 
 	</form>
+		
 </body>
 </html>
