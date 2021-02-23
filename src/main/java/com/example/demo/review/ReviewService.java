@@ -23,6 +23,10 @@ public class ReviewService {
 		   return mapper.select(num);
 	   }
 	   
+	   public ArrayList<Review> getDetailByDate(int num) {
+		   return mapper.selectByDate(num);
+	   }
+	   
 	   
 	   public void editReview(Review r) {
 		   mapper.update(r);
@@ -35,5 +39,9 @@ public class ReviewService {
 	public ArrayList<Review> getByPnum(int p_num) {
 		// TODO Auto-generated method stub
 		return mapper.selectByPnum(p_num);
+	}
+	
+	public void IncRating(int num) {
+		mapper.updateRating(num);
 	}
 }
