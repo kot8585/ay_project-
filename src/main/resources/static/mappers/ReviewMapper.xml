@@ -11,14 +11,19 @@
       <result property="content" column="content" />
       <result property="stars" column="stars" />
       <result property="pdate" column="pdate" />
+      <result property="likey" column="likey" />
    </resultMap>
    
 	<insert id="insert" parameterType="com.example.demo.review.Review">
-		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars}, sysdate )
+		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars},0, sysdate)
 	</insert>
    
  	<select id="select" resultMap="review" parameterType="int">
  		SELECT * FROM review WHERE num=#{num} ORDER BY num
+	</select>
+	
+	<select id="selectByDate" resultMap="review" parameterType="int">
+		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY pdate
 	</select>
    
 	<select id="selectAll" resultMap="review" parameterType="String">
@@ -36,5 +41,9 @@
  	 <select id="selectByPnum" resultMap="review" parameterType="int">
 		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY num
 	</select>
+	
+	<update id="updateRating" parameterType="com.example.demo.review.Review">
+		UPDATE review SET likey=seq_rating.NEXTVAL WHERE num=#{num}
+	</update>
    
    </mapper>

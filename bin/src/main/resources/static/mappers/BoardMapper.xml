@@ -17,7 +17,7 @@
 		insert into board values(seq_board.nextval, #{type}, #{writer},	#{title}, #{content}, sysdate, sysdate)
 	</insert>
 	
-	<select id="select" resultMap="board" parameterType="String">
+	<select id="select" resultMap="board" parameterType="int">
 		select * from board where num=#{num}
 	</select>
 	

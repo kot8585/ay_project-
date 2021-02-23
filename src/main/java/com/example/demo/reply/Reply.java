@@ -10,20 +10,16 @@ public class Reply {
 	private String writer;
 	private String content;
 	private Date r_date;
-	private String path;
 
-	public Reply() {
-		super();
-	}
+	public Reply() {}
 
-	public Reply(int num, int qna_num, String writer, String content, Date r_date, String path) {
+	public Reply(int num, int qna_num, String writer, String content, Date r_date) {
 		super();
 		this.num = num;
 		this.qna_num = qna_num;
 		this.writer = writer;
 		this.content = content;
 		this.r_date = r_date;
-		this.path = path;
 	}
 
 	public int getNum() {
@@ -66,18 +62,11 @@ public class Reply {
 		this.r_date = r_date;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
 
 	@Override
 	public String toString() {
 		return "Reply [num=" + num + ", qna_num=" + qna_num + ", writer=" + writer + ", content=" + content
-				+ ", r_date=" + r_date + ", path=" + path + "]";
+				+ ", r_date=" + r_date +  "]";
 	}
 
 	public String category() {
@@ -85,6 +74,6 @@ public class Reply {
 	}
 
 	public String content() {
-		return num + "," + qna_num + "," + writer + "," + content + "," + r_date + "," + path;
+		return num + "," + qna_num + "," + writer + "," + content + "," + r_date;
 	}
 }

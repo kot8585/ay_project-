@@ -4,20 +4,19 @@ import java.sql.Date;
 
 public class Review {
 
-	 private int num;
-	 private int pnum;
-	 private String title;
-	 private String writer;
-	 private String content;
-	 private String stars;
-
-
+	private int num;
+	private int pnum;
+	private String title;
+	private String writer;
+	private String content;
+	private String stars;
+	private String likey;
 	private Date pdate;
 	   
 	public Review() {
 		super();
 	}
-	public Review(int num, int pnum, String title, String writer, String content, Date pdate, String stars) {
+	public Review(int num, int pnum, String title, String writer, String content, Date pdate, String stars, String likey) {
 		super();
 		this.num = num;
 		this.pnum = pnum;
@@ -26,8 +25,17 @@ public class Review {
 		this.content = content;
 		this.pdate = pdate;
 		this.stars = stars;
+		this.likey = likey;
 	}
-	 public String getStars() {
+	
+	
+	 public String getLikey() {
+		return likey;
+	}
+	public void setLikey(String likey) {
+		this.likey = likey;
+	}
+	public String getStars() {
 		return stars;
 	}
 	public void setStars(String stars) {

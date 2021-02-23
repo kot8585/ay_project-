@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="/js/reply.js"></script>
 <script>
 //댓글 전부 출력하는 함수 - 재사용성을 위해
 function showReplyList(){ 
@@ -32,6 +33,9 @@ function showReplyList(){
 		});
 }
 	$(document).ready(function(){
+		
+		
+		
 		
 		showReplyList();
 		

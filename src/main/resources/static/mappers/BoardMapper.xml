@@ -32,8 +32,7 @@
 	<update id="update" parameterType="com.example.demo.board.Board">
 		update board set  title=#{title}, content=#{content} where num=#{num}
 	</update>
-	
-	
+
 	<select id="countAll" resultType="int" >
 		select count(*) from board where type=#{type} AND title LIKE '%'||#{keyword}||'%'
 	</select>

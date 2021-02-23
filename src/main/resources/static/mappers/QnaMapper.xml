@@ -39,7 +39,10 @@
 	<update id="update" parameterType="com.example.demo.qna.Qna">
 		update qna set pwd=#{pwd}, q_cate=#{q_cate},title=#{title}, content=#{content}, updatedate=sysdate where num=#{num}
 	</update>
-	
+		
+	<update id="updateState" parameterType="java.util.HashMap">
+		update qna set state=#{state} where num=#{num}
+	</update>
 	
 	<select id="getNum" resultType="int">
 		select seq_qna.nextval from dual
