@@ -41,6 +41,7 @@
 </script>
 </head>
 <body>
+<a href="${pageContext.request.contextPath }/member/main">Main</a>
 <h5>세션 id : ${ sessionScope.id }</h5>
 <h3>상품 상제 정보</h3>
 <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
@@ -119,7 +120,12 @@
 </table>
 </form>
 
+
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
+<c:import url="${ pageContext.request.contextPath }/pquestion/plist?p_num=${ p.num }"></c:import>
+
+
+
 
 </body>
 </html>
