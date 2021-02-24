@@ -42,20 +42,30 @@ function print(xhttp){
 	document.querySelector("#ntable").innerHTML = xhttp.responseText;
 }
 
-function rating(hi){
-	var like = document.getElementById("like");
-	var hate = document.getElementById("hate");
-	console.log(hi);
+function rating(hi, r_num){
+	var type = null;
+	if(hi === "like"){
+		type = "like";
+	}else{
+		type = "hate";
+	}
+	var rnum = document.getElementById("rnum");
+	console.log(type);
+	console.log(rnum.innerHTML);
+	console.log(typeof(r_num));
+	console.log(r_num);
+	
+
 	
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
 			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-			document.querySelector("#rating").innerHTML = xhttp.responseText;
+			document.querySelector("#rating"+r_num).innerHTML = xhttp.responseText;
 		}
 		
 	}
-	xhttp.open("POST", "/review/reviewRating?num=${r.num}", true);
+	xhttp.open("POST", "/review/reviewRating?num="+r_num+"&type="+type, true);
 	xhttp.send();
 }
 </script>
@@ -85,7 +95,7 @@ function rating(hi){
 			<thead>
 				<tr>
 					<th>번호</th>
-					<td>${r.num}</td>
+					<td value="${r.num }" id="rnum">${r.num}</td>
 				</tr>
 				<tr>
 					<th>상품번호</th>
@@ -114,9 +124,9 @@ function rating(hi){
 				<tr>
 					<th>좋아요</th>
 					<td>
-						<button id="like" value="like" onclick="rating('like')">종아요</button>
-						<button id="hate" value="hate" onclick="rating('hate')">싫어요</button>
-						좋아요 : <div id="rating"></div> 
+						<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
+						<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
+						좋아요 : <div id="rating${r.num }"></div> 
 					</td>
 				</tr>
 			</thead>

@@ -7,8 +7,6 @@
 <title>Review Form</title>
 </head>
 <body>
-
-
 <form action="${pageContext.request.contextPath }/review/write">
 	<table border="1">
 		<tr>

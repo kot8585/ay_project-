@@ -43,7 +43,7 @@
 	</select>
 	
 	<update id="updateRating" parameterType="com.example.demo.review.Review">
-		UPDATE review SET likey=seq_rating.NEXTVAL WHERE num=#{num}
+		UPDATE review SET likey=(SELECT likey+1 FROM review WHERE num=#{num}) WHERE num=#{num}
 	</update>
    
    </mapper>

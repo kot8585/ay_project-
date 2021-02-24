@@ -175,11 +175,22 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewRating")
-	public ModelAndView rating(@RequestParam("num") int num) {
+	public ModelAndView rating(@RequestParam("num") int num, @RequestParam("type")String type) {
 		System.out.println("Parameter : " + num);
-		//service.IncRating(num);
+		System.out.println("Type : " + type);
 		Review r = service.getDetail(num);
+		if(type.equals("like")) {
+			System.out.println("증가");
+			service.IncRating(r);
+		}else if(type.equals("감소")){
+			System.out.println("감소");
+		}
+		
+		//service.IncRating(num);
+		
 		System.out.println(r);
+		
+		
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
 		mav.addObject("r", r);

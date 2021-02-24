@@ -41,7 +41,7 @@ public class ReviewService {
 		return mapper.selectByPnum(p_num);
 	}
 	
-	public void IncRating(int num) {
-		mapper.updateRating(num);
+	public void IncRating(Review r) {
+		mapper.updateRating(r);
 	}
 }

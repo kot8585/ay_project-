@@ -80,8 +80,10 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [num=" + num + ", pnum=" + pnum + ", title=" + title + ", writer=" + writer + ", content="
-				+ content + ", pdate=" + pdate + "]";
+				+ content + ", stars=" + stars + ", likey=" + likey + ", pdate=" + pdate + "]";
 	}
+	
+	
 	
 	public String category() {
 		return "num,pnum,title,writer,content,pdate,methodName\n";
