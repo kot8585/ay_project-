@@ -5,24 +5,24 @@ import java.sql.Date;
 public class Pquestion {
 
 	private int num;
-	private int p_num;
+	private int pnum;
 	private String writer;
 	private String title;
 	private String content;
 	private Date p_date;
-	private String path;
+	
 	public Pquestion() {
 		super();
 	}
-	public Pquestion(int num, int p_num, String writer, String title, String content, Date p_date, String path) {
+	public Pquestion(int num, int pnum, String writer, String title, String content, Date p_date) {
 		super();
 		this.num = num;
-		this.p_num = p_num;
+		this.pnum = pnum;
 		this.writer = writer;
 		this.title = title;
 		this.content = content;
 		this.p_date = p_date;
-		this.path = path;
+		
 	}
 	public int getNum() {
 		return num;
@@ -30,11 +30,11 @@ public class Pquestion {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getP_num() {
-		return p_num;
+	public int getpnum() {
+		return pnum;
 	}
-	public void setP_num(int p_num) {
-		this.p_num = p_num;
+	public void setpnum(int pnum) {
+		this.pnum = pnum;
 	}
 	public String getWriter() {
 		return writer;
@@ -60,16 +60,11 @@ public class Pquestion {
 	public void setP_date(Date p_date) {
 		this.p_date = p_date;
 	}
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
+	
 	@Override
 	public String toString() {
-		return "Pquestion [num=" + num + ", p_num=" + p_num + ", writer=" + writer + ", title=" + title + ", content="
-				+ content + ", p_date=" + p_date + ", path=" + path + "]";
+		return "Pquestion [num=" + num + ", pnum=" + pnum + ", writer=" + writer + ", title=" + title + ", content="
+				+ content + ", p_date=" + p_date +"]";
 	}
 
 	
