@@ -1,6 +1,7 @@
 package com.example.demo.review;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,12 +93,55 @@ public class ReviewController {
 	
 	@RequestMapping("/review/list")
 	public ModelAndView list(@RequestParam("what")String what, @RequestParam("p_num")int p_num) {
+		System.out.println("input value : " + what);
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<Review> reviewlist = null;
-		if(what.equals("basic") || what.equals("none")) {
-			reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
-		}else if(what.equals("latest")) {
-			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
+		if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
+			if(what.equals("1")) {
+				System.out.println(1);
+				what = "★☆☆☆☆";
+				map.put("pnum", p_num);
+				map.put("stars", what);
+				reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
+			}else if(what.equals("2")) {
+				System.out.println(2);
+				what = "★★☆☆☆";
+				map.put("pnum", p_num);
+				map.put("stars", what);
+				System.out.println(map);
+				reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
+			}else if(what.equals("3")) {
+				System.out.println(3);
+				what = "★★★☆☆";
+				map.put("pnum", p_num);
+				map.put("stars", what);
+				System.out.println(map);
+				reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
+			}else if(what.equals("4")) {
+				System.out.println(5);
+				what = "★★★★☆";
+				map.put("pnum", p_num);
+				map.put("stars", what);
+				System.out.println(map);
+				reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
+			}else if(what.equals("5")) {
+				System.out.println(5);
+				what = "★★★★★";
+				map.put("pnum", p_num);
+				map.put("stars", what);
+				System.out.println(map);
+				reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
+			}
+		}else {
+			if(what.equals("basic") || what.equals("none")) {
+				reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
+			}else if(what.equals("latest")) {
+				reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
+			}else if(what.equals("like")) {
+				reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
+			}
 		}
+		
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/list");
@@ -175,11 +219,23 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewRating")
-	public ModelAndView rating(@RequestParam("num") int num) {
+	public ModelAndView rating(@RequestParam("num") int num, @RequestParam("type")String type) {
 		System.out.println("Parameter : " + num);
-		//service.IncRating(num);
+		System.out.println("Type : " + type);
 		Review r = service.getDetail(num);
+		if(type.equals("like")) {
+			System.out.println("증가");
+			service.IncRating(r);
+		}else if(type.equals("hate")){
+			System.out.println("감소");
+			service.DecRating(r);
+		}
+		
+		//service.IncRating(num);
+		
 		System.out.println(r);
+		
+		
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
 		mav.addObject("r", r);

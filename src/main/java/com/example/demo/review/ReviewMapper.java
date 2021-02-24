@@ -1,6 +1,7 @@
 package com.example.demo.review;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,5 +22,11 @@ public interface ReviewMapper {
 	
 	ArrayList<Review> selectByDate(int p_num);
 	
-	void updateRating(int num);
+	ArrayList<Review> selectByLike(int p_num);
+	
+	ArrayList<Review> selectByStar(HashMap<String, Object> map);
+	
+	void increaseRating(Review r);
+	
+	void decreaseRating(Review r);
 }
