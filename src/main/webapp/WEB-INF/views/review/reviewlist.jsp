@@ -51,7 +51,7 @@ function rating(hi, r_num){
 	}
 	var rnum = document.getElementById("rnum");
 	console.log(type);
-	console.log(rnum.innerHTML);
+	
 	console.log(typeof(r_num));
 	console.log(r_num);
 	
@@ -80,13 +80,13 @@ function rating(hi, r_num){
     	<option value="none">선택</option>   		
    		<option value="latest">최신순</option>   		
 	</select>
-	<select>
+	<select id="byStar" onchange="sort('byStar')">
 		<option value="none">평점 별 정렬</option>
-		<option value="none">★☆☆☆☆</option>
-		<option value="none">★★☆☆☆</option>
-		<option value="none">★★★☆☆</option>
-		<option value="none">★★★★☆</option>
-		<option value="none">★★★★★</option>
+		<option value="1">★☆☆☆☆</option>
+		<option value="2">★★☆☆☆</option>
+		<option value="3">★★★☆☆</option>
+		<option value="4">★★★★☆</option>
+		<option value="5">★★★★★</option>
 	</select>
 	<hr>
 	<nav id="ntable">
@@ -126,7 +126,7 @@ function rating(hi, r_num){
 					<td>
 						<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
 						<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
-						좋아요 : <div id="rating${r.num }"></div> 
+						좋아요 : <div id="rating${r.num }">${r.likey }</div> 
 					</td>
 				</tr>
 			</thead>

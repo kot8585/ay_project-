@@ -34,6 +34,13 @@
             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /></td>
          </tr>
          <tr>
+					<th>좋아요</th>
+					<td>
+						<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
+						<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
+						좋아요 : <div id="rating${r.num }">${r.likey }</div> 
+					</td>
+				</tr>
          
           
       </thead>

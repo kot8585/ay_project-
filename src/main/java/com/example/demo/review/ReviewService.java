@@ -1,6 +1,7 @@
 package com.example.demo.review;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,19 @@ public class ReviewService {
 		return mapper.selectByPnum(p_num);
 	}
 	
+	public ArrayList<Review> getDetailByLike(int p_num){
+		return mapper.selectByLike(p_num);
+	}
+	
+	public ArrayList<Review> getDetailByStar(HashMap<String, Object> map){
+		return mapper.selectByStar(map);
+	}
+	
 	public void IncRating(Review r) {
-		mapper.updateRating(r);
+		mapper.increaseRating(r);
+	}
+	
+	public void DecRating(Review r) {
+		mapper.decreaseRating(r);
 	}
 }

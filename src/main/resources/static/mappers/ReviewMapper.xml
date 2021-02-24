@@ -25,6 +25,14 @@
 	<select id="selectByDate" resultMap="review" parameterType="int">
 		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY pdate
 	</select>
+	
+		<select id="selectByLike" resultMap="review" parameterType="int">
+		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY likey DESC
+	</select>
+	
+		<select id="selectByStar" resultMap="review" parameterType="hashmap">
+		SELECT * FROM review WHERE pnum=#{pnum} AND stars=#{stars} ORDER BY num
+	</select>
    
 	<select id="selectAll" resultMap="review" parameterType="String">
 		SELECT * FROM review ORDER BY num
@@ -42,8 +50,12 @@
 		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY num
 	</select>
 	
-	<update id="updateRating" parameterType="com.example.demo.review.Review">
+	<update id="increaseRating" parameterType="com.example.demo.review.Review">
 		UPDATE review SET likey=(SELECT likey+1 FROM review WHERE num=#{num}) WHERE num=#{num}
+	</update>
+	
+	<update id="decreaseRating" parameterType="com.example.demo.review.Review">
+		UPDATE review SET likey=(SELECT likey-1 FROM review WHERE num=#{num}) WHERE num=#{num}
 	</update>
    
    </mapper>
