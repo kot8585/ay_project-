@@ -134,7 +134,7 @@ public class QnaController {
 	@RequestMapping("/qna/edit")
 	public String edit(Qna b) {
 		service.update(b);
-		return "redirect:/mypage/myQuestion";
+		return "redirect:/mypage/myQuestionForm";
 	}
 	
 	@RequestMapping("/qna/del")
@@ -148,6 +148,7 @@ public class QnaController {
 		
 		if (imgDir.exists()) {
 			String[] files = imgDir.list();
+			System.out.println("delFiles: "+files);
 			for (int j = 0; j < files.length; j++) {
 				File f = new File(path + files[j]);
 				f.delete();
@@ -155,7 +156,7 @@ public class QnaController {
 		}
 		imgDir.delete();
 		
-		return "redirect:/mypage/myQuestion";
+		return "redirect:/mypage/myQuestionForm";
 	}
 	
 	@PostMapping("/uploadAjaxAction")

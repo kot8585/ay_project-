@@ -36,13 +36,14 @@
 		var modalWriteBtn = $("#modalWriteBtn");
 
 		showList(qnum);
-		//댓글 목록 보여주기
+		
+		//댓글 목록 보여주는 함수
 		function showList(qnum){replyService.getList(qnum, function(list){
 				var htmls = "";
 				
 				//댓글이 없을 경우
 				if(list == null || list.length == 0){
-					$(".replyList").html("");
+					$("#replyList").html("작성된 답변이 없습니다.");
 					return;
 				}
 				
@@ -55,7 +56,7 @@
 					htmls+=	   '<p class="repContent">'+list[i].content+'</p>'
 					htmls+=  '</li>'
 				}
-				$(".replyList").html(htmls);
+				$("#replyList").html(htmls);
 			});
 		}
 		
@@ -90,19 +91,9 @@
 		});
 		
 		
-		replyService.remove(53, 
-				function(deleteResult){
-			if(deleteResult==="success"){
-			alert("REMOVED");
-			}
-		}, function(error){
-			alert('REMOVE ERR');
-		});
-		
-		
 		//해당 댓글 클릭하면 댓글 수정과 삭제할수 있는 모달창 띄우기
-		//이벤트 위임
-		$(".replyList").on("click", "li", function(e){
+		//이벤트 위임을 해서 ul태그를 선택하지만 $(this) = li 태그이다.
+		$("#replyList").on("click", "li", function(e){
 			var num = $(this).data("num");
 			console.log(num);
 			exampleModal.find("button").show();
@@ -117,17 +108,56 @@
 			
 		//수정버튼 누를떄
 		modalEditBtn.on("click", function(e){
+			console.log("edit click");
+			//컨트롤러에 전달할 데이터 세팅
+			var reply = {
+					"num": num,
+					"content": repContent.val()
+			}
 			
-			//
-			replyService.update({num: "50", content: "update reply"},
+			//컨트롤러에게 데이터를 보내고 결과 상태를 가져온다.
+			replyService.update(reply,
 					function(result){
 				if(result === "success"){
 					alert("UPDATED");
 				}
+				
 			}, function(error){
 				alert("UPDATE ERR");
 			});
+				//수정 완료가 되면 modal의 입력칸초기화, modal창 숨기기, 
+				repWriter.val("");
+				repContent.val("");
+				exampleModal.modal("hide");
+				showList(qnum);
 			
+		});
+		
+		//답변 삭제버튼 눌렀을시 
+		modalDelBtn.on("click", function(e){
+			console.log("modalDelBtn clicked............")
+			var r = confirm(num +"번의 답변을 삭제하시겠습니까?");
+			
+			if(!r){
+				return;
+			}
+			
+			if (r) {
+				//reply.js의 remove함수 호출
+				replyService.remove(num, function(result){
+					if(result === "success"){
+						alert(num +"번의 답변이 삭제되었습니다.");
+					}
+				}, function(error){
+					alert("DELETE ERROR");
+				});
+				
+				//confirm이 true일때만
+				repWriter.val("");
+				repContent.val("");
+				exampleModal.modal("hide");
+				showList(qnum);
+			} //end confirm
 		});
 		});
 		
@@ -149,6 +179,7 @@
 		
 	});
 </script>
+
 </head>
 <body>
 	<!-- modal -->
@@ -172,8 +203,8 @@
         </form>
       </div>
       <div class="modal-footer">
-      <button type="button" id="modelEditBtn" class="btn btn-danger">수정</button>
-      <button type="button" id="modelDelBtn" class="btn btn-danger">삭제</button>
+      <button type="button" id="modalEditBtn" class="btn btn-danger">수정</button>
+      <button type="button" id="modalDelBtn" class="btn btn-danger">삭제</button>
         <button type="button" id="modalWriteBtn" class="btn btn-primary">등록</button>
         <button type="button" id="modalCloseBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
@@ -236,12 +267,11 @@
 			</c:if>
 	
 	<hr>
+     <div class="float-start"><h6>Reply List</h6></div>
+    <div class="float-end"><button type="button" id="addReplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button></div><br><br>
+    
 	<!-- 댓글 작성되면 이 영역에 넣는다 -->
-	<h6>Reply List</h6>
-	<button type="button" id="addReplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button>
-<ul class="replyList">
-
-  </ul>
-	
+	<ul class="list-group" id="replyList">
+  	</ul>
 </body>
 </html>
