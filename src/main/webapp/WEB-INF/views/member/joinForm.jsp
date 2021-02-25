@@ -10,7 +10,155 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	$(document).ready(function() {
+//아이디 정규식
+var idJ = /^[a-z0-9]{4,12}$/;
+// 비밀번호 정규식
+var pwdJ = /^[A-Za-z0-9]{4,12}$/; 
+// 이름 정규식
+var nameJ = /^[가-힣]{2,6}$/;
+// 이메일 검사 정규식
+var emailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+// 휴대폰 번호 정규식
+var telJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+$(document).ready(function(){
+	$("#id").keyup(function(){
+		if(idJ.test($(this).val())){
+			$("#id_check").text('췍');
+			$('#id_check').css('color', 'green');
+		}else{
+			$("#id_check").text('안댐');
+			$('#id_check').css('color', 'red');
+		}
+	});	
+	$("#password1").keyup(function(){
+		if(pwdJ.test($(this).val())){
+			$("#pwd1_check").text('췍');
+			$('#pwd1_check').css('color', 'green');
+		}else{
+			$("#pwd1_check").text('안댐');
+			$('#pwd1_check').css('color', 'red');
+		}
+	});
+	$("#password2").keyup(function(){
+		if($("#password1").val() == $("#password2").val()){
+			$("#pwd2_check").text('췍');
+			$('#pwd2_check').css('color', 'green');
+		}else{
+			$("#pwd2_check").text('안댐');
+			$('#pwd2_check').css('color', 'red');
+			return;
+		};
+	});
+	$("#name").keyup(function(){
+		if(nameJ.test($(this).val())){
+			$("#name_check").text('췍');
+			$('#name_check').css('color', 'green');
+		}else{
+			$("#name_check").text('안댐');
+			$('#name_check').css('color', 'red');
+		}
+	});
+	$("#tel").keyup(function(){
+		if(telJ.test($(this).val())){
+			$("#tel_check").text('췍');
+			$('#tel_check').css('color', 'green');
+		}else{
+			$("#tel_check").text('안댐');
+			$('#tel_check').css('color', 'red');
+		}
+	});
+	$("#email").keyup(function(){
+		if(emailJ.test($(this).val())){
+			$("#email_check").text('췍');
+			$('#email_check').css('color', 'green');
+		}else{
+			$("#email_check").text('안댐');
+			$('#email_check').css('color', 'red');
+		}
+	});
+		$("#join").click(function() {			
+			if ($("#id").val()=="" ){
+				alert("아이디가 액션빔");	
+				return
+			} 
+			if (idJ.test($("#id").val())){
+				//정규 표현식과 일치하면 다음으로 넘김
+			} 
+			else {
+				alert("아이디 췍 띄우셈");
+				return
+			} 
+			if ($("#password1").val()==""){
+				alert("비밀번호가 액션빔");
+				return
+			} 
+			if (pwdJ.test($("#password1").val())){
+				//정규 표현식과 일치하면 다음으로 넘김
+			} 
+			else {
+				alert("비밀번호 췍 띄우셈");
+				return
+			} 
+			if ($("#password1").val() == $("#password2").val()){
+				//비밀번호 비교하고 일치하면 넘김
+			} 
+			else {
+				alert("비밀번호가 달라염");
+				return
+			}
+			if ($("#name").val()==""){
+				alert("이름이 액션빔");
+				return
+			}
+			if (nameJ.test($("#name").val())){
+				//정규 표현식과 일치하면 다음으로 넘김
+			} 
+			else {
+				alert("이름 췍 띄우셈");
+				return
+			} 
+			if ($("#birth").val()==""){
+				alert("생일이 액션빔");
+				return
+			}
+			if ($("#gender").val()==""){
+				alert("성별이 액션빔");
+				return
+			}
+			if ($("#address").val()==""){
+				alert("주소가 액션빔");
+				return
+			}
+			if ($("#tel").val()==""){
+				alert("전화번호가 액션빔");
+				return
+			}
+			if (telJ.test($("#tel").val())){
+				//정규 표현식과 일치하면 다음으로 넘김
+			} 
+			else {
+				alert("전화번호 췍 띄우셈");
+				return
+			} 
+			if ($("#email").val()==""){
+				alert("이메일이 액션빔");
+				return
+			}
+			if (emailJ.test($("#email").val())){
+				//정규 표현식과 일치하면 다음으로 넘김
+			} 
+			else {
+				alert("이메일 췍 띄우셈");
+				return
+			} 
+			if ($("#idResult").text().trim() == "사용가능") {
+				$("form").submit();
+			}
+			else {
+				alert("id 중복체크 하세여");
+			}
+		});
+		$(document).ready(function() {
 		$("#idCheck").click(function() {
 			$.post("/member/idCheck", {
 				id : $("#id").val()
@@ -18,38 +166,7 @@
 				$("#idResult").text(data);
 			});
 		});
-		$("#join").click(function() {
-			
-			if ($("#id").val()==""){
-				alert("아이디가 액션빔");
-				return
-			} if ($("#password").val()==""){
-				alert("비밀번호가 액션빔");
-				return
-			} if ($("#name").val()==""){
-				alert("이름이 액션빔");
-				return
-			} if ($("#birth").val()==""){
-				alert("생일이 액션빔");
-				return
-			} if ($("#gender").val()==""){
-				alert("성별이 액션빔");
-				return
-			} if ($("#address").val()==""){
-				alert("주소가 액션빔");
-				return
-			} if ($("#tel").val()==""){
-				alert("전화번호가 액션빔");
-				return
-			} if ($("#email").val()==""){
-				alert("이메일이 액션빔");
-				return
-			} if ($("#idResult").text().trim() == "사용가능") {
-				$("form").submit();
-			} else {
-				alert("id 중복체크 하세여");
-			}
-		});
+	});
 	});
 </script>
 <script>
@@ -170,28 +287,33 @@ $(document).ready(function(){
 			<tr>
 				<th>ID</th>
 				<td colspan="2">
-					<input type="text" name="id" id="id"><input type="button" value="id중복확인" id="idCheck"> 
+					<input type="text" name="id" id="id">
+					<span class="check_font" id="id_check"></span>
+					<input type="button" value="id중복확인" id="idCheck"> 
 					<span id="idResult"></span>
+					
 				</td>
 			</tr>
 			<tr>
 				<th>PWD</th>
-				<td><input type="password" name="password" id="password1"></td>
+				<td><input type="password" name="password" id="password1" placeholder="비밀번호를 쓰세여">
+				<span class="check_font" id="pwd1_check"></span></td>
 				<td><input type="button" value="show" id="showPassword"></td>
 			</tr>
 			<tr>
 				<th>PWDCHK</th>
-				<td><input type="password" name="password2" id="password2" onchange="checkpwd()"
-				placeholder="비밀번호를 쓰세여">
-				<input type="button" value="show" id="showPassword1"></td>
+				<td><input type="password"  id="password2" placeholder="비밀번호를 쓰세여">
+				<span class="check_font" id="pwd2_check"></span></td>
+				<td><input type="button" value="show" id="showPassword1"></td>
 			</tr>
 			<tr>
 				<th>Name</th>
-				<td><input type="text" name="name" id="name"></td>
+				<td><input type="text" name="name" id="name">
+				<span class="check_font" id="name_check"></span></td>
 			</tr>
 			<tr>
 				<th>Birth</th>
-				<td><input type="date" name="birth" id="birth"></td>
+				<td><input type="date" name="birth" id="birth">
 			</tr>
 			<tr>
 				<th>Gender</th>
@@ -241,14 +363,16 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 				<th>Tel</th>
-				<td><input type="text" name="tel" id="tel"></td>
+				<td><input type="text" name="tel" id="tel">
+				<span class="check_font" id="tel_check"></span></td>
 			</tr>
 			<tr>
 				<th>Email</th>
-				<td><input type="text" name="email" id="email"></td>
+				<td><input type="text" name="email" id="email">
+				<span class="check_font" id="email_check"></span></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="button" value="회원가입" id="join" onclick="go()"></td>
+				<td colspan="2" align="center"><input type="button" value="어서오고" id="join"></td>
 			</tr>
 
 
