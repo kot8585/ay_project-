@@ -58,9 +58,9 @@
 				}
 				$("#replyList").html(htmls);
 			});
-		}
+		} //end showList
 		
-		//show replyModal
+		//모달창 보여주기
 		$("#addReplyBtn").on("click", function(e){
 			exampleModal.find("input").val("");
 			exampleModal.find("textarea").val("");
@@ -69,7 +69,7 @@
 			modalWriteBtn.show();
 
 			$('#exampleModal').modal('show');
-		});
+		}); //end addReplyBtn
 
 		//모달창에서 등록버튼 클릭 - 답변 작성하기
 		modalWriteBtn.on("click", function(e){
@@ -95,47 +95,45 @@
 		//이벤트 위임을 해서 ul태그를 선택하지만 $(this) = li 태그이다.
 		$("#replyList").on("click", "li", function(e){
 			var num = $(this).data("num");
-			console.log(num);
-			exampleModal.find("button").show();
+			console.log("click num : " + num);
+			exampleModal.find("button").show(); 
 			modalWriteBtn.hide();
 			
-			
+			//replyService.get(서버에 넘겨줄 번호, 성공했을시 호출할 함수)
 			replyService.get(num, function(reply){
 				repWriter.val(reply.writer);
 				repContent.val(reply.content);
-			})
-			exampleModal.modal("show");			
+				exampleModal.data("num", reply.num); //수정과 삭제할때 필요
+				
+				exampleModal.modal("show");			
+			});
+		});
 			
 		//수정버튼 누를떄
 		modalEditBtn.on("click", function(e){
 			console.log("edit click");
 			//컨트롤러에 전달할 데이터 세팅
 			var reply = {
-					"num": num,
+					"num": exampleModal.data("num"),
 					"content": repContent.val()
-			}
+			};
 			
 			//컨트롤러에게 데이터를 보내고 결과 상태를 가져온다.
 			replyService.update(reply,
 					function(result){
-				if(result === "success"){
 					alert("UPDATED");
-				}
-				
-			}, function(error){
+					exampleModal.modal("hide");
+					showList(qnum);
+				}, function(error){ //error써도 되나 학인학.
 				alert("UPDATE ERR");
 			});
-				//수정 완료가 되면 modal의 입력칸초기화, modal창 숨기기, 
-				repWriter.val("");
-				repContent.val("");
-				exampleModal.modal("hide");
-				showList(qnum);
-			
 		});
 		
-		//답변 삭제버튼 눌렀을시 
+		//답변 삭제버튼 눌렀을시 confirm하고 
+		//remove호출
 		modalDelBtn.on("click", function(e){
 			console.log("modalDelBtn clicked............")
+			var num = exampleModal.data("num");
 			var r = confirm(num +"번의 답변을 삭제하시겠습니까?");
 			
 			if(!r){
@@ -144,6 +142,7 @@
 			
 			if (r) {
 				//reply.js의 remove함수 호출
+				//replyService.remove(서버에 넘겨줄 번호, 성공했을시 호출할 함수, 실패했을시 호출할 함수)
 				replyService.remove(num, function(result){
 					if(result === "success"){
 						alert(num +"번의 답변이 삭제되었습니다.");
@@ -157,9 +156,9 @@
 				repContent.val("");
 				exampleModal.modal("hide");
 				showList(qnum);
-			} //end confirm
+			} //end if(r)
 		});
-		});
+		
 		
 		
 		//이미지에 마우스 올릴때
@@ -174,10 +173,8 @@
 				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
 			}
 		});
-		
 
-		
-	});
+	}); //end document.ready
 </script>
 
 </head>
@@ -230,7 +227,7 @@
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><input type="text" name="content" value="${q.content}" ${data}></td>
+				<td><textarea type="text" name="content" ${data}>${q.content}</textarea></td>
 			</tr>
 			<tr>
 				<td>작성날짜</td>
