@@ -318,6 +318,7 @@ public class AdminController {
 		}
 
 		Qna q = qnaService.getQnaByNum(num);
+		System.out.println(q.toString());
 		
 		String path = basePath + "q" + q.getNum() + "\\";
 		File imgDir = new File(path);

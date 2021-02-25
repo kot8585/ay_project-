@@ -26,7 +26,7 @@ public class BoardService {
 	}
 	
 	public ArrayList<Board> getList(String type, Criteria cri) {
-		log.info("get List with type and critetia: " +type +cri );
+		log.info("get List with type and critetia: " +type + "," +cri );
 		HashMap<String , Object> map = new HashMap<>();
 		map.put("type", type);
 		map.put("cri", cri);

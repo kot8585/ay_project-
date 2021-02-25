@@ -181,7 +181,7 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 				<th>PWDCHK</th>
-				<td><input type="password" name="password" id="password2" onchange="checkpwd()"
+				<td><input type="password" name="password2" id="password2" onchange="checkpwd()"
 				placeholder="비밀번호를 쓰세여">
 				<input type="button" value="show" id="showPassword1"></td>
 			</tr>
