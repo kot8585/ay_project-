@@ -423,28 +423,23 @@ public class AdminController {
 		return mav;
 	}
 
-	/**
-	 * 상품 삭제
-	 * 관리자 상품 상세 페이지에서 실행
-	 * @param num 삭제할 상품 num
-	 * @return Redirect할 Url
-	 */
-	@RequestMapping("/admin/delProduct")
-	public String del(@RequestParam(value = "num") int num) {
-		productService.delProduct(num);
-		String path = basePath + "p" + num + "\\";
-		File imgDir = new File(path);
-		if (imgDir.exists()) {
-			String[] files = imgDir.list();
-			int f_length = files.length;
-			for (int j = 0; j < f_length; j++) {
-				File f = new File(path + files[j]);
-				f.delete();
-			}
-		}
-		imgDir.delete();
-		return "redirect:/admin/admin";
-	}
+
+//	@RequestMapping("/admin/delProduct")
+//	public String del(@RequestParam(value = "num") int num) {
+//		productService.delProduct(num);
+//		String path = basePath + "p" + num + "\\";
+//		File imgDir = new File(path);
+//		if (imgDir.exists()) {
+//			String[] files = imgDir.list();
+//			int f_length = files.length;
+//			for (int j = 0; j < f_length; j++) {
+//				File f = new File(path + files[j]);
+//				f.delete();
+//			}
+//		}
+//		imgDir.delete();
+//		return "redirect:/admin/admin";
+//	}
 
 	/**
 	 * 세션 여부 확인, 세션이 없으면 ModelAndView가 관리자 로그인 페이지로 가게 함.
@@ -463,39 +458,18 @@ public class AdminController {
 			mav.setViewName("admin/adminLoginForm");
 		}
 
-		
-		System.out.println("id = " + id +", mav = " + mav.getViewName());
-		
-		ArrayList<Event> list = eventService.getEventList();
-		 //리스트 갯수만큼 반복
-	      for (int i = 0; i < list.size(); i++) {
-	    	  
-	    	 //path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
-	         String path = basePath + "e" + list.get(i).getNum() + "\\";
-	         
-	         //imDir에 path를 저장
-	         File imgDir = new File(path);   
-	        
-	         String[] files = imgDir.list();
-	         //mav에 files에 저장된 값을 저장한다
-	         if(imgDir.exists()) {
-	            for(int j = 0; j < files.length; j++) {
-	               mav.addObject("file" + j, files[j]);
-	            }
-	            
-	            list.get(i).setImgPath(files[0]);
-	         }
-	      }
-		mav.addObject("list", list);
-		return mav;
 	}
 	
 	
-	@RequestMapping("/admin/delProduct")
-	
+	/**
+	 * 상품 삭제
+	 * 관리자 상품 상세 페이지에서 실행
+	 * @param num 삭제할 상품 num
+	 * @return Redirect할 Url
+	 */
+		@RequestMapping("/admin/delProduct")
 		public String del(@RequestParam(value = "num") int num) {
 			productService.delProduct(num);
-			
 			return "admin/admin";
 		}
 
@@ -509,4 +483,4 @@ public class AdminController {
 	 * return "admin/admin";
 	 */
 
-}
+
