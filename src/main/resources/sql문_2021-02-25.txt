@@ -13,7 +13,7 @@ CREATE TABLE member(
     email VARCHAR2(500) NOT NULL
 );
 
-DROP TABLE event;
+DROP TABLE event CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_event;
 CREATE SEQUENCE seq_event;
 CREATE TABLE event(
@@ -78,7 +78,7 @@ CREATE TABLE board(
     b_date DATE,
     path varchar2(500) 
 );
-
+commit;
 DROP SEQUENCE seq_reply;
 CREATE SEQUENCE seq_reply;
 drop table reply cascade constraints;
@@ -105,12 +105,6 @@ DROP SEQUENCE seq_review;
 CREATE SEQUENCE seq_review;
 DROP SEQUENCE seq_rating;
 CREATE SEQUENCE seq_rating;
-INSERT INTO review VALUES(12,2,'hidfhi','aa','안녕','★★☆☆☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(134,2,'hihdfi','aa','오늘은','★★★☆☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★☆☆☆☆',0,to_date('02-05-2010 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(144,2,'hihidf','aa','그래','★★★★☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★★★★☆',0,to_date('09-09-2012 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★☆☆☆☆',0,to_date('04-05-2015 12:14:11','mm-dd-yyyy hh24:mi:ss'));    
 
 
 drop table admin;
@@ -135,20 +129,12 @@ drop sequence seq_category2;
 create sequence seq_category1;
 create sequence seq_category2;
 
-SELECT
-    *
-FROM category2;
-
-SELECT
-    *
-FROM category1;
-
 drop table category1 CASCADE CONSTRAINTS;
 create table category1(
 id number primary key, 
 name varchar2(50) not null);
 
-drop table category2;
+drop table category2 CASCADE CONSTRAINTS;
 create table category2(
 id number primary key, 
 name varchar2(50) not null, 
