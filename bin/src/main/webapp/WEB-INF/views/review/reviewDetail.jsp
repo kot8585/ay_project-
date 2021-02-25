@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>	
 <html>
@@ -8,16 +9,16 @@
 <title>Insert title here</title>
 <script>
 	function change(type, num){
-		console.log(type);
-		console.log(typeof(type));
+		console.log("선택한 기능(type) : " + type);
+		console.log("type은 타입에 따라 수정, 삭제 중 하나를 선택하는 기능을 합니다.")
 		var pwdCheck = prompt("비밀번호를 입력해주세요");
-		console.log(pwdCheck);
-		console.log(typeof(pwdCheck));
+		console.log("1단계 : 수정,삭제 권한을 확인하기 위하여 비밀번호 입력")
+		console.log("입력된 값 : " + pwdCheck);
 		var xhttp = new XMLHttpRequest();
+		
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
-				console.log(pwdCheck);
-				console.log(xhttp.responseText);
+				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
 				if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
 					alert("비밀번호 확인 완료");	
 					location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
@@ -45,11 +46,15 @@
             <th>번호</th>
             <td><input type="text" name="num" value="${r.num}" readonly></td>
          </tr>
-           <tr>
+         <tr>
             <th>상품번호</th>
             <td><input type="text" name="pnum" value="${r.pnum}" readonly></td>
          </tr>
-           <tr>
+         <tr>
+         	<th>별점</th>
+			<td>${r.stars }</td>	
+         </tr> 
+         <tr>
             <th>제목</th>
             <td><input type="text" name="title" value="${r.title }"></td>
          </tr>

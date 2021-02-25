@@ -1,3 +1,47 @@
+SELECT * FROM member;
+SELECT * FROM product;
+SELECT * FROM review;
+SELECT * FROM board;
+SELECT * FROM event;
+SELECT * FROM order1;
+SELECT * FROM pquestion;
+SELECT * FROM category1;
+SELECT * FROM category2;
+
+/*
+----Review 관련 data table----
+마지막 업데이트 : 2021.02.25
+*/
+DROP SEQUENCE seq_review;
+drop table review CASCADE CONSTRAINTS;
+CREATE TABLE review(
+    num NUMBER PRIMARY KEY,
+    pnum NUMBER REFERENCES product(num) on delete CASCADE,
+    title VARCHAR2(50) NOT NULL,
+    writer VARCHAR2(20) NOT NULL,
+    content VARCHAR2(500) NOT NULL,
+    stars VARCHAR2(20) NOT NULL,
+    likey VARCHAR2(20) NOT NULL,
+    pdate DATE);
+CREATE SEQUENCE seq_review;
+
+
+
+INSERT INTO review VALUES(12,2,'hidfhi','aa','안녕','★★☆☆☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+INSERT INTO review VALUES(134,2,'hihdfi','aa','오늘은','★★★☆☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★☆☆☆☆',0,to_date('02-05-2010 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+INSERT INTO review VALUES(144,2,'hihidf','aa','그래','★★★★☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★★★★☆',0,to_date('09-09-2012 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★☆☆☆☆',0,to_date('04-05-2015 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+
+/*
+---------------------------------------
+*/
+
+/*
+----Member 관련 data table----
+마지막 업데이트 : 2021.02.25
+*/
 
 DROP TABLE member CASCADE CONSTRAINTS;
 CREATE TABLE member(
@@ -12,6 +56,10 @@ CREATE TABLE member(
     tel VARCHAR2(500) NOT NULL,
     email VARCHAR2(500) NOT NULL
 );
+
+/*
+---------------------------------------
+*/
 
 DROP TABLE event CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_event;
@@ -104,20 +152,7 @@ CREATE TABLE reply(
     path varchar2(500)
 );
 
-drop table review CASCADE CONSTRAINTS;
-CREATE TABLE review(
-    num NUMBER PRIMARY KEY,
-    pnum NUMBER REFERENCES product(num) on delete CASCADE,
-    title VARCHAR2(50) NOT NULL,
-    writer VARCHAR2(20) NOT NULL,
-    content VARCHAR2(500) NOT NULL,
-    stars VARCHAR2(20) NOT NULL,
-    likey VARCHAR2(20) NOT NULL,
-    pdate DATE);
-DROP SEQUENCE seq_review;
-CREATE SEQUENCE seq_review;
-DROP SEQUENCE seq_rating;
-CREATE SEQUENCE seq_rating;
+
 
 
 drop table admin;
@@ -168,3 +203,5 @@ CREATE TABLE qna(
     updatedate date default sysdate,
    path VARCHAR2(50) DEFAULT ''
 );
+
+commit;

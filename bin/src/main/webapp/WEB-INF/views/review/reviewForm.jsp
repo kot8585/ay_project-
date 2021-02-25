@@ -7,8 +7,6 @@
 <title>Review Form</title>
 </head>
 <body>
-
-
 <form action="${pageContext.request.contextPath }/review/write">
 	<table border="1">
 		<tr>
@@ -26,11 +24,11 @@
 		<tr>
 			<th>별점</th>
 			<td>
-				<input type="radio" name="stars" value="1">★
-				<input type="radio" name="stars" value="2">★★
-				<input type="radio" name="stars" value="3">★★★
-				<input type="radio" name="stars" value="4">★★★★
-				<input type="radio" name="stars" value="5">★★★★★
+				<input type="radio" name="stars" value="★☆☆☆☆">★
+				<input type="radio" name="stars" value="★★☆☆☆">★★
+				<input type="radio" name="stars" value="★★★☆☆">★★★
+				<input type="radio" name="stars" value="★★★★☆">★★★★
+				<input type="radio" name="stars" value="★★★★★">★★★★★
 			</td>
 		</tr>
 		<tr>

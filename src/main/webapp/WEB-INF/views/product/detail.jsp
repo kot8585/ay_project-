@@ -122,7 +122,7 @@
 
 
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
-<c:import url="${ pageContext.request.contextPath }/pquestion/plist?p_num=${ p.num }"></c:import>
+<c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
 
 
 

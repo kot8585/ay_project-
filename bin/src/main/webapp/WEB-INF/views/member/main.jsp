@@ -30,7 +30,7 @@
 </head>
 <body>
 
- <!-- navbar -->
+
  <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
     <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">
