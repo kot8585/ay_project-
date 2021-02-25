@@ -151,12 +151,13 @@
 					alert("DELETE ERROR");
 				});
 				
-				//confirm이 true일때만
-				repWriter.val("");
-				repContent.val("");
-				exampleModal.modal("hide");
-				showList(qnum);
+				
 			} //end if(r)
+			//confirm이 true일때만
+			repWriter.val("");
+			repContent.val("");
+			exampleModal.modal("hide");
+			showList(qnum);
 		});
 		
 		

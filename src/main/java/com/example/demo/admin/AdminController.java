@@ -72,7 +72,7 @@ public class AdminController {
 	 */
 	@RequestMapping("/admin/loginForm")
 	public String admin_loginForm() {
-		return "redirect:/admin/adminLoginForm";
+		return "admin/adminLoginForm";
 	}
 
 	/**
