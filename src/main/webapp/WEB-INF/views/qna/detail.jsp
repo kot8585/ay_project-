@@ -173,6 +173,14 @@
 				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
 			}
 		});
+		
+		//게시판 수정
+		$("#update").click(function(){
+			var result = confirm("글을 수정하시겠습니까?");
+			if(result){
+				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
+			}
+		});
 
 	}); //end document.ready
 </script>
@@ -227,7 +235,7 @@
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><input type="text" name="content" value="${q.content}" ${data}></td>
+				<td><textarea type="text" name="content" ${data}>${q.content}</textarea></td>
 			</tr>
 			<tr>
 				<td>작성날짜</td>
@@ -258,8 +266,8 @@
 			<input type="hidden" name="pwd" value="${q.pwd}">
 	
 			
-			<!-- 관리자는 삭제버튼만 뜨게 하기 -->
-			<c:if test="${sessionScope.id eq 'admin'}">
+			<c:if test="${sessionScope.id eq q.writer}">
+			<input type="button" value="수정하기" id="update">
 				<input type="button" value="삭제하기" id="del">
 			</c:if>
 	

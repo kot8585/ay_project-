@@ -62,27 +62,28 @@ public class QnaController {
 	public String write(Qna q) {
 		int num = service.getNum();
 		System.out.println("q_cate : " + q.getQ_cate());
-		System.out.println("writer : " + q.getWriter());
+		System.out.println("getUploadFile : " + q.getUploadFile());
 		q.setNum(num);
-		if(q.getUploadFile()!=null) {
-			saveQnaImg(num, q.getUploadFile());
+		for(MultipartFile multipartFile : q.getUploadFile()) {
+			String fileName = multipartFile.getOriginalFilename();
+			if(fileName != null && !fileName.equals("")) {
+				saveQnaImg(num, multipartFile);
+			}
 		}
 		service.addQna(q);
 		return "redirect:/mypage/myQuestionForm";
 	}
 	
-	public void saveQnaImg(int num, MultipartFile[] uploadFile) { //이미지 저장하기
-
+	public void saveQnaImg(int num, MultipartFile uploadFile) { //이미지 저장하기
 			File dir = new File(basePath + "q" +num);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
 			
-		for(MultipartFile multipartFile : uploadFile) {
-		String fileName = multipartFile.getOriginalFilename();
+		String fileName = uploadFile.getOriginalFilename();
 			File f = new File(dir, fileName);
 			try {
-				multipartFile.transferTo(f);
+				uploadFile.transferTo(f);
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -91,7 +92,6 @@ public class QnaController {
 				e.printStackTrace();
 			}
 		}
-	}
 	
 	
 	@RequestMapping("/qna/detail")
@@ -104,6 +104,7 @@ public class QnaController {
 		String path = basePath + "q" + q.getNum() + "\\";
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
+			System.out.println("이미지 등록을 안했는데 디렉토리가 있따고?");
 			String[] files  = imgDir.list();
 			for (int j = 0; j < files.length; j++) {
 				System.out.println(files[j].toString());
