@@ -19,6 +19,19 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 <script>
+/**
+ * @author Hyun Jin Kim
+ * 2021.02.25
+ * 기능 : 리뷰 리스트 출력
+ */
+ 
+ 
+/**
+ * 기능 : 기준에 따라 리스트를 정렬 : 최신순 / 좋아요순 / 별점
+ * @param criteria : 정렬의 기준을 받아오는 parameter
+ * @return p_num
+ * @return what
+ */
 function sort(criteria){
 	var what = document.getElementById(criteria);
 	var xhttp = new XMLHttpRequest();
@@ -29,7 +42,6 @@ function sort(criteria){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
 			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
 			print(xhttp);
-			
 		}
 	}
 	
@@ -44,26 +56,22 @@ function print(xhttp){
 
 function rating(hi, r_num){
 	var type = null;
+	var rnum = document.getElementById("rnum");
+	var xhttp = new XMLHttpRequest();
+	console.log("현재 리뷰 글 번호 : " + r_num);	
+	
 	if(hi === "like"){
 		type = "like";
 	}else{
 		type = "hate";
 	}
-	var rnum = document.getElementById("rnum");
-	console.log(type);
-	
-	console.log(typeof(r_num));
-	console.log(r_num);
-	
+	console.log("선택된 기능 : " + type);
 
-	
-	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
 			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
 			document.querySelector("#rating"+r_num).innerHTML = xhttp.responseText;
 		}
-		
 	}
 	xhttp.open("POST", "/review/reviewRating?num="+r_num+"&type="+type, true);
 	xhttp.send();
@@ -71,7 +79,6 @@ function rating(hi, r_num){
 </script>
 </head>
 <body>
-
 	<h3>리뷰</h3>
     <hr>
     <button id="likesort" value="like" onclick="sort('likesort')">종아요순</button> | 
@@ -133,6 +140,5 @@ function rating(hi, r_num){
 		</table>
 	</c:forEach>
 	</nav>
-
 </body>
 </html>

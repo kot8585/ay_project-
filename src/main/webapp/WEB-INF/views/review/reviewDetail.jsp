@@ -30,7 +30,6 @@
 					alert("비밀번호가 다릅니다.");
 					location.href="${pageContext.request.contextPath}/member/main";
 				}
-				
 			}			
 		}
 		xhttp.open("POST", "/review/pwdCheck?password=" + pwdCheck, true);
@@ -76,12 +75,8 @@
          		<input type="button" value="삭제" id="delete" onclick="change('del', ${r.num})">
          	</td>
          </tr>
-          
       </thead>
-     
-    
-     
    </table>
-   </form>
+</form>
 </body>
 </html>
