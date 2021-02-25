@@ -38,6 +38,10 @@
 			return false;
 		}
    }
+   function go(i){
+		location.href="${pageContext.request.contextPath}/pquestion/pquestionForm?pnum="+i;
+	}
+  
 </script>
 </head>
 <body>
@@ -115,6 +119,7 @@
 	<input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
 	<input type="submit" value="구매" >
 	<input type="button" value="장바구니로" id="cart">
+	<input type="button" value="상품문의" onclick="go(${p.num})">
 </td>
 </tr>
 </table>
@@ -123,7 +128,6 @@
 
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
 <c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
-
 
 
 

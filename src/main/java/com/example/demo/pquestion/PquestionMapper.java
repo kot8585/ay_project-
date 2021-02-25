@@ -20,13 +20,13 @@ public interface PquestionMapper {
 //	ArrayList<Pquestion> selectById(String id);
 //	int getNum();
 	
-	void insert(Pquestion p);
+	void insert(Pquestion pq);
 	   
 	ArrayList<Pquestion> selectAll();
 	
 	Pquestion select(int num);
 	   
-	void update(Pquestion p);
+	void update(Pquestion pq);
 	   
 	void delete(int num);
 

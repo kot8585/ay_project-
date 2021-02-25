@@ -13,7 +13,7 @@
 </resultMap>
 
 <insert id="insert" parameterType="com.example.demo.pquestion.Pquestion">
-insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, sysdate)
+insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{writer}, #{title}, #{content}, sysdate)
 </insert>
 
 <select id="select" resultMap="pquestion" parameterType="int">
@@ -29,11 +29,11 @@ insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{title}, #{writer}
 	</select>
 	
 <update id="update" parameterType="com.example.demo.pquestion.Pquestion">
-		UPDATE pquestion SET content=#{content}, pdate=SYSDATE WHERE num=#{num}
+		UPDATE pquestion SET content=#{content}, p_date=SYSDATE WHERE num=#{num}
 	</update>
 	
 <delete id="delete" parameterType="int">
-		DELETE pquestion WHERE num=#{num}	
+		delete pquestion WHERE num=#{num}	
 	</delete>
 
 <select id="selectByPnum" resultMap="pquestion" parameterType="int">

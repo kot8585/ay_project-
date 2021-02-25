@@ -10,44 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PquestionService {
 
-//	@Autowired
-//	private PquestionMapper mapper;
-//
-//	public void addPquestion(Pquestion p) {
-//		mapper.insert(p);
-//	}
-//	
-//	public Pquestion getPquestionByNum(int num) {
-//		return mapper.select(num);
-//	}
-//	
-//	public List getPquestionById(String id) {
-//		return mapper.select(id);
-//	}
-//	public List getAllPquestion() {
-//		return mapper.selectAll();
-//	}
-//	void delPquestion(int num) {
-//		mapper.delete(num);
-//	}
-//	void update(Pquestion p) {
-//		mapper.update(p);
-//	}
-//	
-//	public ArrayList<Pquestion> getMyQuestionListById(String id) {
-//		// TODO Auto-generated method stub
-//		return mapper.selectByIdId(id);
-//	}
-//	
-//	public int getNum() {
-//		return mapper.getNum();
-//	}
-	
+
 	@Autowired
 	private PquestionMapper mapper; 
 	
-	public void addPquestion(Pquestion p) {
-		mapper.insert(p);
+	public void addPquestion(Pquestion pq) {
+		mapper.insert(pq);
 	}
 	   
 	   public ArrayList<Pquestion> getAll(){
@@ -59,8 +27,8 @@ public class PquestionService {
 	   }
 	   
 	   
-	   public void editPquestion(Pquestion p) {
-		   mapper.update(p);
+	   public void editPquestion(Pquestion pq) {
+		   mapper.update(pq);
 	   }
 	   
 	   public void delPquestion(int num) {
