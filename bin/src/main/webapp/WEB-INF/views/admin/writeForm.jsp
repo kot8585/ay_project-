@@ -22,9 +22,9 @@
 							}
 			    });
 				
-				$.post("/category/getsub", {
+				$.post("/category/getCategory", {
 					type : 1,// 대분류 번호 
-					p_id : 0 // 
+					c_id : 0 // 
 				}).done(
 						function(data) {
 							var c = eval("(" + data + ")");
@@ -46,9 +46,9 @@
 					var cat1 = 0;
 					cat1 = this.options[this.options.selectedIndex].value
 					sel1 = cat1;
-					$.post("/category/getsub", {
+					$.post("/category/getCategory", {
 						type : 2,
-						p_id : cat1 // 전단계 대분류 
+						c_id : cat1 // 전단계 대분류 
 					}).done(function(data) {
 						var c = eval("(" + data + ")");
 						$("#s3").empty();//초기화를 하려면 비우고 

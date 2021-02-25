@@ -16,10 +16,13 @@ public interface CategoryMapper {
 
 	void insertC2(Category c);
 
-	List selectAllC2(int p_id);
+	List selectAllC2(int c_id);
 
 	Category selectC2(int id);
 
 	void deleteC2(int id);
 
+	void updateC1(Category c);
+	
+	void updateC2(Category c);
 }

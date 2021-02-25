@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>고객센터</title>
+<link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
  <!-- Required meta tags -->
@@ -21,7 +23,7 @@
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
    $(document).ready(function(){ //한글확인하기
-      $("#write").click(function(){
+      $("#qnaWrite").click(function(){
          if(sessionId == '' || sessionId == 'null'){
          alert("로그인을 먼저 해주세요");
          location.href= "${pageContext.request.contextPath }/member/loginForm";
@@ -57,8 +59,48 @@ var actionForm = $("#actionForm")
 </head>
 <body>
 <!-- header부분 -->
-<a href="${pageContext.request.contextPath }/member/main">Main</a>
-
+<!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
+    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">
+    	<!-- Controller로 로고 이미지를 받아오기. -->
+    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">
+    </a>
+    <button class="navbar-toggler" 
+		    type="button" 
+		    data-bs-toggle="collapse" 
+		    data-bs-target="#navbarSupportedContent" 
+		    aria-controls="navbarSupportedContent" 
+		    aria-expanded="false" 
+		    aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <c:if test="${ empty sessionScope.id }">
+	        <li class="nav-item active">
+	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>
+	        </li>
+        </c:if>
+        <c:if test="${not empty sessionScope.id }">
+        	<li class="nav-item">
+          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>
+        	</li>
+        </c:if>
+        <li class="nav-item">
+          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>
+        </li>
+        <li>
+          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>
+        </li>
+      </ul>
+    </div>
+</nav> <!-- /nabvar -->
+  
+  
 <!-- visual 부분 -->
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
@@ -70,7 +112,7 @@ var actionForm = $("#actionForm")
       <button class="btn btn-outline-success">search</button>
     </form>
     
-    <button type="button" class="btn btn-lg btn-primary" disabled>1:1문의하기</button>
+    <button type="button" id="qnaWrite" class="btn btn-lg btn-primary">1:1문의하기</button>
   </div>
 </nav>
 
@@ -115,7 +157,7 @@ var actionForm = $("#actionForm")
 
 <!-- 페이지 버튼 -->
 <nav aria-label="Page navigation example">
-  <ul class="pagination">
+   <ul class="pagination justify-content-center">
   
   <c:if test="${pageMaker.prev }">
     <li class="page-item">
@@ -142,10 +184,6 @@ var actionForm = $("#actionForm")
   </ul>
 </nav>
 
-
-	<c:if test="${sessionScope.id ne 'admin'}">
-	<input type="button" id ="write" value="1:1문의">
-	</c:if>
 	
 	<!-- 페이지 번호를 누르면 실제로 동작하는 부분 -->
 	<form id="actionForm" action="/board/${type}/list" method='get'>

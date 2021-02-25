@@ -6,7 +6,7 @@
 	<resultMap type="com.example.demo.category.Category" id="categoryResult">
 		<result column="id" property="id" />
 		<result column="name" property="name" />
-		<result column="p_id" property="p_id" />
+		<result column="c_id" property="c_id" />
 	</resultMap>
 	
 	<insert id="insertC1" parameterType="com.example.demo.category.Category">
@@ -25,8 +25,12 @@
 		delete category1 where id=#{id}
 	</delete>
 	
+	<update id="updateC1" parameterType="com.example.demo.category.Category">
+		update category1 set name=#{name} where id=#{id}
+	</update>
+	
 	<insert id="insertC2" parameterType="com.example.demo.category.Category">
-		insert into category2 values(seq_category2.nextval, #{name}, #{p_id})
+		insert into category2 values(seq_category2.nextval, #{name}, #{c_id})
 	</insert>
 	
 	<select id="selectC2" parameterType="int" resultMap="categoryResult">
@@ -34,12 +38,16 @@
 	</select>
 	
 	<select id="selectAllC2" resultMap="categoryResult"	parameterType="int">
-		select * from category2 where p_id=#{p_id} order by id
+		select * from category2 where c_id=#{c_id} order by id
 	</select>
 	
 	<delete id="deleteC2" parameterType="int">
 		delete category2 where id=#{id}
 	</delete>
+	
+	<update id="updateC2" parameterType="com.example.demo.category.Category">
+		update category2 set name=#{name}, c_id=#{c_id} where id=#{id}
+	</update>
 </mapper>
 
 

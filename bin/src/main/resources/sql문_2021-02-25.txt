@@ -13,7 +13,7 @@ CREATE TABLE member(
     email VARCHAR2(500) NOT NULL
 );
 
-DROP TABLE event;
+DROP TABLE event CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_event;
 CREATE SEQUENCE seq_event;
 CREATE TABLE event(
@@ -27,7 +27,7 @@ DROP SEQUENCE seq_product;
 CREATE SEQUENCE seq_product;
 drop table product CASCADE CONSTRAINTS;
 CREATE TABLE product(
-    num NUMBER PRIMARY KEY,
+    num NUMBER PRIMARY KEY not null,
     name VARCHAR2(20) NOT NULL,
     maker VARCHAR2(20) NOT NULL,
     price NUMBER NOT NULL,
@@ -47,7 +47,7 @@ drop table order1 CASCADE CONSTRAINTS;
 CREATE TABLE order1(
     num NUMBER PRIMARY KEY,
     m_id VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
-    p_num NUMBER REFERENCES product(num) on delete CASCADE,
+    p_num NUMBER REFERENCES product(num) not null,
     quantity NUMBER NOT NULL,
     address VARCHAR2(50) NOT NULL,
     tel VARCHAR2(50) NOT NULL,
@@ -79,7 +79,7 @@ create table board(
     updatedate date default sysdate
 );
 
-iNSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', 'asdf', '자주묻는 내용1', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문1', '자주묻는 내용1', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문2', '자주묻는 내용2', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문3', '자주묻는 내용3', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문4', '자주묻는 내용4', sysdate, sysdate);
@@ -91,30 +91,34 @@ INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항2', 
 INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항3', '공지사항내용입니다3', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항4', '공지사항내용입니다4', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항5', '공지사항내용입니다5', sysdate,sysdate);
-commit; 
-
+commit;
 DROP SEQUENCE seq_reply;
 CREATE SEQUENCE seq_reply;
-drop table reply cascade constraints;
+drop table reply CASCADE CONSTRAINTS;
 CREATE TABLE reply(
     num NUMBER PRIMARY KEY NOT NULL,
     qna_num NUMBER NOT NULL REFERENCES qna(num) on delete CASCADE,
     writer VARCHAR2(20) NOT NULL,
     content VARCHAR2(1000), 
-    r_date date
+    r_date date,
+    path varchar2(500)
 );
 
-DROP TABLE review;
+drop table review CASCADE CONSTRAINTS;
 CREATE TABLE review(
     num NUMBER PRIMARY KEY,
     pnum NUMBER REFERENCES product(num) on delete CASCADE,
     title VARCHAR2(50) NOT NULL,
     writer VARCHAR2(20) NOT NULL,
     content VARCHAR2(500) NOT NULL,
+    stars VARCHAR2(20) NOT NULL,
+    likey VARCHAR2(20) NOT NULL,
     pdate DATE);
-    
 DROP SEQUENCE seq_review;
 CREATE SEQUENCE seq_review;
+DROP SEQUENCE seq_rating;
+CREATE SEQUENCE seq_rating;
+
 
 drop table admin;
 CREATE TABLE admin(id VARCHAR2(20) PRIMARY KEY,  password VARCHAR2(20) NOT NULL);
@@ -124,11 +128,11 @@ insert into admin values('admin', 'admin');
 drop table pquestion;
 CREATE TABLE pquestion(
     num NUMBER PRIMARY KEY,
-    p_num NUMBER REFERENCES product(num) on delete CASCADE,
+    pnum NUMBER REFERENCES product(num) on delete CASCADE,
     writer VARCHAR2(20) NOT NULL REFERENCES member(id) on delete CASCADE, 
     title VARCHAR2(50) NOT NULL,
     content VARCHAR2(1000), 
-    path varchar2(500)  
+    p_date DATE  
 );
 drop SEQUENCE seq_pquestion;
 CREATE SEQUENCE seq_pquestion;
@@ -138,24 +142,23 @@ drop sequence seq_category2;
 create sequence seq_category1;
 create sequence seq_category2;
 
-drop table category1;
+drop table category1 CASCADE CONSTRAINTS;
 create table category1(
 id number primary key, 
 name varchar2(50) not null);
 
-drop table category2;
+drop table category2 CASCADE CONSTRAINTS;
 create table category2(
 id number primary key, 
 name varchar2(50) not null, 
-p_id number references category1(id) on delete cascade);
+c_id number references category1(id) on delete cascade);
 
-
+drop SEQUENCE seq_qna;
 create SEQUENCE seq_qna;
 drop table qna CASCADE CONSTRAINTS;
 CREATE TABLE qna(
 	num NUMBER PRIMARY KEY,
 	writer VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
-	
     q_cate VARCHAR2(50) NOT NULL,
     pwd VARCHAR2(50),
     title VARCHAR2(50) NOT NULL,
@@ -163,6 +166,5 @@ CREATE TABLE qna(
     state VARCHAR2(50) NOT NULL,
     regdate date default sysdate,
     updatedate date default sysdate,
-   path VARCHAR2(50) DEFAULT '');
-   
-   insert into review (select seq_review.nextval, pnum, title, writer, content, stars, pdate from review);
+   path VARCHAR2(50) DEFAULT ''
+);

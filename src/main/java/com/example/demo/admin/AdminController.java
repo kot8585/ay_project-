@@ -318,6 +318,7 @@ public class AdminController {
 		}
 
 		Qna q = qnaService.getQnaByNum(num);
+		System.out.println(q.toString());
 		
 		String path = basePath + "q" + q.getNum() + "\\";
 		File imgDir = new File(path);
@@ -361,7 +362,6 @@ public class AdminController {
 	         //imDir에 path를 저장
 	         File imgDir = new File(path);   
 	        
-	         //files에 imgDir을 저장
 	         String[] files = imgDir.list();
 	         //mav에 files에 저장된 값을 저장한다
 	         if(imgDir.exists()) {

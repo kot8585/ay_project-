@@ -3,15 +3,15 @@ package com.example.demo.category;
 public class Category {
 	private int id;
 	private String name;
-	private int p_id;
+	private int c_id;
 
 	public Category() {
 	}
 
-	public Category(int id, String name, int p_id) {
+	public Category(int id, String name, int c_id) {
 		this.id = id;
 		this.name = name;
-		this.p_id = p_id;
+		this.c_id = c_id;
 	}
 
 	public int getId() {
@@ -30,17 +30,17 @@ public class Category {
 		this.name = name;
 	}
 
-	public int getP_id() {
-		return p_id;
+	public int getC_id() {
+		return c_id;
 	}
 
-	public void setP_id(int p_id) {
-		this.p_id = p_id;
+	public void setC_id(int c_id) {
+		this.c_id = c_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", p_id=" + p_id + "]";
+		return "Category [id=" + id + ", name=" + name + ", c_id=" + c_id + "]";
 	}
 
 }

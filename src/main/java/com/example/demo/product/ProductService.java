@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.order.Order;
 import com.example.demo.reply.Reply;
 
 @Service
@@ -62,6 +63,11 @@ public class ProductService {
 	public ArrayList<Product> getProductByEvent() {
 		// TODO Auto-generated method stub
 		return mapper.selectByEvent();
+	}
+	
+	public void decreaseProduct(Order o) {
+		// TODO Auto-generated method stub
+		mapper.decreaseProduct(o);
 	}
 	
 }
