@@ -23,6 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.category.Category;
 
+/**
+ * @author kpk
+ * 이벤트 관련 기능을 처리하는 컨트롤러
+ */
 @Controller
 public class EventController {
 
@@ -31,8 +35,13 @@ public class EventController {
 
 	public static String basePath = "C:\\shopimg\\e";
 
+	/**
+	 * 이벤트 List와 List의 배열길이만큼 공차가 1인 등차수열을 리턴한다.
+	 * 등차수열을 리턴하는 이유는 배열 길이만큼 버튼을 생성하고, 버튼에 각 이미지로 넘어갈 수 있는 num을 설정하기 위해서이다. 
+	 * @return view.name
+	 */
 	@RequestMapping("/event/list")
-	public ModelAndView List() {
+	public ModelAndView eventList() {
 		// list에 service.getProductAll()을 담는다
 		ArrayList<Event> list = (ArrayList<Event>) service.getEventList();
 
@@ -45,34 +54,38 @@ public class EventController {
 			// path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
 			String path = basePath + list.get(i).getNum() + "\\";
 
-			// imDir에 path를 저장
+			// File imgDir에 Filepath를 지정
 			File imgDir = new File(path);
 
-			// files에 imgDir을 저장
+			// files에 imgDir에 있는 파일 경로들을 저장
 			String[] files = imgDir.list();
 			// mav에 files에 저장된 값을 저장한다
 			if (imgDir.exists()) {
-				for (int j = 0; j < files.length; j++) {
-					mav.addObject("file" + j, files[j]);
-				}
-
+				// 이미지 경로를 저장한다
 				list.get(i).setImgPath(files[0]);
 				System.out.println(list.get(i).toString());
 			}
 		}
-
+		
+		// 공차가 1인 등차수열 생성.
 		ArrayList<Integer> lengths = new ArrayList<Integer>();
 		for (int i = 0; i < list.size(); i++) {
 			lengths.add(i);
 		}
 
 		// mav에 list를 담는다
-		mav.addObject("list", list);
+		mav.addObject("list", list);		
+		// mav에 lengths(=등차수열)을 넣는다.
 		mav.addObject("lengths", lengths);
 		System.out.println("lengths : " + lengths.toString() + ", " + lengths.size());
 		return mav;
 	}
 
+	/**
+	 * url에 /event/write가 들어왔을 경우, 세션의 유무에 따라 다른 view로 이동시킨다.
+	 * @param req = session.id를 가져오기 위함.
+	 * @return viewName
+	 */
 	@GetMapping("/event/write")
 	public String writeForm(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -84,6 +97,11 @@ public class EventController {
 
 	}
 
+	/**
+	 * 
+	 * @param e : Mybatis로 인해 자동매핑, 단 num은 고정적으로 0이 들어온다.
+	 * @return
+	 */
 	@PostMapping("/event/write")
 	public String write(Event e) {
 		int num = service.getNum();
@@ -93,6 +111,13 @@ public class EventController {
 		return "redirect:/admin/admin";
 	}
 
+	/**
+	 * basePath + num 에 새로운 파일을 추가하는 메소드입니다.
+	 * 이때, 해당 디렉토리의 다른 파일은 쓸모가 없으니 새로운 파일을 추가하기 전에 일괄삭제합니다.
+	 * 
+	 * @param num : 파일 디렉토리를 결정하는 넘버 ('shopimg/e' + num) 식으로
+	 * @param file : 이미지 파일
+	 */
 	public void saveEventImg(int num, MultipartFile file) { // 이미지 저장하기
 		String fileName = file.getOriginalFilename();
 		if (fileName != null && !fileName.equals("")) {
@@ -121,6 +146,12 @@ public class EventController {
 		}
 	}
 
+	/**
+	 * 해당 디렉토리의 파일을 가져오는 역할
+	 * @param fname : 파일 이름
+	 * @param num : 디렉토리 결정 num
+	 * @return
+	 */
 	@RequestMapping("/event/img")
 	public ResponseEntity<byte[]> getEventImg(String fname, int num) {
 		String path = basePath + num + "\\" + fname;
@@ -165,12 +196,21 @@ public class EventController {
 		return "redirect:/admin/admin";
 	}
 
+	/**
+	 * 이벤트 삭제
+	 * @param num
+	 * @return
+	 */
 	@RequestMapping("/event/del")
 	public String eventDelete(@RequestParam("num") int num, Event e) {
 		service.deleteEvent(num);
 		return "redirect:/admin/admin";
 	}
 	
+	/**
+	 * JSON으로 EVENT 값 받아올 때 사용.
+	 * @return 
+	 */
 	@RequestMapping("/event/getEvent")
 	public ModelAndView getEvent() {
 		System.out.println("EventController.getEvent()");

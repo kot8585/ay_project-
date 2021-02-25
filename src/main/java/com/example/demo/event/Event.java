@@ -1,13 +1,18 @@
 package com.example.demo.event;
 
 import org.springframework.web.multipart.MultipartFile;
-
+/**
+ * 
+ * @author KPK
+ * @since 2021-02-23 
+ * Event DB로부터 값을 저장할 DTO class
+ */
 public class Event {
-	private int num;
-	private String name;
-	private float sale;
-	private String imgPath;
-	private MultipartFile file;
+	private int num; // 이벤트 번호, PRIMARY KEY
+	private String name; // 이벤트 명
+	private float sale; // 할인률
+	private String imgPath; // DB에는 없다. 이미지 경로를 저장하여 이벤트 이미지를 getImg()로 띄울 때 사용한다.
+	private MultipartFile file; // DB에는 없다. saveEventImg() 메소드 실행시 사용한다.
 	
 	public Event() {
 		super();
@@ -67,6 +72,5 @@ public class Event {
 		return "Event [num=" + num + ", name=" + name + ", sale=" + sale + ", imgPath=" + imgPath + ", file=" + file
 				+ "]";
 	}
-	
 	
 }

@@ -66,5 +66,8 @@ select seq_product.nextval from dual
 select*from product where event_num != 0
 </select>	
 
+<update id="decreaseProduct" parameterType="com.example.demo.order.Order">
+update product set quantity=quantity-#{quantity} where num=#{p_num} 
+</update>
 
 </mapper>

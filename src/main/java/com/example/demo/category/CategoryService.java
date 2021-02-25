@@ -23,7 +23,7 @@ public class CategoryService {
 		}
 	}
 
-	public List getAll(int type, int p_id) { // 카테고리 전체 출력 
+	public List getAll(int type, int c_id) { // 카테고리 전체 출력 
 		List list = null;
 
 		switch (type) {
@@ -31,7 +31,7 @@ public class CategoryService {
 			list = mapper.selectAllC1();
 			break;
 		case 2:
-			list = mapper.selectAllC2(p_id);
+			list = mapper.selectAllC2(c_id);
 			break;
 		}
 		return list;
@@ -58,6 +58,18 @@ public class CategoryService {
 			break;
 		case 2:
 			mapper.deleteC2(id);
+			break;
+		}
+	}
+
+	public void editCategory(int type, Category c) {
+		switch (type) {
+		case 1:
+			mapper.updateC1(c);
+			break;
+
+		case 2:
+			mapper.updateC2(c);
 			break;
 		}
 	}

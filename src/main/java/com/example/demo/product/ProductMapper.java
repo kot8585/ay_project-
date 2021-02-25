@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.order.Order;
 import com.example.demo.review.Review;
                                
 @Mapper
@@ -23,7 +24,8 @@ public interface ProductMapper {
 	void delete(int num);
 	int getNum();
 	ArrayList<Product> selectByEvent();
-	
+	void decreaseProduct(Order o);
+
 
 	
 }
