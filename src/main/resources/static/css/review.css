@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
-table{
+#reviewTable{
 	width: 500px;
+}
+
+td{
+	color:blue;
 }
 

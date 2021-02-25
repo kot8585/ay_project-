@@ -15,27 +15,30 @@ public class ReviewService {
 	public void addReview(Review r) {
 		mapper.insert(r);
 	}
+	
+	public void addReviewID(Review r) {
+		mapper.insertID(r);
+	}
+	
+	public ArrayList<Review> getAll(){
+		return mapper.selectAll();
+	}
 	   
-	   public ArrayList<Review> getAll(){
-		  return mapper.selectAll();
-	   }
+	public Review getDetail(int num) {
+		return mapper.select(num);
+	}
 	   
-	   public Review getDetail(int num) {
-		   return mapper.select(num);
-	   }
+	public ArrayList<Review> getDetailByDate(int num) {
+		return mapper.selectByDate(num);
+	}
+	      
+	public void editReview(Review r) {
+		mapper.update(r);
+	}
 	   
-	   public ArrayList<Review> getDetailByDate(int num) {
-		   return mapper.selectByDate(num);
-	   }
-	   
-	   
-	   public void editReview(Review r) {
-		   mapper.update(r);
-	   }
-	   
-	   public void delReview(int num) {
-		   mapper.delete(num);
-	   }
+	public void delReview(int num) {
+		mapper.delete(num);
+	}
 
 	public ArrayList<Review> getByPnum(int p_num) {
 		// TODO Auto-generated method stub
@@ -48,6 +51,10 @@ public class ReviewService {
 	
 	public ArrayList<Review> getDetailByStar(HashMap<String, Object> map){
 		return mapper.selectByStar(map);
+	}
+	
+	public ArrayList getLikeByid(String id) {
+		return mapper.selectLikeById(id);
 	}
 	
 	public void IncRating(Review r) {

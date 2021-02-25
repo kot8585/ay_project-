@@ -2,6 +2,10 @@ package com.example.demo.review;
 
 import java.sql.Date;
 
+class ddd{
+	
+}
+
 public class Review {
 
 	private int num;
@@ -12,6 +16,7 @@ public class Review {
 	private String stars;
 	private String likey;
 	private Date pdate;
+	private String id;
 	   
 	public Review() {
 		super();
@@ -29,7 +34,13 @@ public class Review {
 	}
 	
 	
-	 public String getLikey() {
+	 public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getLikey() {
 		return likey;
 	}
 	public void setLikey(String likey) {

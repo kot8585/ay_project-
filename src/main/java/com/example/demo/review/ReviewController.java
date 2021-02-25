@@ -230,17 +230,45 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewRating")
-	public ModelAndView rating(@RequestParam("num") int num, @RequestParam("type")String type) {
+	public ModelAndView rating(HttpServletRequest req, @RequestParam("num") int num, @RequestParam("type")String type) {
 		System.out.println("Parameter : " + num);
 		System.out.println("Type : " + type);
 		Review r = service.getDetail(num);
-		if(type.equals("like")) {
-			System.out.println("증가");
-			service.IncRating(r);
-		}else if(type.equals("hate")){
-			System.out.println("감소");
-			service.DecRating(r);
+		Review review = service.getDetail(num);
+		HttpSession session = req.getSession(false);
+		
+		try {
+			String id = (String)session.getAttribute("id");
+			ArrayList like = service.getLikeByid(id);
+			System.out.println("like table : " + like);
+			System.out.println(id);
+			
+			if(id.equals(null)) {
+				System.out.println("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
+			}else if(!id.equals(null)) {
+				review.setWriter(id);
+				service.addReviewID(review);
+				
+				if(type.equals("like")) {
+					System.out.println("증가");
+					service.IncRating(r);
+				}else if(type.equals("hate")){
+					System.out.println("감소");
+					service.DecRating(r);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
+		
+		
+		
+		
+
+			
+		
+		
+		
 		
 		//service.IncRating(num);
 		
