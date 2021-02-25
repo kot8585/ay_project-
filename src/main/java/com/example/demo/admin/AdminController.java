@@ -462,6 +462,43 @@ public class AdminController {
 		if (id.isBlank()) {
 			mav.setViewName("admin/adminLoginForm");
 		}
+
+		
+		System.out.println("id = " + id +", mav = " + mav.getViewName());
+		
+		ArrayList<Event> list = eventService.getEventList();
+		 //리스트 갯수만큼 반복
+	      for (int i = 0; i < list.size(); i++) {
+	    	  
+	    	 //path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
+	         String path = basePath + "e" + list.get(i).getNum() + "\\";
+	         
+	         //imDir에 path를 저장
+	         File imgDir = new File(path);   
+	        
+	         String[] files = imgDir.list();
+	         //mav에 files에 저장된 값을 저장한다
+	         if(imgDir.exists()) {
+	            for(int j = 0; j < files.length; j++) {
+	               mav.addObject("file" + j, files[j]);
+	            }
+	            
+	            list.get(i).setImgPath(files[0]);
+	         }
+	      }
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	
+	@RequestMapping("/admin/delProduct")
+	
+		public String del(@RequestParam(value = "num") int num) {
+			productService.delProduct(num);
+			
+			return "admin/admin";
+		}
+
 	}
 	
 	
