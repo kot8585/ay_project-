@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ReviewMapper {
 
 	void insert(Review r);
+	
+	void insertID(Review r);
 	   
 	ArrayList<Review> selectAll();
 	
@@ -25,6 +27,8 @@ public interface ReviewMapper {
 	ArrayList<Review> selectByLike(int p_num);
 	
 	ArrayList<Review> selectByStar(HashMap<String, Object> map);
+	
+	ArrayList selectLikeById(String id);
 	
 	void increaseRating(Review r);
 	

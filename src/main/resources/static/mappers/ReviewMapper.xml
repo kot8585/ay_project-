@@ -12,10 +12,15 @@
       <result property="stars" column="stars" />
       <result property="pdate" column="pdate" />
       <result property="likey" column="likey" />
+      <result property="id" column="id" />
    </resultMap>
    
 	<insert id="insert" parameterType="com.example.demo.review.Review">
 		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars},0, sysdate)
+	</insert>
+	
+	<insert id="insertID" parameterType="com.example.demo.review.Review">
+		insert into idcheck values(seq_idcheck.NEXTVAL, #{num}, #{writer})
 	</insert>
    
  	<select id="select" resultMap="review" parameterType="int">
@@ -36,6 +41,10 @@
    
 	<select id="selectAll" resultMap="review" parameterType="String">
 		SELECT * FROM review ORDER BY num
+	</select>
+	
+	<select id="selectLikeById" parameterType="String">
+		SELECT idcheck.rnum, review.num, idcheck.id FROM review, idcheck WHERE review.num=#{num}
 	</select>
 	
 	<update id="update" parameterType="com.example.demo.review.Review">
