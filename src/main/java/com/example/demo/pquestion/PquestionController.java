@@ -38,6 +38,12 @@ public class PquestionController {
 	private MemberService mservice;
 	
 	
+	/**
+	 * 상품등록폼
+	 * @param req : 로그인확인
+	 * @param pnum : 상품의 번호를 확인
+	 * @return : 상품번호를 받아서 mav에 상품문의폼을 담는다.
+	 */
 	@RequestMapping("/pquestion/pquestionForm")
 	public ModelAndView pquestionForm(HttpServletRequest req,@RequestParam("pnum") int pnum) {
 		System.out.println("PquestionController.pquestionForm()");
@@ -54,18 +60,26 @@ public class PquestionController {
 	return mav;   
 }            
 	
-
+/**
+ * 상품문의리스트
+ * @param pnum : 상품번호 확인
+ * @return : 상품번호를 검색후 그상품의 문의리스트를 mav에담는다.
+ */
 	@RequestMapping("/pquestion/plist")
 	   public ModelAndView list(@RequestParam("pnum") int pnum) {
 		  System.out.println("PquestionController.list()");
-	      ArrayList<Pquestion> plist = (ArrayList<Pquestion>) service.getAll();
+	      ArrayList<Pquestion> plist = (ArrayList<Pquestion>) service.getByPnum(pnum);
 		  System.out.println(plist.toString());
 	      ModelAndView mav = new ModelAndView("pquestion/plist");
 	      mav.addObject("plist", plist);
 	      return mav;
 	}
 	
-	
+	/**
+	 * 상품문의작성
+	 * @param pq : 상품문의작성폼이 pq에 담겨 있다
+	 * @return : 상품문의작성을 한뒤 메인으로 돌아감
+	 */
 	@RequestMapping("/pquestion/write")
 	public String write(Pquestion pq) {
 		//작성한 폼을 DB에 저장한다.
@@ -73,10 +87,14 @@ public class PquestionController {
 		return "redirect:/member/main";
 	}
 	
-	
+	/**
+	 * 상품문의리스트를 클릭하면 자세한 내용이 보인다
+	 * @param num : 상품문의리스트의 번호를 나타냄
+	 * @return : 상품리스트가 담긴 번호를 찾아 mav에담고 출력
+	 */
 	@RequestMapping("/pquestion/pDetail")
 	public ModelAndView detail(@RequestParam("num") int num) {
-		// 특정 번호에 해당하는 리뷰에 대한 정보를 가져와 객체에 담는다.
+		// 특정 번호에 해당하는 상품리스트에 대한 정보를 가져와 객체에 담는다.
 		Pquestion pq = service.getDetail(num);	
 		// 객체에 담긴 정보를 pDetail.jsp에 보냄
 		ModelAndView mav = new ModelAndView("pquestion/pDetail");
@@ -84,6 +102,11 @@ public class PquestionController {
 		return mav;
 	}
 	
+	/**
+	 * 상품문의리스트수정
+	 * @param pq : 상품문의리스트의 번호
+	 * @return 상품문의리스트 수정후 메인으로 이동
+	 */
 	@RequestMapping("/pquestion/editpquestion")
 	public String pquestion(Pquestion pq) {
 		// 수정 폼에 입력된 자료를 DB에 저장
@@ -92,6 +115,11 @@ public class PquestionController {
 	}
 	
 		
+	/**
+	 * 상품문의리스트삭제
+	 * @param num : 상품문의리스트의 번호
+	 * @return : 상품문의리스트의 번호를 검색해 삭제후 메인으로 이동
+	 */
 	@RequestMapping("/pquestion/delpquestion")
 	public String delete(@RequestParam("num")int num) {
 		
