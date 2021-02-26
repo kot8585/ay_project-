@@ -53,8 +53,8 @@ public class ReviewService {
 		return mapper.selectByStar(map);
 	}
 	
-	public ArrayList getLikeByid(String id) {
-		return mapper.selectLikeById(id);
+	public ArrayList<ReviewLike> getLikeByid(int num) {
+		return mapper.selectLikeById(num);
 	}
 	
 	public void IncRating(Review r) {

@@ -231,53 +231,78 @@ public class ReviewController {
 	
 	@RequestMapping("/review/reviewRating")
 	public ModelAndView rating(HttpServletRequest req, @RequestParam("num") int num, @RequestParam("type")String type) {
+		String id="";
 		System.out.println("Parameter : " + num);
 		System.out.println("Type : " + type);
 		Review r = service.getDetail(num);
 		Review review = service.getDetail(num);
 		HttpSession session = req.getSession(false);
+		String exist = "";
+		String message="";
 		
 		try {
-			String id = (String)session.getAttribute("id");
-			ArrayList like = service.getLikeByid(id);
-			System.out.println("like table : " + like);
-			System.out.println(id);
+			id = (String)session.getAttribute("id");
+			if(id==null) {
+				id="";
+			}
+			ArrayList<ReviewLike> like = service.getLikeByid(num);
 			
-			if(id.equals(null)) {
+			for(int i = 0; i < like.size(); i++) {
+				if(like.get(i).getId().equals(id) ) {
+					if(like.get(i).getRnum()==num) {
+						exist = "exist";
+					}
+					
+				}
+			}
+			
+			System.out.println(exist);
+			
+			System.out.println("like table : " + like);
+		
+			System.out.println(like.contains(12));
+			System.out.println(like.contains("aa"));
+			
+			
+			
+			if(id.equals("")) {
 				System.out.println("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
-			}else if(!id.equals(null)) {
+				message = "동준씨 로그인부터 하시죠..";
+			}else if(!id.equals("") && !exist.equals("exist")) {
 				review.setWriter(id);
 				service.addReviewID(review);
 				
 				if(type.equals("like")) {
 					System.out.println("증가");
 					service.IncRating(r);
+					r = service.getDetail(num);
+					System.out.println(r);
+					//db 업데이트때 생각해보기
 				}else if(type.equals("hate")){
 					System.out.println("감소");
 					service.DecRating(r);
 				}
+			}else if(!id.equals("") && exist.equals("exist")) {
+				System.out.println("이미 좋아요를 누르셨습니다.");
+				message = "이미 좋아요를 누르셨습니다.";
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 
-			
-		
-		
-		
-		
-		//service.IncRating(num);
-		
 		System.out.println(r);
 		
-		
+		System.out.println("message : " + "동준씨 로그인부터 하시죠..");
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
-		mav.addObject("r", r);
+		if(message.equals("동준씨 로그인부터 하시죠..") || message.equals("이미 좋아요를 누르셨습니다.")) {
+			System.out.println("id 없다");
+			mav.setViewName("review/reviewRatingFail");
+			mav.addObject("message",message);
+		}else {
+			mav.addObject("r", r);
+		}
+		
 		return mav;
 	}
 }

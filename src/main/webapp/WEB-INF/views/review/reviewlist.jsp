@@ -70,11 +70,22 @@ function rating(hi, r_num){
 	xhttp.onreadystatechange = function(){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
 			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-			document.querySelector("#rating"+r_num).innerHTML = xhttp.responseText;
+			
+			if(xhttp.responseText === "동준씨 로그인부터 하시죠.."){
+				alert("동준씨 로그인부터 하시죠..");
+			}else if(xhttp.responseText === "이미 좋아요를 누르셨습니다."){
+				alert("${sessionScope.id}님 이미 좋아요를 누르셨습니다.");	
+			}else{
+				ratingPrint(xhttp, r_num);
+			}
 		}
 	}
 	xhttp.open("POST", "/review/reviewRating?num="+r_num+"&type="+type, true);
 	xhttp.send();
+}
+function ratingPrint(go, r_num){
+	
+	document.querySelector("#rating"+r_num).innerHTML = go.responseText;	
 }
 </script>
 </head>
