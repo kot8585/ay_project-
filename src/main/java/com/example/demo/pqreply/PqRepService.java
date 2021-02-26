@@ -19,7 +19,7 @@ public class PqRepService {
 
 	public ArrayList<PqReply> getPqReplyByPqnum(int pqnum) {
 		// TODO Auto-generated method stub
-		return mapper.getPqReplyByPqnum(pqnum)
+		return mapper.getPqReplyByPqnum(pqnum);
 	}
 	
 	public PqReply getPqReply(int num) {
