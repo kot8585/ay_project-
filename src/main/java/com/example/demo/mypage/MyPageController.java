@@ -68,10 +68,9 @@ public class MyPageController {
 		
 		// ModelAndView 생성
 		ModelAndView mav = new ModelAndView("mypage/shoppingcartForm");
-		
-		String id = "";
-		// 세션 받아오기.
 		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("id");;
+		// 세션 받아오기.
 		
 		sessionCheck(mav, id, session);
 		
@@ -90,11 +89,11 @@ public class MyPageController {
 	public ModelAndView myOrderForm(HttpServletRequest req) {
 		// ModelAndView 생성
 		ModelAndView mav = new ModelAndView("mypage/myOrderForm");
-		
-		String id = "";
-		
 		// 세션 받아오기.
 		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("id");;
+		
+	
 		
 		sessionCheck(mav, id, session);
 		
@@ -118,6 +117,7 @@ public class MyPageController {
 		
 		// 세션 받아오기.
 		HttpSession session = req.getSession(false);
+		id= (String) session.getAttribute("id");
 		
 		sessionCheck(mav, id, session);
 		
@@ -130,6 +130,7 @@ public class MyPageController {
 		
 		// 문의내역 리스트를 mav에 담아 리턴한다.
 		mav.addObject("list", list);
+		System.out.println("list에 담긴것을 출력하자: " + list);
 		return mav;
 	}
 	
