@@ -12,7 +12,12 @@
       <result property="stars" column="stars" />
       <result property="pdate" column="pdate" />
       <result property="likey" column="likey" />
-      <result property="id" column="id" />
+   </resultMap>
+   
+   <resultMap type="com.example.demo.review.ReviewLike" id="reviewLike">
+      <result property="rnum" column="rnum"/>
+      <result property="num" column="num"/>
+      <result property="id" column="id"/>
    </resultMap>
    
 	<insert id="insert" parameterType="com.example.demo.review.Review">
@@ -35,7 +40,7 @@
 		SELECT * FROM review WHERE pnum=#{pnum} ORDER BY likey DESC
 	</select>
 	
-		<select id="selectByStar" resultMap="review" parameterType="hashmap">
+	<select id="selectByStar" resultMap="review" parameterType="hashmap">
 		SELECT * FROM review WHERE pnum=#{pnum} AND stars=#{stars} ORDER BY num
 	</select>
    
@@ -43,8 +48,8 @@
 		SELECT * FROM review ORDER BY num
 	</select>
 	
-	<select id="selectLikeById" parameterType="String">
-		SELECT idcheck.rnum, review.num, idcheck.id FROM review, idcheck WHERE review.num=#{num}
+	<select id="selectLikeById" resultMap="reviewLike" parameterType="int">
+		SELECT * FROM idcheck WHERE rnum=#{rnum}
 	</select>
 	
 	<update id="update" parameterType="com.example.demo.review.Review">

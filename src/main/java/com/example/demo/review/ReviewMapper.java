@@ -28,7 +28,7 @@ public interface ReviewMapper {
 	
 	ArrayList<Review> selectByStar(HashMap<String, Object> map);
 	
-	ArrayList selectLikeById(String id);
+	ArrayList<ReviewLike> selectLikeById(int num);
 	
 	void increaseRating(Review r);
 	
