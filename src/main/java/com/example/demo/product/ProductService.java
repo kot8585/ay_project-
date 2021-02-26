@@ -17,17 +17,28 @@ public class ProductService {
 	@Autowired
 	private ProductMapper mapper;
 	
+	/**
+	 * 상품추가
+	 * @param p : 추가 한 상품을 p에 담음
+	 */
 	public void addProduct(Product p) {
 		mapper.insert(p);
 	}
 	
+	/**
+	 * 상품번호검색
+	 * @param num : 상품번호를 받아옴
+	 * @return : 번호검색
+	 */
 	public Product getProductByNum(int num) {
 		return mapper.selectByNum(num);
 	}
 	
-	public List getProductByName(String name) {
-		return mapper.selectByName(name);
-	}
+	
+//	public List getProductByName(String name) {
+//		return mapper.selectByName(name);
+//	}
+	
 	
 	public List getProductByPrice(int min, int max) {
 		Map map = new HashMap();
