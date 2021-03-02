@@ -7,7 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Red house</title>	
+<link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">	
+<link rel="icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
  <!-- Required meta tags -->
@@ -25,6 +27,8 @@
 
 
 	$(document).ready(function(){
+
+		
 		var qnum = ${q.num};
 		var writer = "${sessionScope.id}"
 		var exampleModal = $("#exampleModal");
@@ -35,7 +39,18 @@
 		var modalDelBtn = $("#modalDelBtn");
 		var modalWriteBtn = $("#modalWriteBtn");
 
-		showList(qnum);
+		// 1.option의 value값이랑 db에서 가져온 값이랑 일치하는지 확인 	
+		//	2. 일치한다면 selected 값 넣어주기	
+		var opt_vals = [];	
+		$('select option').each(function(){	
+			opt_vals.push($(this).val());	
+			console.log($(this).val());
+		});
+		
+		$('#q_cate').find("option[value='${q.q_cate}']").attr('selected', 'selected');
+		var writer = "${sessionScope.id}"	
+			
+			showList(${q.num});
 		
 		//댓글 목록 보여주는 함수
 		function showList(qnum){replyService.getList(qnum, function(list){
@@ -160,6 +175,7 @@
 		});
 		
 		
+
 		
 		//이미지에 마우스 올릴때
 	      $(".img").mouseover(function() {
@@ -174,19 +190,55 @@
 			}
 		});
 		
-		//게시판 수정
-		$("#update").click(function(){
-			var result = confirm("글을 수정하시겠습니까?");
-			if(result){
-				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
-			}
-		});
+
 
 	}); //end document.ready
 </script>
 
 </head>
 <body>
+<!-- navbar -->	
+  <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">	
+    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">	
+    	<!-- Controller로 로고 이미지를 받아오기. -->	
+    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">	
+    </a>	
+    <button class="navbar-toggler" 	
+		    type="button" 	
+		    data-bs-toggle="collapse" 	
+		    data-bs-target="#navbarSupportedContent" 	
+		    aria-controls="navbarSupportedContent" 	
+		    aria-expanded="false" 	
+		    aria-label="Toggle navigation">	
+      <span class="navbar-toggler-icon"></span>	
+    </button>	
+    	
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">	
+      <ul class="navbar-nav ms-auto">	
+        <c:if test="${ empty sessionScope.id }">	
+	        <li class="nav-item active">	
+	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>	
+	        </li>	
+        </c:if>	
+        <c:if test="${not empty sessionScope.id }">	
+        	<li class="nav-item">	
+          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>	
+        	</li>	
+        </c:if>	
+        <li class="nav-item">	
+          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>	
+        </li>	
+        <li class="nav-item">	
+          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>	
+        </li>	
+        <li>	
+          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>	
+        </li>	
+      </ul>	
+    </div>	
+</nav>	
+  <hr> <!-- /nabvar -->
+
 	<!-- modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -227,8 +279,19 @@
 		
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="writer" value="${q.writer}"></td>
+				<td><input type="text" name="writer" value="${q.writer}" readonly></td>
 			</tr>
+			<tr>	
+				<td>문의 유형</td>	
+				<td>		
+				<select name="q_cate" id="q_cate">	
+					<option value="order" >주문 상품 문의</option>	
+					<option value="p_delivery">배송 관련 문의</option>	
+					<option value="system">시스템 개선 의견</option>	
+				</select>	
+				</td>	
+			</tr>
+			
 			<tr>
 				<td>제목</td>
 				<td><input type="text" name="title" value="${q.title}" ${data}></td>
@@ -239,7 +302,7 @@
 			</tr>
 			<tr>
 				<td>작성날짜</td>
-				<td><input type="text" name="updatedate" value="${q.updatedate}"></td>
+				<td><input type="text" name="updatedate" value="${q.updatedate}" readonly></td>
 			
 			</tr>
 		<tr>
@@ -267,8 +330,9 @@
 	
 			
 			<c:if test="${sessionScope.id eq q.writer}">
-			<input type="button" value="수정하기" id="update">
+			<input type="submit" value="수정하기" id="update">
 				<input type="button" value="삭제하기" id="del">
+				<a href="">목록으로</a>
 			</c:if>
 	
 	<hr>

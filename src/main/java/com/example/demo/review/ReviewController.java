@@ -107,6 +107,12 @@ public class ReviewController {
 		System.out.println("input value : " + what);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<Review> reviewlist = null;
+		//for문으로 짜래..
+		/*
+		 *   *
+		 *  ***
+		 *   * 
+		 */
 		if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
 			if(what.equals("1")) {
 				System.out.println(1);
@@ -152,7 +158,6 @@ public class ReviewController {
 				reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
 			}
 		}
-		
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/list");

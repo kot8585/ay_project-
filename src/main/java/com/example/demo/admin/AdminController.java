@@ -28,6 +28,7 @@ import com.example.demo.qna.QnaService;
 
 /**
  * Admin Page에서 사용가능한 기능들을 구현한 Controller 클래스입니다.
+ * 1차 수정 : 2021-03-02 
  * @author 김평기
  * @version main 1
  */
@@ -85,6 +86,7 @@ public class AdminController {
 	 */
 	@RequestMapping("/admin/admin")
 	public ModelAndView admin(HttpServletRequest req) {
+		// sessionCheck 메소드를 수정하여 아래가 1줄로 끝나게 리팩토링
 		ModelAndView mav = new ModelAndView("admin/admin");
 		String id = "";
 		HttpSession session = req.getSession(false);
@@ -101,6 +103,7 @@ public class AdminController {
 	 */
 	@RequestMapping("/admin/login")
 	public String login(Admin ad, HttpServletRequest req) {
+		// 세부 주석을 많이 달아야.
 		Admin admin = adminService.getAdmin(ad.getId());
 		if (admin == null || !admin.getPassword().equals(ad.getPassword())) {
 			return "redirect:/admin/loginForm";
@@ -225,9 +228,9 @@ public class AdminController {
 	public String writeForm(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		if (session == null) {
-			return "/admin/loginForm";
+			return "admin/loginForm";
 		} else {
-			return "/admin/writeForm";
+			return "admin/writeForm";
 		}
 	}
 
@@ -261,7 +264,9 @@ public class AdminController {
 			File dir = new File(basePath + "p" + num);
 			if (!dir.exists()) {
 				dir.mkdirs();
-			} else {
+			}
+			// 파일을 여러 개 집어넣고 싶을 경우에는, 아래의 else 부분 메소드를 수정하거나 주석 처리할 것. 
+			else {
 				String[] files = dir.list();
 				int f_length = files.length;
 				for (int j = 0; j < f_length; j++) {
@@ -289,9 +294,9 @@ public class AdminController {
 	public String writeBoardForm(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		if (session == null) {
-			return "/admin/loginForm";
+			return "admin/loginForm";
 		} else {
-			return "/admin/writeBoard";
+			return "admin/writeBoard";
 		}
 	}
 
@@ -303,7 +308,7 @@ public class AdminController {
 	@PostMapping("/admin/writeBoard")
 	public String write(Board b) {
 		boardService.addBoard(b);
-		return "/admin/admin";
+		return "redirect:/board/faq/list";
 	}
 
 	/**
@@ -450,12 +455,12 @@ public class AdminController {
 	private void sessionCheck(ModelAndView mav, String id, HttpSession session) {
 		if (session == null) {
 			System.out.println("session null");
-			mav.setViewName("admin/adminLoginForm");
+			mav.setViewName("redirect:/admin/adminLoginForm");
 		} else {
 			id = (String) session.getAttribute("id");
 		}
 		if (id.isBlank()) {
-			mav.setViewName("admin/adminLoginForm");
+			mav.setViewName("redirect:/admin/adminLoginForm");
 		}
 
 	}

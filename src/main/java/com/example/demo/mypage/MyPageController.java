@@ -72,7 +72,6 @@ public class MyPageController {
 		String id = (String) session.getAttribute("id");;
 		// 세션 받아오기.
 		
-		sessionCheck(mav, id, session);
 		
 		// 장바구니 리스트를 받아오고 이를 mav에 담아 리턴한다.
 		ArrayList<Shoppingcart> list = cartService.getShoppingcartById(id);
@@ -95,7 +94,6 @@ public class MyPageController {
 		
 	
 		
-		sessionCheck(mav, id, session);
 		
 		// 주문내역 리스트를 받아오고 이를 mav에 담아 리턴한다.
 		ArrayList<Order> list = orderService.getMyOrderListById(id);
@@ -119,7 +117,6 @@ public class MyPageController {
 		HttpSession session = req.getSession(false);
 		id= (String) session.getAttribute("id");
 		
-		sessionCheck(mav, id, session);
 		
 		// 문의내역 리스트를 받아오고, foreach 문을 활용해 각 문의내역에 달린 댓글 또한 받아와 set함.  
 		ArrayList<Qna> list = qnaService.getMyQnaListByWriter(id);
