@@ -5,13 +5,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Review Form</title>
+<script>
+
+	function countLetter(type){
+		console.log(type);
+		if(type === "title"){
+			var length = 50;
+		}else if(type === "content"){
+			var length = 500;
+		}
+		console.log(length);
+		document.getElementById(type+"Span1").innerHTML = document.getElementById(type).value.length;
+		if(document.getElementById(type).value.length > length){
+			document.getElementById(type+"Div").style.color="red";
+			document.getElementById(type+"Span2").innerHTML = "글자수 초과!!";
+		}else{
+			document.getElementById(type+"Div").style.color="black";
+			document.getElementById(type+"Span2").innerHTML = "";
+			
+		}	
+		
+	}
+	
+	function sub(){
+		var titleLength = 50;
+		var contentLength = 500;
+		if(document.getElementById("title").value.length > titleLength || document.getElementById("content").value.length > contentLength){
+			alert("글자수가 초과되었습니다.");
+		}else if(document.getElementById("title").value.length <= titleLength && document.getElementById("content").value.length <= contentLength){
+			f.submit();
+		}
+	}
+	
+</script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath }/review/write">
+<form name="f" action="${pageContext.request.contextPath }/review/write">
 	<table border="1">
 		<tr>
-			<th>한 줄 요약</th>
-			<td><input type="text" name="title"></td>
+			<th>제목</th>
+			<td>
+				<input type="text" name="title" id="title" onkeyup="countLetter('title')">
+				<div id="titleDiv">
+					<span id="titleSpan1">0</span>/50 
+					<span id="titleSpan2"></span>
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
@@ -19,7 +58,13 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea name="content" cols="50" rows="50"></textarea></td>
+			<td>
+				<textarea name="content" id="content" cols="50" rows="50" onkeyup="countLetter('content')"></textarea>
+				<div id="contentDiv">
+					<span id="contentSpan1">0</span>/50
+					<span id="contentSpan2"></span>
+				</div>	
+			</td>
 		</tr>
 		<tr>
 			<th>별점</th>
@@ -33,7 +78,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="submit" value="작성">
+				<input type="button" value="작성" onclick="sub()">
 				<input type="reset" value="지우기">
 				<input type="hidden" name="pnum" value="${p.num }">
 			</td>
