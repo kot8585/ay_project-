@@ -45,9 +45,14 @@
 </script>
 </head>
 <body>
-<a href="${pageContext.request.contextPath }/member/main">Main</a>
+<!-- header부분 -->
+<header>
+<script type="text/javascript" src="/js/header.js"></script>
+</header>
+<!-- header 부분 -->
+
 <h5>세션 id : ${ sessionScope.id }</h5>
-<h3>상품 상제 정보</h3>
+<h3>상품 상세 정보</h3>
 <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
 <table border="1" cellspacing="0">
 <tr>
