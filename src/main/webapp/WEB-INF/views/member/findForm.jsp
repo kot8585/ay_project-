@@ -1,8 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +11,14 @@
 function checkEmpty(){
    
 }   
-$(document).ready(function(){  
+$(document).ready(function(){
+	$("#btn").hide();
    $("#find").click(function(){
       var email = document.getElementById("email");
       var name = document.getElementById("name");
       
       if(email.value == ""){
-         alert("email주소를 입력해주세요.");
+    	  alert("email주소를 입력해주세요.");
          return;
       }
       
@@ -34,15 +33,21 @@ $(document).ready(function(){
                 alert(data);
                 if(data == "등록되지 않은 이메일주소 또는 이름입니다."){
                    alert("등록되지 않은 이메일주소 또는 이름입니다.");
-                }
+                }else{
                 $("#findId").text(data);
-                
+                $("#btn").show();
+                }
              })
+                
        }
    })
 })
    
 </script>
+</head>
+<body>
+<header>
+<script src="/js/header.js"></script>
  <!-- Required meta tags -->
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -51,36 +56,33 @@ $(document).ready(function(){
 
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-</head>
-<body>
-<!-- header부분 -->
-<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
 </header>
-<!-- header 부분 -->
-<h3>ID/PWD 찾기</h3>
-<p>회원가입 시 입력한 E-mail주소와 이름을 입력해주세요.
+<p align="center">회원가입 시 입력한 E-mail주소와 이름을 입력해주세요.</p>
+<div class="container-fluid vertical-center d-flex justify-content-center">
 <form>
-   <table border="1">
+   <table class="table table-hover text-centered table-bordered" border="1">
+		<thead class="table-dark">
+		<tr>
+		<th colspan="2">ID/PWD 찾기</th>
+		</tr>
+		</thead>
       <tr>
-         <th>EMAIL</th>
+         <th>이메일</th>
          <td><input type="text" name="email" id="email"></td>
       </tr>
       <tr>
-         <th>NAME</th>
+         <th>이름</th>
          <td><input type="text" name="name"id="name"></td>
       </tr>
       <tr>
-         <td colspan="2"><input type="button" id="find" value="find" onclick="checkEmpty()"></td>
+         <td colspan="2"><input type="button" id="find" value="찾기" onclick="checkEmpty()">
+         <input type="button" id="btn" value="로그인" onclick="location.href='/member/loginForm'">
+      </td>
       </tr>
+      
    </table>
 </form>
 <div id="findId"></div>
+</div>
 </body>
 </html>

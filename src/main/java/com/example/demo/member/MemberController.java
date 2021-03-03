@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +54,7 @@ public class MemberController {
 		session.setAttribute("idCheck", false);
 		}
 	
-	@RequestMapping(value = "/member/idCheck")
+	@PostMapping(value = "/member/idCheck")
 	public ModelAndView idCheck(HttpServletRequest req, 
 		@RequestParam(value = "id") String id) {
 		System.out.println("MemController.idCheck() id : " + id);
@@ -72,19 +73,23 @@ public class MemberController {
 		mav.addObject("result", result);
 		return mav;
 	}
-	@RequestMapping("/member/join")
+	@PostMapping("/member/join")
 	public String join(Member m) {
+		//joinForm에 작성한 값이 없거나 "admin"일때 joinForm으로 되돌린다 
+		if(m == null || m.getId().equals("admin")) {
+			return "/member/joinForm";
+		} else {
 		//joinForm에서 입력받은 값을 m에 담고 db에 저장한다.
 		service.addMember(m);
-		return "member/loginForm";
+		return "redirect:/member/loginForm" ;
 	}
-	
+	}
 	@RequestMapping("/member/loginForm")
 	public void loginForm() {
 		//loginForm.jsp를 불러와 화면에 보여준다
 	}
 	
-	@RequestMapping("/member/login")
+	@PostMapping("/member/login")
 	public String login(Member m, HttpServletRequest req) {
 		//loginForm에서 입력받은 값을 m에 담고 해당하는 아이디에 대한 db 값을 m2에 담는다 
 		Member m2 = service.getMember(m.getId());
@@ -114,7 +119,7 @@ public class MemberController {
 	 * @param name 회원정보를 찾기 위해 입력 받은 name
 	 * @return 회원찾기 폼에서 입력받은 정보로 회원정보를 찾아 findResult.jsp로 전달
 	 */
-	@RequestMapping("/member/find")
+	@PostMapping("/member/find")
 	public ModelAndView find(@RequestParam("email")String email, @RequestParam("name")String name) {
 		// 폼에서 입력받은 email과 name을 통해 DB에서 Id와 Pwd를 불러와 객체에 해당 정보를 저장한다.
 		Member m = service.getIdPwd(email, name);
@@ -145,12 +150,12 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/member/edit")
+	@PostMapping(value="/member/edit")
 	public String edit(HttpServletRequest req, Member m) {
 		//로그인된 아이디 값을 session을 통해 받아온다.
 		HttpSession session = req.getSession();
 		service.editMember(m);
-		return "/mypage/mypage";
+		return "redirect:/mypage/mypage";
 	}
 	
 	@RequestMapping(value = "/member/logout")
@@ -164,10 +169,10 @@ public class MemberController {
 		session.removeAttribute("id");
 		//id에 대한 세션을 지운다.
 		session.invalidate();
-		return "member/loginForm";
+		return "member/main";
 	}
 
-	@RequestMapping(value = "/member/out")
+	@PostMapping(value = "/member/out")
 	public String out(HttpServletRequest req) {
 		//로그인된 아이디 값을 session을 통해 받아온다.
 		HttpSession session = req.getSession(false);

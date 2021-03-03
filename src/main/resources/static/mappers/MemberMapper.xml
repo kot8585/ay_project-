@@ -15,11 +15,11 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.example.demo.member.Member">
-		insert into member values(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{postalCode}, #{roadAddress}, #{address}, #{tel}, #{email})
+		insert into member values(#{id}, #{password}, #{name}, to_date(#{birth},'yy-mm-dd'), #{gender}, #{postalCode}, #{roadAddress}, #{address}, #{tel}, #{email})
 	</insert>
 	
 	<insert id="addMember" parameterType="com.example.demo.member.Member">
-		INSERT INTO member VALUES(#{id}, #{password}, #{name}, #{birth}, #{gender}, #{postalCode}, #{roadAddress}, #{address}, #{tel}, #{email})
+		INSERT INTO member VALUES(#{id}, #{password}, #{name}, #{gender}, #{postalCode}, #{roadAddress}, #{address}, #{tel}, #{email})
 	</insert>
 	
 	<select id="getMember" resultMap="member" parameterType="String">
