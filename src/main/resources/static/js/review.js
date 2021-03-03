@@ -1,29 +1,33 @@
-/**
- * reviewlist
- */
-
-	function sort(){
-		var what = document.getElementById("list");
-		var xhttp = new XMLHttpRequest();
-		console.log("선택된 기준에 따라 정렬");
-		console.log("선택된 기준 : " + what.value);
-		
-		xhttp.onreadystatechange = function(){
-			if(xhttp.readyState === 4 && xhttp.status === 200){
-				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-				print(xhttp);
-				
-			}
+function countLetter(type){
+		console.log(type);
+		if(type === "title"){
+			var length = 50;
+		}else if(type === "content"){
+			var length = 500;
 		}
+		console.log(length);
+		document.getElementById(type+"Span1").innerHTML = document.getElementById(type).value.length;
+		if(document.getElementById(type).value.length > length){
+			document.getElementById(type+"Div").style.color="red";
+			document.getElementById(type+"Span2").innerHTML = "글자수 초과!!";
+		}else{
+			document.getElementById(type+"Div").style.color="black";
+			document.getElementById(type+"Span2").innerHTML = "";
+			
+		}	
 		
-		xhttp.open("POST", "/review/list?p_num=${p.num}&what=" + what.value, true);
-		xhttp.send();
 	}
 	
-	function print(xhttp){
-		console.log(xhttp.responseText);
-		document.querySelector("#ntable").innerHTML = xhttp.responseText;
+	function sub(){
+		var titleLength = 50;
+		var contentLength = 500;
+		if(document.getElementById("title").value.length > titleLength || document.getElementById("content").value.length > contentLength){
+			alert("글자수가 초과되었습니다.");
+		}else if(document.getElementById("title").value.length <= titleLength && document.getElementById("content").value.length <= contentLength){
+			f.submit();
+		}
 	}
+	
 
 /**
  * reviewDetail
