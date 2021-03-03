@@ -238,5 +238,5 @@ public class EventController {
 		mav.addObject("list", list);
 		return mav;
 	}
-	
+
 }

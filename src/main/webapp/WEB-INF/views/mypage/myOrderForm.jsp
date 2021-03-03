@@ -20,11 +20,12 @@
 </c:if>
 <c:if test="${not empty list }">
 <table border="1">
-<tr><th>num</th><th>m_idID</th><th>p_num</th><th>quantity</th><th>address</th><th>tel</th><th>o_date</th><th>cost</th><th>state</th><th>리뷰작성</th>
+<tr><th>주문번호</th><th>상품이미지</th><th>상품명</th><th>상품번호</th><th>주문수량</th><th>주소</th><th>번호</th><th>주문날짜</th><th>주문액</th><th>주문상태</th><th>리뷰작성</th>
 <c:forEach var="p" items="${list }">
 <tr>
 	<td>${ p.num }</td>
-	<td><a href="${ pageContext.request.contextPath }/product/detail?num=${p.p_num}">${ p.m_id }</a></td>
+	<td><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${p.imgPath }&num=${p.p_num}" style="width:60px;height:60px"></td>
+	<td><a href="${ pageContext.request.contextPath }/product/detail?num=${p.p_num}">${ p.p_name }</a></td>
 	<td>${ p.p_num }</td>
 	<td>${ p.quantity }</td>
 	<td>${ p.address }</td>

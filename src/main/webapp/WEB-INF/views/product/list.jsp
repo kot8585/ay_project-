@@ -10,6 +10,25 @@
 <script src="http://code.jquery.com/jquery-latest.min.js">
    
 </script>
+<!-- 정규식을 활용하여 숫자 3번째 자리마다 ,를 추가하고 끝에 원을 붙이는 함수. -->
+<script type="text/javascript">
+function numberWithCommas(num) {
+	var len, point, str; 
+    
+    num = num + ""; 
+    point = num.length % 3 ;
+    len = num.length; 
+   
+    str = num.substring(0, point); 
+    while (point < len) { 
+        if (str != "") str += ","; 
+        str += num.substring(point, point + 3); 
+        point += 3; 
+    } 
+     
+    document.write(str + '원');
+}
+</script>
 <style type="text/css">
 
 </style>
@@ -35,7 +54,7 @@
             <td style="width:16.66%"  colspan="1" align="center">
             	<img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${p.imgPath }&num=${p.num}" style="width:60px;height:60px"><br>
             	<a href="${pageContext.request.contextPath }/product/detail?num=${p.num}">${p.name}</a><br>
-            	${p.price}
+            	<script type="text/javascript">numberWithCommas(${p.price})</script>
             </td>
       </c:forEach>
 	  </tr>

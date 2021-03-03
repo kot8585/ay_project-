@@ -52,6 +52,7 @@ public class OrderController {
 		// o에다 Member 세팅
 		o.setM(m);
 		// mav에 구매 정보 담기
+		
 		mav.addObject("order", o);
 		// 리턴
 		return mav;
@@ -69,9 +70,11 @@ public class OrderController {
 		int num = orderService.getNum();
 		// 구매번호 세팅
 		o.setNum(num);
+		
 		// 없어도 되나 불안하니 한 번 더 세팅 
 		Member m = memberService.getMember(o.getM_id()); 
 		o.setM(m);
+		
 		// 주문한 수량만큼 재고 수량 감소
 		productService.decreaseProduct(o);
 		// 구매 DB에 구매 정보 추가.
