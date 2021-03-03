@@ -82,7 +82,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 <h1>1:1문의하기</h1>
 	<div class="container-fluid vertical-center justify-content-center">
 <span class="border border-dark">
-	<form id="QnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data">
+	<form id="QnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data" style="width: 500px;">
 		
 		<!-- 주문 내역 o --> 
 <!-- 		<select name="o_num" id="o_num"> -->
@@ -92,11 +92,8 @@ var ext = fileName.split('.').pop().toLowerCase();
 		<!-- 문의 폼/date안 전해줫는데 괜찮겟지? -->
 
 		<table class="table-dark">
-		
-		<thead class="table-dark">
-					<lable colspan="2">1:1문의</label>
-		</thead>
-		<tbody>
+	
+	
 		<div class="mb-3">
 		<label class="form-label">문의 유형</label>
 		<select name="q_cate" id="q_cate" class="form-select" aria-label="Default select example">
@@ -126,7 +123,6 @@ var ext = fileName.split('.').pop().toLowerCase();
 			 	<input type="reset" value="취소"class="btn btn-primary">
 				<button type="submit" class="btn btn-primary">Submit</button>
 			 </div>
-			 </tbody>
 		</table>
 		
 		<input type="hidden" name="path" value="123">
