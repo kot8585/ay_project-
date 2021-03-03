@@ -1,5 +1,6 @@
 package com.example.demo.mypage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.board.BoardService;
 import com.example.demo.order.Order;
 import com.example.demo.order.OrderService;
+import com.example.demo.product.Product;
+import com.example.demo.product.ProductService;
 import com.example.demo.qna.Qna;
 import com.example.demo.qna.QnaService;
 import com.example.demo.reply.RepService;
@@ -35,13 +38,10 @@ public class MyPageController {
 	private OrderService orderService;
 	
 	@Autowired
-	private BoardService boardService;
-	
-	@Autowired
-	private RepService repService;
-	
-	@Autowired
 	private QnaService qnaService;
+
+	@Autowired
+	private ProductService productService;
 	
 	/**
 	 * 마이페이지(/mypage/mypage) 이동
@@ -72,9 +72,33 @@ public class MyPageController {
 		String id = (String) session.getAttribute("id");;
 		// 세션 받아오기.
 		
-		
+		String basePath = "C:\\shopimg\\p";
 		// 장바구니 리스트를 받아오고 이를 mav에 담아 리턴한다.
 		ArrayList<Shoppingcart> list = cartService.getShoppingcartById(id);
+		for (int i = 0; i < list.size(); i++) {
+			// list의 p_num 으로 해당 Product를 받아오기.
+			Product p = productService.getProductByNum(list.get(i).getP_num());
+			// 받아온 Product의 name을 이용하여 p_name을 세팅.
+			list.get(i).setP_name(p.getName());
+			
+			//path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
+	         String path = basePath + list.get(i).getP_num() + "\\";
+	         
+	         //imDir에 path를 저장
+	         File imgDir = new File(path);   
+	        
+	         //files에 imgDir을 저장
+	         String[] files = imgDir.list();
+	         //mav에 files에 저장된 값을 저장한다
+	         if(imgDir.exists()) {
+	            for(int j = 0; j < files.length; j++) {
+	               mav.addObject("file" + j, files[j]);
+	            }
+	            
+	            list.get(i).setImgPath(files[0]);
+	         }
+			
+		} 
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -90,13 +114,37 @@ public class MyPageController {
 		ModelAndView mav = new ModelAndView("mypage/myOrderForm");
 		// 세션 받아오기.
 		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("id");;
-		
-	
+		String id = (String) session.getAttribute("id");
 		
 		
 		// 주문내역 리스트를 받아오고 이를 mav에 담아 리턴한다.
 		ArrayList<Order> list = orderService.getMyOrderListById(id);
+		
+		String basePath = "C:\\shopimg\\p";
+		for (int i = 0; i < list.size(); i++) {
+			// list의 p_num 으로 해당 Product를 받아오기.
+			Product p = productService.getProductByNum(list.get(i).getP_num());
+			// 받아온 Product의 name을 이용하여 p_name을 세팅.
+			list.get(i).setP_name(p.getName());
+			
+			//path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
+	         String path = basePath + list.get(i).getP_num() + "\\";
+	         
+	         //imDir에 path를 저장
+	         File imgDir = new File(path);   
+	        
+	         //files에 imgDir을 저장
+	         String[] files = imgDir.list();
+	         //mav에 files에 저장된 값을 저장한다
+	         if(imgDir.exists()) {
+	            for(int j = 0; j < files.length; j++) {
+	               mav.addObject("file" + j, files[j]);
+	            }
+	            
+	            list.get(i).setImgPath(files[0]);
+	         }
+		} 
+		
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -131,21 +179,4 @@ public class MyPageController {
 		return mav;
 	}
 	
-	/**
-	 * 세션 여부 확인, 세션이 없으면 ModelAndView가 로그인 페이지로 가게 함.
-	 * @param mav 해당 ModelAndView가 Redirect할 Url
-	 * @param id 해당 메소드의 id에 세션 id를 할당.
-	 * @param session 세션
-	 */
-	private void sessionCheck(ModelAndView mav, String id, HttpSession session) {
-		if (session == null) {
-			System.out.println("session null");
-			mav.setViewName("member/login");
-		} else {
-			id = (String) session.getAttribute("id");
-		}
-		if (id.isBlank()) {
-			mav.setViewName("member/login");
-		}
-	}
 }

@@ -23,7 +23,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
-   $(document).ready(function() {
+   $(document).ready(function() { 
+	   
       $(".img").mouseover(function() {
          $("#bigImg").attr('src', this.src);
       });
@@ -45,8 +46,29 @@
     			}
     		}
     	});
-});
+	});
    
+   <!-- 정규식을 활용하여 숫자 3번째 자리마다 ,를 추가하고 끝에 원을 붙이는 함수. https://fruitdev.tistory.com/160 -->
+   function numberWithCommas(num) {
+	   var len, point, str; 
+       
+	    num = num + ""; 
+	    point = num.length % 3 ;
+	    len = num.length; 
+	   
+	    str = num.substring(0, point); 
+	    while (point < len) { 
+	        if (str != "") str += ","; 
+	        str += num.substring(point, point + 3); 
+	        point += 3; 
+	    } 
+	     
+	    return str + '원';
+	}
+
+
+   
+  
    function check() {
       var quantity = document.f.quantity;
       if (quantity.value == "") {
@@ -228,7 +250,9 @@
 
 <tr>
 <th>가격</th>
-<td><input type="text" name="price" id="cost"  value="${p.price }" readonly></td>
+<td><input type="text" name="price" id="cost"  value="${p.price }" readonly>
+<script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>
+</td>
 </tr>
 
 <tr>
@@ -261,6 +285,7 @@
 <tr>
 <td colspan="2">
     <input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
+    <input type="hidden" name="p_name" value="${p.name }">
     <c:if test="${p.quantity == 0}">
 	 	<input type="button" value="품절">
     </c:if> 

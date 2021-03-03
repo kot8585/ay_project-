@@ -19,6 +19,8 @@
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
+
+
 </head>
 <body>
 <!-- header부분 -->
@@ -46,6 +48,7 @@
 <input type="submit" value="결제">
 <input type="hidden" name="m_id" value="${ sessionScope.id }">
 <input type="hidden" name="p_num" value="${ order.p_num }">
+<input type="hidden" name="p_name" value="${ order.p.name }">
 <input type="hidden" name="quantity" value="${ order.quantity }">
 <input type="hidden" name="cost" value="${ order.quantity * order.p.price  }">
 <input type="hidden" name="state" value="0">

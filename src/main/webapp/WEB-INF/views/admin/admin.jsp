@@ -28,6 +28,7 @@
 				}).done(
 						function(data) {
 							var c = eval("(" + data + ")");
+							$("#s1").append("<option value=''>   </option>");
 							for (i = 0; i < c.length; i++) {
 								$("#s1").append(
 										"<option value='"+c[i].id+"'>"

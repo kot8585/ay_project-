@@ -30,7 +30,7 @@
 <table class="table table-bordered">
 <thead class="table-warning" >
 	<tr>
-		<th>num</th><th>img</th><th>name</th><th>sale</th><th>수정</th>
+		<th>이벤트번호</th><th>이벤트이미지</th><th>이벤트명</th><th>할인률</th><th>수정</th>
 	</tr>
 </thead>
 
