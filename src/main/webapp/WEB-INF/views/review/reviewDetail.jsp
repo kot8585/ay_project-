@@ -29,20 +29,25 @@
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
 				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-				if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
-					alert("비밀번호 확인 완료");	
-					location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
-				}else if(xhttp.responseText === "비밀번호 확인 완료" && type==="edit"){
-					alert("비밀번호 확인 완료");
-					f.submit();
-					
+				if(xhttp.responseText === "아이디가 다릅니다.."){
+					alert("아이디가 다릅니다..");
 				}else{
-					alert("비밀번호가 다릅니다.");
-					location.href="${pageContext.request.contextPath}/member/main";
+					if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
+						alert("비밀번호 확인 완료");	
+						location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
+					}else if(xhttp.responseText === "비밀번호 확인 완료" && type==="edit"){
+						alert("비밀번호 확인 완료");
+						f.submit();
+						
+					}else{
+						alert("비밀번호가 다릅니다.");
+						location.href="${pageContext.request.contextPath}/member/main";
+					}
 				}
+				
 			}			
 		}
-		xhttp.open("POST", "/review/pwdCheck?password=" + pwdCheck, true);
+		xhttp.open("POST", "/review/pwdCheck?password=" + pwdCheck + "&wid=${r.writer}", true);
 		xhttp.send();
 	}
 </script>
