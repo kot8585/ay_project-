@@ -29,8 +29,8 @@
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
 				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-				if(xhttp.responseText === "아이디가 다릅니다.."){
-					alert("아이디가 다릅니다..");
+				if(xhttp.responseText === "작성자가 아닙니다.."){
+					alert("작성자가 아닙니다..");
 				}else{
 					if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
 						alert("비밀번호 확인 완료");	
@@ -85,12 +85,11 @@
            <tr>
             <th>내용</th>
             <td>
-            	<textarea name="content" id="content" value="${r.content }" cols="30" rows="30" onkeyup="countLetter('content')"></textarea>
+            	<textarea name="content" id="content" cols="30" rows="30" onkeyup="countLetter('content')">${r.content }</textarea>
             	<div id="contentDiv">
 					<span id="contentSpan1">0</span>/50
 					<span id="contentSpan2"></span>
 				</div>	
-            	<input type="text" name="content" value="${r.content}">
             </td>
          </tr>
            <tr>
