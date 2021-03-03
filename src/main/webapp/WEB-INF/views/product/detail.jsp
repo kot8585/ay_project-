@@ -32,7 +32,7 @@
       $("#cart").click(function() {
     		var m_id = $("#m_id").val();
     		var p_num = $("#p_num").val();
-    		var cost = $("#cost").val();
+    		var cost = $("#price").val();
     		var cf = confirm("정말로 장바구니에 추가하시겠습니까?");
     		if(cf == true) {
     			if (m_id != "") {
@@ -250,7 +250,7 @@
 
 <tr>
 <th>가격</th>
-<td><input type="text" name="price" id="cost"  value="${p.price }" readonly>
+<td><input type="text" id="cost" value="${p.price }" readonly>
 <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>
 </td>
 </tr>
@@ -291,7 +291,8 @@
     </c:if> 
     <c:if test="${p.quantity != 0}">
 		<input type="submit" value="구매">
-	</c:if>	 
+	</c:if>
+   <input type="hidden" name="price" id="price" value="${p.price }">	 
    <input type="button" value="장바구니로" id="cart">
    <input type="button" value="상품문의" onclick="go(${p.num})">
 </td>

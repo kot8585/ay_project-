@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function go(i){
+	function ordergo(i){
 		location.href="${pageContext.request.contextPath}/review/reviewForm?pnum="+i;
 	}
 </script>
@@ -33,7 +33,7 @@
 	<td>${ p.o_date }</td>
 	<td>${ p.cost }</td>
 	<td>${ p.state }</td>
-	<td><input type="button" value="리뷰작성" onclick="go(${p.p_num})"></td>
+	<td><input type="button" value="리뷰작성" onclick="ordergo(${p.p_num})"></td>
 </tr>
 </c:forEach>
 </table>
