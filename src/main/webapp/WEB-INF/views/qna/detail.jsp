@@ -25,55 +25,59 @@
 
 <script>
 
+//댓글 목록 보여주는 함수
+//qna의 게시판 번호를 받아 해당하는 댓글만 출력한다.
+function showList(qnum){replyService.getList(qnum, function(list){
+	let htmls = "";
+	
+	//댓글이 없을 경우
+	if(list == null || list.length == 0){
+		$("#replyList").html("작성된 답변이 없습니다.");
+		return;
+	}
+	
+	for(let i=0, len = list.length||0; i<len; i++){
+		htmls+=  '<li class="list-group-item" data-num="'+list[i].num+'">'
+		htmls+=    '<div class="d-flex w-100 justify-content-between">'
+		htmls+=    '<strong class="mb-1">'+list[i].writer+'</strong>'
+		htmls+=   '<small>'+list[i].r_date+'</small>'
+		htmls+=   '</div>'
+		htmls+=	   '<p class="repContent">'+list[i].content+'</p>'
+		htmls+=  '</li>'
+	}
+	$("#replyList").html(htmls);
+});
+} //end showList
 
 	$(document).ready(function(){
 
 		
-		var qnum = ${q.num};
-		var writer = "${sessionScope.id}"
-		var exampleModal = $("#exampleModal");
-		var repContent = exampleModal.find("textarea[name='content']");
-		var repWriter = exampleModal.find("input[name='writer']");
+		let qnum = ${q.num};
+		let writer = "${sessionScope.id}"
+		const exampleModal = $("#exampleModal");
+		const repContent = exampleModal.find("textarea[name='content']");
+		const repWriter = exampleModal.find("input[name='writer']");
 		
-		var modalEditBtn = $("#modalEditBtn"); //exampleModal. 으로도 찾아보기
-		var modalDelBtn = $("#modalDelBtn");
-		var modalWriteBtn = $("#modalWriteBtn");
+		const modalEditBtn = $("#modalEditBtn"); //exampleModal. 으로도 찾아보기
 
-		// 1.option의 value값이랑 db에서 가져온 값이랑 일치하는지 확인 	
-		//	2. 일치한다면 selected 값 넣어주기	
-		var opt_vals = [];	
+		const modalDelBtn = $("#modalDelBtn");
+		const modalWriteBtn = $("#modalWriteBtn");
+
+		//문의 종류 select에 넣기
+		let opt_vals = [];	
 		$('select option').each(function(){	
 			opt_vals.push($(this).val());	
 			console.log($(this).val());
 		});
 		
+		// 1.option의 value값이랑 db에서 가져온 값이랑 일치하는지 확인 	
+		//2. 일치한다면 selected 값 넣어주기	
 		$('#q_cate').find("option[value='${q.q_cate}']").attr('selected', 'selected');
-		var writer = "${sessionScope.id}"	
+			writer = "${sessionScope.id}"	
 			
 			showList(${q.num});
 		
-		//댓글 목록 보여주는 함수
-		function showList(qnum){replyService.getList(qnum, function(list){
-				var htmls = "";
-				
-				//댓글이 없을 경우
-				if(list == null || list.length == 0){
-					$("#replyList").html("작성된 답변이 없습니다.");
-					return;
-				}
-				
-				for(var i=0, len = list.length||0; i<len; i++){
-					htmls+=  '<li class="list-group-item" data-num="'+list[i].num+'">'
-					htmls+=    '<div class="d-flex w-100 justify-content-between">'
-					htmls+=    '<strong class="mb-1">'+list[i].writer+'</strong>'
-					htmls+=   '<small>'+list[i].r_date+'</small>'
-					htmls+=   '</div>'
-					htmls+=	   '<p class="repContent">'+list[i].content+'</p>'
-					htmls+=  '</li>'
-				}
-				$("#replyList").html(htmls);
-			});
-		} //end showList
+
 		
 		//모달창 보여주기
 		$("#addReplyBtn").on("click", function(e){
@@ -88,7 +92,7 @@
 
 		//모달창에서 등록버튼 클릭 - 답변 작성하기
 		modalWriteBtn.on("click", function(e){
-			var reply = {
+			let reply = {
 				content: repContent.val(),
 				qna_num: qnum,
 				writer: repWriter.val()
@@ -109,7 +113,7 @@
 		//해당 댓글 클릭하면 댓글 수정과 삭제할수 있는 모달창 띄우기
 		//이벤트 위임을 해서 ul태그를 선택하지만 $(this) = li 태그이다.
 		$("#replyList").on("click", "li", function(e){
-			var num = $(this).data("num");
+			let num = $(this).data("num");
 			console.log("click num : " + num);
 			exampleModal.find("button").show(); 
 			modalWriteBtn.hide();
@@ -128,7 +132,7 @@
 		modalEditBtn.on("click", function(e){
 			console.log("edit click");
 			//컨트롤러에 전달할 데이터 세팅
-			var reply = {
+				let reply = {
 					"num": exampleModal.data("num"),
 					"content": repContent.val()
 			};
@@ -148,8 +152,8 @@
 		//remove호출
 		modalDelBtn.on("click", function(e){
 			console.log("modalDelBtn clicked............")
-			var num = exampleModal.data("num");
-			var r = confirm(num +"번의 답변을 삭제하시겠습니까?");
+			let num = exampleModal.data("num");
+			let r = confirm(num +"번의 답변을 삭제하시겠습니까?");
 			
 			if(!r){
 				return;
@@ -166,17 +170,14 @@
 					alert("DELETE ERROR");
 				});
 				
-				//confirm이 true일때만
+			} //end if(r)
 				repWriter.val("");
 				repContent.val("");
 				exampleModal.modal("hide");
 				showList(qnum);
-			} //end if(r)
 		});
 		
-		
 
-		
 		//이미지에 마우스 올릴때
 	      $(".img").mouseover(function() {
 	          $("#bigImg").attr('src', this.src);
@@ -184,7 +185,7 @@
 		
 		//게시판 삭제
 		$("#del").click(function(){
-			var result = confirm("글을 삭제하시겠습니까?");
+			let result = confirm("글을 삭제하시겠습니까?");
 			if(result){
 				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
 			}
@@ -197,47 +198,7 @@
 
 </head>
 <body>
-<!-- navbar -->	
-  <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">	
-    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">	
-    	<!-- Controller로 로고 이미지를 받아오기. -->	
-    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">	
-    </a>	
-    <button class="navbar-toggler" 	
-		    type="button" 	
-		    data-bs-toggle="collapse" 	
-		    data-bs-target="#navbarSupportedContent" 	
-		    aria-controls="navbarSupportedContent" 	
-		    aria-expanded="false" 	
-		    aria-label="Toggle navigation">	
-      <span class="navbar-toggler-icon"></span>	
-    </button>	
-    	
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">	
-      <ul class="navbar-nav ms-auto">	
-        <c:if test="${ empty sessionScope.id }">	
-	        <li class="nav-item active">	
-	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>	
-	        </li>	
-        </c:if>	
-        <c:if test="${not empty sessionScope.id }">	
-        	<li class="nav-item">	
-          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>	
-        	</li>	
-        </c:if>	
-        <li class="nav-item">	
-          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>	
-        </li>	
-        <li class="nav-item">	
-          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>	
-        </li>	
-        <li>	
-          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>	
-        </li>	
-      </ul>	
-    </div>	
-</nav>	
-  <hr> <!-- /nabvar -->
+<script type="text/javascript" src="/js/header.js"></script>
 
 	<!-- modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -294,15 +255,15 @@
 			
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name="title" value="${q.title}" ${data}></td>
+				<td><input type="text" name="title" value='<c:out value="${q.title}"/>' ${data}></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea type="text" name="content" ${data}>${q.content}</textarea></td>
+				<td><textarea type="text" name="content" ${data}><c:out value="${q.content}" /></textarea></td>
 			</tr>
 			<tr>
 				<td>작성날짜</td>
-				<td><input type="text" name="updatedate" value="${q.updatedate}" readonly></td>
+				<td><input type="text" name="updatedate" value='<c:out value="${q.updatedate}" />' readonly></td>
 			
 			</tr>
 		<tr>
@@ -322,22 +283,31 @@
                      <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file1 }&num=${q.num }" class="img" width="50" height="50"></td>
                      <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file2 }&num=${q.num }" class="img" width="50" height="50"></td>
                </table>
-            </c:if></td>
+            </c:if>
+            </td>
       </tr>
-		</table>
+		<tr>
+			<td>
 			<input type="hidden" name="num" value="${q.num}">
-			<input type="hidden" name="pwd" value="${q.pwd}">
 	
 			
 			<c:if test="${sessionScope.id eq q.writer}">
-			<input type="submit" value="수정하기" id="update">
-				<input type="button" value="삭제하기" id="del">
-				<a href="">목록으로</a>
+				<input class="btn btn-primary" type="submit" value="수정하기" id="update">
+				<input class="btn btn-primary" type="button" value="삭제하기" id="del">
 			</c:if>
-	
+				<a class="btn btn-primary" href="/mypage/mypage" role="button">목록으로</a>
+			</td>
+		</tr>
+		</table>
+	</form>
 	<hr>
      <div class="float-start"><h6>Reply List</h6></div>
-    <div class="float-end"><button type="button" id="addReplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button></div><br><br>
+     <c:if test="${sessionScope.id eq 'admin' }">
+     <div class="float-end">
+    	<button type="button" id="addReplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button>
+    </div>
+    </c:if>
+    <br><br>
     
 	<!-- 댓글 작성되면 이 영역에 넣는다 -->
 	<ul class="list-group" id="replyList">

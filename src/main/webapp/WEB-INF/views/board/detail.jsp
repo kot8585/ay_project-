@@ -6,17 +6,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Red House</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
+ <!-- Required meta tags -->
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 
+ <!-- Bootstrap CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+ <!-- Option 1: Bootstrap Bundle with Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+ 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="/js/header.js"></script>
+<script>
+$(document).ready(function(){
+	$("#del").click(function(){
+		location.href="${pageContext.request.contextPath }/board/${b.type}/del?num=${b.num}";
+	});
+});
 </script>
 </head>
 <body>
-<c:set var="authority" value="readonly" />
+<c:if test="${sessionScope.id eq 'admin' }">
+	<c:set var="authority" value="readonly" />
+</c:if>
 	<form action="${pageContext.request.contextPath }/board/edit" method="post">
 		<table border="1" cellspacing="0">
-		
+				
 			<tr>
 				<td>작성자</td>
 				<td><input type="text" name="writer" value="${b.writer}" readonly></td>
@@ -33,14 +50,27 @@
 				<td>작성날짜</td>
 				<td><input type="text" name="updatedate" value="${b.updatedate}" readonly></td>
 			</tr>
-		
-		
+			<tr>
+				<td>		
+					<input type="hidden" name="type" value="${b.type}">
+					
+					<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
+					<c:if test="${sessionScope.id eq 'admin' }">
+						<input class="btn btn-primary" type="submit" value="수정" id="edit">
+						<input class="btn btn-primary" type="button" value="삭제" id="del"> 
+					</c:if>
+					
+					<!-- '목록으로' 누르면 들어오기전 페이지가 반영되도록 -->
+					<form action="/board/${b.type}/list" method="get">
+						<input type="hidden" name="num" value="${b.num}">
+						<input type="hidden" name="pageNum" value="${cri.pageNum}">
+						<input type="hidden" name="amount" value="${cri.amount}">
+						<input class="btn btn-primary" type="submit" value="목록으로">
+					</form>
+				
+				</td>
+			</tr>
 		</table>
-			<input type="hidden" name="num" value="${b.num}">
-			
-			<!-- 관리자는 삭제버튼만 뜨게 하기 -->
-				<input type="button" value="수정" id="edit">
-				<input type="button" value="삭제" id="del">
 	</form>
 <hr>
 	
