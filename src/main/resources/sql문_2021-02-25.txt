@@ -198,7 +198,6 @@ CREATE TABLE qna(
 	num NUMBER PRIMARY KEY,
 	writer VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
     q_cate VARCHAR2(50) NOT NULL,
-    pwd VARCHAR2(50),
     title VARCHAR2(50) NOT NULL,
     content VARCHAR2(2000) NOT NULL,
     state VARCHAR2(50) NOT NULL,

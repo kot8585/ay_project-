@@ -5,10 +5,16 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.page.Criteria;
 import com.example.demo.page.PageDTO;
@@ -20,6 +26,7 @@ import com.example.demo.page.PageDTO;
  *
  */
 @Controller
+@RequestMapping("/board/*")
 public class BoardController {
 
 	@Autowired
@@ -34,7 +41,7 @@ public class BoardController {
 	 * @param cri
 	 * @return
 	 */
-	@RequestMapping(value = "/board/{type}/list")
+	@RequestMapping(value = "/{type}/list")
 	public ModelAndView list(@PathVariable String type, Criteria cri) {
 		System.out.println("board/type = " + type);
 		System.out.println("cri=" + cri);
@@ -47,19 +54,16 @@ public class BoardController {
 		return mav;
 	}
 
-	/**
+	/** @ModelAttribute는 자동으로 Model에 데이터를 지정한 이름으로 담아준다.
 	 * 게시판 상세페이지 제공
-	 * @param num 게시판 번호
+	 * @param num 게시판 번호, 
 	 * @return 해당 게시판과 이동할 페이지
 	 */
-	@RequestMapping("/board/detail")
-	public ModelAndView detail(int num) {
-		ModelAndView mav = new ModelAndView("board/detail");
+	@GetMapping("/detail")
+	public void detail(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) {
 		System.out.println(num);
-		Board b = service.getBoardByNum(num);
+		model.addAttribute("b",service.getBoardByNum(num));
 
-		mav.addObject("b", b);
-		return mav;
 	}
 
 	/**
@@ -67,10 +71,14 @@ public class BoardController {
 	 * @param b 수정한 게시판 데이터
 	 * @return 수정하고 이동할 페이지
 	 */
-	@RequestMapping("/board/edit")
-	public String edit(Board b) {
-		service.update(b);
-		return "redirect:/board/list";
+	@PostMapping("/edit")	
+	public String edit(Board b, @ModelAttribute("cri") Criteria cri) {
+		System.out.println("게시판 수정 컨트롤러");
+		System.out.println("게시판 타입: " + b.getType());
+		boolean result = service.update(b);
+		System.out.println("수정 결과값 : "+ result);
+		
+		return "redirect:/board/"+b.getType()+"/list?pageNum="+cri.getPageNum()+"&amount="+cri.getAmount();
 	}
 
 	/**
@@ -78,11 +86,11 @@ public class BoardController {
 	 * @param num 게시판 번호
 	 * @return 게시판 삭제하고 이동할 페이지
 	 */
-	@RequestMapping("/board/del")
-	public String del(int num) {
+	@GetMapping("/{type}/del")
+	public String del(int num, @PathVariable String type) {
 		service.delBoard(num);
 
-		return "redirect:/board/list";
+		return "redirect:/board/"+type+"/list";
 	}
 	
 

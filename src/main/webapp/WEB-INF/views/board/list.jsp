@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>고객센터</title>
-<link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <!-- Required meta tags -->
@@ -33,25 +31,34 @@ var sessionId = '<%=session.getAttribute("id") %>'
       }});
    
    
-var actionForm = $("#actionForm")
-   //페이지 번호 누르면 동작
-   	 $(".page-item a").on("click", function(e){
-   		 e.preventDefault();
-   		 console.log("click");
-   		 
-   		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-   		 actionForm.submit();
-   	 });
-   	
-   	var searchForm = $("#searchForm");
-   	$("#searchForm button").on("click", function(){
-   		if(!searchForm.find("input[name='keyword']").val()){
-   			alert("키워드를 입력하세요");
-   			return false;
-   		}
-   		
-   		searchForm.submit();
-   	});
+		var actionForm = $("#actionForm")
+		   	 //페이지 번호 누르면 동작
+		   	 $(".page-item a").on("click", function(e){
+		   		 e.preventDefault();
+		   		 console.log("click");
+		   		 
+		   		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		   		 actionForm.submit();
+		   	 });
+		   	
+			//키워드 검색
+		   	var searchForm = $("#searchForm");
+		   	$("#searchForm button").on("click", function(){
+		   		if(!searchForm.find("input[name='keyword']").val()){
+		   			alert("키워드를 입력하세요");
+		   			return false;
+		   		}
+		   		
+		   		searchForm.submit();
+		   	});
+		   	
+		   	//detail페이지로 이동할때 현재페이지번호와 amount를 전달해주기위해 실제 동작하는 부분을 따로 만듬
+		   	$(".move").on("click", function(e){
+		   		e.preventDefault();
+		   		actionForm.append("<input name='num' type='hidden' value='"+$(this).attr('href')+"'>");
+		   		actionForm.attr("action", "/board/detail");
+		   		actionForm.submit();
+		   	});
    	 
    });
 
@@ -67,7 +74,7 @@ var actionForm = $("#actionForm")
 	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
 </c:if>
 </header>
-<!-- header 부분 -->
+
   
 <!-- visual 부분 -->
 <nav class="navbar navbar-light bg-light">
@@ -114,7 +121,7 @@ var actionForm = $("#actionForm")
 			<tr>
 
 				<td><c:out value="${b.num}" /></td>
-				<td><a href="${pageContext.request.contextPath }/board/detail?num=${b.num } ">${b.title} </a></td>
+				<td><a class="move" href='<c:out value="${b.num }"/>'> <c:out value="${b.title}" /> </a></td>
 				<td><c:out value="${b.writer}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${b.updatedate}" /></td>
 			</tr>

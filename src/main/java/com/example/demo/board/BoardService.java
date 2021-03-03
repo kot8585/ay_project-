@@ -51,16 +51,20 @@ public class BoardService {
 	 * 게시판 삭제 기능
 	 * @param num 게시판 번호
 	 */
-	public void delBoard(int num) {
-		mapper.delete(num);
+	public int delBoard(int num) {
+		return mapper.delete(num);
 	}
 	
 	/**
 	 * 게시판 수정 기능
 	 * @param b 수정한 게시판 데이터
 	 */
-	public void update(Board b) {
-		mapper.update(b);
+	public boolean update(Board b) {
+		int result =  mapper.update(b);
+		if(result > 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

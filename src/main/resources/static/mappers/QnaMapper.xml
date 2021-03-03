@@ -7,7 +7,6 @@
 		<result property="num" column="num"/>
 		<result property="writer" column="writer"/>
 		<result property="q_cate" column="q_cate"/>
-		<result property="pwd" column="pwd"/>
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
 		<result property="state" column="state"/>
@@ -17,7 +16,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.example.demo.qna.Qna">
-		insert into qna values(#{num}, #{writer},  #{q_cate}, #{pwd}, #{title}, #{content}, #{state}, sysdate, sysdate, #{path})
+		insert into qna values(#{num}, #{writer},  #{q_cate}, #{title}, #{content}, #{state}, sysdate, sysdate, #{path})
 	</insert>
 	
 	<select id="select" resultMap="qna" parameterType="int">
@@ -37,7 +36,7 @@
 	</delete>
 	
 	<update id="update" parameterType="com.example.demo.qna.Qna">
-		update qna set pwd=#{pwd}, q_cate=#{q_cate},title=#{title}, content=#{content}, updatedate=sysdate where num=#{num}
+		update qna set q_cate=#{q_cate},title=#{title}, content=#{content}, updatedate=sysdate where num=#{num}
 	</update>
 		
 	<update id="updateState" parameterType="java.util.HashMap">

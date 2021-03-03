@@ -12,7 +12,7 @@ public interface BoardMapper {
 	Board select(int num);
 	ArrayList<Board> getListWithPaging(HashMap<String, Object> map);
 	//ArrayList<Board> selectAll();
-	void delete(int num);
-	void update(Board b);
+	int delete(int num);
+	int update(Board b);
 	int countAll(String type, String keyword);
 }	
