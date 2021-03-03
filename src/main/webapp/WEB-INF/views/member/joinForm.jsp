@@ -23,6 +23,14 @@ let emailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[
 let telJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 $(document).ready(function(){
 	$("#id").keyup(function(){
+		 
+		 var str = document.getElementById("datepicker").value;
+		 var strArr = str.split("/");
+		 var date = new Date(strArr[0], strArr[1]-1, strArr[2]);
+		 console.log(date);
+		 console.log(typeof(date));
+		 console.log(str);
+	
 		if($(this).val() == "admin"){
 			$("#id_check").text('불가능');
 			$('#id_check').css('color', 'red');
@@ -212,7 +220,8 @@ $(document).ready(function(){
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script>
 $(function(){
-	 $("#datepicker").datepicker();
+	 $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
+
 	});
 </script>
  <!-- Required meta tags -->
@@ -224,6 +233,7 @@ $(function(){
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
  
+ <script src="/js/header.js"></script>
 <style type="text/css">
 .table th {
     text-align: center;
@@ -263,13 +273,31 @@ color : white;
  </script>
 </head>
 <body>
-<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
+	<header>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <c:if test="${ empty sessionScope.id }">
+	        <li class="nav-item active">
+	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>
+	        </li>
+        </c:if>
+        <c:if test="${not empty sessionScope.id }">
+        	<li class="nav-item">
+          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>
+        	</li>
+        </c:if>
+        <li class="nav-item">
+          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>
+        </li>
+        <li>
+          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>
 	<div class="container-fluid vertical-center justify-content-center">
 	<form name="f" method="POST" action="${pageContext.request.contextPath }/member/join">
@@ -308,7 +336,7 @@ color : white;
 			</tr>
 			<tr>
 				<th>생일</th>
-				<td><input type="text" name="birth" id="datepicker">
+				<td><input type="text" name="birth" id="datepicker"></td>
 			</tr>
 			<tr>
 				<th>성별</th>
