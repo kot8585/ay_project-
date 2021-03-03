@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -107,6 +108,12 @@ public class ReviewController {
 		System.out.println("input value : " + what);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<Review> reviewlist = null;
+		//for문으로 짜래..
+		/*
+		 *   *
+		 *  ***
+		 *   * 
+		 */
 		if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
 			if(what.equals("1")) {
 				System.out.println(1);
@@ -152,7 +159,6 @@ public class ReviewController {
 				reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
 			}
 		}
-		
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/list");
@@ -197,20 +203,26 @@ public class ReviewController {
 	 * @return 비밀번호 체크에 대한 결과를 출력
 	 */
 	@RequestMapping("/review/pwdCheck")
-	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd) {
+	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd, @RequestParam("wid")String wid) {
 		HttpSession session = req.getSession(false);
 		String id = (String) session.getAttribute("id");
 		
-		System.out.println(id);
+		System.out.println("session id : " + id);
 		System.out.println(pwd);
+		System.out.println("Writer : " + wid);
 		Member m = mservice.getMember(id);
 		String result = "";
-		if(m != null && m.getPassword().equals(pwd)) {
-			result = "비밀번호 확인 완료";
+		if(wid != id) {
+			result = "작성자가 아닙니다..";
+		}else {
+			if(m != null && m.getPassword().equals(pwd)) {
+				result = "비밀번호 확인 완료";
+			}
+			else {
+				result = "비밀번호가 다릅니다.";
+			}
 		}
-		else {
-			result = "비밀번호가 다릅니다.";
-		}
+		System.out.println(result);
 		ModelAndView mav = new ModelAndView("review/pwdCheck");
 		mav.addObject("result", result);
 		
@@ -231,53 +243,78 @@ public class ReviewController {
 	
 	@RequestMapping("/review/reviewRating")
 	public ModelAndView rating(HttpServletRequest req, @RequestParam("num") int num, @RequestParam("type")String type) {
+		String id="";
 		System.out.println("Parameter : " + num);
 		System.out.println("Type : " + type);
 		Review r = service.getDetail(num);
 		Review review = service.getDetail(num);
 		HttpSession session = req.getSession(false);
+		String exist = "";
+		String message="";
 		
 		try {
-			String id = (String)session.getAttribute("id");
-			ArrayList like = service.getLikeByid(id);
-			System.out.println("like table : " + like);
-			System.out.println(id);
+			id = (String)session.getAttribute("id");
+			if(id==null) {
+				id="";
+			}
+			ArrayList<ReviewLike> like = service.getLikeByid(num);
 			
-			if(id.equals(null)) {
+			for(int i = 0; i < like.size(); i++) {
+				if(like.get(i).getId().equals(id) ) {
+					if(like.get(i).getRnum()==num) {
+						exist = "exist";
+					}
+					
+				}
+			}
+			
+			System.out.println(exist);
+			
+			System.out.println("like table : " + like);
+		
+			System.out.println(like.contains(12));
+			System.out.println(like.contains("aa"));
+			
+			
+			
+			if(id.equals("")) {
 				System.out.println("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
-			}else if(!id.equals(null)) {
+				message = "동준씨 로그인부터 하시죠..";
+			}else if(!id.equals("") && !exist.equals("exist")) {
 				review.setWriter(id);
 				service.addReviewID(review);
 				
 				if(type.equals("like")) {
 					System.out.println("증가");
 					service.IncRating(r);
+					r = service.getDetail(num);
+					System.out.println(r);
+					//db 업데이트때 생각해보기
 				}else if(type.equals("hate")){
 					System.out.println("감소");
 					service.DecRating(r);
 				}
+			}else if(!id.equals("") && exist.equals("exist")) {
+				System.out.println("이미 좋아요를 누르셨습니다.");
+				message = "이미 좋아요를 누르셨습니다.";
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 
-			
-		
-		
-		
-		
-		//service.IncRating(num);
-		
 		System.out.println(r);
 		
-		
+		System.out.println("message : " + "동준씨 로그인부터 하시죠..");
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
-		mav.addObject("r", r);
+		if(message.equals("동준씨 로그인부터 하시죠..") || message.equals("이미 좋아요를 누르셨습니다.")) {
+			System.out.println("id 없다");
+			mav.setViewName("review/reviewRatingFail");
+			mav.addObject("message",message);
+		}else {
+			mav.addObject("r", r);
+		}
+		
 		return mav;
 	}
 }

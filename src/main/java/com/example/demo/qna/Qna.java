@@ -13,7 +13,6 @@ public class Qna {
 	private String writer;
 	private int o_history ; //주문 내역 
 	private String q_cate; //문의 종류
-	private String pwd;
 	private String title;
 	private String content;
 	private String state; //답변상태(답변대기, 답변완료) 처음에 db에 넣을때는 답변대기로 넣고 가져올때 다시 set하기, 
@@ -25,14 +24,13 @@ public class Qna {
 	
 	public Qna() {}
 
-	public Qna(int num, String writer, int o_history, String q_cate, String pwd, String title, String content, String state,
+	public Qna(int num, String writer, int o_history, String q_cate, String title, String content, String state,
 			Date regdate, Date updatedate) {
 		super();
 		this.num = num;
 		this.writer = writer;
 		this.o_history = o_history;
 		this.q_cate = q_cate;
-		this.pwd = pwd;
 		this.title = title;
 		this.content = content;
 		this.state = state;
@@ -40,14 +38,13 @@ public class Qna {
 		this.updatedate = updatedate;
 	}
 
-	public Qna(int num, String writer, int o_history, String q_cate, String pwd, String title, String content,
+	public Qna(int num, String writer, int o_history, String q_cate, String title, String content,
 			String state, Date regdate, Date updatedate, String path, MultipartFile[] uploadFile) {
 		super();
 		this.num = num;
 		this.writer = writer;
 		this.o_history = o_history;
 		this.q_cate = q_cate;
-		this.pwd = pwd;
 		this.title = title;
 		this.content = content;
 		this.state = state;
@@ -87,14 +84,6 @@ public class Qna {
 
 	public void setQ_cate(String q_cate) {
 		this.q_cate = q_cate;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
 	}
 
 	public String getTitle() {
@@ -155,8 +144,8 @@ public class Qna {
 
 	@Override
 	public String toString() {
-		return "Qna [num=" + num + ", writer=" + writer + ", o_history=" + o_history + ", q_cate=" + q_cate + ", pwd="
-				+ pwd + ", title=" + title + ", content=" + content + ", state=" + state + ", regdate=" + regdate
+		return "Qna [num=" + num + ", writer=" + writer + ", o_history=" + o_history + ", q_cate=" + q_cate 
+				+ ", title=" + title + ", content=" + content + ", state=" + state + ", regdate=" + regdate
 				+ ", updatedate=" + updatedate + ", path=" + path + ", uploadFile=" + Arrays.toString(uploadFile) + "]";
 	}
 

@@ -20,26 +20,26 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="/js/reply.js"></script>
-
+<script type="text/javascript" src="/js/header.js"></script>
 <script>
 
 
 	$(document).ready(function(){
-		var qnum = ${q.num};
-		var writer = "${sessionScope.id}"
-		var exampleModal = $("#exampleModal");
-		var repContent = exampleModal.find("textarea[name='content']");
-		var repWriter = exampleModal.find("input[name='writer']");
+		let qnum = ${q.num};
+		let writer = "${sessionScope.id}"
+		const exampleModal = $("#exampleModal");
+		const repContent = exampleModal.find("textarea[name='content']");
+		const repWriter = exampleModal.find("input[name='writer']");
 		
-		var modalEditBtn = $("#modalEditBtn"); //exampleModal. 으로도 찾아보기
-		var modalDelBtn = $("#modalDelBtn");
-		var modalWriteBtn = $("#modalWriteBtn");
+		const modalEditBtn = $("#modalEditBtn"); //exampleModal. 으로도 찾아보기
+		const modalDelBtn = $("#modalDelBtn");
+		const modalWriteBtn = $("#modalWriteBtn");
 
 		showList(qnum);
 		
 		//댓글 목록 보여주는 함수
 		function showList(qnum){replyService.getList(qnum, function(list){
-				var htmls = "";
+				let htmls = "";
 				
 				//댓글이 없을 경우
 				if(list == null || list.length == 0){
@@ -47,7 +47,7 @@
 					return;
 				}
 				
-				for(var i=0, len = list.length||0; i<len; i++){
+				for(let i=0, len = list.length||0; i<len; i++){
 					htmls+=  '<li class="list-group-item" data-num="'+list[i].num+'">'
 					htmls+=    '<div class="d-flex w-100 justify-content-between">'
 					htmls+=    '<strong class="mb-1">'+list[i].writer+'</strong>'
@@ -63,8 +63,8 @@
 		//모달창 보여주기
 		$("#addReplyBtn").on("click", function(e){
 			exampleModal.find("input").val("");
-			exampleModal.find("textarea").val("");
-			exampleModal.find("input[name='writer']").val(writer);
+			repContent.val("");
+			repWriter.val(writer);
 			exampleModal.find("button[id !='modalCloseBtn']").hide();
 			modalWriteBtn.show();
 
@@ -73,7 +73,7 @@
 
 		//모달창에서 등록버튼 클릭 - 답변 작성하기
 		modalWriteBtn.on("click", function(e){
-			var reply = {
+			let reply = {
 				content: repContent.val(),
 				qna_num: qnum,
 				writer: repWriter.val()
@@ -94,7 +94,7 @@
 		//해당 댓글 클릭하면 댓글 수정과 삭제할수 있는 모달창 띄우기
 		//이벤트 위임을 해서 ul태그를 선택하지만 $(this) = li 태그이다.
 		$("#replyList").on("click", "li", function(e){
-			var num = $(this).data("num");
+			let num = $(this).data("num");
 			console.log("click num : " + num);
 			exampleModal.find("button").show(); 
 			modalWriteBtn.hide();
@@ -113,7 +113,7 @@
 		modalEditBtn.on("click", function(e){
 			console.log("edit click");
 			//컨트롤러에 전달할 데이터 세팅
-			var reply = {
+			let reply = {
 					"num": exampleModal.data("num"),
 					"content": repContent.val()
 			};
@@ -133,8 +133,8 @@
 		//remove호출
 		modalDelBtn.on("click", function(e){
 			console.log("modalDelBtn clicked............")
-			var num = exampleModal.data("num");
-			var r = confirm(num +"번의 답변을 삭제하시겠습니까?");
+			let num = exampleModal.data("num");
+			let r = confirm(num +"번의 답변을 삭제하시겠습니까?");
 			
 			if(!r){
 				return;
@@ -169,7 +169,7 @@
 		
 		//게시판 삭제
 		$("#del").click(function(){
-			var result = confirm("글을 삭제하시겠습니까?");
+			let result = confirm("글을 삭제하시겠습니까?");
 			if(result){
 				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
 			}
@@ -256,7 +256,6 @@
       </tr>
 		</table>
 			<input type="hidden" name="num" value="${q.num}">
-			<input type="hidden" name="pwd" value="${q.pwd}">
 	
 			
 			<!-- 관리자는 삭제버튼만 뜨게 하기 -->

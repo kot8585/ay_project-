@@ -8,12 +8,13 @@ SELECT * FROM pquestion;
 SELECT * FROM category1;
 SELECT * FROM category2;
 
+
 /*
 ----Review 관련 data table----
-마지막 업데이트 : 2021.02.25
+마지막 업데이트 : 21.02.26
 */
-DROP SEQUENCE seq_review;
 drop table review CASCADE CONSTRAINTS;
+DROP TABLE idcheck CASCADE CONSTRAINTS;
 CREATE TABLE review(
     num NUMBER PRIMARY KEY,
     pnum NUMBER REFERENCES product(num) on delete CASCADE,
@@ -24,15 +25,17 @@ CREATE TABLE review(
     likey VARCHAR2(20) NOT NULL,
     pdate DATE);
 CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_rating;
 
 
+CREATE TABLE idcheck(
+    num NUMBER PRIMARY KEY,
+    rnum NUMBER REFERENCES review(num) on delete CASCADE,
+    id VARCHAR2(20) NOT NULL);
+CREATE SEQUENCE seq_idcheck;
 
-INSERT INTO review VALUES(12,2,'hidfhi','aa','안녕','★★☆☆☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(134,2,'hihdfi','aa','오늘은','★★★☆☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★☆☆☆☆',0,to_date('02-05-2010 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(144,2,'hihidf','aa','그래','★★★★☆',0,to_date('09-09-2013 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★★★★☆',0,to_date('09-09-2012 12:14:11','mm-dd-yyyy hh24:mi:ss'));
-INSERT INTO review VALUES(250,2,'히히','aa','뭐임마','★☆☆☆☆',0,to_date('04-05-2015 12:14:11','mm-dd-yyyy hh24:mi:ss'));
+
+commit;
 
 /*
 ---------------------------------------
@@ -195,7 +198,6 @@ CREATE TABLE qna(
 	num NUMBER PRIMARY KEY,
 	writer VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
     q_cate VARCHAR2(50) NOT NULL,
-    pwd VARCHAR2(50),
     title VARCHAR2(50) NOT NULL,
     content VARCHAR2(2000) NOT NULL,
     state VARCHAR2(50) NOT NULL,

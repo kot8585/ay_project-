@@ -7,18 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>고객센터</title>
-<link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
- <!-- Required meta tags -->
- <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Required meta tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
- <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
- <!-- Option 1: Bootstrap Bundle with Popper -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
@@ -33,25 +31,34 @@ var sessionId = '<%=session.getAttribute("id") %>'
       }});
    
    
-var actionForm = $("#actionForm")
-   //페이지 번호 누르면 동작
-   	 $(".page-item a").on("click", function(e){
-   		 e.preventDefault();
-   		 console.log("click");
-   		 
-   		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-   		 actionForm.submit();
-   	 });
-   	
-   	var searchForm = $("#searchForm");
-   	$("#searchForm button").on("click", function(){
-   		if(!searchForm.find("input[name='keyword']").val()){
-   			alert("키워드를 입력하세요");
-   			return false;
-   		}
-   		
-   		searchForm.submit();
-   	});
+		var actionForm = $("#actionForm")
+		   	 //페이지 번호 누르면 동작
+		   	 $(".page-item a").on("click", function(e){
+		   		 e.preventDefault();
+		   		 console.log("click");
+		   		 
+		   		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		   		 actionForm.submit();
+		   	 });
+		   	
+			//키워드 검색
+		   	var searchForm = $("#searchForm");
+		   	$("#searchForm button").on("click", function(){
+		   		if(!searchForm.find("input[name='keyword']").val()){
+		   			alert("키워드를 입력하세요");
+		   			return false;
+		   		}
+		   		
+		   		searchForm.submit();
+		   	});
+		   	
+		   	//detail페이지로 이동할때 현재페이지번호와 amount를 전달해주기위해 실제 동작하는 부분을 따로 만듬
+		   	$(".move").on("click", function(e){
+		   		e.preventDefault();
+		   		actionForm.append("<input name='num' type='hidden' value='"+$(this).attr('href')+"'>");
+		   		actionForm.attr("action", "/board/detail");
+		   		actionForm.submit();
+		   	});
    	 
    });
 
@@ -59,47 +66,15 @@ var actionForm = $("#actionForm")
 </head>
 <body>
 <!-- header부분 -->
-<!-- navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light ms-2">
-    <a class="navbar-brand" href="${ pageContext.request.contextPath }/member/main">
-    	<!-- Controller로 로고 이미지를 받아오기. -->
-    	<img src="${ pageContext.request.contextPath }/logo" alt="logo" width="249" height="60" class="d-inline-block align-top">
-    </a>
-    <button class="navbar-toggler" 
-		    type="button" 
-		    data-bs-toggle="collapse" 
-		    data-bs-target="#navbarSupportedContent" 
-		    aria-controls="navbarSupportedContent" 
-		    aria-expanded="false" 
-		    aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <c:if test="${ empty sessionScope.id }">
-	        <li class="nav-item active">
-	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>
-	        </li>
-        </c:if>
-        <c:if test="${not empty sessionScope.id }">
-        	<li class="nav-item">
-          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>
-        	</li>
-        </c:if>
-        <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>
-        </li>
-        <li>
-          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>
-        </li>
-      </ul>
-    </div>
-</nav> <!-- /nabvar -->
-  
+<header>
+<c:if test="${ empty id }">
+	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+</c:if>
+<c:if test="${ not empty id }">
+	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+</c:if>
+</header>
+
   
 <!-- visual 부분 -->
 <nav class="navbar navbar-light bg-light">
@@ -146,7 +121,7 @@ var actionForm = $("#actionForm")
 			<tr>
 
 				<td><c:out value="${b.num}" /></td>
-				<td><a href="${pageContext.request.contextPath }/board/detail?num=${b.num } ">${b.title} </a></td>
+				<td><a class="move" href='<c:out value="${b.num }"/>'> <c:out value="${b.title}" /> </a></td>
 				<td><c:out value="${b.writer}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${b.updatedate}" /></td>
 			</tr>

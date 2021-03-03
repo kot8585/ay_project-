@@ -71,7 +71,7 @@ public class QnaController {
 			}
 		}
 		service.addQna(q);
-		return "redirect:/mypage/myQuestionForm";
+		return "redirect:/mypage/mypage";
 	}
 	
 	public void saveQnaImg(int num, MultipartFile uploadFile) { //이미지 저장하기
@@ -135,7 +135,7 @@ public class QnaController {
 	@RequestMapping("/qna/edit")
 	public String edit(Qna b) {
 		service.update(b);
-		return "redirect:/mypage/myQuestionForm";
+		return "redirect:/mypage/mypage";
 	}
 	
 	@RequestMapping("/qna/del")
@@ -157,7 +157,7 @@ public class QnaController {
 		}
 		imgDir.delete();
 		
-		return "redirect:/mypage/myQuestionForm";
+		return "redirect:/mypage/mypage";
 	}
 	
 	@PostMapping("/uploadAjaxAction")

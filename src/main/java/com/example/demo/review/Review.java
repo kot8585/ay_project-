@@ -10,6 +10,7 @@ public class Review {
 
 	private int num;
 	private int pnum;
+	private int rnum;
 	private String title;
 	private String writer;
 	private String content;
@@ -34,7 +35,13 @@ public class Review {
 	}
 	
 	
-	 public String getId() {
+	 public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	public String getId() {
 		return id;
 	}
 	public void setId(String id) {

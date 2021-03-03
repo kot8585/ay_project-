@@ -15,13 +15,13 @@
 </c:if>
 <c:if test="${not empty list }">
 <table>
-<tr><th>num</th><th>pwd</th><th>writer</th><th>title</th><th>content</th><th>state</th><th>regdate</th>
+<!-- c:out 사용 이유 : https://2ham-s.tistory.com/274 -->
+<tr><th>num</th><th>writer</th><th>title</th><th>content</th><th>state</th><th>regdate</th>
 <c:forEach var="p" items="${list }">
 <tr>
-	<td>${ p.num }</td>
-	<td>${ p.pwd }</td>
-	<td>${ p.writer }</td>
-	<td><a href="${ pageContext.request.contextPath }/qna/detail?num=${ p.num }">${ p.title }</a></td>
+	<td><c:out value="${ p.num }"/></td>
+	<td><c:out value="${ p.writer }"></c:out></td>
+	<td><a href="${ pageContext.request.contextPath }/qna/detail?num=${ p.num }"><c:out value="${ p.title }" /></a></td>
 	<td>${ p.content }</td>
 	<td>${ p.state }</td>
 	<td>${ p.regdate }</td>
