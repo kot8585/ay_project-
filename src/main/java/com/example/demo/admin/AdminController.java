@@ -565,7 +565,7 @@ public class AdminController {
 		// 관리자 기본 페이지로
 		return "redirect:/admin/admin";
 	}
-}
+
 
 
 @RequestMapping("/admin/pqDetail")
@@ -581,6 +581,11 @@ public ModelAndView pqDetail(@RequestParam("num") int num, HttpServletRequest re
 
 	mav.addObject("pq", pq);
 	return mav;
+}
+
+private void sessionCheck(ModelAndView mav, String id, HttpSession session) {
+	// TODO Auto-generated method stub
+	
 }
 
 }

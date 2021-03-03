@@ -15,6 +15,8 @@
 
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+ 
+ 
  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  <script type="text/javascript"> 
  function goPage() { location.href="${pageContext.request.contextPath}/member/joinForm"; } 
@@ -26,11 +28,12 @@ function go() {
 	var password = document.getElementById("password");
 	
 	if(id.value == ""){
-		alert("아이디 또는 비밀번호가0 액션빔")
+		alert("아이디를 작성해주세요! ")
 		return
 	}
 	if(password.value == ""){
-		alert("아이디 또는 비밀번호가 액션빔")
+		alert("비밀번호를 작성해주세요!")
+		return
 	}else{
 		f.submit()
 	}
@@ -59,7 +62,7 @@ $(document).ready(function(){
 
 .table {
     border-radius: 5px;
-    width: 50%;
+    width: 60%;
     margin: 0px auto;
     float: none;
 }
@@ -74,10 +77,12 @@ $(document).ready(function(){
 .table-bordered {
 	border: 1px;
 }
+.table th{
+width:40%
+}
 </style>
 </head>
 <body>
-<!-- header부분 -->
 <header>
 <c:if test="${ empty id }">
 	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
@@ -86,22 +91,20 @@ $(document).ready(function(){
 	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
 </c:if>
 </header>
-<!-- header 부분 -->
-
 <div class="container-fluid vertical-center d-flex justify-content-center">
 <form name="f" method="POST" action="${pageContext.request.contextPath }/member/login">
 	<table class="table table-hover text-centered table-bordered" border="1">
 		<thead class="table-dark">
 			<tr>
 				<th colspan="2">로그인</th>
-			</tr>
+			</tr> 
 		</thead>
 		<tr>
-			<th>ID</th>
+			<th>아이디</th>
 			<td><input type="text" name="id" id="id"></td>
 		</tr>
 		<tr>
-			<th>PWD</th>
+			<th>비밀번호</th>
 			<td><input type="password" name="password" id="password">
 			<input type="button" value="show" id="showPassword"></td>
 		</tr>
