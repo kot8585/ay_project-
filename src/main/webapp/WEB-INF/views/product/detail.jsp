@@ -300,8 +300,9 @@ margin-top:95%;
 </table>
 </form>
 
-
+<div>
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
+</div>
 <c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
 
 
