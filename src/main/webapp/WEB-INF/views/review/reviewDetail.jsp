@@ -7,6 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <!-- Required meta tags -->
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <!-- Bootstrap CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+ <!-- Option 1: Bootstrap Bundle with Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="/js/header.js"></script>
+<script src="/js/review.js"></script>
 <script>
 	function change(type, num){
 		console.log("선택한 기능(type) : " + type);
@@ -19,20 +29,25 @@
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
 				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-				if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
-					alert("비밀번호 확인 완료");	
-					location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
-				}else if(xhttp.responseText === "비밀번호 확인 완료" && type==="edit"){
-					alert("비밀번호 확인 완료");
-					f.submit();
-					
+				if(xhttp.responseText === "아이디가 다릅니다.."){
+					alert("아이디가 다릅니다..");
 				}else{
-					alert("비밀번호가 다릅니다.");
-					location.href="${pageContext.request.contextPath}/member/main";
+					if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){
+						alert("비밀번호 확인 완료");	
+						location.href="${pageContext.request.contextPath}/review/delReview?num="+num;
+					}else if(xhttp.responseText === "비밀번호 확인 완료" && type==="edit"){
+						alert("비밀번호 확인 완료");
+						f.submit();
+						
+					}else{
+						alert("비밀번호가 다릅니다.");
+						location.href="${pageContext.request.contextPath}/member/main";
+					}
 				}
+				
 			}			
 		}
-		xhttp.open("POST", "/review/pwdCheck?password=" + pwdCheck, true);
+		xhttp.open("POST", "/review/pwdCheck?password=" + pwdCheck + "&wid=${r.writer}", true);
 		xhttp.send();
 	}
 </script>
@@ -55,7 +70,13 @@
          </tr> 
          <tr>
             <th>제목</th>
-            <td><input type="text" name="title" value="${r.title }"></td>
+            <td>
+            	<input type="text" name="title" id="title" value="${r.title }" onkeyup="countLetter('title')">
+            	<div id="titleDiv">
+            		<span id="titleSpan1">0</span>/50
+            		<span id="titleSpan2"></span>
+            	</div>
+            </td>
          </tr>
            <tr>
             <th>작성자</th>
@@ -63,7 +84,14 @@
          </tr>
            <tr>
             <th>내용</th>
-            <td><input type="text" name="content" value="${r.content}"></td>
+            <td>
+            	<textarea name="content" id="content" value="${r.content }" cols="30" rows="30" onkeyup="countLetter('content')"></textarea>
+            	<div id="contentDiv">
+					<span id="contentSpan1">0</span>/50
+					<span id="contentSpan2"></span>
+				</div>	
+            	<input type="text" name="content" value="${r.content}">
+            </td>
          </tr>
            <tr>
             <th>작성날짜</th>

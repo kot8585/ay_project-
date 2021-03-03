@@ -198,7 +198,15 @@ function showList(qnum){replyService.getList(qnum, function(list){
 
 </head>
 <body>
-<script type="text/javascript" src="/js/header.js"></script>
+<!-- header부분 -->
+<header>
+<c:if test="${ empty id }">
+	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+</c:if>
+<c:if test="${ not empty id }">
+	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+</c:if>
+</header>
 
 	<!-- modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -13,6 +13,7 @@ import com.example.demo.product.ProductService;
 
 /**
  * 구매 창 띄우기, 구매 등의 기능을 제공하는 컨트롤러, 여기서 로그가 찍힌다.
+ * 2021-03-03 수정 : order 메소드 실행시 메인 페이지로 갔음에도 url에 /order/order가 남아있는 문제 해결
  * @author 김평기
  * @version 2021-02-09 
  */
@@ -78,7 +79,7 @@ public class OrderController {
 		// 로그 남기기.
 		log.info(o.content());
 		// 리턴 메인
-		return "/member/main";
+		return "redirect:/";
 	}
 	
 }

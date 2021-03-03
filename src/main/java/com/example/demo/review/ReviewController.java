@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -202,20 +203,26 @@ public class ReviewController {
 	 * @return 비밀번호 체크에 대한 결과를 출력
 	 */
 	@RequestMapping("/review/pwdCheck")
-	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd) {
+	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd, @RequestParam("wid")String wid) {
 		HttpSession session = req.getSession(false);
 		String id = (String) session.getAttribute("id");
 		
-		System.out.println(id);
+		System.out.println("session id : " + id);
 		System.out.println(pwd);
+		System.out.println("Writer : " + wid);
 		Member m = mservice.getMember(id);
 		String result = "";
-		if(m != null && m.getPassword().equals(pwd)) {
-			result = "비밀번호 확인 완료";
+		if(wid != id) {
+			result = "작성자가 아닙니다..";
+		}else {
+			if(m != null && m.getPassword().equals(pwd)) {
+				result = "비밀번호 확인 완료";
+			}
+			else {
+				result = "비밀번호가 다릅니다.";
+			}
 		}
-		else {
-			result = "비밀번호가 다릅니다.";
-		}
+		System.out.println(result);
 		ModelAndView mav = new ModelAndView("review/pwdCheck");
 		mav.addObject("result", result);
 		
