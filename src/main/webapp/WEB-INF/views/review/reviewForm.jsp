@@ -17,7 +17,14 @@
 
 <script>
 
+	function getByte(s){
+		var cnt = 0;
+		console.log(s.charAt());
+		console.log(s.charCodeAt());
+	}
+
 	function countLetter(type){
+		
 		console.log(type);
 		if(type === "title"){
 			var length = 50;
@@ -25,6 +32,15 @@
 			var length = 500;
 		}
 		console.log(length);
+		var title = document.getElementById("title");
+		var pattern = /\s/g;
+		getByte(title.value);
+		if(title.value.match(pattern) || title.value.length < 5){
+			document.getElementById("titleReg").innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
+		}else{
+			document.getElementById("titleReg").innerHTML = "";
+			
+		}
 		document.getElementById(type+"Span1").innerHTML = document.getElementById(type).value.length;
 		if(document.getElementById(type).value.length > length){
 			document.getElementById(type+"Div").style.color="red";
@@ -34,6 +50,8 @@
 			document.getElementById(type+"Span2").innerHTML = "";
 			
 		}	
+		
+		
 		
 	}
 	
@@ -60,7 +78,9 @@
 				<div id="titleDiv">
 					<span id="titleSpan1">0</span>/50 
 					<span id="titleSpan2"></span>
+					<span id="titleReg"></span>
 				</div>
+
 			</td>
 		</tr>
 		<tr>

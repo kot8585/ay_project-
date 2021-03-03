@@ -9,6 +9,7 @@ public class Order {
 	private int num;
 	private String m_id;
 	private int p_num;
+	private String p_name;
 	private int quantity;
 	private Date o_date;
 	private String address;
@@ -23,21 +24,23 @@ public class Order {
 		super();
 	}
 
-	public Order(int num, String m_id, int p_num, int quantity, Date o_date, int state) {
+	public Order(int num, String m_id, int p_num, String p_name, int quantity, Date o_date, int state) {
 		super();
 		this.num = num;
 		this.m_id = m_id;
 		this.p_num = p_num;
+		this.p_name = p_name;
 		this.quantity = quantity;
 		this.o_date = o_date;
 		this.state = state;
 	}
 
-	public Order(int num, String m_id, int p_num, int quantity, Date o_date, int state, Product p, Member m) {
+	public Order(int num, String m_id, int p_num, String p_name, int quantity, Date o_date, int state, Product p, Member m) {
 		super();
 		this.num = num;
 		this.m_id = m_id;
 		this.p_num = p_num;
+		this.p_name = p_name;
 		this.quantity = quantity;
 		this.o_date = o_date;
 		this.state = state;
@@ -45,12 +48,13 @@ public class Order {
 		this.m = m;
 	}
 	
-	public Order(int num, String m_id, int p_num, int quantity, Date o_date, String address, String tel, int cost, int state,
+	public Order(int num, String m_id, int p_num, String p_name, int quantity, Date o_date, String address, String tel, int cost, int state,
 			Product p, Member m) {
 		super();
 		this.num = num;
 		this.m_id = m_id;
 		this.p_num = p_num;
+		this.p_name = p_name;
 		this.quantity = quantity;
 		this.o_date = o_date;
 		this.address = address;
@@ -85,7 +89,13 @@ public class Order {
 		this.p_num = p_num;
 	}
 
-	
+	public String getP_name() {
+		return p_name;
+	}
+
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
 
 	public int getQuantity() {
 		return quantity;
@@ -102,8 +112,6 @@ public class Order {
 	public void setO_date(Date o_date) {
 		this.o_date = o_date;
 	}
-
-	
 	
 	public String getAddress() {
 		return address;
@@ -163,13 +171,9 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [num=" + num + ", m_id=" + m_id + ", p_num=" + p_num + ", quantity=" + quantity + ", o_date="
-				+ o_date + ", address=" + address + ", tel=" + tel + ", cost=" + cost + ", state=" + state
-				+ ", imgPath=" + imgPath + ", p=" + p + ", m=" + m + "]";
-	}
-
-	public String category() {
-		return "num,p_num,quantity,address,tel,cost,log_date\n";
+		return "Order [num=" + num + ", m_id=" + m_id + ", p_num=" + p_num + ", p_name=" + p_name + ", quantity="
+				+ quantity + ", o_date=" + o_date + ", address=" + address + ", tel=" + tel + ", cost=" + cost
+				+ ", state=" + state + ", imgPath=" + imgPath + ", p=" + p + ", m=" + m + "]";
 	}
 
 	public String content() {

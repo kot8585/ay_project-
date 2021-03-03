@@ -52,7 +52,7 @@ public class CategoryController {
 	@RequestMapping(value = "/category/addCategory")  // 카테고리 추가 
 	public String addCategory(Category c, @RequestParam(value = "type") int type) {
 		service.addCategory(c, type);
-		return "admin/admin";
+		return "redirect:/admin/admin";
 	}
 	
 	/**

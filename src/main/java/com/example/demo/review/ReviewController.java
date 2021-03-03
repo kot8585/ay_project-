@@ -84,7 +84,8 @@ public class ReviewController {
 	 * @return 작성됨 리뷰들을 리스트로 화면에 출력
 	 */
 	@RequestMapping("/review/reviewlist")
-	public ModelAndView viewlist(@RequestParam("p_num") int p_num, @RequestParam("what")String what) {
+	public ModelAndView viewlist(@RequestParam("p_num") int p_num,  @RequestParam("what")String what) {
+		//@RequestParam("p_name")String p_name,
 		System.out.println(what);
 		System.out.println(what.getClass());
 		//System.out.println(p_num);
@@ -212,7 +213,7 @@ public class ReviewController {
 		System.out.println("Writer : " + wid);
 		Member m = mservice.getMember(id);
 		String result = "";
-		if(wid != id) {
+		if(!wid.equals(id)) {
 			result = "작성자가 아닙니다..";
 		}else {
 			if(m != null && m.getPassword().equals(pwd)) {

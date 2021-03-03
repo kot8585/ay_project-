@@ -47,15 +47,16 @@
 
 <c:if test="${ not empty sessionScope.id }">
 <hr>
+<c:import url="${ pageContext.request.contextPath }/mypage/shoppingcartForm"></c:import>
+<hr>
+<br>
 <c:import url="${ pageContext.request.contextPath }/mypage/myOrderForm"></c:import>
 <hr>
 <br>
 <c:import url="${ pageContext.request.contextPath }/mypage/myQuestionForm"></c:import>
 <hr>
 <br>
-<c:import url="${ pageContext.request.contextPath }/mypage/shoppingcartForm"></c:import>
-<hr>
-<br>
+
 </c:if>
 </body>
 </html>

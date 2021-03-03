@@ -91,13 +91,12 @@ function ratingPrint(go, r_num){
 </head>
 <body>
 	<h3>리뷰</h3>
-    <hr>
+
     <button id="likesort" value="like" onclick="sort('likesort')">종아요순</button> | 
     <button id="latest" value="latest" onclick="sort('latest')">최신순</button>
-    <select id="list" onchange="sort('list')">
-    	<option value="none">선택</option>   		
-   		<option value="latest">최신순</option>   		
-	</select>
+
+
+  		
 	<select id="byStar" onchange="sort('byStar')">
 		<option value="none">평점 별 정렬</option>
 		<option value="1">★☆☆☆☆</option>
@@ -106,7 +105,7 @@ function ratingPrint(go, r_num){
 		<option value="4">★★★★☆</option>
 		<option value="5">★★★★★</option>
 	</select>
-	<hr>
+
 	<nav id="ntable">
 	<c:forEach var="r" items="${list}">
 		<table border="1" cellspacing="0" width="500px">
@@ -119,6 +118,7 @@ function ratingPrint(go, r_num){
 					<th>상품번호</th>
 					<td>${r.pnum}</td>
 				</tr>
+
 				<tr>
 					<th>제목</th>
 					<td><a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}">${r.title}</a></td>

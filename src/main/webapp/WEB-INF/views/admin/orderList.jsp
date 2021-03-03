@@ -10,11 +10,17 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
    var number = 0;
+   var state = 0;
    $(document).ready(function() {
+	   // 카테고리 선택시 state 값을 저장하기 위함.
+	   // TODO 추후 각 form 마다 input hidden을 두어 일괄 변경될 수 있도록 조치할 예정.
+	   	$(".sel").click(function() {
+			state = this.options[this.options.selectedIndex].value;
+		});
+	   
+	   // 주문상태변경이 변경이 됨.
 		$(".stateBtn").click(function() {
-			var check = prompt("변경할 상태를 입력하시오. 0 준비중 1 배송중 2 배송완료");
-			alert("check : " + check + ", number : " + number);
-			$.post("/admin/changeState", {num: $("#num"+number).val(), state: check});
+			$.post("/admin/changeState", {num: $("#num"+number).val(), state: state});
 			setTimeout(() => {
 				location.replace("${pageContext.request.contextPath}/admin/admin");
 			}, 500);
@@ -49,9 +55,9 @@
 <table class="table table-bordered">
 <thead class="table-warning">
 	<tr>
-		<th>num</th><th>img</th><th>m_id</th><th>p_num</th>
-		<th>quantity</th><th>address</th><th>tel</th>
-		<th>o_date</th><th>cost</th><th>state</th>
+		<th>구매번호</th><th>상품이미지</th><th>고객ID</th><th>상품번호</th>
+		<th>주문수량</th><th>상세주소</th><th>전화번호</th>
+		<th>주문날짜</th><th>주문액</th><th>주문상태</th>
 		<th>주문상태변경</th>
 	</tr>
 </thead>
@@ -81,6 +87,12 @@
 		<form method="post">
 			<input type="hidden" id="num${ p.num }" value="${ p.num }">
 			<input type="hidden" id="state${ p.num }" value="${ p.state }">
+			
+			<select class="sel" name ="sel">
+				<option value="0">준비중</option>
+				<option value="1">배송중</option>
+				<option value="2">배송완료</option>
+			</select>
 			<Button class="stateBtn" onclick="javascript:setNum(${p.num})">주문상태변경</Button>
 		</form>
 	</td>
