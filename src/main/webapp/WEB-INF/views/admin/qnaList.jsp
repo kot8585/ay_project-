@@ -33,7 +33,7 @@ function go(i) {
 
 <table class="table table-bordered">
 <thead class="table-warning" >
-<tr><th>num</th><th>pwd</th><th>writer</th>
+<tr><th>num</th><th>writer</th>
 <th>title</th><th>content</th><th>updatedate</th>
 <th>답변상태</th><th>답변하기</th>
 	</tr>
@@ -41,7 +41,7 @@ function go(i) {
 <c:forEach var="p" items="${list }">
 <tr>
 	<td>${ p.num }</td>
-	<td>${ p.pwd }</td>
+	
 	<td>${ p.writer }</td>
 	<td>${ p.title }</td>
 	<td>${ p.content }</td>

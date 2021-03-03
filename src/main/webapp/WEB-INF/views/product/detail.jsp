@@ -137,6 +137,48 @@
  
 </style>
 
+<style type ="text/css">
+div#side_left{
+width:200px;
+height:400px;
+/* background-color:yellow; */
+float:left;
+margin:5px;
+}
+#side_left_box{
+width:95%;
+height:45%;
+/* background-color:blue; */
+float:left;
+margin:5px;
+}
+#mid_content{
+width:400px;
+height:400px;
+/* background-color:green; */
+float:left;
+margin:5px;
+}
+#side_content_box{
+display: inline;
+/* background-color:white; */
+margin:5px;
+}
+#side_rigth{
+width:200px;
+height:400px;
+/* background-color:red; */
+float:left;
+margin:5px;
+}
+#side_rigth_box{
+width:95%;
+height:45%;
+/* background-color:skyblue; */
+margin:5px;
+margin-top:95%;
+}
+</style>
 
 
 
@@ -150,99 +192,52 @@
 
 <h3>상품 상제 정보</h3>
 <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
-<table border="1" cellspacing="0">
+<table cellspacing="0">
 <tr>
-
    
-   <div id="root">
-   <header id="header">
-      <div id="header_box">
-         <%@ include file="include/header.jsp" %>
-      </div>
-   </header>
-
-   <nav id="nav">
-      <div id="nav_box">
-         <%@ include file="include/nav.jsp" %>
-      </div>
-   </nav>
-   
-<!--    <section id="container"> -->
-<!--       <div id="container_box"> -->
-      
-<!--          <section id="content"> -->
-            
-<!--          </section> -->
-         
-         <aside id="aside">
+      <div id = "side_left">
+      <aside id="aside">
             <%@ include file="include/aside.jsp" %>
          </aside>
+         </div>
          
-      
-<!--    <section id="container"> -->
-<!--       <div id="container_box"> -->
-<!--          <section id="content"> -->
-      
-   
-<!--       <div class="align-self-stretch">번호</div> -->
-<%--       <input type="text" name="p_num" id="p_num" value="${p.num }" readonly> --%>
-<!--       </div> -->
-<!--       <div class="align-self-stretch">상품명</div> -->
-<%--       <input type="text" name="name" value="${p.name }" readonly> --%>
-<!--       </div> -->
-<!-- <!--       <div class="align-self-stretch">이미지</div> --> -->
-<!-- <!--                   <tr> --> -->
-<!-- <!--                      <td colspan="3"> --> -->
-<!--       <div class="align-self-stretch">이미지</div> -->
-<!--       <div> -->
-<%--                      <img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"  --%>
-<!--                      style="width:150px;height:150px"></td> -->
-<!--              </tr></div>         -->
-<!-- <!--                   </tr> --> -->
-<!--                   <tr> -->
-<%--                      <td><img src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }" class="img" width="50" height="50"></td> --%>
-<%--                      <td><img src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${p.num }" class="img" width="50" height="50"></td> --%>
-<%--                      <td><img src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }" class="img" width="50" height="50"></td> --%>
-               
-<!-- <!--       </div>    --> -->
-   
-<!-- </section> -->
-</div>
-   <!-- </section> -->
+<!--     <div id = "side_left_box">사이드바 왼쪽 위</div> -->
+<!--     <div id = "side_left_box">사이드바 왼쪽 아래</div> -->
+<!-- </div> -->
+<!-- <div id = "mid_content"> -->
+<!--     <div id = "side_content_box">첫번째 공간</div> -->
+    
+<!--     <div id = "side_content_box">두번째 공간</div> -->
+    
+<!-- </div> -->
+<!-- <div id = "side_rigth">사이드바 오른쪽 -->
+<!--     <div id = "side_rigth_box">사이드바 오른쪽 아래</div> -->
+<!-- </div> -->
 
+<div id = "mid_content">
+    <div id = "side_content_box"><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }" 
+     style="width:150px;height:150px"></div>
+     </div>
+     
 
-<!-- <div class="align-self-stretch">번호</div> -->
-<th>번호</th>
-<td><input type="text" name="p_num" id="p_num" value="${p.num }" readonly></td>
-</tr>
-
+    <div id = "side_content_box">
+    <table cellspacing="0" width="500px">
+<%--     <input type="text" name="p_num" id="p_num" value="${p.num }" readonly></div> --%>
+<thead>
+				<tr>
+					<th>번호</th>
+					<td><input type="text" name="p_num" id="p_num" value="${p.num }" readonly></td>
+				</tr>
+<!-- <div id = "side_content_box"> -->	
 <tr>
-
 <th>상품명</th>
-<td><input type="text" name="name" value="${p.name }" readonly>
 
+<td><input type="text" name="name" value="${p.name }" readonly>
 </td>
 </tr>
+<!-- </div> -->
 
-<tr>
-         <th>이미지</th>
-         <td><c:if test="${empty file0 }">
-               등록된 이미지가 없습니다.
-               </c:if> 
-               <c:if test="${not empty file0 }">
-               <table>
-                  <tr>
-                     <td colspan="3">
-                     <img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }" 
-                     style="width:150px;height:150px"></td>
-                  </tr>
-                  <tr>
-                     <td><img src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }" class="img" width="50" height="50"></td>
-                     <td><img src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${p.num }" class="img" width="50" height="50"></td>
-                     <td><img src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }" class="img" width="50" height="50"></td>
-               </table>
-            </c:if></td>
-      </tr>
+<!-- <div id = "side_content_box"> -->
 <tr>
 <th>메이커</th>
 <td><input type="text" name="maker" value="${p.maker }" readonly></td>
@@ -260,21 +255,21 @@
 <td><input type="text" name="origin" value="${p.origin }" readonly></td>
 </tr>
 
+
 <tr>
 <th>재료</th>
 <td><input type="text" name="material" value="${p.material }" readonly></td>
 </tr>
 
 <tr>
-<th>남는수량</th>
-				<td>
-					<c:if test="${p.quantity == 0}">
-						<input type="text" value="품절되었습니다." name="inventory" readonly="readonly">
+<th>남은수량</th>
+<td><c:if test="${p.quantity == 0}">
+<input type="text" value="품절되었습니다." name="inventory" readonly="readonly">
 					</c:if> 
 					<c:if test="${p.quantity != 0}">
 						<input type="text" value="${p.quantity }" name="inventory" readonly="readonly">
 					</c:if>
-				</td>
+</td>
 </tr>
 
 <tr>
@@ -297,10 +292,15 @@
    <input type="button" value="상품문의" onclick="go(${p.num})">
 </td>
 </tr>
+
+</thead></table></div></tr>
+
+   
+
 </table>
 </form>
 
-<!-- &p_name=${p.name } -->
+
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
 <c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
 
