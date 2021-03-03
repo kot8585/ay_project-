@@ -27,7 +27,8 @@ import com.example.demo.qna.QnaService;
 
 /**
  * Admin Page에서 사용가능한 기능들을 구현한 Controller 클래스입니다.
- * 1차 수정 : 2021-03-02 
+ * 1차 수정 : 2021-03-02 : 세션이 null일 때의 처리 및 주석에 대한 변경 
+ * 2차 수정 : 2021-03-03 : 주석에 대한 변경(주석이 너무 길어 적당히 축소할 예정)
  * @author 김평기
  * @version main 1
  */
@@ -199,12 +200,12 @@ public class AdminController {
 		if(session==null || session.getAttribute("id")==null){
 			mav.setViewName("redirect:/admin/loginForm"); // 관리자 로그인 페이지로 가도록 설정하고.
 			return mav; // 관리자 로그인 페이지로 이동시킨다.
-		} else {
-			System.out.println("id = " + session.getAttribute("id"));
-		}
+		} 
 		
-		// 모든 상품의 목록을 담은 ArrayList를 생성한다.
-		// select * from 상품DB;
+		/*
+		 * 모든 상품의 목록을 담은 ArrayList를 생성한다.
+		 * select * from 상품DB;
+		 */
 		ArrayList<Product> list = (ArrayList<Product>) productService.getProductAll();
 		int size = list.size(); // 최적화용
 		// 모든 상품 목록의 갯수만큼 for문을 돌려서
@@ -416,8 +417,9 @@ public class AdminController {
 	 * @param p 수정할 상품 정보가 담긴 DTO
 	 * @return Redirect할 Url
 	 */
-	@RequestMapping("/admin/edit")
+	@PostMapping("/admin/edit")
 	public String editProduct(Product p) {
+		// UPDATE 상품DB SET ?=? WHERE 상품번호=p.get 
 		productService.editProduct(p);
 		return "redirect:/admin/admin";
 	}
@@ -430,28 +432,42 @@ public class AdminController {
 	 */
 	@RequestMapping("/admin/qnaDetail")
 	public ModelAndView qnaDetail(@RequestParam("num") int num, HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("admin/qnaDetail");
-		String id = "";
+		// 기존에 존재하는 HttpSession을 받아온다. 없다면 null을 받아온다. 
+		HttpSession session = req.getSession(false);
+		// 세션이 존재하지 않는다면
+		if(session==null){
+			mav.setViewName("redirect:/admin/loginForm"); // 관리자 로그인 페이지로 가도록 설정하고.
+			return mav; // 관리자 로그인 페이지로 이동시킨다.
+		}
 		
-		sessionCheck(mav, id, session);
-
+		// 해당 1:1문의 받아오기. 
 		Qna q = qnaService.getQnaByNum(num);
-		System.out.println(q.toString());
 
+		// q에 담긴 num을 이용해 1:1문의 이미지 경로를 생성한다.
 		String path = basePath + "q" + q.getNum() + "\\";
+		
+		// 상품 이미지 경로에 대하여 참조하는 객체를 생성한다. 
 		File imgDir = new File(path);
+		// 만약 해당 경로에 디렉토리가 존재한다면
 		if (imgDir.exists()) {
+			// 디렉토리의 리스트를 받고, 이를 String 배열로 받아온다. 
 			String[] files = imgDir.list();
+			// 최적화용
 			int f_length = files.length;
+			// TODO 현재 file을 3개로 고정으로 받고 있어 사용하고 있으나 Product Detail의 디자인이 변경되면서 제거되거나 수정될 메소드입니다. 
 			for (int j = 0; j < f_length; j++) {
 				mav.addObject("file" + j, files[j]);
 			}
+			// 리스트 길이가 0이 아니라면
 			if (f_length != 0) {
+				// q에 이미지 경로를 set해준다.
 				q.setPath(files[0]);
 			}
 		}
+		// 이후 ModelAndView 객체에 q를 담고
 		mav.addObject("q", q);
+		// 이를 리턴한다.
 		return mav;
 	}
 
@@ -465,74 +481,52 @@ public class AdminController {
 	@RequestMapping("/admin/eventList")
 	public ModelAndView eventList(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("admin/eventList");
-		String id = "";
+		// 기존에 존재하는 HttpSession을 받아온다. 없다면 null을 받아온다. 
 		HttpSession session = req.getSession(false);
-		sessionCheck(mav, id, session);
-
+		// 세션이 존재하지 않는다면
+		if(session==null || session.getAttribute("id")==null){
+			mav.setViewName("redirect:/admin/loginForm"); // 관리자 로그인 페이지로 가도록 설정하고.
+			return mav; // 관리자 로그인 페이지로 이동시킨다.
+		} 
+		/*
+		 * 모든 이벤트의 목록을 담은 ArrayList를 생성한다.
+		 * select * from 이벤트DB; 
+		 */
 		ArrayList<Event> list = eventService.getEventList();
-		// 리스트 갯수만큼 반복
+		// 최적화용
 		int size = list.size();
+		// 모든 이벤트 목록의 갯수만큼 for문을 돌려서
 		for (int i = 0; i < size; i++) {
-
-			// path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
+			//  list에 담긴 이벤트번호를 이용해 상품 이미지 경로를 설정한다.
 			String path = basePath + "e" + list.get(i).getNum() + "\\";
 
-			// imDir에 path를 저장
+			// 이벤트 이미지 경로에 대하여 참조하는 객체를 생성한다. 
 			File imgDir = new File(path);
 
+			// 이후 디렉토리의 리스트를 받고, 이를 String 배열로 받아온다. 
 			String[] files = imgDir.list();
-			// mav에 files에 저장된 값을 저장한다
+			
+			// 해당 경로에 디렉토리가 존재한다면
 			if (imgDir.exists()) {
+				// 최적화용
 				int f_length = files.length;
+				// TODO 현재 file을 3개로 고정으로 받고 있어 사용하고 있으나 Product Detail의 디자인이 변경되면서 제거되거나 수정될 메소드입니다. 
 				for (int j = 0; j < f_length; j++) {
 					mav.addObject("file" + j, files[j]);
 				}
+				// 리스트 길이가 0이 아니라면
 				if (f_length != 0) {
+					// i번째 리스트에 상품 이미지 경로를 set해준다.
 					list.get(i).setImgPath(files[0]);
 				}
 			}
 		}
+		// 이후 ModelAndView 객체에 list를 담고
 		mav.addObject("list", list);
+		// 이를 리턴한다.
 		return mav;
 	}
 
-
-//	@RequestMapping("/admin/delProduct")
-//	public String del(@RequestParam(value = "num") int num) {
-//		productService.delProduct(num);
-//		String path = basePath + "p" + num + "\\";
-//		File imgDir = new File(path);
-//		if (imgDir.exists()) {
-//			String[] files = imgDir.list();
-//			int f_length = files.length;
-//			for (int j = 0; j < f_length; j++) {
-//				File f = new File(path + files[j]);
-//				f.delete();
-//			}
-//		}
-//		imgDir.delete();
-//		return "redirect:/admin/admin";
-//	}
-
-	/**
-	 * 세션 여부 확인, 세션이 없으면 ModelAndView가 관리자 로그인 페이지로 가게 함.
-	 * @param mav 해당 ModelAndView가 Redirect할 Url
-	 * @param id 해당 메소드의 id에 세션 id를 할당.
-	 * @param session 세션
-	 */
-	private void sessionCheck(ModelAndView mav, String id, HttpSession session) {
-		if (session == null) {
-			System.out.println("session null");
-			mav.setViewName("redirect:/admin/adminLoginForm");
-		} else {
-			id = (String) session.getAttribute("id");
-		}
-		if (id.isBlank()) {
-			mav.setViewName("redirect:/admin/adminLoginForm");
-		}
-
-	}
-	
 	
 	/**
 	 * 상품 삭제
@@ -540,20 +534,13 @@ public class AdminController {
 	 * @param num 삭제할 상품 num
 	 * @return Redirect할 Url
 	 */
-		@RequestMapping("/admin/delProduct")
-		public String del(@RequestParam(value = "num") int num) {
-			productService.delProduct(num);
-			return "admin/admin";
-		}
-
+	@PostMapping("/admin/delProduct")
+	public String del(@RequestParam(value = "num") int num) {
+		// delete from 상품DB where num=@RequestParam(value = "num") num
+		productService.delProduct(num);
+		// 관리자 기본 페이지로
+		return "redirect:/admin/admin";
 	}
-	
-	
-	/*
-	 * public String del(int num) { System.out.println("AdminController.del()");
-	 * productService.delProduct(num);
-	 * 
-	 * return "admin/admin";
-	 */
+}
 
 

@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +56,12 @@ $(document).ready(function(){
 <body>
 <!-- header부분 -->
 <header>
-<script type="text/javascript" src="/js/header.js"></script>
+<c:if test="${ empty id }">
+	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+</c:if>
+<c:if test="${ not empty id }">
+	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+</c:if>
 </header>
 <!-- header 부분 -->
 <h3>ID/PWD 찾기</h3>

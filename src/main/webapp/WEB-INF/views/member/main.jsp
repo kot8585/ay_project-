@@ -31,10 +31,14 @@
 <body>
 <!-- header부분 -->
 <header>
-<script type="text/javascript" src="/js/header.js"></script>
+<c:if test="${ empty id }">
+	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+</c:if>
+<c:if test="${ not empty id }">
+	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+</c:if>
 </header>
 <!-- header 부분 -->
-
 <c:import url="${ pageContext.request.contextPath }/event/list"></c:import>    
 <hr>    
   
