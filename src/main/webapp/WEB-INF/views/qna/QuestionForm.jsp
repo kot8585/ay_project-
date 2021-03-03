@@ -36,10 +36,30 @@
 
 <script type="text/javascript" src="/js/header.js"></script>
 <script type="text/javascript">
-function countLetter(){
-    document.getElementById("cnt").innerHTML = document.getElementById("title").value.length;
-    
- }
+function countLetter(type){
+	var typeLen = $('#'+type).val().length;
+	console.log(typeLen);
+	console.log(type);
+	if(type === "title"){
+		var length = 50;
+	}else if(type === "content"){
+		var length = 500;
+	}
+	console.log(length);
+	
+	$('#'+type+"Span1").html(typeLen);
+	if(typeLen > length){
+		$('#'+type+"Div").css("color","red");
+		$('#'+type+"Span2").html("글자수 초과!!");
+		return false;
+	}else{
+		$('#'+type+"Div").css("color","black");
+		$('#'+type+"Span2").html('');
+	}	
+	return true;
+}
+
+
 
 var maxSize = 5242880 //5MB
 function checkExtension(fileName, fileSize){
@@ -59,14 +79,14 @@ var ext = fileName.split('.').pop().toLowerCase();
 }
 
 	$(document).ready(function(){
-
+	
 
 		$("#uploadFile").on("change", function(e){
 				var inputFile = $("input[name='uploadFile']");
 				var files = inputFile[0].files;
 				console.log(files);
 
-				//add filedata to dormdata
+				//add filedata to formdata
 				for(var i=0; i<files.length; i++){
 					if(!checkExtension(files[i].name, files[i].size) ){
 						inputFile.val('');
@@ -75,6 +95,43 @@ var ext = fileName.split('.').pop().toLowerCase();
 				}
 		});
 		
+		$("#qnaForm").submit(function(){
+			var titleVal = $("#title").val();
+			var contentVal = $("#content").val();
+			var qCateVal = $("#q_cate option:selected").val();
+			
+			if(qCateVal == '' || qCateVal == null ){
+			    alert( '문의유형을 선택해주세요');
+			    $("#q_cate").focus();
+			    return false;
+			}
+			
+			if(titleVal == '' || titleVal == null ){
+			    alert( '제목을 입력해주세요');
+			    return false;
+			}
+			
+			if(contentVal == '' || contentVal == null ){
+			    alert( '내용을 입력해주세요');
+			    return false;
+			}
+			
+			if(titleVal.length > 50){
+				alert("제목의 글자수가 초과되었습니다.");
+				$("#title").focus();
+				return false;
+			}
+			
+			if(contentVal>500){
+				alert("본문의 글자수가 초과되었습니다.")
+				$("#content").focus();
+				return false;
+			}
+
+		});
+		
+		
+		
 	});
 </script>
 </head>
@@ -82,7 +139,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 <h1>1:1문의하기</h1>
 	<div class="container-fluid vertical-center justify-content-center">
 <span class="border border-dark">
-	<form id="QnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data" style="width: 500px;">
+	<form id="qnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data" style="width: 500px;">
 		
 		<!-- 주문 내역 o --> 
 <!-- 		<select name="o_num" id="o_num"> -->
@@ -106,22 +163,34 @@ var ext = fileName.split('.').pop().toLowerCase();
 		<!-- 질문 카테고리 -->
 			 <div class="mb-3">
 				<label class="form-label">제목</label>
-				<input class="form-control" type="text" id="title" name="title" onkeyup="countLetter()">
-				<span id="cnt">0</span>/50
+				<input class="form-control" type="text" id="title" name="title" onkeyup="countLetter('title')">
+				<div id="titleDiv">
+					<span id="titleSpan1">0</span>/50 
+					<span id="titleSpan2"></span>
+				</div>
 			  </div>
 
 			 <div class="mb-3">
 				<label class="form-label">내용</label>
-				<textarea class="form-control" name="content" rows="10" cols="33" ></textarea>
+				<textarea class="form-control" name="content" id="content" rows="10" cols="33" onkeyup="countLetter('content')" ></textarea>
+			  	<div id="contentDiv">
+					<span id="contentSpan1">0</span>/500
+					<span id="contentSpan2"></span>
+				</div>	
 			  </div>
 			 <div class="mb-3">
 				<label class="form-label">첨부파일</label>
 				<input class="form-control" type='file' id="uploadFile" name="uploadFile" multiple >
+				
+				<!-- 파일 여러개 넣으면 파일 이름 뽑기 -->
+				<div id="fileName">
+					
+				</div>
 			  </div>
 			
 			 <div class="mb-3">
 			 	<input type="reset" value="취소"class="btn btn-primary">
-				<button type="submit" class="btn btn-primary">Submit</button>
+			 	 <input class="btn btn-primary" type="submit" name="submit" id="submit" value="작성">
 			 </div>
 		</table>
 		
