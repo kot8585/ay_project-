@@ -16,6 +16,7 @@
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script src="/js/header.js"></script>
+<script src="/js/review.js"></script>
 <script>
 	function change(type, num){
 		console.log("선택한 기능(type) : " + type);
@@ -64,7 +65,13 @@
          </tr> 
          <tr>
             <th>제목</th>
-            <td><input type="text" name="title" value="${r.title }"></td>
+            <td>
+            	<input type="text" name="title" id="title" value="${r.title }" onkeyup="countLetter('title')">
+            	<div id="titleDiv">
+            		<span id="titleSpan1">0</span>/50
+            		<span id="titleSpan2"></span>
+            	</div>
+            </td>
          </tr>
            <tr>
             <th>작성자</th>
@@ -72,7 +79,14 @@
          </tr>
            <tr>
             <th>내용</th>
-            <td><input type="text" name="content" value="${r.content}"></td>
+            <td>
+            	<textarea name="content" id="content" value="${r.content }" cols="30" rows="30" onkeyup="countLetter('content')"></textarea>
+            	<div id="contentDiv">
+					<span id="contentSpan1">0</span>/50
+					<span id="contentSpan2"></span>
+				</div>	
+            	<input type="text" name="content" value="${r.content}">
+            </td>
          </tr>
            <tr>
             <th>작성날짜</th>
