@@ -4,8 +4,10 @@ package com.example.demo.admin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.example.demo.board.Board;
 import com.example.demo.board.BoardService;
 import com.example.demo.event.Event;
 import com.example.demo.event.EventService;
 import com.example.demo.order.Order;
 import com.example.demo.order.OrderService;
+import com.example.demo.pqreply.PqRepService;
+import com.example.demo.pqreply.PqReply;
+import com.example.demo.pquestion.Pquestion;
+import com.example.demo.pquestion.PquestionService;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
 import com.example.demo.qna.Qna;
@@ -57,6 +64,12 @@ public class AdminController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private PquestionService pService;
+	
+	@Autowired
+	private PqRepService pqService;
 
 	/**
 	 * 기본 url에 /admin 추가시 관리자 로그인 페이지로 이동하도록 url을 자동 리턴하는 메소드입니다.
@@ -534,6 +547,17 @@ public class AdminController {
 	 * @param num 삭제할 상품 num
 	 * @return Redirect할 Url
 	 */
+
+	
+	
+	
+	/*
+	 * public String del(int num) { System.out.println("AdminController.del()");
+	 * productService.delProduct(num);
+	 * 
+	 * return "admin/admin";
+	 */
+
 	@PostMapping("/admin/delProduct")
 	public String del(@RequestParam(value = "num") int num) {
 		// delete from 상품DB where num=@RequestParam(value = "num") num
@@ -542,5 +566,24 @@ public class AdminController {
 		return "redirect:/admin/admin";
 	}
 }
+
+
+@RequestMapping("/admin/pqDetail")
+public ModelAndView pqDetail(@RequestParam("num") int num, HttpServletRequest req) {
+	HttpSession session = req.getSession(false);
+	ModelAndView mav = new ModelAndView("admin/pqDetail");
+	String id = "";
+	
+	sessionCheck(mav, id, session);
+
+	PqReply pq = pqService.getPqReply(num);
+	System.out.println(pq.toString());
+
+	mav.addObject("pq", pq);
+	return mav;
+}
+
+}
+
 
 

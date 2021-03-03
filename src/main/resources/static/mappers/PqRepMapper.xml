@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.pqreply.PqRepMapper">
+	<resultMap type="com.example.demo.pqreply.PqReply" id="pqrep">
+		<result property="num" column="num"/>
+		<result property="pqnum" column="pqnum"/>
+		<result property="writer" column="writer"/>
+		<result property="content" column="content"/>
+		<result property="pq_date" column="pq_date"/>
+	</resultMap>
+	
+	<select id="getPqReplyById" parameterType="String" resultMap="pqrep">
+	SELECT * FROM pqreply WHERE writer=#{writer}
+	</select>
+	
+	<select id="getPqReplyByPqNum" parameterType="int" resultMap="pqrep">
+	SELECT * FROM pqreply WHERE pqnum=#{pqnum} order by num
+	</select>
+	
+	<insert id="insert" parameterType="com.example.demo.pqreply.PqReply">
+		insert into pqreply(num, pqnum, writer, content, pq_date) values(seq_pqreply.nextval, #{pqnum}, #{writer}, #{content}, sysdate)
+	</insert>
+	
+	<select id="select" resultMap="pqrep" parameterType="int">
+		select * from pqreply where num=#{num}
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete pqreply where num=#{num}
+	</delete>
+	
+	<update id="update" parameterType="com.example.demo.pqreply.PqReply">
+		update pqreply set content=#{content} where num=#{num}
+	</update>
+
+</mapper>

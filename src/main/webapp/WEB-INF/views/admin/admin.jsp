@@ -217,5 +217,9 @@
 <h3 id="boardList">&nbsp;</h3><br>
 <h3>전체 문의 목록</h3>
 <c:import url="${ pageContext.request.contextPath }/admin/qnaList"></c:import>
+
+<h3>전체 상품 문의 목록</h3>
+<c:import url="${ pageContext.request.contextPath }/admin/pqrepList"></c:import>
+
 </body>
 </html>
