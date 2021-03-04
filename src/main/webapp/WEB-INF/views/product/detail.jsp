@@ -387,7 +387,7 @@ border:1px;
 
 <div id = "mid_content">
 
-<c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
+
 
 
 
