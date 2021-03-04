@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.member.Member;
@@ -60,7 +64,7 @@ public class OrderController {
 	
 	/**
 	 * 구매하기, 주소와 전화번호를 입력하는 것으로 상품을 구매한다. 이때 로그가 남는다.
-	 * 로그 : order.num, member.gender, member.birth, order.address, order.tel, order.id, order.p_num, order.quantity, order.cost, log_date
+	 * 로그 : ,나이,성별,고객ID,상품번호,상품명,상품가격,상품원산지,상품원재료,카테고리1,카테고리2,이벤트번호,주문수량,주문액
 	 * @param o : 구매 관련 정보  
 	 * @return 메인으로 되돌아감.
 	 */
@@ -71,16 +75,26 @@ public class OrderController {
 		// 구매번호 세팅
 		o.setNum(num);
 		
-		// 없어도 되나 불안하니 한 번 더 세팅 
+		// 로그 작성용
 		Member m = memberService.getMember(o.getM_id()); 
-		o.setM(m);
+		
+		// 로그 작성용
+		Product p = productService.getProductByNum(o.getP_num());
 		
 		// 주문한 수량만큼 재고 수량 감소
 		productService.decreaseProduct(o);
 		// 구매 DB에 구매 정보 추가.
 		orderService.addOrder(o);
+
+		// 실제 나이 구하기.
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String birth = m.getBirth().toString().substring(0,4);
+		String now = sdf.format(new Date());
+		int age = Integer.parseInt(now) - Integer.parseInt(birth);
+		
 		// 로그 남기기.
-		log.info(o.content());
+		log.info("," + age + "," + m.getGender()  + "," +  m.getId() 
+		 			+ "," + p.content() + "," + o.getQuantity()  + "," +  o.getCost());
 		// 리턴 메인
 		return "redirect:/";
 	}

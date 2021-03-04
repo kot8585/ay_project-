@@ -22,6 +22,7 @@ public class Review {
 	public Review() {
 		super();
 	}
+
 	public Review(int num, int pnum, String title, String writer, String content, Date pdate, String stars, String likey) {
 		super();
 		this.num = num;

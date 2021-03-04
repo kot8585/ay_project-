@@ -50,6 +50,13 @@ $(document).ready(function(){
 			$("#pwd1_check").text('불가능');
 			$('#pwd1_check').css('color', 'red');
 		}
+		if($("#password1").val() == $("#password2").val()){
+			$("#pwd2_check").text('가능');
+			$('#pwd2_check').css('color', 'green');
+		}else{
+			$("#pwd2_check").text('불가능');
+			$('#pwd2_check').css('color', 'red');
+		};
 	});
 	$("#password2").keyup(function(){
 		if($("#password1").val() == $("#password2").val()){

@@ -21,7 +21,7 @@
    </resultMap>
    
 	<insert id="insert" parameterType="com.example.demo.review.Review">
-		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars},0, sysdate)
+		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars},0 ,sysdate)
 	</insert>
 	
 	<insert id="insertID" parameterType="com.example.demo.review.Review">

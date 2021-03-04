@@ -42,8 +42,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/main")
-	public void main() {
+	public String main() {
 		//main.jsp를 불러와 화면에 보여준다.
+		return "/member/main";
 	}
 	
 
@@ -85,8 +86,9 @@ public class MemberController {
 	}
 	}
 	@RequestMapping("/member/loginForm")
-	public void loginForm() {
+	public String loginForm() {
 		//loginForm.jsp를 불러와 화면에 보여준다
+		return "member/loginForm";
 	}
 	
 	@PostMapping("/member/login")
@@ -109,8 +111,8 @@ public class MemberController {
 	 * findForm.jsp로 이동하기 위한 메소드
 	 */
 	@RequestMapping("/member/findForm")
-	public void findForm() {
-		
+	public String findForm() {
+		return "/member/findForm";
 	}
 	
 	/**
@@ -153,8 +155,10 @@ public class MemberController {
 	@PostMapping(value="/member/edit")
 	public String edit(HttpServletRequest req, Member m) {
 		//로그인된 아이디 값을 session을 통해 받아온다.
-		HttpSession session = req.getSession();
-		service.editMember(m);
+		HttpSession session = req.getSession(false);
+		if (session != null) {
+			service.editMember(m);
+		}
 		return "redirect:/mypage/mypage";
 	}
 	
@@ -169,7 +173,7 @@ public class MemberController {
 		session.removeAttribute("id");
 		//id에 대한 세션을 지운다.
 		session.invalidate();
-		return "member/main";
+		return "redirect:/member/main";
 	}
 
 	@PostMapping(value = "/member/out")
@@ -182,11 +186,11 @@ public class MemberController {
 		service.delMember(id);
 		session.removeAttribute("id");
 		session.invalidate();
-		return "member/loginForm";
+		return "redirect:/member/loginForm";
 	}
 	
 	@RequestMapping("/logo")
-	   public ResponseEntity<byte[]> getImg() {
+	   public ResponseEntity<byte[]> getLogo() {
 	      String path = "C:\\shopimg\\logo\\logo.png";
 	      File f = new File(path);
 	      HttpHeaders header = new HttpHeaders();
