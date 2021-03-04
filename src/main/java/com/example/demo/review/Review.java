@@ -21,8 +21,10 @@ public class Review {
 	private String likey;
 	private MultipartFile[] uploadFile;
 	private String path;
+	private String path2;
 	private Date pdate;
 	private String id;
+	private String pname;
 	   
 	public Review() {
 		super();
@@ -45,20 +47,38 @@ public class Review {
 		this.id = id;
 	}
 
-	public Review(int num, int pnum, String title, String writer, String content, Date pdate, String stars, String likey) {
+
+	
+	
+	 public Review(int num, int pnum, int rnum, String title, String writer, String content, String stars, String likey,
+			MultipartFile[] uploadFile, String path, String path2, Date pdate, String id) {
 		super();
 		this.num = num;
 		this.pnum = pnum;
+		this.rnum = rnum;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
-		this.pdate = pdate;
 		this.stars = stars;
 		this.likey = likey;
+		this.uploadFile = uploadFile;
+		this.path = path;
+		this.path2 = path2;
+		this.pdate = pdate;
+		this.id = id;
 	}
-	
-	
-	 public MultipartFile[] getUploadFile() {
+	 
+	 
+
+	public String getPath2() {
+		return path2;
+	}
+
+	public void setPath2(String path2) {
+		this.path2 = path2;
+	}
+
+	public MultipartFile[] getUploadFile() {
 		return uploadFile;
 	}
 

@@ -152,18 +152,25 @@ public class ReviewController {
 			int num = reviewlist.get(i).getNum();
 			path = basePath + "q" + num + "\\";
 			File imgDir = new File(path);
+			System.out.println("dir" + imgDir);
+			
 			String[] files = imgDir.list();
+			System.out.println("dir list : " + files);
 			if(imgDir.exists()) {
-				for(int j = 0; j < files.length; j++) {
-					reviewlist.get(i).setPath(files[j]);
+				for(int j = 0; j < files.length; j++) {	
+					if(j == 0) {
+						reviewlist.get(i).setPath(files[0]);
+					}
+					else if(j == 1) {
+						reviewlist.get(i).setPath2(files[1]);
+					}
+					
+					
 					mav.addObject("file" + j, files[j]);
 				}
 			}
 			
 		}
-		
-		
-		
 		System.out.println("경로 : " + path);
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
