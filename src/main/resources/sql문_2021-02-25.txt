@@ -11,7 +11,7 @@ SELECT * FROM category2;
 
 /*
 ----Review 관련 data table----
-마지막 업데이트 : 21.02.26
+마지막 업데이트 : 21.03.04
 */
 drop table review CASCADE CONSTRAINTS;
 DROP TABLE idcheck CASCADE CONSTRAINTS;
@@ -23,6 +23,7 @@ CREATE TABLE review(
     content VARCHAR2(500) NOT NULL,
     stars VARCHAR2(20) NOT NULL,
     likey VARCHAR2(20) NOT NULL,
+    path VARCHAR2(50) DEFAULT '', 
     pdate DATE);
 CREATE SEQUENCE seq_review;
 CREATE SEQUENCE seq_rating;

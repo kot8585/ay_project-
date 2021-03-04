@@ -48,7 +48,7 @@
 				<td>
 					<button id="like" value="like" onclick="rating('like', ${r.num})">좋아요</button>
 					<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
-					좋아요 : <div id="rating${r.num }">${r.likey }</div> 
+					<span id="rating${r.num }">${r.likey }</span> 명이 좋아합니다. 
 				</td>
 			</tr>
 		</thead>
