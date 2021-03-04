@@ -57,6 +57,10 @@ public class ReviewService {
 		return mapper.selectLikeById(num);
 	}
 	
+	public int getNum() {
+		return mapper.getNum();
+	}
+	
 	public void IncRating(Review r) {
 		mapper.increaseRating(r);
 	}

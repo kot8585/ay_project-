@@ -1,6 +1,9 @@
 package com.example.demo.review;
 
 import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,16 +14,22 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.admin.AdminController;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberService;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
+import com.example.demo.qna.QnaController;
 /**
  * Review 기능(2021.02.25)
  *	
@@ -55,6 +64,12 @@ public class ReviewController {
 	
 	@Autowired
 	private MemberService mservice;
+	
+	public static String basePath = "C:\\shopimg\\";
+	
+	AdminController admin = new AdminController();
+	
+	QnaController qna = new QnaController();
 	
 	/**
 	 * 
@@ -93,8 +108,40 @@ public class ReviewController {
 		
 		log.info("," + age + "," + m.getGender() + "," + m.getId() + "," + r.getStars());
 		//작성한 폼을 DB에 저장한다.
+		System.out.println("getUploadFile : " + r.getUploadFile());
+		
+		int num = service.getNum();
+		System.out.println("번호 : " +num);
+		r.setNum(num);
+		for(MultipartFile multipartFile : r.getUploadFile()) {
+			String fileName = multipartFile.getOriginalFilename();
+			System.out.println("파일 이름 : " + fileName);
+			if(fileName != null && !fileName.equals("")) {
+				qna.saveQnaImg(num, multipartFile);
+			}
+		}
+		
 		service.addReview(r);
 		return "redirect:/member/main";
+	}
+	
+	@RequestMapping("/review/img")
+	public ResponseEntity<byte[]> getImg(String fname, int num){
+		
+		String path = basePath + "q" + num + "\\" + fname;
+		System.out.println("fname : " + fname);
+		
+		 
+		File f = new File(path);
+		HttpHeaders header = new HttpHeaders();
+		ResponseEntity<byte[]> result = null;
+		try {
+			header.add("Content-Type", Files.probeContentType(f.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(f),header, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return result;
 	}
 	
 
@@ -107,6 +154,7 @@ public class ReviewController {
 		//@RequestParam("p_name")String p_name,
 		System.out.println(what);
 		System.out.println(what.getClass());
+		ModelAndView mav = new ModelAndView("review/reviewlist");
 		//System.out.println(p_num);
 		// 작성된 모든 리뷰를 리스트에 저장
 		ArrayList<Review> reviewlist = null;
@@ -115,6 +163,7 @@ public class ReviewController {
 		}else if(what.equals("latest")) {
 			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 		}
+
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/reviewlist");
@@ -159,9 +208,39 @@ public class ReviewController {
 				reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
 		}
 		
+
+		// for문을 서서 reviewlist .get(i) .setPath() <- 각 넘버별 이미지 경로를 저장해주고
+		// 
+		String path = "";
+		
+		for(int i = 0; i < reviewlist.size(); i++) {
+			int num = reviewlist.get(i).getNum();
+			path = basePath + "q" + num + "\\";
+			File imgDir = new File(path);
+			System.out.println("dir" + imgDir);
+			
+			String[] files = imgDir.list();
+			System.out.println("dir list : " + files);
+			if(imgDir.exists()) {
+				for(int j = 0; j < files.length; j++) {	
+					if(j == 0) {
+						reviewlist.get(i).setPath(files[0]);
+					}
+					else if(j == 1) {
+						reviewlist.get(i).setPath2(files[1]);
+					}
+					
+					
+					mav.addObject("file" + j, files[j]);
+				}
+			}
+			
+		}
+		System.out.println("경로 : " + path);
+
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
-		ModelAndView mav = new ModelAndView("review/list");
+		
 		//mav.setViewName("review/list");
 		mav.addObject("list", reviewlist);
 		return mav;
@@ -279,7 +358,7 @@ public class ReviewController {
 			
 			if(id.equals("")) {
 				System.out.println("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
-				message = "동준씨 로그인부터 하시죠..";
+				message = "로그인을 하여야 좋아요 기능을 이용할 수 있습니다.";
 			}else if(!id.equals("") && !exist.equals("exist")) {
 				review.setWriter(id);
 				service.addReviewID(review);
