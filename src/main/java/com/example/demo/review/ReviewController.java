@@ -1,14 +1,18 @@
 package com.example.demo.review;
 
+import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,6 +51,11 @@ import com.example.demo.qna.QnaController;
 @Controller
 public class ReviewController {
 
+	/**
+	 * 로그 찍는 용.
+	 */
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private ReviewService service;
 	
@@ -88,6 +97,16 @@ public class ReviewController {
 	 */
 	@RequestMapping("/review/write")
 	public String write(Review r) {
+		Member m = mservice.getMember(r.getWriter());
+		
+		// 실제 나이 구하기.
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String birth = m.getBirth().toString().substring(0,4);
+		String now = sdf.format(new Date());
+		int age = Integer.parseInt(now) - Integer.parseInt(birth);
+				
+		
+		log.info("," + age + "," + m.getGender() + "," + m.getId() + "," + r.getStars());
 		//작성한 폼을 DB에 저장한다.
 		System.out.println("getUploadFile : " + r.getUploadFile());
 		
@@ -144,6 +163,52 @@ public class ReviewController {
 		}else if(what.equals("latest")) {
 			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 		}
+
+		System.out.println(reviewlist);
+		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
+		ModelAndView mav = new ModelAndView("review/reviewlist");
+		//mav.setViewName("review/list");
+		mav.addObject("list", reviewlist);
+		return mav;
+	}
+	
+	@RequestMapping("/review/list")
+	public ModelAndView list(@RequestParam("what")String what, @RequestParam("p_num")int p_num) {
+		System.out.println("input value : " + what);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<Review> reviewlist = null;
+		//for문으로 짜래.. // for문으로 짬...
+		/*
+		 *   *
+		 *  ***
+		 *   * 
+		 */
+		if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
+			int blackstar = Integer.parseInt(what);
+			// = String star = "";
+			StringBuilder star = new StringBuilder();
+			for (int i = 0; i < blackstar; i++) {
+				// star += "★";
+				star.append("★");
+			}
+			
+			for (int i = 0; i < 5-blackstar; i++) {
+				// star += "☆";
+				star.append("☆");
+			}
+			map.put("pnum", p_num);
+			map.put("stars", star.toString());
+			reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
+			
+		} else if(what.equals("basic") || what.equals("none")) {
+				reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
+		} else if(what.equals("latest")) {
+				reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
+		} else if(what.equals("like")) {
+				reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
+		}
+		
+
 		// for문을 서서 reviewlist .get(i) .setPath() <- 각 넘버별 이미지 경로를 저장해주고
 		// 
 		String path = "";
@@ -172,6 +237,7 @@ public class ReviewController {
 			
 		}
 		System.out.println("경로 : " + path);
+
 		System.out.println(reviewlist);
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		
@@ -179,50 +245,6 @@ public class ReviewController {
 		mav.addObject("list", reviewlist);
 		return mav;
 	}
-	
-	@RequestMapping("/review/list")
-	   public ModelAndView list(@RequestParam("what")String what, @RequestParam("p_num")int p_num) {
-	      System.out.println("input value : " + what);
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      ArrayList<Review> reviewlist = null;
-	      //for문으로 짜래.. // for문으로 짬...
-	      /*
-	       *   *
-	       *  ***
-	       *   * 
-	       */
-	      if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
-	         int blackstar = Integer.parseInt(what);
-	         // = String star = "";
-	         StringBuilder star = new StringBuilder();
-	         for (int i = 0; i < blackstar; i++) {
-	            // star += "★";
-	            star.append("★");
-	         }
-	         
-	         for (int i = 0; i < 5-blackstar; i++) {
-	            // star += "☆";
-	            star.append("☆");
-	         }
-	         map.put("pnum", p_num);
-	         map.put("stars", star.toString());
-	         reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
-	         
-	      } else if(what.equals("basic") || what.equals("none")) {
-	            reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
-	      } else if(what.equals("latest")) {
-	            reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
-	      } else if(what.equals("like")) {
-	            reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
-	      }
-	      
-	      System.out.println(reviewlist);
-	      // 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
-	      ModelAndView mav = new ModelAndView("review/list");
-	      //mav.setViewName("review/list");
-	      mav.addObject("list", reviewlist);
-	      return mav;
-	   }
 	
 	/**
 	 * 

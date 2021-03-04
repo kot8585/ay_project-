@@ -29,9 +29,10 @@ public class Review {
 	public Review() {
 		super();
 	}
-	
+
 	public Review(int num, int pnum, int rnum, String title, String writer, String content, String stars, String likey,
 			MultipartFile[] uploadFile, String path, Date pdate, String id) {
+
 		super();
 		this.num = num;
 		this.pnum = pnum;

@@ -184,9 +184,8 @@ public class Product {
 	}
 
 	public String content() {
-		return num + "," + name + "," + maker + "," + price + "," + origin + "," + material + "," + quantity + ","
-				+ imgPath + "," + category1 + "," + category2 + "," + event_num + "," + file1.getName() + ","
-				+ file2.getName() + "," + file3.getName();
+		return num + "," + name + "," + maker + "," + price + "," + origin + "," + material + ","
+				+ category1 + "," + category2 + "," + event_num;
 	}
 
 }

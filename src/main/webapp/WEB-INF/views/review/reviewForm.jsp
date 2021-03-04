@@ -121,6 +121,7 @@
 			<td colspan="2">
 				<input type="button" value="작성" onclick="sub()">
 				<input type="reset" value="지우기">
+				
 				<input type="hidden" name="pnum" value="${p.num }">
 			</td>
 		</tr>

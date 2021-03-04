@@ -238,5 +238,7 @@ public class EventController {
 		mav.addObject("list", list);
 		return mav;
 	}
+	
+	// 추후 이벤트 베너 클릭시 이벤트 상품 목록이 뜨는 기능이 구현된다면 그때 로그 박기.
 
 }
