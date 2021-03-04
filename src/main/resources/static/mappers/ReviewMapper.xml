@@ -11,7 +11,7 @@
       <result property="content" column="content" />
       <result property="stars" column="stars" />
       <result property="pdate" column="pdate" />
-      <result property="likey" column="likey" />
+      <result property="path" column="path" />
    </resultMap>
    
    <resultMap type="com.example.demo.review.ReviewLike" id="reviewLike">
@@ -21,7 +21,7 @@
    </resultMap>
    
 	<insert id="insert" parameterType="com.example.demo.review.Review">
-		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars},0, sysdate)
+		insert into review values(seq_review.NEXTVAL, #{pnum}, #{title}, #{writer}, #{content}, #{stars},0,#{path}, sysdate)
 	</insert>
 	
 	<insert id="insertID" parameterType="com.example.demo.review.Review">

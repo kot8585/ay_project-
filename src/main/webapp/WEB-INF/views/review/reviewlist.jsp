@@ -71,8 +71,8 @@ function rating(hi, r_num){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
 			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
 			
-			if(xhttp.responseText === "동준씨 로그인부터 하시죠.."){
-				alert("동준씨 로그인부터 하시죠..");
+			if(xhttp.responseText === "로그인을 하여야 좋아요 기능을 이용할 수 있습니다."){
+				alert("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
 			}else if(xhttp.responseText === "이미 좋아요를 누르셨습니다."){
 				alert("${sessionScope.id}님 이미 좋아요를 누르셨습니다.");	
 			}else{
@@ -108,47 +108,21 @@ function ratingPrint(go, r_num){
 
 	<nav id="ntable">
 	<c:forEach var="r" items="${list}">
-		<table border="1" cellspacing="0" width="500px">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<td value="${r.num }" id="rnum">${r.num}</td>
-				</tr>
-				<tr>
-					<th>상품번호</th>
-					<td>${r.pnum}</td>
-				</tr>
-
-				<tr>
-					<th>제목</th>
-					<td><a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}">${r.title}</a></td>
-				</tr>
-				<tr>
-					<th>별점</th>
-					<td>${r.stars }</td>
-				</tr>
-				<tr>
-					<th>작성자</th>
-					<td>${r.writer}</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td>${r.content}</td>
-				</tr>
-				<tr>
-					<th>작성날짜</th>
-					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /></td>
-				</tr>
-				<tr>
-					<th>좋아요</th>
-					<td>
-						<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
+		<div>
+			<hr>
+			${r.writer }<br>
+			<div>
+			<p class="text-danger">${r.stars } <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /></p>
+			</div>
+			<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">상품명</a><br><br>
+			${r.content }<br><br>
+			<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
 						<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
-						좋아요 : <div id="rating${r.num }">${r.likey }</div> 
-					</td>
-				</tr>
-			</thead>
-		</table>
+						<span id="rating${r.num }">${r.likey }</span> 명이 좋아합니다. 
+			
+		</div>
+	
+		
 	</c:forEach>
 	</nav>
 </body>

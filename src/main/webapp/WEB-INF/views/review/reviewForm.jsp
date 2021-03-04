@@ -65,11 +65,17 @@
 		}
 	}
 	
+	function upload(){
+		
+	}
+	
+	
+	
 </script>
 </head>
 <body>
 <nav></nav>
-<form name="f" action="${pageContext.request.contextPath }/review/write">
+<form name="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
 	<table border="1">
 		<tr>
 			<th>제목</th>
@@ -98,6 +104,10 @@
 			</td>
 		</tr>
 		<tr>
+			<th>사진 업로드</th>
+			<td><input class="form-control" type="file" name="imgUp" multiple></td>
+		</tr>
+		<tr>
 			<th>별점</th>
 			<td>
 				<input type="radio" name="stars" value="★☆☆☆☆">★
@@ -115,6 +125,7 @@
 			</td>
 		</tr>
 	</table>
+	<input type="hidden" name="path" value="123">
 </form>
 </body>
 </html>

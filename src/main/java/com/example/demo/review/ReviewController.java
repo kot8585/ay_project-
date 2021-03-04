@@ -8,15 +8,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.admin.AdminController;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberService;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
+import com.example.demo.qna.QnaController;
 /**
  * Review 기능(2021.02.25)
  *	
@@ -47,6 +49,12 @@ public class ReviewController {
 	@Autowired
 	private MemberService mservice;
 	
+	public static String basePath = "C:\\shopimg\\";
+	
+	AdminController admin = new AdminController();
+	
+	QnaController qna = new QnaController();
+	
 	/**
 	 * 
 	 * @param req session값을 받아오기 위한 파라메터
@@ -74,6 +82,17 @@ public class ReviewController {
 	@RequestMapping("/review/write")
 	public String write(Review r) {
 		//작성한 폼을 DB에 저장한다.
+		System.out.println("getUploadFile : " + r.getUploadFile());
+		
+		int num = pservice.getNum();
+		System.out.println("pnum : " +num);
+		r.setNum(num);
+		for(MultipartFile multipartFile : r.getUploadFile()) {
+			String fileName = multipartFile.getOriginalFilename();
+			if(fileName != null && !fileName.equals("")) {
+				qna.saveQnaImg(num, multipartFile);
+			}
+		}
 		service.addReview(r);
 		return "redirect:/member/main";
 	}
@@ -280,7 +299,7 @@ public class ReviewController {
 			
 			if(id.equals("")) {
 				System.out.println("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
-				message = "동준씨 로그인부터 하시죠..";
+				message = "로그인을 하여야 좋아요 기능을 이용할 수 있습니다.";
 			}else if(!id.equals("") && !exist.equals("exist")) {
 				review.setWriter(id);
 				service.addReviewID(review);
