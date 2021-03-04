@@ -300,9 +300,9 @@ border:1px;
             <input type="text" name="name" value="${p.name }" readonly style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
 
 <!--             가격 -->
-            <h3>${p.price }원</h3><hr>
+            <h3><script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>원</h3><hr>
             <input type="hidden" id="cost" value="${p.price }" readonly style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
-<script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>
+<!-- <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script> -->
             
 <!--             메이커 -->
             <h7>메이커: ${p.maker }</h7><br>
@@ -336,7 +336,7 @@ border:1px;
 		<input type="submit" value="구매">
 	</c:if>
    <input type="hidden" name="price" id="price" value="${p.price }">
-   
+   <input type="hidden" name="p_num" id="p_num" value="${p.num }">
    <input type="button" value="장바구니로" id="cart">
    
    <input type="button" value="상품문의" onclick="go(${p.num})">
