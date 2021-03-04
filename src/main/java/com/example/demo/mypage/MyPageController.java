@@ -79,7 +79,9 @@ public class MyPageController {
 			// list의 p_num 으로 해당 Product를 받아오기.
 			Product p = productService.getProductByNum(list.get(i).getP_num());
 			// 받아온 Product의 name을 이용하여 p_name을 세팅.
-			list.get(i).setP_name(p.getName());
+			if (p != null) {
+				list.get(i).setP_name(p.getName());
+			}
 			
 			//path에 basePath에 담긴 이미지와 list에 담긴 번호를 저장
 	         String path = basePath + list.get(i).getP_num() + "\\";

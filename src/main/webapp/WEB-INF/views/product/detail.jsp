@@ -5,6 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Shop Item - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/shop-item.css" rel="stylesheet">
+  
+  
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
  <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -89,6 +103,7 @@
 			quantity.focus();
 			return false;
 		}
+		return true;
    }
    function go(i){
       location.href="${pageContext.request.contextPath}/pquestion/pquestionForm?pnum="+i;
@@ -178,108 +193,141 @@ height:45%;
 margin:5px;
 margin-top:95%;
 }
+
+input:focus {outline:none;}
+input{
+border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+}
+.inputStyle{
+border:1px;
+}
+
 </style>
 
+<style type="text/css">
 
+.button {
 
+    width:100px;
+
+    background-color: #f8585b;
+
+    border: none;
+
+    color:#fff;
+
+    padding: 15px 0;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    font-size: 15px;
+
+    margin: 4px;
+
+    cursor: pointer;
+
+}
+</style>
 
 </head>
 <body>
 <header>
 <script type="text/javascript" src="/js/header.js"></script>
 </header>
+<!-- Navigation -->
+<!--   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> -->
+    <div class="container">
+<!--       <a class="navbar-brand" href="#">Start Bootstrap</a> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
+  <!-- Page Content -->
+  <div class="container">
 
-<h3>상품 상제 정보</h3>
-<form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
-<table cellspacing="0">
-<tr>
-   
-      <div id = "side_left">
-      <aside id="aside">
-            <%@ include file="include/aside.jsp" %>
-         </aside>
-         </div>
-         
-<!--     <div id = "side_left_box">사이드바 왼쪽 위</div> -->
-<!--     <div id = "side_left_box">사이드바 왼쪽 아래</div> -->
-<!-- </div> -->
-<!-- <div id = "mid_content"> -->
-<!--     <div id = "side_content_box">첫번째 공간</div> -->
-    
-<!--     <div id = "side_content_box">두번째 공간</div> -->
-    
-<!-- </div> -->
-<!-- <div id = "side_rigth">사이드바 오른쪽 -->
-<!--     <div id = "side_rigth_box">사이드바 오른쪽 아래</div> -->
-<!-- </div> -->
+    <div class="row">
 
-<div id = "mid_content">
-    <div id = "side_content_box"><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }" 
-     style="width:150px;height:150px"></div>
-     </div>
-     
+      <div class="col-lg-3">
+        <h1 class="my-4">카테고리</h1>
+        <div class="list-group">
+          <a href="#" class="list-group-item active">Category 1</a>
+          <a href="#" class="list-group-item">Category 2</a>
+          <a href="#" class="list-group-item">Category 3</a>
+        </div>
+      </div>
+      <!-- /.col-lg-3 -->
+<%-- <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()"> --%>
+      <div class="col-lg-9">
 
-    <div id = "side_content_box">
-    <table cellspacing="0" width="500px">
-<%--     <input type="text" name="p_num" id="p_num" value="${p.num }" readonly></div> --%>
-<thead>
-				<tr>
-					<th>번호</th>
-					<td><input type="text" name="p_num" id="p_num" value="${p.num }" readonly></td>
-				</tr>
-<!-- <div id = "side_content_box"> -->	
-<tr>
-<th>상품명</th>
+        <div class="card mt-4">
+        
+        <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
+       
+        
+<!--         <div id = "mid_content"> -->
+<!--         <div id = "side_content_box"> -->
+          <img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"style="width:300px;height:300px">
+<!--        </div> -->
+       
+<!--        <div id = "side_content_box"> -->
+          <div class="card-body">
+<!--           상품명 -->
+<%--             <h1 class="card-title">${p.name }</h1><hr> --%>
+            <input type="text" name="name" value="${p.name }" readonly style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
 
-<td><input type="text" name="name" value="${p.name }" readonly>
-</td>
-</tr>
-<!-- </div> -->
-
-<!-- <div id = "side_content_box"> -->
-<tr>
-<th>메이커</th>
-<td><input type="text" name="maker" value="${p.maker }" readonly></td>
-</tr>
-
-<tr>
-<th>가격</th>
-<td><input type="text" id="cost" value="${p.price }" readonly>
+<!--             가격 -->
+            <h3>${p.price }원</h3><hr>
+            <input type="hidden" id="cost" value="${p.price }" readonly style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
 <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>
-</td>
-</tr>
-
-<tr>
-<th>원산지</th>
-<td><input type="text" name="origin" value="${p.origin }" readonly></td>
-</tr>
-
-
-<tr>
-<th>재료</th>
-<td><input type="text" name="material" value="${p.material }" readonly></td>
-</tr>
-
-<tr>
-<th>남은수량</th>
-<td><c:if test="${p.quantity == 0}">
-<input type="text" value="품절되었습니다." name="inventory" readonly="readonly">
+            
+<!--             메이커 -->
+            <h7>메이커: ${p.maker }</h7><br>
+            
+<!--             원산지 -->
+            <h7>원산지: ${p.origin}</h7><br>
+            
+<!--             재료 -->
+            <h7>재료: ${p.material}</h7><hr>
+           
+            
+<!--             남은수량 -->
+            <h5><c:if test="${p.quantity == 0}">
+					<input type="text" value="품절되었습니다." name="inventory" readonly="readonly">
 					</c:if> 
 					<c:if test="${p.quantity != 0}">
 						<input type="text" value="${p.quantity }" name="inventory" readonly="readonly">
 					</c:if>
-</td>
-</tr>
-
-<tr>
-<th>주문수량</th>
-<td><input type="text" name="quantity"></td>
-</tr>
-
-<tr>
-<td colspan="2">
-    <input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
+					개 남음</h5>
+<!-- 					선택수량 -->
+			<h5>
+			<input type="text" name="quantity" class="inputStyle" placeholder="수량을 선택해주세요"> 개 선택
+			</h5>
+			<h5>
+ <input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
     <input type="hidden" name="p_name" value="${p.name }">
     <c:if test="${p.quantity == 0}">
 	 	<input type="button" value="품절">
@@ -287,23 +335,77 @@ margin-top:95%;
     <c:if test="${p.quantity != 0}">
 		<input type="submit" value="구매">
 	</c:if>
-   <input type="hidden" name="price" id="price" value="${p.price }">	 
+   <input type="hidden" name="price" id="price" value="${p.price }">
+   
    <input type="button" value="장바구니로" id="cart">
+   
    <input type="button" value="상품문의" onclick="go(${p.num})">
-</td>
-</tr>
-
-</thead></table></div></tr>
-
+</h5>
+<!-- </div> -->
+<!-- </div> -->
+</form>
    
 
-</table>
-</form>
 
-<div>
+
+</p>
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+            4.0 stars
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Product Reviews
+          </div>
+          <div class="card-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <a href="#" class="btn btn-success">Leave a Review</a>
+          </div>
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+<!--   <!-- Footer --> -->
+<!--   <footer class="py-5 bg-dark"> -->
+<!--     <div class="container"> -->
+<!--       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p> -->
+<!--     </div> -->
+<!--     /.container -->
+<!--   </footer> -->
+
+<!--   <!-- Bootstrap core JavaScript --> -->
+<!--   <script src="vendor/jquery/jquery.min.js"></script> -->
+<!--   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+
+
+
+<div id = "mid_content">
+
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
-</div>
+
+
+
 <c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
+
+</div>
 
 
 
