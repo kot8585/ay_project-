@@ -105,7 +105,7 @@
 		</tr>
 		<tr>
 			<th>사진 업로드</th>
-			<td><input class="form-control" type="file" name="imgUp" multiple></td>
+			<td><input class="form-control" type="file" name="uploadFile" multiple></td>
 		</tr>
 		<tr>
 			<th>별점</th>

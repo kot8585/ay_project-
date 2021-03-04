@@ -110,11 +110,14 @@ function ratingPrint(go, r_num){
 	<c:forEach var="r" items="${list}">
 		<div>
 			<hr>
-			${r.writer }<br>
+			${r.writer } 님<br>
 			<div>
 			<p class="text-danger">${r.stars } <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /></p>
 			</div>
 			<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">상품명</a><br><br>
+            <img id="bigImg" src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px">
+            <img id="bigImg" src="${pageContext.request.contextPath }/review/img?fname=${file1 }&num=${r.num }" style="width:150px;height:150px"><br>
+                  
 			${r.content }<br><br>
 			<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
 						<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
