@@ -22,7 +22,32 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="/js/reply.js"></script>
+<style type="text/css">
+.table th {
+    text-align: center;
+}
 
+.table {
+    border-radius: 5px;
+    width: 30%;
+    margin: 0px auto;
+    float: none;
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+}
+
+.table-bordered {
+	border: 1px;
+}
+.table th{
+width:40%
+}
+</style>
 <script>
 
 //댓글 목록 보여주는 함수
@@ -244,14 +269,14 @@ function showList(qnum){replyService.getList(qnum, function(list){
 		<c:set var="data" value="readonly" />
 	</c:if>
 	<form action="${pageContext.request.contextPath }/qna/edit" method="post">
-		<table border="1" cellspacing="0">
+		<table class="table table-hover text-centered " border="1">
 		
 			<tr>
-				<td>작성자</td>
+				<th>작성자</th>
 				<td><input type="text" name="writer" value="${q.writer}" readonly></td>
 			</tr>
 			<tr>	
-				<td>문의 유형</td>	
+				<th>문의 유형</th>	
 				<td>		
 				<select name="q_cate" id="q_cate">	
 					<option value="order" >주문 상품 문의</option>	
@@ -262,15 +287,15 @@ function showList(qnum){replyService.getList(qnum, function(list){
 			</tr>
 			
 			<tr>
-				<td>제목</td>
+				<th>제목</th>
 				<td><input type="text" name="title" value='<c:out value="${q.title}"/>' ${data}></td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<th>내용</th>
 				<td><textarea type="text" name="content" ${data}><c:out value="${q.content}" /></textarea></td>
 			</tr>
 			<tr>
-				<td>작성날짜</td>
+				<th>작성날짜</th>
 				<td><input type="text" name="updatedate" value='<c:out value="${q.updatedate}" />' readonly></td>
 			
 			</tr>
@@ -295,7 +320,7 @@ function showList(qnum){replyService.getList(qnum, function(list){
             </td>
       </tr>
 		<tr>
-			<td>
+			<td colspan="2">
 			<input type="hidden" name="num" value="${q.num}">
 	
 			
