@@ -3,6 +3,7 @@ package com.example.demo.review;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -274,23 +275,39 @@ public class ReviewController {
 		System.out.println("session id : " + id);
 		System.out.println(pwd);
 		System.out.println("Writer : " + wid);
-		Member m = mservice.getMember(id);
 		String result = "";
-		if(!wid.equals(id)) {
-			result = "작성자가 아닙니다..";
+		if(id == null) {
+			result = "로그인부터 해주세요.";
 		}else {
-			if(m != null && m.getPassword().equals(pwd)) {
-				result = "비밀번호 확인 완료";
+			Member m = mservice.getMember(id);
+			
+			if(!wid.equals(id)) {
+				result = "작성자가 아닙니다..";
+			}else {
+				if(m != null && m.getPassword().equals(pwd)) {
+					result = "비밀번호 확인 완료";
+				}
+				else {
+					result = "비밀번호가 다릅니다.";
+				}
 			}
-			else {
-				result = "비밀번호가 다릅니다.";
-			}
+			
 		}
+		
+		
+		
+		
 		System.out.println(result);
 		ModelAndView mav = new ModelAndView("review/pwdCheck");
 		mav.addObject("result", result);
 		
 		return mav;
+		
+		
+		
+		
+		
+		
 	}
 	
 	/**
