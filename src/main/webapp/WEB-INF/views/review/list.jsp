@@ -13,44 +13,22 @@
 
 
 <c:forEach var="r" items="${list}">
-	<table id="reviewTable" border="1" cellspacing="0">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<td>${r.num}</td>
-			</tr>
-			<tr>
-            	<th>상품번호</th>
-            	<td>${r.pnum}</td>
-            </tr>
-            <tr>
-            	<th>제목</th>
-            	<td><a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}">${r.title}</a></td>
-            </tr>
-            <tr>
-         		<th>별점</th>
-         		<td>${r.stars }</td>
-         	</tr>
-         	<tr>
-            	<th>작성자</th>
-            	<td>${r.writer}</td>
-            </tr>
-            <tr>
-            	<th>내용</th>
-            	<td>${r.content}</td>
-            </tr>
-            <tr>
-            	<th>작성날짜</th>
-            	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /></td>
-            </tr>
-            <tr>
-				<th>좋아요</th>
-				<td>
-					<button id="like" value="like" onclick="rating('like', ${r.num})">좋아요</button>
-					<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
-					<span id="rating${r.num }">${r.likey }</span> 명이 좋아합니다. 
-				</td>
-			</tr>
-		</thead>
-	</table>
+<div>
+<hr class="bg-danger" size="5px">
+	${r.writer } 님<br>
+	<div>
+		<span class="text-danger fs-2">${r.stars }</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /><br>
+	</div><br>
+	<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">${p.name }</a><br><br>
+    <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
+    <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
+    <br>
+    <pre><c:out value="${r.content }"/></pre>
+    <br>
+	<div class="btn-group" role="group" aria-label="Basic exmaple">
+		<button class="btn btn-danger" id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
+		<button class="btn btn-danger" id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
+	</div>
+	<span id="rating${r.num }">${r.likey }</span> 명이 좋아합니다. 
+</div>
 </c:forEach>
