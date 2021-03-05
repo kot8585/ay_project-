@@ -84,7 +84,12 @@ width:40%
 </head>
 <body>
 <header>
- <script type="text/javascript" src="/js/header.js"></script>
+<c:if test="${ empty id }">
+	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+</c:if>
+<c:if test="${ not empty id }">
+	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+</c:if>
 </header>
 <div class="container-fluid vertical-center d-flex justify-content-center">
 <form name="f" method="POST" action="${pageContext.request.contextPath }/member/login">

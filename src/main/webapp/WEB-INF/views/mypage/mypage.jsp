@@ -36,7 +36,7 @@
 	        <a class="nav-link" href="${ pageContext.request.contextPath }/">메인으로</a>
 	    </li>
        	<li class="nav-item">
-          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/editForm">내정보수정</a>
+          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/editCheckForm">내정보수정</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${ pageContext.request.contextPath }/member/out">회원탈퇴</a>
