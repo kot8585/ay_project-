@@ -16,6 +16,5 @@ public interface QnaMapper {
 	void update(Qna b);
 	ArrayList<Qna> selectByWriter(String writer);
 	int getNum();
-	String selectO_history(String writer);
 	void updateState(HashMap<String, Object> map);
 }	
