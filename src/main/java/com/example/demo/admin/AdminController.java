@@ -593,8 +593,8 @@ public class AdminController {
 		mav.addObject("pq", pq);
 		return mav;
 	}
-	
-	
+}
+	/*
 	@RequestMapping("/admin/pList")
 	public ModelAndView pList(HttpServletRequest req) {
 
@@ -608,3 +608,5 @@ public class AdminController {
 		}
 	
 }
+*/
+
