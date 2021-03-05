@@ -593,4 +593,18 @@ public class AdminController {
 		mav.addObject("pq", pq);
 		return mav;
 	}
+	
+	
+	@RequestMapping("/admin/pList")
+	public ModelAndView pList(HttpServletRequest req) {
+
+		ModelAndView mav = new ModelAndView("admin/pList");
+		// 기존에 존재하는 HttpSession을 받아온다. 없다면 null을 받아온다.
+		HttpSession session = req.getSession(false);
+		// 세션이 존재하지 않는다면
+		if (session == null || session.getAttribute("id") == null) {
+			mav.setViewName("redirect:/admin/loginForm"); // 관리자 로그인 페이지로 가도록 설정하고.
+			return mav; // 관리자 로그인 페이지로 이동시킨다.
+		}
+	
 }
