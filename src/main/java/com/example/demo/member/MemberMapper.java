@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 	
 	Member getMember(String id);
+	
+	Member getMember1(String password);
 
 	void insert(Member m);
 

@@ -30,12 +30,12 @@ $(document).ready(function(){
       else{
           $.post("/member/find", {email: $("#email").val(), name: $("#name").val()})
              .done(function(data){
-                alert(data);
-                if(data == "등록되지 않은 이메일주소 또는 이름입니다."){
+                if(data === "이메일 또는 이름이 등록되지 않았습니다."){
                    alert("등록되지 않은 이메일주소 또는 이름입니다.");
+                   $("#findId").text(data);
                 }else{
-                $("#findId").text(data);
-                $("#btn").show();
+                	$("#findId").text(data);
+                	$("#btn").show();
                 }
              })
                 
@@ -82,7 +82,10 @@ $(document).ready(function(){
       
    </table>
 </form>
-<div id="findId"></div>
+
+</div>
+<div class="container-fluid vertical-center d-flex justify-content-center">
+<span id="findId"></span>
 </div>
 </body>
 </html>

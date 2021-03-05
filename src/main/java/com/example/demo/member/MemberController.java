@@ -107,6 +107,21 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("/member/editCheckForm")
+	public void editCheckForm() {
+		//editCheckForm.jsp를 불러와 화면에 보여준다.
+	}
+	
+	@PostMapping("/member/editpwdCheck")
+	public String editpwdCheck(Member m, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Member m2 = service.getMember1(m.getPassword());
+		if(m2 == null || !m2.getPassword().equals(m.getPassword())){
+			return "member/main";
+		}else{
+		    return "member/editForm";
+	}
+	}
 	/**
 	 * findForm.jsp로 이동하기 위한 메소드
 	 */

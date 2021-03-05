@@ -25,7 +25,7 @@
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
 
-<script>s
+<script>
 	//아이디 정규식
 	let idJ = /^[a-z0-9]{4,12}$/;
 	// 비밀번호 정규식
@@ -222,8 +222,13 @@
 </head>
 <body>
 	<header>
-		<script type="text/javascript" src="/js/header.js"></script>
-	</header>
+<c:if test="${ empty id }">
+	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+</c:if>
+<c:if test="${ not empty id }">
+	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+</c:if>
+</header>
 	<div class="container-fluid vertical-center justify-content-center">
 		<form method="POST"
 			action="${pageContext.request.contextPath }/member/edit">
