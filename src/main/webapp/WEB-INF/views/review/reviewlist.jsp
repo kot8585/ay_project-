@@ -112,7 +112,7 @@ function newImg(){
 						</div>
 				</ul>
 				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="search" id="word">
+					<input class="form-control me-2" type="text" placeholder="search" id="word">
 					<button class="btn btn-danger bg-danger" onclick="sort('word')">Search</button>
 				</form>
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
