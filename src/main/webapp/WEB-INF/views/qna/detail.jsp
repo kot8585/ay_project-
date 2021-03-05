@@ -202,11 +202,6 @@ function showList(qnum){replyService.getList(qnum, function(list){
 				showList(qnum);
 		});
 		
-
-		//이미지에 마우스 올릴때
-	      $(".img").mouseover(function() {
-	          $("#bigImg").attr('src', this.src);
-	       });
 		
 		//게시판 삭제
 		$("#del").click(function(){
@@ -306,11 +301,6 @@ function showList(qnum){replyService.getList(qnum, function(list){
                </c:if> 
                <c:if test="${not empty file0 }">
                <table>
-                  <tr>
-                     <td colspan="3">
-                     <img id="bigImg" src="${pageContext.request.contextPath }/qna/img?fname=${file0 }&num=${q.num }" 
-                     style="width:150px;height:150px"></td>
-                  </tr>
                   <tr>
                      <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file0 }&num=${q.num }" class="img" width="50" height="50"></td>
                      <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file1 }&num=${q.num }" class="img" width="50" height="50"></td>

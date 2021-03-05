@@ -41,10 +41,6 @@ public class QnaService {
 	public int getNum() {
 		return mapper.getNum();
 	}
-
-	public String getO_history(String writer) {
-		return mapper.selectO_history(writer);
-	}
 	
 	public void changeState(HashMap<String, Object> map) {
 		mapper.updateState(map);
