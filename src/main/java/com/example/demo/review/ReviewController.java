@@ -152,8 +152,7 @@ public class ReviewController {
 		}else if(what.equals("latest")) {
 			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 		}
-		// for문을 서서 reviewlist .get(i) .setPath() <- 각 넘버별 이미지 경로를 저장해주고
-		// 
+
 		String path = "";
 		
 		for(int i = 0; i < reviewlist.size(); i++) {
@@ -193,12 +192,8 @@ public class ReviewController {
 	      System.out.println("input value : " + what);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      ArrayList<Review> reviewlist = null;
-	      //for문으로 짜래.. // for문으로 짬...
-	      /*
-	       *   *
-	       *  ***
-	       *   * 
-	       */
+	      ModelAndView mav = new ModelAndView("review/list");
+
 	      if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
 	         int blackstar = Integer.parseInt(what);
 	         // = String star = "";
@@ -224,9 +219,34 @@ public class ReviewController {
 	            reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
 	      }
 	      
+	      String path = "";
+			
+			for(int i = 0; i < reviewlist.size(); i++) {
+				int num = reviewlist.get(i).getNum();
+				path = basePath + "q" + num + "\\";
+				File imgDir = new File(path);
+				System.out.println("dir" + imgDir);
+				
+				String[] files = imgDir.list();
+				System.out.println("dir list : " + files);
+				if(imgDir.exists()) {
+					for(int j = 0; j < files.length; j++) {	
+						if(j == 0) {
+							reviewlist.get(i).setPath(files[0]);
+						}
+						else if(j == 1) {
+							reviewlist.get(i).setPath2(files[1]);
+						}
+						
+						
+						mav.addObject("file" + j, files[j]);
+					}
+				}
+			}
+	      
 	      System.out.println(reviewlist);
 	      // 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
-	      ModelAndView mav = new ModelAndView("review/list");
+	      
 	      //mav.setViewName("review/list");
 	      mav.addObject("list", reviewlist);
 	      return mav;

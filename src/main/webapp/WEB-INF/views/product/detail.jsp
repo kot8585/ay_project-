@@ -358,7 +358,7 @@ border:1px;
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
             Product Reviews
-<c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
+			<c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
         </div>
         <!-- /.card -->
 
