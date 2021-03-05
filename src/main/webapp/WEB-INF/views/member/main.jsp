@@ -40,8 +40,24 @@
 </header>
 <!-- header 부분 -->
 <c:import url="${ pageContext.request.contextPath }/event/list"></c:import>    
-<hr>    
   
-<c:import url="${ pageContext.request.contextPath }/product/list"></c:import>    
+         
+<c:import url="${ pageContext.request.contextPath }/product/list"></c:import>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 </body>
 </html>

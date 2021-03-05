@@ -38,7 +38,7 @@ function go(i) {
 <th>답변상태</th><th>답변하기</th>
 	</tr>
 </thead>
-<c:forEach var="pq" items="${list }">
+<c:forEach var="pq" items="${plist }">
 <tr>
 	<td>${ pq.num }</td>
 	<td>${ pq.pwd }</td>

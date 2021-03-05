@@ -111,46 +111,6 @@
   
 </script>
 
-<style>
-
- body { margin:0; padding:0; font-family:'맑은 고딕', verdana; }
- a { color:#05f; text-decoration:none; }
- a:hover { text-decoration:underline; }
- 
- h1, h2, h3, h4, h5, h6 { margin:0; padding:0; }
- ul, lo, li { margin:0; padding:0; list-style:none; }
-
- /* ---------- */
- 
- div#root { width:900px; margin:0 auto; }
- header#header { }
- nav#nav { }
- section#container { }
-  section#content { float:right; width:700px; }
-  aside#aside { float:left; width:180px; }
-  section#container::after { content:""; display:block; clear:both; } 
- footer#footer { background:#eee; padding:20px; }
- 
- /* ---------- */
- 
- header#header div#header_box { text-align:center; padding:30px 0; }
- header#header div#header_box h1 { font-size:50px; }
- header#header div#header_box h1 a { color:#000; }
- 
- nav#nav div#nav_box { font-size:14px; padding:10px; text-align:right; }
- nav#nav div#nav_box li { display:inline-block; margin:0 10px; }
- nav#nav div#nav_box li a { color:#333; }
- 
- section#container { }
- 
- aside#aside h3 { font-size:22px; margin-bottom:20px; text-align:center; }
- aside#aside li { font-size:16px; text-align:center; }
- aside#aside li a { color:#000; display:block; padding:10px 0; }
- aside#aside li a:hover { text-decoration:none; background:#eee; }
- 
- 
- 
-</style>
 
 <style type ="text/css">
 div#side_left{
@@ -177,7 +137,7 @@ margin:5px;
 #side_content_box{
 display: inline;
 /* background-color:white; */
-margin:5px;
+margin:500px;
 }
 #side_rigth{
 width:200px;
@@ -204,33 +164,9 @@ border:1px;
 
 </style>
 
-<style type="text/css">
 
-.button {
 
-    width:100px;
 
-    background-color: #f8585b;
-
-    border: none;
-
-    color:#fff;
-
-    padding: 15px 0;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    display: inline-block;
-
-    font-size: 15px;
-
-    margin: 4px;
-
-    cursor: pointer;
-
-}
 </style>
 
 </head>
@@ -238,40 +174,15 @@ border:1px;
 <header>
 <script type="text/javascript" src="/js/header.js"></script>
 </header>
-<!-- Navigation -->
-<!--   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> -->
-    <div class="container">
-<!--       <a class="navbar-brand" href="#">Start Bootstrap</a> -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+
+      
 
   <!-- Page Content -->
   <div class="container">
 
     <div class="row">
 
-      <div class="col-lg-3">
+      <div class="col-lg-2">
         <h1 class="my-4">카테고리</h1>
         <div class="list-group">
           <a href="#" class="list-group-item active">Category 1</a>
@@ -279,29 +190,25 @@ border:1px;
           <a href="#" class="list-group-item">Category 3</a>
         </div>
       </div>
-      <!-- /.col-lg-3 -->
-<%-- <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()"> --%>
       <div class="col-lg-9">
 
-        <div class="card mt-4">
+<!--         <div class="card mt-4"> -->
         
         <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
-       
-        
-<!--         <div id = "mid_content"> -->
+          
 <!--         <div id = "side_content_box"> -->
-          <img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"style="width:300px;height:300px">
-<!--        </div> -->
+        <img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"style="width:300px;height:300px">
+    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }"style="width:300px;height:300px">
+    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file3 }&num=${p.num }"style="width:300px;height:300px"> 
        
-<!--        <div id = "side_content_box"> -->
           <div class="card-body">
 <!--           상품명 -->
 <%--             <h1 class="card-title">${p.name }</h1><hr> --%>
-            <input type="text" name="name" value="${p.name }" readonly style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
-
+            <td><h1><input type="text" name="name" value="${p.name }" readonly></h1>
+</td>
 <!--             가격 -->
-            <h3><script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>원</h3><hr>
-            <input type="hidden" id="cost" value="${p.price }" readonly style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;">
+            <h3><script>document.getElementById('cost').value = numberWithCommas(${p.price })</script>${p.price }원</h3><hr>
+            <input type="hidden" id="cost" value="${p.price }" >
 <!-- <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script> -->
             
 <!--             메이커 -->
@@ -330,77 +237,42 @@ border:1px;
  <input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
     <input type="hidden" name="p_name" value="${p.name }">
     <c:if test="${p.quantity == 0}">
-	 	<input type="button" value="품절">
+	 	<input type="button" class="btn btn-primary" name="price" value="품절">
     </c:if> 
     <c:if test="${p.quantity != 0}">
-		<input type="submit" value="구매">
+		<input type="submit" class="btn btn-primary" name="price" value="구매">
 	</c:if>
-   <input type="hidden" name="price" id="price" value="${p.price }">
+   <input type="hidden" id="price" value="${p.price }">
    <input type="hidden" name="p_num" id="p_num" value="${p.num }">
-   <input type="button" value="장바구니로" id="cart">
    
-   <input type="button" value="상품문의" onclick="go(${p.num})">
+   
+   <input type="button" class="btn btn-primary" name="price" value="장바구니로" id="cart">
+   
+<%--    <input type="button" class="btn btn-primary" name="price" value="상품문의" onclick="go(${p.num})"> --%>
 </h5>
-<!-- </div> -->
-<!-- </div> -->
 </form>
-   
-
-
-
-</p>
-            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-            4.0 stars
-          </div>
-        </div>
+</div>
+</div>
+     
         <!-- /.card -->
 
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
-            Product Reviews
+            
 <c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
         </div>
-        <!-- /.card -->
 
       </div>
-      <!-- /.col-lg-9 -->
-
-    </div>
-
-  </div>
-  <!-- /.container -->
-
-<!--   <!-- Footer --> -->
-<!--   <footer class="py-5 bg-dark"> -->
-<!--     <div class="container"> -->
-<!--       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p> -->
-<!--     </div> -->
-<!--     /.container -->
-<!--   </footer> -->
-
-<!--   <!-- Bootstrap core JavaScript --> -->
-<!--   <script src="vendor/jquery/jquery.min.js"></script> -->
-<!--   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-
-
-
-
-<div id = "mid_content">
-
-
-
+      <div class="card card-outline-secondary my-4">
+          <div class="card-header">
 
 
 <c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
-
+<hr>
+<input type="button" class="btn btn-primary" name="price" value="상품문의" onclick="go(${p.num})">
 </div>
-
-
-
-
-
-
-
+</div>
+</div>
 
 </body>
 </html>
