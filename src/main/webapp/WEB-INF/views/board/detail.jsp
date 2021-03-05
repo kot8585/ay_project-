@@ -18,6 +18,32 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
  
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<style type="text/css">
+.table th {
+    text-align: center;
+}
+
+.table {
+    border-radius: 5px;
+    width: 30%;
+    margin: 0px auto;
+    float: none;
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+}
+
+.table-bordered {
+	border: 1px;
+}
+.table th{
+width:40%
+}
+</style>
 <script>
 $(document).ready(function(){
 	$("#del").click(function(){
@@ -54,26 +80,26 @@ $(document).ready(function(){
 <c:set var="authority" value="readonly" />
 
 	<form action="${pageContext.request.contextPath }/board/edit" method="post">
-		<table border="1" cellspacing="0">
+		<table class="table table-hover text-centered " border="1">
 				
 			<tr>
-				<td>작성자</td>
+				<th>작성자</th>
 				<td><input type="text" name="writer" value="${b.writer}" readonly></td>
 			</tr>
 			<tr>
-				<td>제목</td>
+				<th>제목</th>
 				<td><input type="text" name="title" value="${b.title}" ${data} ${authority}></td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<th>내용</th>
 				<td><textarea name="content"  rows="15" cols="40" ${authority}>${b.content}</textarea></td>
 			</tr>
 			<tr>
-				<td>작성날짜</td>
+				<th>작성날짜</th>
 				<td><input type="text" name="updatedate" value="${b.updatedate}" readonly></td>
 			</tr>
 			<tr>
-				<td>		
+				<td colspan="2" style="float:rigth;s">		
 					<input type="hidden" name="type" value="${b.type}">
 					
 					<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
