@@ -3,7 +3,6 @@ package com.example.demo.review;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -217,6 +217,8 @@ public class ReviewController {
 	            reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 	      } else if(what.equals("like")) {
 	            reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
+	      } else {
+	    	  reviewlist = (ArrayList<Review>) service.getDetailByWord(what);
 	      }
 	      
 	      String path = "";
@@ -405,10 +407,10 @@ public class ReviewController {
 
 		System.out.println(r);
 		
-		System.out.println("message : " + "동준씨 로그인부터 하시죠..");
+	
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
-		if(message.equals("동준씨 로그인부터 하시죠..") || message.equals("이미 좋아요를 누르셨습니다.")) {
+		if(message.equals("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.") || message.equals("이미 좋아요를 누르셨습니다.")) {
 			System.out.println("id 없다");
 			mav.setViewName("review/reviewRatingFail");
 			mav.addObject("message",message);
@@ -418,6 +420,8 @@ public class ReviewController {
 		
 		return mav;
 	}
+	
+
 }
 
 

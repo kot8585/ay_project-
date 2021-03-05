@@ -30,6 +30,8 @@ public interface ReviewMapper {
 	
 	ArrayList<ReviewLike> selectLikeById(int num);
 	
+	ArrayList<Review> selectByWord(String word);
+	
 	int getNum();
 	
 	void increaseRating(Review r);
