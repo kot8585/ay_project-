@@ -32,6 +32,7 @@
  * @return p_num
  * @return what
  */
+ 
 function sort(criteria){
 	var what = document.getElementById(criteria);
 	var xhttp = new XMLHttpRequest();
@@ -83,11 +84,11 @@ function rating(hi, r_num){
 	xhttp.open("POST", "/review/reviewRating?num="+r_num+"&type="+type, true);
 	xhttp.send();
 }
+
 function ratingPrint(go, r_num){
 	
 	document.querySelector("#rating"+r_num).innerHTML = go.responseText;	
 }
-
 
 function newImg(){	
 	var img = document.getElementsByTagName("img");
@@ -100,43 +101,58 @@ function newImg(){
 </head>
 <body>
 	<h3>리뷰</h3>
-
-    <button id="likesort" value="like" onclick="sort('likesort')">종아요순</button> | 
-    <button id="latest" value="latest" onclick="sort('latest')">최신순</button>
-
-
-  		
-	<select id="byStar" onchange="sort('byStar')">
-		<option value="none">평점 별 정렬</option>
-		<option value="1">★☆☆☆☆</option>
-		<option value="2">★★☆☆☆</option>
-		<option value="3">★★★☆☆</option>
-		<option value="4">★★★★☆</option>
-		<option value="5">★★★★★</option>
-	</select>
+	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
+		<div class="container-fluid">
+			<div class="collpase navbar-collapse">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<div class="btn-group" role="group" aria-label="Basic exmaple">
+						<button class="btn btn-danger" id="likesort" value="like" onclick="sort('likesort')">좋아요순</button>
+						<button class="btn btn-danger" id="latest" value="latest" onclick="sort('latest')">최신순</button>
+						</div>
+				</ul>
+				<form class="d-flex">
+					<input class="form-control me-2" type="text" placeholder="search" id="word">
+					<button class="btn btn-danger bg-danger" onclick="sort('word')">Search</button>
+				</form>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item dropdown">
+						<select class="form-select" id="byStar" onchange="sort('byStar')">
+							<option value="none">평점 별 정렬</option>
+							<option value="1">★☆☆☆☆</option>
+							<option value="2">★★☆☆☆</option>
+							<option value="3">★★★☆☆</option>
+							<option value="4">★★★★☆</option>
+							<option value="5">★★★★★</option>
+						</select>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 	<nav id="ntable">
 	<c:forEach var="r" items="${list}">
+	<div>
+	<hr class="bg-danger" size="5px">
+		${r.writer } 님<br>
 		<div>
-			<hr>
-			${r.writer } 님<br>
-			<div>
-			
-			<span class="text-danger">${r.stars }</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /><br>
-			</div><br>
-			<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">${p.name }</a><br><br>
-            <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
-            <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
-            <br>
-                  
-			${r.content }<br><br>
-			<button id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
-						<button id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
-						<span id="rating${r.num }">${r.likey }</span> 명이 좋아합니다. 
-			
+			<span class="text-danger fs-2">${r.stars }</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /><br>
 		</div>
-	
-		
+		<br>
+		<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">${p.name }</a><br><br>
+        <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
+        <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
+        <br>
+        <div>
+        <pre><c:out value="${r.content }"/></pre><br>
+        </div>
+		<div class="btn-group" role="group" aria-label="Basic exmaple">
+			<button class="btn btn-danger" id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
+			<button class="btn btn-danger" id="hate" value="hate" onclick="rating('hate', ${r.num})">싫어요</button>
+		</div>
+			<span id="rating${r.num }">${r.likey }</span> 명이 좋아합니다. 
+	</div>	
 	</c:forEach>
 	</nav>
 </body>

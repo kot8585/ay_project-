@@ -38,7 +38,7 @@ public class QnaController {
 	@Autowired
 	private OrderService orderService;
 	
-	public static String basePath = "C:\\shopimg\\";
+	private static String basePath = "C:\\shopimg\\q";
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	/*게시물 리스트 뽑기
@@ -75,7 +75,7 @@ public class QnaController {
 	}
 	
 	public void saveQnaImg(int num, MultipartFile uploadFile) { //이미지 저장하기
-			File dir = new File(basePath + "q" +num);
+			File dir = new File(basePath + num);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
@@ -101,7 +101,7 @@ public class QnaController {
 		System.out.println(num);
 		Qna q = service.getQnaByNum(num);
 
-		String path = basePath + "q" + q.getNum() + "\\";
+		String path = basePath + q.getNum();
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
 			System.out.println("이미지 등록을 안했는데 디렉토리가 있따고?");
@@ -119,8 +119,8 @@ public class QnaController {
 	@RequestMapping("/qna/img")
 	public ResponseEntity<byte[]> getImg(String fname, int num){
 		
-		String path = basePath + "q" + num + "\\" + fname;
-		File f = new File(path);
+		String path = basePath+ num ;
+		File f = new File(path, fname);
 		HttpHeaders header = new HttpHeaders();
 		ResponseEntity<byte[]> result = null;
 		try {
@@ -144,9 +144,12 @@ public class QnaController {
 		service.delQna(num);
 		
 		//이미지 삭제하기
-		String path = basePath + "q" + num+"\\"; 
+		String path = basePath + num; 
 		File imgDir = new File(path);
 		
+		//파일 존재하는지 확인하는 메소드 분리 - 존재하면 파일 리스트 리턴
+				//존재한다면 파일 리스트를 받아서
+				//파일을 삭제한다.
 		if (imgDir.exists()) {
 			String[] files = imgDir.list();
 			System.out.println("delFiles: "+files);

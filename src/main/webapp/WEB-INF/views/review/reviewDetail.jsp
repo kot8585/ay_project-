@@ -29,7 +29,9 @@
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState === 4 && xhttp.status === 200){
 				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-				if(xhttp.responseText === "작성자가 아닙니다.."){
+				if(xhttp.responseText === "로그인부터 해주세요."){
+					alert("로그인부터 해주세요.");
+				}else if(xhttp.responseText === "작성자가 아닙니다.."){
 					alert("작성자가 아닙니다..");
 				}else{
 					if(xhttp.responseText === "비밀번호 확인 완료" && type==="del"){

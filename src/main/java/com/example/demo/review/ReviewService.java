@@ -57,6 +57,10 @@ public class ReviewService {
 		return mapper.selectLikeById(num);
 	}
 	
+	public ArrayList<Review> getDetailByWord(String word){
+		return mapper.selectByWord(word);
+	}
+	
 	public int getNum() {
 		return mapper.getNum();
 	}

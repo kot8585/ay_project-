@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -151,8 +152,7 @@ public class ReviewController {
 		}else if(what.equals("latest")) {
 			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 		}
-		// for문을 서서 reviewlist .get(i) .setPath() <- 각 넘버별 이미지 경로를 저장해주고
-		// 
+
 		String path = "";
 		
 		for(int i = 0; i < reviewlist.size(); i++) {
@@ -192,12 +192,8 @@ public class ReviewController {
 	      System.out.println("input value : " + what);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      ArrayList<Review> reviewlist = null;
-	      //for문으로 짜래.. // for문으로 짬...
-	      /*
-	       *   *
-	       *  ***
-	       *   * 
-	       */
+	      ModelAndView mav = new ModelAndView("review/list");
+
 	      if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
 	         int blackstar = Integer.parseInt(what);
 	         // = String star = "";
@@ -221,11 +217,38 @@ public class ReviewController {
 	            reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 	      } else if(what.equals("like")) {
 	            reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
+	      } else {
+	    	  reviewlist = (ArrayList<Review>) service.getDetailByWord(what);
 	      }
+	      
+	      String path = "";
+			
+			for(int i = 0; i < reviewlist.size(); i++) {
+				int num = reviewlist.get(i).getNum();
+				path = basePath + "q" + num + "\\";
+				File imgDir = new File(path);
+				System.out.println("dir" + imgDir);
+				
+				String[] files = imgDir.list();
+				System.out.println("dir list : " + files);
+				if(imgDir.exists()) {
+					for(int j = 0; j < files.length; j++) {	
+						if(j == 0) {
+							reviewlist.get(i).setPath(files[0]);
+						}
+						else if(j == 1) {
+							reviewlist.get(i).setPath2(files[1]);
+						}
+						
+						
+						mav.addObject("file" + j, files[j]);
+					}
+				}
+			}
 	      
 	      System.out.println(reviewlist);
 	      // 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
-	      ModelAndView mav = new ModelAndView("review/list");
+	      
 	      //mav.setViewName("review/list");
 	      mav.addObject("list", reviewlist);
 	      return mav;
@@ -274,23 +297,39 @@ public class ReviewController {
 		System.out.println("session id : " + id);
 		System.out.println(pwd);
 		System.out.println("Writer : " + wid);
-		Member m = mservice.getMember(id);
 		String result = "";
-		if(!wid.equals(id)) {
-			result = "작성자가 아닙니다..";
+		if(id == null) {
+			result = "로그인부터 해주세요.";
 		}else {
-			if(m != null && m.getPassword().equals(pwd)) {
-				result = "비밀번호 확인 완료";
+			Member m = mservice.getMember(id);
+			
+			if(!wid.equals(id)) {
+				result = "작성자가 아닙니다..";
+			}else {
+				if(m != null && m.getPassword().equals(pwd)) {
+					result = "비밀번호 확인 완료";
+				}
+				else {
+					result = "비밀번호가 다릅니다.";
+				}
 			}
-			else {
-				result = "비밀번호가 다릅니다.";
-			}
+			
 		}
+		
+		
+		
+		
 		System.out.println(result);
 		ModelAndView mav = new ModelAndView("review/pwdCheck");
 		mav.addObject("result", result);
 		
 		return mav;
+		
+		
+		
+		
+		
+		
 	}
 	
 	/**
@@ -368,10 +407,10 @@ public class ReviewController {
 
 		System.out.println(r);
 		
-		System.out.println("message : " + "동준씨 로그인부터 하시죠..");
+	
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
-		if(message.equals("동준씨 로그인부터 하시죠..") || message.equals("이미 좋아요를 누르셨습니다.")) {
+		if(message.equals("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.") || message.equals("이미 좋아요를 누르셨습니다.")) {
 			System.out.println("id 없다");
 			mav.setViewName("review/reviewRatingFail");
 			mav.addObject("message",message);
@@ -381,6 +420,8 @@ public class ReviewController {
 		
 		return mav;
 	}
+	
+
 }
 
 

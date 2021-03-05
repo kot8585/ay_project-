@@ -13,6 +13,22 @@
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script src="/js/header.js"></script>
+<style type="text/css">
+	#f {
+		height: 700px;
+		width: 600px;
+	}
+	#df {
+		position: relative;
+		left:10px;
+		border: 1px solid red;
+		height: 700px;
+		width: 50%;
+	}
+	textarea {
+		height: 200px;
+	}
+</style>
 <title>Review Form</title>
 
 <script>
@@ -22,7 +38,8 @@
 		console.log(s.charAt());
 		console.log(s.charCodeAt());
 	}
-
+	
+	// 글자 수를 체크하는 기능
 	function countLetter(type){
 		
 		console.log(type);
@@ -48,19 +65,18 @@
 		}else{
 			document.getElementById(type+"Div").style.color="black";
 			document.getElementById(type+"Span2").innerHTML = "";
-			
 		}	
-		
-		
-		
 	}
 	
+	// 글자수가 조건에 위배되었는지를 체크
 	function sub(){
 		var titleLength = 50;
 		var contentLength = 500;
-		if(document.getElementById("title").value.length > titleLength || document.getElementById("content").value.length > contentLength){
+		var title = document.getElementById("title");
+		var content = document.getElementById("content");
+		if(title.value.length > titleLength || content.value.length > contentLength){
 			alert("글자수가 초과되었습니다.");
-		}else if(document.getElementById("title").value.length <= titleLength && document.getElementById("content").value.length <= contentLength){
+		}else if(title.value.length <= titleLength && content.value.length <= contentLength){
 			f.submit();
 		}
 	}
@@ -68,13 +84,40 @@
 	function upload(){
 		
 	}
-	
-	
-	
 </script>
 </head>
 <body>
-<nav></nav>
+<h2>리뷰 작성</h2>
+<div id="df" class="align-middle">
+<form class="row g-3" border="1" name="f" id="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
+	<div class="mb-3">
+		<label class="form-label">제목</label>
+		<input class="form-control" type="text">
+		<div class="form-text">
+			50글자 이내로 입력해주세요.
+		</div>
+	</div>
+	<div class="mb-3">
+		<label class="form-label">구매후기</label>
+		<textarea class="form-control" cols="140"></textarea>
+	</div>
+	<div class="mb-3">
+		<label class="form-label">사진첨부</label>
+		<input class="form-control" type="file">
+	</div>
+	<div class="form-check">
+		<input type="radio" name="stars" value="★☆☆☆☆">★
+		<input type="radio" name="stars" value="★★☆☆☆">★★
+		<input type="radio" name="stars" value="★★★☆☆">★★★
+		<input type="radio" name="stars" value="★★★★☆">★★★★
+		<input type="radio" name="stars" value="★★★★★">★★★★★
+	</div>
+	<button class="btn btn-danger">등록</button>
+</form>
+</div>
+<hr>
+
+
 <form name="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
 	<table border="1">
 		<tr>
@@ -126,6 +169,7 @@
 			</td>
 		</tr>
 	</table>
+	
 	<input type="hidden" name="path" value="123">
 </form>
 </body>
