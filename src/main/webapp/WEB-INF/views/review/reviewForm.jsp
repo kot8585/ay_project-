@@ -22,7 +22,8 @@
 		console.log(s.charAt());
 		console.log(s.charCodeAt());
 	}
-
+	
+	// 글자 수를 체크하는 기능
 	function countLetter(type){
 		
 		console.log(type);
@@ -48,19 +49,18 @@
 		}else{
 			document.getElementById(type+"Div").style.color="black";
 			document.getElementById(type+"Span2").innerHTML = "";
-			
 		}	
-		
-		
-		
 	}
 	
+	// 글자수가 조건에 위배되었는지를 체크
 	function sub(){
 		var titleLength = 50;
 		var contentLength = 500;
-		if(document.getElementById("title").value.length > titleLength || document.getElementById("content").value.length > contentLength){
+		var title = document.getElementById("title");
+		var content = document.getElementById("content");
+		if(title.value.length > titleLength || content.value.length > contentLength){
 			alert("글자수가 초과되었습니다.");
-		}else if(document.getElementById("title").value.length <= titleLength && document.getElementById("content").value.length <= contentLength){
+		}else if(title.value.length <= titleLength && content.value.length <= contentLength){
 			f.submit();
 		}
 	}
@@ -68,9 +68,6 @@
 	function upload(){
 		
 	}
-	
-	
-	
 </script>
 </head>
 <body>
@@ -126,6 +123,7 @@
 			</td>
 		</tr>
 	</table>
+	
 	<input type="hidden" name="path" value="123">
 </form>
 </body>

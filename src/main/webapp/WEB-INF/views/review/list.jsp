@@ -17,14 +17,13 @@
 <hr class="bg-danger" size="5px">
 	${r.writer } 님<br>
 	<div>
-		<span class="text-danger">${r.stars }</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /><br>
+		<span class="text-danger fs-2">${r.stars }</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /><br>
 	</div><br>
 	<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">${p.name }</a><br><br>
     <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
     <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
     <br>
-    ${r.content }
-    <br>
+    <pre><c:out value="${r.content }"/></pre>
     <br>
 	<div class="btn-group" role="group" aria-label="Basic exmaple">
 		<button class="btn btn-danger" id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
