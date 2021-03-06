@@ -45,4 +45,4 @@ order.log
 2021 3월 06 16:59,-72,m,member,7,나비의자3,나비,30000,나비,나비,2,6,2,2,60000
 
 order.log - Excel version
- 
+ ![캡처](https://user-images.githubusercontent.com/38680710/110199992-bf0a7c00-7e9e-11eb-8648-cb4095d1adbf.PNG)
