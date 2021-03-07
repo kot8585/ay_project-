@@ -141,7 +141,8 @@ public class ReviewController {
 	@RequestMapping("/review/reviewlist")
 	public ModelAndView viewlist(@RequestParam("p_num") int p_num,  @RequestParam("what")String what) {
 		//@RequestParam("p_name")String p_name,
-		System.out.println(what);
+		System.out.println("what : " + what);
+		System.out.println("pnum : " + p_num);
 		System.out.println(what.getClass());
 		ModelAndView mav = new ModelAndView("review/reviewlist");
 		//System.out.println(p_num);
@@ -152,7 +153,7 @@ public class ReviewController {
 		}else if(what.equals("latest")) {
 			reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
 		}
-
+		System.out.println("review list : " + reviewlist);
 		String path = "";
 		
 		for(int i = 0; i < reviewlist.size(); i++) {
@@ -179,7 +180,7 @@ public class ReviewController {
 			
 		}
 		System.out.println("경로 : " + path);
-		System.out.println(reviewlist);
+		
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 		
 		//mav.setViewName("review/list");
@@ -188,8 +189,9 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/list")
-	   public ModelAndView list(@RequestParam("what")String what, @RequestParam("p_num")int p_num) {
+	   public ModelAndView list(@RequestParam("what")String what, @RequestParam(value="p_num",required=false)int p_num) {
 	      System.out.println("input value : " + what);
+	      System.out.println("pnum : " + p_num);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      ArrayList<Review> reviewlist = null;
 	      ModelAndView mav = new ModelAndView("review/list");
@@ -218,7 +220,12 @@ public class ReviewController {
 	      } else if(what.equals("like")) {
 	            reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
 	      } else {
-	    	  reviewlist = (ArrayList<Review>) service.getDetailByWord(what);
+	    	  System.out.println("search");
+	    	  map.put("pnum", p_num);
+	    	  map.put("what", what);
+	    	  System.out.println("map : " + map);
+	    	  reviewlist = (ArrayList<Review>) service.getDetailByWord(map);
+	    	  System.out.println("search finish");
 	      }
 	      
 	      String path = "";
@@ -246,7 +253,7 @@ public class ReviewController {
 				}
 			}
 	      
-	      System.out.println(reviewlist);
+	      System.out.println("review list : " + reviewlist);
 	      // 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
 	      
 	      //mav.setViewName("review/list");
