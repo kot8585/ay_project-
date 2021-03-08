@@ -8,6 +8,8 @@ public interface MemberMapper {
 	Member getMember(String id);
 	
 	Member getMember1(String password);
+	
+	Member getMember2(String id, String password);
 
 	void insert(Member m);
 

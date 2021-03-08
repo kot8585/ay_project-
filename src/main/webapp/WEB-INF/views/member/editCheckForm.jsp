@@ -27,20 +27,23 @@
 <script>
 $(document).ready(function() {
 	$("#pwdcheck").click(function () {
-		if(${sessionScope.id} === null){
-			alert("로그인 먼저 해주세요");
-		}else{
 			if($("#password").val() == ""){
 				alert("비밀번호를 입력해주세요");
-				return
+				return;
 			}else{
-				f.submit();
+				 $.post("/member/editpwdCheck", {id: $("#id").val(), password: $("#password").val()})
+				 .done(function(data) {
+					if(data === "로그인을 해주세요!"){
+						alert("로그인을 해주세요!");
+					}else if(data === "비밀번호가 일치합니다!"){
+						alert("비밀번호가 일치합니다!");
+					}else{
+						alert("비밀번호가 다릅니다!");
+					} 
+				})
 			}	
-		}
-		
 		
 	});
-	$("")
 });
 </script>
 <style type="text/css">
@@ -87,13 +90,17 @@ $(document).ready(function() {
 </tr>
 </thead>
 <tr>
+<input type="hidden" name="id" id="id" value="${m.id }">
+</tr>
+<tr>
 <td>비밀번호</td>
 <td><input type="password" name="password" id="password"></td>
 </tr>
 <tr>
-<td colspan="2"><input onclick="check()" type="button" value="확인" id="pwdcheck"></td>
+<td colspan="2"><input type="button" value="확인" id="pwdcheck"></td>
 </tr>
 </table>
 </form>
 </body>
+
 </html>
