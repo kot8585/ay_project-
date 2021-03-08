@@ -25,34 +25,18 @@ public class Review {
 	private Date pdate;
 	private String id;
 	private String pname;
+	private String what;
 	   
 	public Review() {
 		super();
 	}
 
+
+	 
+	 
+
 	public Review(int num, int pnum, int rnum, String title, String writer, String content, String stars, String likey,
-			MultipartFile[] uploadFile, String path, Date pdate, String id) {
-
-		super();
-		this.num = num;
-		this.pnum = pnum;
-		this.rnum = rnum;
-		this.title = title;
-		this.writer = writer;
-		this.content = content;
-		this.stars = stars;
-		this.likey = likey;
-		this.uploadFile = uploadFile;
-		this.path = path;
-		this.pdate = pdate;
-		this.id = id;
-	}
-
-
-	
-	
-	 public Review(int num, int pnum, int rnum, String title, String writer, String content, String stars, String likey,
-			MultipartFile[] uploadFile, String path, String path2, Date pdate, String id) {
+			MultipartFile[] uploadFile, String path, String path2, Date pdate, String id, String pname, String what) {
 		super();
 		this.num = num;
 		this.pnum = pnum;
@@ -67,9 +51,45 @@ public class Review {
 		this.path2 = path2;
 		this.pdate = pdate;
 		this.id = id;
+		this.pname = pname;
+		this.what = what;
 	}
-	 
-	 
+
+
+
+
+
+	public String getPname() {
+		return pname;
+	}
+
+
+
+
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+
+
+
+
+	public String getWhat() {
+		return what;
+	}
+
+
+
+
+
+	public void setWhat(String what) {
+		this.what = what;
+	}
+
+
+
+
 
 	public String getPath2() {
 		return path2;

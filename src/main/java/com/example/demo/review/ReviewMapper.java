@@ -30,7 +30,7 @@ public interface ReviewMapper {
 	
 	ArrayList<ReviewLike> selectLikeById(int num);
 	
-	ArrayList<Review> selectByWord(String word);
+	ArrayList<Review> selectByWord(HashMap<String, Object> map);
 	
 	int getNum();
 	
