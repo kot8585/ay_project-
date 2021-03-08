@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReviewService {
@@ -12,10 +13,12 @@ public class ReviewService {
 	@Autowired
 	private ReviewMapper mapper; 
 	
+	@Transactional
 	public void addReview(Review r) {
 		mapper.insert(r);
 	}
 	
+	@Transactional
 	public void addReviewID(Review r) {
 		mapper.insertID(r);
 	}
@@ -32,10 +35,12 @@ public class ReviewService {
 		return mapper.selectByDate(num);
 	}
 	      
+	@Transactional
 	public void editReview(Review r) {
 		mapper.update(r);
 	}
 	   
+	@Transactional
 	public void delReview(int num) {
 		mapper.delete(num);
 	}
@@ -61,14 +66,17 @@ public class ReviewService {
 		return mapper.selectByWord(map);
 	}
 	
+	@Transactional
 	public int getNum() {
 		return mapper.getNum();
 	}
 	
+	@Transactional
 	public void IncRating(Review r) {
 		mapper.increaseRating(r);
 	}
 	
+	@Transactional
 	public void DecRating(Review r) {
 		mapper.decreaseRating(r);
 	}

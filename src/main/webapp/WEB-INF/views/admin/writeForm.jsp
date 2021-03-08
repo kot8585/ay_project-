@@ -72,7 +72,7 @@
 </head>
 <body>
 <h1>Product Register</h1>
-	<form action="${pageContext.request.contextPath }/admin/write" method="post"  enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath }/admin/write" method="post" accept=".gif, .jpg, .png" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<th>상품명</th><td><input type="text" name="name"></td>

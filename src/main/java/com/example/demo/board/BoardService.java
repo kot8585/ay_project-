@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.page.Criteria;
 
@@ -51,6 +52,7 @@ public class BoardService {
 	 * 게시판 삭제 기능
 	 * @param num 게시판 번호
 	 */
+	@Transactional
 	public int delBoard(int num) {
 		return mapper.delete(num);
 	}
@@ -59,6 +61,7 @@ public class BoardService {
 	 * 게시판 수정 기능
 	 * @param b 수정한 게시판 데이터
 	 */
+	@Transactional
 	public boolean update(Board b) {
 		int result =  mapper.update(b);
 		if(result > 0) {

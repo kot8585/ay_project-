@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RepService {
@@ -45,6 +46,7 @@ public class RepService {
 	 * @param r : 작성된 댓글
 	 * @return : 작성됐다면 1, 작성안되면 0...?
 	 */
+	@Transactional
 	public int addReply(Reply r) {
 		return mapper.insert(r);
 	}
@@ -54,6 +56,7 @@ public class RepService {
 	 * @param num : 댓글 번호
 	 * @return : 작성됐다면 1, 작성안되면 0...?
 	 */
+	@Transactional
 	public int delReply(int num) {
 		return mapper.delete(num);
 	}
@@ -68,6 +71,7 @@ public class RepService {
 	 * @param rep : 수정된 댓글 
 	 * @return : 작성됐다면 1, 작성안되면 0...?
 	 */
+	@Transactional
 	public int editReply(Reply rep) {
 		return mapper.update(rep);
 	}

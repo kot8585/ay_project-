@@ -1,70 +1,43 @@
-# ay_project-
-
-```
-  drop table reply CASCADE CONSTRAINTS;
-CREATE TABLE reply(
-    num NUMBER PRIMARY KEY NOT NULL,
-    qna_num NUMBER NOT NULL REFERENCES qna(num) on delete CASCADE,
-    writer VARCHAR2(20) NOT NULL,
-    content VARCHAR2(1000), 
-    r_date date,
-    path varchar2(500)
-);
-
-create SEQUENCE seq_qna;
-drop table qna CASCADE CONSTRAINTS;
-CREATE TABLE qna(
-	num NUMBER PRIMARY KEY,
-	writer VARCHAR2(20) REFERENCES member(id) on delete CASCADE,
-	
-    q_cate VARCHAR2(50) NOT NULL,
-    pwd VARCHAR2(50),
-    title VARCHAR2(50) NOT NULL,
-    content VARCHAR2(2000) NOT NULL,
-    state VARCHAR2(50) NOT NULL,
-    regdate date default sysdate,
-    updatedate date default sysdate,
-   path VARCHAR2(50) DEFAULT ''
-    );
-    
-    drop table board CASCADE CONSTRAINTS;
-create table board(
-    num NUMBER PRIMARY KEY,
-    type VARCHAR2(20) NOT NULL, 
-    writer VARCHAR2(20) NOT NULL REFERENCES admin(id) on delete CASCADE, 
-    title VARCHAR2(50) NOT NULL,
-    content VARCHAR2(1000), 
-    regdate date default sysdate,
-    updatedate date default sysdate
-);
-
-NSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문1', '자주묻는 내용1', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문2', '자주묻는 내용2', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문3', '자주묻는 내용3', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문4', '자주묻는 내용4', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문5', '자주묻는 내용5', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문6', '자주묻는 내용6', sysdate, sysdate);
-
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항1', '공지사항내용입니다1', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항2', '공지사항내용입니다2', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항3', '공지사항내용입니다3', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항4', '공지사항내용입니다4', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항5', '공지사항내용입니다5', sysdate,sysdate);
-commit; 
- ```
-## 변경사항
-1. 구매자가 올리는 문의사항과 관리자가 올리는 자주묻는질문, 공지사항 분리
-2. 문의사항은 Qna 테이블로 나누었고 / 자주묻는질문과 공지사항은 Board테이블에 type을 추가해 구분
-3. 자주묻는 질문과 공지사항은 댓글달기 기능, 이미지 넣기 기능 삭제
-4. 문의사항에 댓글기능과 이미지 넣기 기능 추가
-5. 자주묻는 질문과 공지사항(Board)의 아이디 참조를 admins(id)로 바꿔 관리자만 등록할 수 있도록 함
-
-## 현재 완료된 구현기능
-1. 공지사항 링크를 누르면 공지사항 리스트가 뜨고 문의사항누르면 문의사항이 뜬다.
-2. 문의사항 작성폼 추가 
-3. 1:1문의작성이 성공적으로 이루어지면 나의 문의내역으로 이동(/mypage/myQuestion)
+# Spring Boot + JQuery + JSP + Oracle DB 를 이용한 쇼핑몰 웹 페이지 구현
+이 웹페이지에서는 쇼핑몰 운영자 및 고객 분들을 위한 기능들을 제공합니다.    
+대표적인 기능들로는
+- 운영자는 사이트에 상품을 등록할 수 있으며 이를 수정, 삭제, 조회하는 일이 가능하다. 
+- 고객은 사이트에서 물품을 장바구니에 담거나 구매, 문의할 수 있고 이후 구매한 상품에 대한 후기를 작성하는 일이 가능하다.
+- 고객은 사이트에서 구매내역, 문의사항 등 활동한 기록을 확인할 수 있다.
+- 운영자는 사이트에 자주묻는 질문 및 공지사항을 게재할 수 있고, 고객은 1:1문의를 게재할 수 있다. 
+- 사이트는 AOP와 logback을 활용하여 구매 등 쇼핑몰 운영에 있어 중요한 데이터를 담은 엑셀화 가능한 로그 파일을 자동으로 생성해준다.
+- (구현 예정) 운영자는 이벤트를 등록하고, 상품에 이벤트를 적용시켜 고객이 해당 이벤트의 상품들을 조회하고 할인된 가격에 상품을 이용할 수 있도록 한다.
+- (구현 예정) 고객 및 운영자는 사이트의 일부 기능을 모바일 앱(Android 한정)에서도 활용할 수 있다.
+ 
+<br>등 을 들 수 있습니다.
 
 
-## 고민사항
-1.문의글 비밀번호를 회원아이디의 아이디로 자동세팅할것인지, 문의글의 비밀번호를 새로 받을것인지
-2.문의글의 답변상태를 DB에 저장할 필요가 있는지
+## 해당 프로젝트의 문서
+**프로젝트 문서 made by JavaDoc**
+<https://eful5678.github.io/ay_project-/>    
+  
+
+**소프트웨어 요구사항 명세서**(**SRS**, Software Requirement Specification)
+<https://docs.google.com/spreadsheets/d/1Qxl0B_B6U70v58UVW5FOYVIS5LveC5RiDQt_JTG9ivo/edit#gid=0>     
+  
+  
+**소프트웨어 설계 명세**(**SDD**, Software Design Description)
+<https://docs.google.com/document/d/1p9yy0XjjMeEDrma2DaXRJbBw7V3_MmQsG6LFGy-Rwz8/edit#heading=h.z6ne0og04bp5>    
+
+## 참여 개발자 프로필 
+* 김현진 (팀장, 회원 관련 기능 구현 기여) : eful5678@gmail.com 
+* 김평기 (팀원, 운영자 관련 기능 구현 기여, 문서 책임자) : aorca603@gmail.com
+* 이동준 (팀원, 회원 관련 기능 구현 기여) : ljkljs0805@gmail.com
+* 최준영 (팀원, 상품 관련 기능 구현 기여) : ansgywjd321@gmail.com
+* 문효정 (팀원, 게시판 기능 구현 기여) : cjyoung012@gmail.com
+ 
+## 제작 기간
+2021-01-25 ~ 2021-04-12(예정)
+
+## 웹사이트 제공 로그 파일
+order.log
+![캡처](https://user-images.githubusercontent.com/38680710/110200015-e3feef00-7e9e-11eb-95f0-7a2d6cb4fcc2.PNG)
+
+
+order.log - Excel version
+ ![캡처](https://user-images.githubusercontent.com/38680710/110199992-bf0a7c00-7e9e-11eb-8648-cb4095d1adbf.PNG)

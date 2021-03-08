@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -18,6 +19,7 @@ public class PquestionService {
 	 * 상품문의 추가
 	 * @param pq : 상품문의내용을 qp에 저장
 	 */
+	@Transactional
 	public void addPquestion(Pquestion pq) {
 		mapper.insert(pq);
 	}
@@ -48,6 +50,7 @@ public class PquestionService {
 	    * 상품문의삭제
 	    * @param num : 상품문의작성한 번호를 삭제
 	    */
+	   @Transactional
 	   public void delPquestion(int num) {
 		   mapper.delete(num);
 	   }

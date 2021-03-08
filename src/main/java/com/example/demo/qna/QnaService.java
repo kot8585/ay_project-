@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QnaService {
@@ -14,6 +15,7 @@ public class QnaService {
 	@Autowired
 	private QnaMapper mapper;
 
+	@Transactional
 	public void addQna(Qna q) {
 		mapper.insert(q);
 	}
@@ -30,10 +32,12 @@ public class QnaService {
 		return mapper.selectAll();
 	}
 	
+	@Transactional
 	void delQna(int num) {
 		mapper.delete(num);
 	}
 	
+	@Transactional
 	void update(Qna q) {
 		mapper.update(q);
 	}
@@ -42,6 +46,7 @@ public class QnaService {
 		return mapper.getNum();
 	}
 	
+	@Transactional
 	public void changeState(HashMap<String, Object> map) {
 		mapper.updateState(map);
 	}
