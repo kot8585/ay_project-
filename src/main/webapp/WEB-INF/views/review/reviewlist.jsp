@@ -18,6 +18,16 @@
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
+<!-- highlight -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/stylesdefault.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js">
+</script> <script>hljs.initHighlightingOnLoad();</script>
+
+<style>
+.highlight{
+	color: yellow;
+}
+</style>
 <script>
 /**
  * @author Hyun Jin Kim
@@ -39,16 +49,23 @@ function sort(criteria){
 	console.log("선택된 기준에 따라 정렬");
 	console.log("선택된 기준 : " + what.value);
 	
-	alert("dd");
-	alert("type : " + typeof(what.value));
+	console.log("type : " + typeof(what.value));
 	
 	xhttp.onreadystatechange = function(){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
-			alert("pnum : " + ${p.num});
-			alert("what : " + what.value);
-			alert(xhttp.responseText);
-			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
-			print(xhttp);
+			if(what.value === "like" || what.value === "latest" || what.value === "1"|| what.value === "2"|| what.value === "3"|| what.value === "4"|| what.value === "5"){
+				console.log("입력에 따른 반환 값 : " + xhttp.responseText);
+				
+				print(xhttp);
+				
+			}else{
+				
+				console.log("what : " + what.value)
+				
+				highlight(what,xhttp);
+				
+			}
+			
 		}
 	}
 	
@@ -56,10 +73,28 @@ function sort(criteria){
 	xhttp.send();
 }
 
+function highlight(what, xhttp){
+	
+	if(what.value==""){
+		print(xhttp);
+	}else{
+		var reAll = new RegExp(what.value, "g");
+		console.log(reAll);	
+		
+		var a = document.querySelector("#ntable");
+		a.innerHTML = xhttp.responseText.replace(reAll, "<font color='red'>" + what.value + "</font>");
+		console.log(a.innerHTML);
+	}
+	
+
+	
+}
+
 function print(xhttp){
-	console.log(xhttp.responseText);
-	alert(xhttp.responseText);
+	
+	
 	document.querySelector("#ntable").innerHTML = xhttp.responseText;
+	
 }
 
 function rating(hi, r_num){
@@ -104,6 +139,8 @@ function newImg(){
 	}
 
 }
+
+
 </script>
 </head>
 <body>
@@ -118,10 +155,12 @@ function newImg(){
 						<button class="btn btn-danger" id="latest" value="latest" onclick="sort('latest')">최신순</button>
 						</div>
 				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="text" placeholder="search" id="word">
-					<button class="btn btn-danger bg-danger" onclick="sort('word')">Search</button>
-				</form>
+			<div>
+				<input class="form-control me-2" type="text" placeholder="search" id="word" onkeyup="sort('word')">
+			</div>
+				
+				
+				
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown">
 						<select class="form-select" id="byStar" onchange="sort('byStar')">
@@ -151,7 +190,8 @@ function newImg(){
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
         <br>
-        <div>
+        <div id="content">
+        <input type="hidden" value="${r.content }">
         <pre><c:out value="${r.content }"/></pre><br>
         </div>
 		<div class="btn-group" role="group" aria-label="Basic exmaple">

@@ -64,7 +64,7 @@ public class ReviewController {
 	@Autowired
 	private MemberService mservice;
 	
-	public static String basePath = "C:\\shopimg\\";
+	public static String basePath = "C:\\shopimg\\r";
 	
 	AdminController admin = new AdminController();
 	
@@ -106,7 +106,7 @@ public class ReviewController {
 			String fileName = multipartFile.getOriginalFilename();
 			System.out.println("파일 이름 : " + fileName);
 			if(fileName != null && !fileName.equals("")) {
-				qna.saveQnaImg(num, multipartFile);
+				saveQnaImg(num, multipartFile);
 			}
 		}
 		
@@ -117,7 +117,7 @@ public class ReviewController {
 	@RequestMapping("/review/img")
 	public ResponseEntity<byte[]> getImg(String fname, int num){
 		
-		String path = basePath + "q" + num + "\\" + fname;
+		String path = basePath + num + "\\" + fname;
 		System.out.println("fname : " + fname);
 		
 		 
@@ -132,6 +132,26 @@ public class ReviewController {
 		} 
 		return result;
 	}
+	
+	public void saveQnaImg(int num, MultipartFile uploadFile) { //이미지 저장하기
+		File dir = new File(basePath + num);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+	String fileName = uploadFile.getOriginalFilename();
+		File f = new File(dir, fileName);
+		try {
+			uploadFile.transferTo(f);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	
 
 	/**
@@ -158,7 +178,7 @@ public class ReviewController {
 		
 		for(int i = 0; i < reviewlist.size(); i++) {
 			int num = reviewlist.get(i).getNum();
-			path = basePath + "q" + num + "\\";
+			path = basePath + num + "\\";
 			File imgDir = new File(path);
 			System.out.println("dir" + imgDir);
 			
@@ -232,7 +252,7 @@ public class ReviewController {
 			
 			for(int i = 0; i < reviewlist.size(); i++) {
 				int num = reviewlist.get(i).getNum();
-				path = basePath + "q" + num + "\\";
+				path = basePath + num + "\\";
 				File imgDir = new File(path);
 				System.out.println("dir" + imgDir);
 				
@@ -260,6 +280,8 @@ public class ReviewController {
 	      mav.addObject("list", reviewlist);
 	      return mav;
 	   }
+	
+
 	
 	/**
 	 * 
