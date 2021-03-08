@@ -26,27 +26,27 @@ function go(i) {
 </script>
 </head>
 <body>
-<c:if test="${empty list }">
+<c:if test="${empty plist }">
  작성된 글이 없습니다.
 </c:if>
-<c:if test="${not empty list }">
+<c:if test="${not empty plist }">
 
 <table class="table table-bordered">
 <thead class="table-warning" >
-<tr><th>num</th><th>pwd</th><th>writer</th>
-<th>title</th><th>content</th><th>updatedate</th>
+<tr><th>번호</th><th>작성자</th>
+<th>제목</th><th>내용</th>
 <th>답변상태</th><th>답변하기</th>
 	</tr>
 </thead>
 <c:forEach var="pq" items="${plist }">
 <tr>
 	<td>${ pq.num }</td>
-	<td>${ pq.pwd }</td>
+<%-- 	<td>${ pq.pwd }</td> --%>
 	<td>${ pq.writer }</td>
 	<td>${ pq.title }</td>
 	<td>${ pq.content }</td>
-	<td>${ pq.updatedate }</td>
-	<td>${ pq.state }</td>
+<%-- 	<td>${ pq.updatedate }</td> --%>
+<%-- 	<td>${ pq.state }</td> --%>
 	<td><input type="button" value="답변하기" id="answerBtn" onclick="javascript:go(${pq.num})"></td>
 </tr>
 </c:forEach>

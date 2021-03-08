@@ -1,7 +1,7 @@
 package com.example.demo.pquestion;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +63,11 @@ public class PquestionService {
 	public ArrayList<Pquestion> getByPnum(int p_num) {
 		// TODO Auto-generated method stub
 		return mapper.selectByPnum(p_num);
+	}
+	
+	
+	public ArrayList<Pquestion> getAll() {
+		return mapper.selectAll();
 	}
 	
 }
