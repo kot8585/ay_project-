@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.order.Order;
 import com.example.demo.reply.Reply;
@@ -21,6 +22,7 @@ public class ProductService {
 	 * 상품추가
 	 * @param p : 추가 한 상품을 p에 담음
 	 */
+	@Transactional
 	public void addProduct(Product p) {
 		mapper.insert(p);
 	}
@@ -58,15 +60,18 @@ public class ProductService {
 	public List getProductAll() {
 		return mapper.selectAll();
 	}
-		
+	
+	@Transactional
 	public void editProduct(Product p) {
 		mapper.update(p);
 	}
-		
+	
+	@Transactional
 	public void delProduct(int num) {
 		mapper.delete(num);
 	}
 		
+	@Transactional
 	public int getNum() {
 		return mapper.getNum();
 	}
@@ -76,6 +81,7 @@ public class ProductService {
 		return mapper.selectByEvent();
 	}
 	
+	@Transactional
 	public void decreaseProduct(Order o) {
 		// TODO Auto-generated method stub
 		mapper.decreaseProduct(o);

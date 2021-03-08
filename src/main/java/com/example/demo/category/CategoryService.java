@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 카테고리와 관련된 기능들을 구현한 Service 클래스입니다.
@@ -21,6 +22,7 @@ public class CategoryService {
 	 * @param c : 추가할 카테고리 내용을 담은 DTO
 	 * @param type : 카테고리 분류
 	 */
+	@Transactional
 	public void addCategory(Category c, int type) { //카테고리  추가 
 		switch (type) {
 		case 1:

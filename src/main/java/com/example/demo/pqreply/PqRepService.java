@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PqRepService {
@@ -13,12 +14,10 @@ public class PqRepService {
 	private PqRepMapper mapper;
 
 	public ArrayList<PqReply> getPqReplyById(String writer) {
-		// TODO Auto-generated method stub
 		return mapper.getPqReplyById(writer);
 	}
 
 	public ArrayList<PqReply> getPqReplyByPqnum(int pqnum) {
-		// TODO Auto-generated method stub
 		return mapper.getPqReplyByPqnum(pqnum);
 	}
 	
@@ -26,10 +25,12 @@ public class PqRepService {
 		return mapper.select(num);
 	}
 
+	@Transactional
 	public int addPqReply(PqReply r) {
 		return mapper.insert(r);
 	}
 
+	@Transactional
 	public int delPqReply(int num) {
 		return mapper.delete(num);
 	}
@@ -38,6 +39,7 @@ public class PqRepService {
 		return mapper.selectAll();
 	}
 	
+	@Transactional
 	public int editPqReply(PqReply rep) {
 		return mapper.update(rep);
 	}
