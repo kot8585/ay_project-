@@ -21,12 +21,16 @@
 	#df {
 		position: relative;
 		left:10px;
-		border: 1px solid red;
-		height: 700px;
-		width: 50%;
+		align: center;
+		height: 100%;
+		width: 100%;
+		margin: 0 auto;
 	}
 	textarea {
 		height: 200px;
+	}
+	h2{
+		text-align:center;
 	}
 </style>
 <title>Review Form</title>
@@ -89,21 +93,34 @@
 <body>
 <h2>리뷰 작성</h2>
 <div id="df" class="align-middle">
-<form class="row g-3" border="1" name="f" id="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
+<form class="row g-3" name="f" id="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
+	<div class="mb-3">
+		<label class="form-label">작성자</label>
+		<input class="form-contorl" type="text" name="writer" id="writer" value="${sessionScope.id}" readonly>
+	</div>
 	<div class="mb-3">
 		<label class="form-label">제목</label>
-		<input class="form-control" type="text">
+		<input class="form-control" type="text" name="title" id="title" onkeyup="countLetter('title')">
 		<div class="form-text">
 			50글자 이내로 입력해주세요.
+		</div>
+		<div id="titleDiv">
+					<span id="titleSpan1">0</span>/50 
+					<span id="titleSpan2"></span>
+					<span id="titleReg"></span>
 		</div>
 	</div>
 	<div class="mb-3">
 		<label class="form-label">구매후기</label>
-		<textarea class="form-control" cols="140"></textarea>
+		<textarea class="form-control" name="content" id="content" cols="140" onkeyup="countLetter('content')"></textarea>
+		<div id="contentDiv">
+					<span id="contentSpan1">0</span>/50
+					<span id="contentSpan2"></span>
+				</div>	
 	</div>
 	<div class="mb-3">
 		<label class="form-label">사진첨부</label>
-		<input class="form-control" type="file">
+		<input class="form-control" type="file" name="uploadFile" multiple>
 	</div>
 	<div class="form-check">
 		<input type="radio" name="stars" value="★☆☆☆☆">★
@@ -112,13 +129,15 @@
 		<input type="radio" name="stars" value="★★★★☆">★★★★
 		<input type="radio" name="stars" value="★★★★★">★★★★★
 	</div>
-	<button class="btn btn-danger">등록</button>
+	<button class="btn btn-danger" onclick="sub()">등록</button>
+	<input type="hidden" name="pnum" value="${p.num }">
+	<input type="hidden" name="path" value="123">
 </form>
 </div>
 <hr>
 
 
-<form name="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
+<%-- <form name="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
 	<table border="1">
 		<tr>
 			<th>제목</th>
@@ -171,6 +190,6 @@
 	</table>
 	
 	<input type="hidden" name="path" value="123">
-</form>
+</form> --%>
 </body>
 </html>

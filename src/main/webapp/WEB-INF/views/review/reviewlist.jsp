@@ -39,14 +39,12 @@ function sort(criteria){
 	console.log("선택된 기준에 따라 정렬");
 	console.log("선택된 기준 : " + what.value);
 	
-	alert("dd");
-	alert("type : " + typeof(what.value));
+	console.log("type : " + typeof(what.value));
 	
 	xhttp.onreadystatechange = function(){
 		if(xhttp.readyState === 4 && xhttp.status === 200){
-			alert("pnum : " + ${p.num});
-			alert("what : " + what.value);
-			alert(xhttp.responseText);
+			
+		
 			console.log("입력에 따른 반환 값 : " + xhttp.responseText);
 			print(xhttp);
 		}
@@ -58,7 +56,7 @@ function sort(criteria){
 
 function print(xhttp){
 	console.log(xhttp.responseText);
-	alert(xhttp.responseText);
+	
 	document.querySelector("#ntable").innerHTML = xhttp.responseText;
 }
 
@@ -118,10 +116,12 @@ function newImg(){
 						<button class="btn btn-danger" id="latest" value="latest" onclick="sort('latest')">최신순</button>
 						</div>
 				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="text" placeholder="search" id="word">
-					<button class="btn btn-danger bg-danger" onclick="sort('word')">Search</button>
-				</form>
+			<div>
+				<input class="form-control me-2" type="text" placeholder="search" id="word" onkeyup="sort('word')">
+			</div>
+				
+				
+				
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown">
 						<select class="form-select" id="byStar" onchange="sort('byStar')">
