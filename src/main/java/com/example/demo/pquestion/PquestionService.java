@@ -1,6 +1,7 @@
 package com.example.demo.pquestion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,11 @@ public class PquestionService {
 	
 	public ArrayList<Pquestion> getAll() {
 		return mapper.selectAll();
+	}
+
+	public void changeState(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

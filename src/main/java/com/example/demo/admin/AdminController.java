@@ -579,20 +579,9 @@ public class AdminController {
 		return "redirect:/admin/admin";
 	}
 
-	@RequestMapping("/admin/pqDetail")
-	public ModelAndView pqDetail(@RequestParam("num") int num, HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		ModelAndView mav = new ModelAndView("admin/pqDetail");
-		if (session == null) {
-			mav.setViewName("redirect:/admin/loginForm");
-		}
-
-		PqReply pq = pqService.getPqReply(num);
-		System.out.println(pq.toString());
-
-		mav.addObject("pq", pq);
-		return mav;
-	}
+	
+	
+	
 
 	
 	@RequestMapping("/admin/pList")
@@ -615,7 +604,20 @@ public class AdminController {
 	}
 		
 		
-		
+	@RequestMapping("/admin/pqDetail")
+	public ModelAndView pqDetail(@RequestParam("num") int pqnum, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		ModelAndView mav = new ModelAndView("admin/pqDetail");
+		if (session == null) {
+			mav.setViewName("redirect:/admin/loginForm");
+		}
+
+		Pquestion pq = pService.getDetail(pqnum);
+		System.out.println(pq.toString());
+
+		mav.addObject("pq", pq);
+		return mav;
+	}
 	
 }
 

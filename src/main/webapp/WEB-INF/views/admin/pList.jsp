@@ -19,7 +19,7 @@
  }
  </style>
 <script type="text/javascript">
-function go(i) {
+function move(i) {
 	alert("click");
 	location.href = "${pageContext.request.contextPath}/admin/pqDetail?num="+i;
 }
@@ -42,12 +42,12 @@ function go(i) {
 <tr>
 	<td>${ pq.num }</td>
 <%-- 	<td>${ pq.pwd }</td> --%>
-	<td>${ pq.writer }</td>
+	<td>${ pq.writer }</td>	
 	<td>${ pq.title }</td>
 	<td>${ pq.content }</td>
 <%-- 	<td>${ pq.updatedate }</td> --%>
 <%-- 	<td>${ pq.state }</td> --%>
-	<td><input type="button" value="답변하기" id="answerBtn" onclick="javascript:go(${pq.num})"></td>
+	<td><input type="button" value="답변하기" id="answerBtn" onclick="javascript:move(${pq.num})"></td>
 </tr>
 </c:forEach>
 </table>
