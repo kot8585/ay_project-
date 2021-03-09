@@ -80,10 +80,64 @@ function highlight(what, xhttp){
 	}else{
 		var reAll = new RegExp(what.value, "g");
 		console.log(reAll);	
+		console.log(xhttp.responseText.indexOf("<pre>"));
+		console.log(xhttp.responseText.lastIndexOf("</pre>"));
+		var start = xhttp.responseText.indexOf("<pre>");
+		var end = xhttp.responseText.lastIndexOf("</pre>");
+		var c = xhttp.responseText[start]+xhttp.responseText[end];
+		var b = 0;
+		console.log("type of start : " + typeof(start));
+		console.log(a);
+		console.log("범위 : " + xhttp.responseText[start,end].replace(reAll, "XX"));
+		console.log(end-start);
+		var key = [];
+		for(var i = start; i <= end; i++){
+			
+			b += xhttp.responseText[i];
+			
+		}
+		console.log("b : " + b);
 		
 		var a = document.querySelector("#ntable");
-		a.innerHTML = xhttp.responseText.replace(reAll, "<font color='red'>" + what.value + "</font>");
-		console.log(a.innerHTML);
+		var q = document.querySelector("#content2");
+		var z = document.querySelector("#content3");
+		var l = document.querySelector("#content1");
+		
+		
+		console.log(q);
+		
+		console.log(a);
+		console.log(z);
+		
+		//a.innerHTML = xhttp.responseText.replace(reAll, "<font color='red'>" + what.value + "</font>");
+		//t.innerHTML = b.replace(reAll, "<font color='red'>" + what.value + "</font>");
+		//console.log("t : " + xhttp.responseText.b);
+		a.innerHTML = xhttp.responseText;
+		var t = document.getElementsByTagName("PRE");
+		
+		console.log("t : " + t.value);
+		
+		//z.innerHTML = "asdfasdf";	
+		//q.innerHTML = "dfdf";
+		
+		console.log("pre : " );
+		console.log("div : " + l);
+		//z.innerHTML = z.replace(reAll, "<font color='red'>" + what.value + "</font>");
+		console.log("D : "  + document.querySelector("#content3").replace(reAll, "<font color='red'>" + what.value + "</font>"));
+		
+		//a.innerHTML = xhttp.responseText[].replace(reAll, "<font color='red'>" + what.value + "</font>");
+		
+		//a.innerHTML = xhttp.responseText[b].replace(reAll, "<font color='red'>" + what.value + "</font>");
+		
+		
+		
+		//console.log(a.innerHTML);
+		
+		
+		//content.innerHTML // PRE replacee
+		
+		
+		
 	}
 	
 
@@ -190,9 +244,9 @@ function newImg(){
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
         <br>
-        <div id="content">
-        <input type="hidden" value="${r.content }">
-        <pre><c:out value="${r.content }"/></pre><br>
+        <div id="content1">
+        <input id="content2" type="hidden" value="${r.content }">
+        <pre id="content3"><c:out value="${r.content }"/></pre><br>
         </div>
 		<div class="btn-group" role="group" aria-label="Basic exmaple">
 			<button class="btn btn-danger" id="like" value="like" onclick="rating('like', ${r.num})">종아요</button>
