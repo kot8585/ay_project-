@@ -14,10 +14,6 @@ public class MemberService {
 		return mapper.getMember(id);
 	}
 	
-	public Member getMember1(String password) {
-		return mapper.getMember(password);
-	}
-
 	@Transactional
 	public void addMember(Member m) {
 		mapper.insert(m);

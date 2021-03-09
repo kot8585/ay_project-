@@ -26,21 +26,27 @@
 
 <script>
 $(document).ready(function() {
-	$("#pwdcheck").click(function () {
-		if(${sessionScope.id} === null){
-			alert("로그인 먼저 해주세요");
-		}else{
+	$("#pwdcheck").click(function () {	    
 			if($("#password").val() == ""){
 				alert("비밀번호를 입력해주세요");
-				return
+				return;
 			}else{
-				f.submit();
+				 $.post("/member/editpwdCheck", {id: $("#id").val(), password: $("#password").val()})
+				 .done(function(data) {
+					var result_data = eval("("+data+")")
+					if(result_data.result == "1"){
+						alert("로그인을 해주세요!");
+					}
+					if(result_data.result == "2"){
+						$("#f").attr("action", "${pageContext.request.contextPath }/member/editForm");
+					$("#f").submit();
+					}
+					if(result_data.result == "3"){
+						alert("비밀번호가 다릅니다!");
+					} 
+				})
 			}	
-		}
-		
-		
 	});
-	$("")
 });
 </script>
 <style type="text/css">
@@ -79,7 +85,7 @@ $(document).ready(function() {
 	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
 </c:if>
 </header>
-<form name="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
+<form name="f" id="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
 <table class="table table-bordered">
 				<thead class="table-dark">
 <tr>
@@ -91,9 +97,10 @@ $(document).ready(function() {
 <td><input type="password" name="password" id="password"></td>
 </tr>
 <tr>
-<td colspan="2"><input onclick="check()" type="button" value="확인" id="pwdcheck"></td>
+<td colspan="2"><input type="button" value="확인" id="pwdcheck"></td>
 </tr>
 </table>
 </form>
 </body>
+
 </html>

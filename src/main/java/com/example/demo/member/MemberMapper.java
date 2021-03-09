@@ -7,8 +7,6 @@ public interface MemberMapper {
 	
 	Member getMember(String id);
 	
-	Member getMember1(String password);
-
 	void insert(Member m);
 
 	void update(Member m);
