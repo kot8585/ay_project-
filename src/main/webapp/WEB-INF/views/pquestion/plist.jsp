@@ -37,11 +37,11 @@
 <%-- 				<td>${pq.writer}</td> --%>
 <%-- 				<td>${pq.content }</td> --%>
 <%-- 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${pq.p_date}" /></td> --%>
-<%-- <%-- 				<td><input type="button" value="상품문의작성" onclick="go(${pq.pnum})"></td> --%> --%>
+<%-- <%-- 				<td><input type="button" value="상품문의작성" onclick="go(${pq.pnum})"></td> --%> 
 <!-- 			</tr> -->
 <%-- 		</c:forEach>  --%>
 <!-- 		<tr><td> -->
-<%-- <%-- 		<input type="button" value="상품문의작성"  onclick="go(${plist.pnum})"> --%> --%>
+<%-- <%-- 		<input type="button" value="상품문의작성"  onclick="go(${plist.pnum})"> --%>
 <!-- 		</td></tr> -->
 <!-- 	</table> -->
 	

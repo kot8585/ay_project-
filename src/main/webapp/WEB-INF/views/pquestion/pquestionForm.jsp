@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>»óÇ°¹®ÀÇÀÛ¼º</title>
+<meta charset="UTF-8">
+<title>ìƒí’ˆë¬¸ì˜ìž‘ì„±</title>
 </head>
 <body>
 
@@ -14,25 +14,25 @@
 	
 	
 	<tr>	
-		<th>ÀÛ¼ºÀÚ</th>	
+		<th>ìž‘ì„±ìž</th>	
 		<td><input type="text" name="writer" value="${sessionScope.id }" readonly></td>
 	</tr>
 	
 	<tr>
-		<th>Á¦¸ñ</th>
+		<th>ì œëª©</th>
 		<td><input type="text" name="title"></td>
 	</tr>
 	
 	
 	<tr>	
-		<th>³»¿ë</th>
+		<th>ë‚´ìš©</th>
 		<td><textarea name="content" cols="50" rows="50"></textarea></td>
 	</tr>	
 	
 	<tr>
 	<td>
-	<input type="submit" value="¹®ÀÇÀÛ¼º">
-	<input type="reset" value="Áö¿ì±â">
+	<input type="submit" value="ë¬¸ì˜ìž‘ì„±">
+	<input type="reset" value="ì§€ìš°ê¸°">
 	<input type="hidden" name="pnum" value="${pq.num }">
 	</td>
 	</tr>
