@@ -198,8 +198,8 @@ border:1px;
           
 <!--         <div id = "side_content_box"> -->
         <img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"style="width:300px;height:300px">
-    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }"style="width:300px;height:300px">
-    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file3 }&num=${p.num }"style="width:300px;height:300px"> 
+    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${p.num }"style="width:300px;height:300px">
+    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }"style="width:300px;height:300px"> 
        
           <div class="card-body">
 <!--           상품명 -->

@@ -275,7 +275,9 @@ public class ReviewController {
 	      
 	      System.out.println("review list : " + reviewlist);
 	      // 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
-	      
+	      Product product = pservice.getProductByNum(p_num);
+	      System.out.println("pro : " + product);
+	      mav.addObject("p", product);
 	      //mav.setViewName("review/list");
 	      mav.addObject("list", reviewlist);
 	      return mav;

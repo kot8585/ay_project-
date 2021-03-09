@@ -14,23 +14,18 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script src="/js/header.js"></script>
 <style type="text/css">
-	#f {
-		height: 700px;
-		width: 600px;
-	}
-	#df {
-		position: relative;
-		left:10px;
-		align: center;
-		height: 100%;
-		width: 100%;
-		margin: 0 auto;
-	}
+
 	textarea {
 		height: 200px;
 	}
 	h2{
 		text-align:center;
+	}
+	div#side_left{
+	width:200px;
+	height:400px;
+	float:left;
+	margin:5px;
 	}
 </style>
 <title>Review Form</title>
@@ -92,7 +87,7 @@
 </head>
 <body>
 <h2>리뷰 작성</h2>
-<div id="df" class="align-middle">
+<div id="df" class="card-header">
 <form class="row g-3" name="f" id="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
 	<div class="mb-3">
 		<label class="form-label">작성자</label>
