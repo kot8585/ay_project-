@@ -30,6 +30,17 @@
 		alert("sel2 = " + sel2);
 	}
 	
+	function editButton1(id) {
+		sel1 = id;
+		alert("sel1 = " + sel1);
+		
+	}
+	
+	function editButton2(id) {
+		sel2 = id;
+		alert("sel2 = " + sel2);
+	}
+	
 	$(document).ready(
 			function() {
 				console.log("[시작] 카테고리1 리스트 가져오기");
@@ -48,12 +59,12 @@
 							
 							// 카테고리1 테이블에 카테고리 값들 저장.
 							for (i = 0; i < c.length; i++) {
-								$("#categoryTable_1").append("<tr><td class='clickTd'>"
+								$("#categoryTable_1").append("<tr><td class='clickTd'><form>"
 										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
-										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' readonly>"
-										+ "<input type='button' value='수정'>"
+										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' readonly='true'>"
+										+ "<input type='button' name='edit1' value='수정' class='edit1'>"
 										+ "<input type='button' value='삭제'>"
-										+ "</td></tr>");
+										+ "</form></td></tr>");
 							}
 							console.log("[종료] 카테고리1 리스트 가져오기");
 				});
@@ -68,12 +79,21 @@
 						var c = eval("(" + data + ")");
 						$("#categoryTable_2").empty();//초기화를 하려면 비우고
 						$("#categoryTable_2").append("<tr><td align='center'>카테고리 2</td></tr>");
-						$("#categoryTable_2").append("<tr><td align='center'><input type='text' name='name'><input type='button' id='addCategory2' value='새 카테고리 추가'><input type='hidden' name='id' value='0'></td></tr>")
+						var html = "<tr>";
+						html += "<td align='center'>";
+						html += "<input type='text' name='name'>";
+						html += "<input type='button' id='addCategory2' value='새 카테고리 추가'>";
+						html += "<input type='hidden' name='id' value='0'>";
+						html += "<input type='hidden' name='type' value='2'>";
+						html += "<input type='hidden' name='c_id' value='"+ x +"'>";
+						html += "</td>";
+						html += "</tr>";
+						$("#categoryTable_2").append(html);
 						for (i = 0; i < c.length; i++) {
 								$("#categoryTable_2").append("<tr><td class='clickTd'>"
 										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
-										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' readonly>"
-										+ "<input type='button' value='수정'>"
+										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' ondbclick='this.readOnly = false' readonly>"
+										+ "<input type='button' name='edit2' class='edit2' value='수정' onclick='setCategoty2("+ c[i].id +")'>"
 										+ "<input type='button' value='삭제'>"
 										+ "</td></tr>");
 							}
@@ -126,10 +146,30 @@
 				
 				$("#addCategory1").click(function () {
 					alert("클릭 체크");
+					// 버튼 클릭시 addCategory 실행
+					this.form.submit();
 				});
 				
 				$(document).on("click", "input[id='addCategory2']", function () {
 					alert("클릭 체크");
+					// 버튼 클릭시 addCategory 실행
+					this.form.submit();
+				});
+				
+				$(document).on("click", "input[class='edit1']", function() {
+					alert("수정1 체크 : " + sel1);
+					if (this.form.edit1.value == '수정') {
+						this.form.clickIp.readOnly = false;
+						this.form.edit1.value = '완료';
+					} else {
+						this.form.clickIp.readOnly = false;
+						this.form.edit1.value = '수정';
+					}
+					
+				});
+				
+				$(document).on("click", "input[class='edit2']", function() {
+					alert("수정2 체크 : " + sel2);
 				});
 				
 				$("#s2").click(function() {
@@ -287,7 +327,7 @@
 		</form>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<form action="">
+		<form action="${pageContext.request.contextPath }/category/addCategory" method="post" onsubmit="return false">
 			<table border="1" id="categoryTable_2" style="caption-side: top;">
 				
 			</table>

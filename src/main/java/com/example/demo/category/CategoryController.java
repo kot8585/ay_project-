@@ -51,6 +51,8 @@ public class CategoryController {
 	 */
 	@RequestMapping(value = "/category/addCategory")  // 카테고리 추가 
 	public String addCategory(Category c, @RequestParam(value = "type") int type) {
+		System.out.println("원인 체크 : " + c.toString());
+		System.out.println("원인 체크 : " + type);
 		service.addCategory(c, type);
 		return "redirect:/admin/admin";
 	}
