@@ -22,7 +22,7 @@
 function go() {
 	var id = document.getElementById("id");
 	var password = document.getElementById("password");
-	
+		
 	if(id.value == ""){
 		alert("아이디를 작성해주세요! ")
 		return
@@ -31,9 +31,29 @@ function go() {
 		alert("비밀번호를 작성해주세요!")
 		return
 	}else{
-		f.submit()
+		formName.submit()
 	}
-}	
+}
+
+// https://solbel.tistory.com/217
+function press(f) {
+	var id = document.getElementById("id");
+	var password = document.getElementById("password");
+	
+	if (f.keyCode == 13) { // 13 = enter키
+		alert("enter");
+		if(id.value == ""){
+			alert("아이디를 작성해주세요! ");
+			return;
+		}
+		if(password.value == ""){
+			alert("비밀번호를 작성해주세요!");
+			return;
+		}else{
+			formName.submit();
+		}
+	}
+}
 </script>
 <script>
 $(document).ready(function(){
@@ -49,6 +69,14 @@ $(document).ready(function(){
     	$(this).val('Show');
     }
   });
+  // https://stackoverflow.com/questions/477691/submitting-a-form-by-pressing-enter-without-a-submit-button
+  $('form').each(function() { // each = 선택한 요소 각각에 대하여 함수를 실행시키고 싶을 경우
+	$(this).find('input').keypress(function(e) {
+		if (e.which == 13) { // 13 = enter
+			this.form.submit();
+		}
+	});
+  }); 
 });
 </script>
 <style type="text/css">
@@ -72,15 +100,18 @@ $(document).ready(function(){
 
 .table-bordered {
 	border: 1px;
+	min-width: 100%;
+	vertical-align: middle;
+	 
 }
 .table th{
-width:40%
+	width:40%
 }
 </style>
 </head>
 <body>
 <div class="container-fluid vertical-center d-flex justify-content-center">
-<form name="f" method="POST" action="${pageContext.request.contextPath }/admin/login">
+<form name="formName" method="POST" action="${pageContext.request.contextPath }/admin/login">
 	<table class="table table-hover text-centered table-bordered" border="1">
 		<thead class="table-dark">
 			<tr>
@@ -93,8 +124,8 @@ width:40%
 		</tr>
 		<tr>
 			<th>비밀번호</th>
-			<td><input type="password" name="password" id="password">
-			<input type="button" value="show" id="showPassword"></td>
+			<!-- nowrap = 줄바꿈이 되지 않도록 막는 역할. -->
+			<td nowrap><input type="password" name="password" id="password">&nbsp;<input type="button" value="show" id="showPassword"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">

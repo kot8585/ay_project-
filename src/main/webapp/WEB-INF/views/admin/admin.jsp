@@ -19,6 +19,17 @@
 <script>
 	var sel1=0; //선택한 것 저장할 변수 대분류
 	var sel2=0; //선택한 것 저장할 변수 소분류
+	
+	function setCategoty1(id) {
+		sel1 = id;
+		alert("sel1 = " + sel1);
+	}
+	
+	function setCategoty2(id) {
+		sel2 = id;
+		alert("sel2 = " + sel2);
+	}
+	
 	$(document).ready(
 			function() {
 				console.log("[시작] 카테고리1 리스트 가져오기");
@@ -34,8 +45,40 @@
 										"<option value='"+c[i].id+"'>"
 												+ c[i].name + "</option>"); //대분류 값을 받아와서 추가하고 
 							}
+							
+							// 카테고리1 테이블에 카테고리 값들 저장.
+							for (i = 0; i < c.length; i++) {
+								$("#categoryTable_1").append("<tr><td class='clickTd'>"
+										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
+										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' readonly>"
+										+ "<input type='button' value='수정'>"
+										+ "<input type='button' value='삭제'>"
+										+ "</td></tr>");
+							}
 							console.log("[종료] 카테고리1 리스트 가져오기");
-						});
+				});
+				
+				// https://stackoverflow.com/questions/25628080/jquery-click-inputtype-doesnt-work
+				$(document).on("click", "input[name='clickIp']", function() {
+					var x = sel1;
+					$.post("/category/getCategory", {
+						type : 2,
+						c_id : x // 전단계 대분류 
+					}).done(function(data) {
+						var c = eval("(" + data + ")");
+						$("#categoryTable_2").empty();//초기화를 하려면 비우고
+						$("#categoryTable_2").append("<tr><td align='center'>카테고리 2</td></tr>");
+						$("#categoryTable_2").append("<tr><td align='center'><input type='text' name='name'><input type='button' id='addCategory2' value='새 카테고리 추가'><input type='hidden' name='id' value='0'></td></tr>")
+						for (i = 0; i < c.length; i++) {
+								$("#categoryTable_2").append("<tr><td class='clickTd'>"
+										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
+										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' readonly>"
+										+ "<input type='button' value='수정'>"
+										+ "<input type='button' value='삭제'>"
+										+ "</td></tr>");
+							}
+					});
+				});
 				
 				$("#s1").click(function() {
 					console.log("[시작] 카테고리1 리스트 클릭 이벤트");
@@ -81,6 +124,14 @@
 					this.form.submit();
 				});
 				
+				$("#addCategory1").click(function () {
+					alert("클릭 체크");
+				});
+				
+				$(document).on("click", "input[id='addCategory2']", function () {
+					alert("클릭 체크");
+				});
+				
 				$("#s2").click(function() {
 					console.log("[시작] 카테고리2 클릭 이벤트");
 					var y = 0;
@@ -93,7 +144,6 @@
 				});
 				
 				$(".edit").click(function() {
-					
 					if(this.form.elements[0].name=='s2'){//중분류 버튼을 눌렀을 때 sel1의 값을 
 						console.log("[시작] 카테고리2 수정 이벤트");
 						$.post("/category/editCategory", {
@@ -141,7 +191,15 @@
 				});
 				
 			});
+	
+
+	
 </script>
+<style type="text/css">
+.clickTd:hover {
+	background-color: blue;
+}
+</style>
  <title>Insert title here</title>
 </head>
 <body>
@@ -181,27 +239,64 @@
 <br><br><br>
 <h3 id="category">&nbsp;</h3><br>
 <h3>카테고리</h3>
-	분류 1:
-	<form id="f1"action="${pageContext.request.contextPath }/category/addCategory" onsubmit="return false" method="post">
-		<select id="s1" name="s1"></select> 
-		<input type="text" id="n1" name="name">
-		<input type="hidden" name="type" value="1">
-		<input type="button" id="b1" class="add" value="추가">
-		<input type="button" id="e1" class="edit" value="수정">
-		<input type="button" id="d1" class="delete" value="삭제">
-	</form>
-	<br>	
-	분류 2:	
-	<form id="f2" action="${pageContext.request.contextPath }
-	/category/addCategory" onsubmit="return false"  method="post">
-		<select id="s2"  name="s2"></select> 
-		<input type="text" id="n2" name="name">
-		<input type="hidden" name="type" value="2">
-		<input type="hidden" id="h1" name="c_id" value="">
-		<input type="button" id="b2" class="add" value="추가">
-		<input type="button" id="e2" class="edit" value="수정">
-		<input type="button" id="d2" class="delete" value="삭제">
-	</form>
+	<br><br>
+	<div style="float: left;">
+		<h4>카테고리 1</h4>
+		<form id="f1"action="${pageContext.request.contextPath }/category/addCategory" onsubmit="return false" method="post">
+			<select id="s1" name="s1"></select> 
+			<input type="text" id="n1" name="name">
+			<input type="hidden" name="type" value="1">
+			<input type="button" id="b1" class="add" value="추가">
+			<input type="button" id="e1" class="edit" value="수정">
+			<input type="button" id="d1" class="delete" value="삭제">
+		</form>	
+	</div>
+	
+	<div style="float: left; margin-left: 10em;">	
+		<h4>카테고리 2</h4>
+		<form id="f2" action="${pageContext.request.contextPath }
+		/category/addCategory" onsubmit="return false"  method="post">
+			<select id="s2"  name="s2"></select> 
+			<input type="text" id="n2" name="name">
+			<input type="hidden" name="type" value="2">
+			<input type="hidden" id="h1" name="c_id" value="">
+			<input type="button" id="b2" class="add" value="추가">
+			<input type="button" id="e2" class="edit" value="수정">
+			<input type="button" id="d2" class="delete" value="삭제">
+		</form>
+	</div>
+	
+
+<p>&nbsp;</p>
+<br><br><br>
+	<div class="d-flex justify-content-center">
+		<form action="${pageContext.request.contextPath }/category/addCategory" method="post" onsubmit="return false">
+			<table border="1" id="categoryTable_1" style="caption-side: top;">
+				<tr>
+					<td align="center">카테고리 1</td>
+				</tr>
+				<tr>
+					<td align="center">
+						<input type="hidden" name="type" value="1">
+						<input type="text" name="name">
+						<input type="button" id="addCategory1" value="새 카테고리 추가">
+						<input type="hidden" name="id" value="0">
+					</td>
+				</tr>
+			</table>
+		</form>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<form action="">
+			<table border="1" id="categoryTable_2" style="caption-side: top;">
+				
+			</table>
+		</form>
+	</div>
+	
+	
+
+
 <hr>
 <h3 id="event">&nbsp;</h3><br>
 <h3>이벤트</h3>

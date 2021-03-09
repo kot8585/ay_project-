@@ -58,6 +58,7 @@ $(document).ready(function(){
 			$('#pwd2_check').css('color', 'red');
 		};
 	});
+	
 	$("#password2").keyup(function(){
 		if($("#password1").val() == $("#password2").val()){
 			$("#pwd2_check").text('가능');
