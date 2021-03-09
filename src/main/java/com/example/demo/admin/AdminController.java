@@ -579,22 +579,11 @@ public class AdminController {
 		return "redirect:/admin/admin";
 	}
 
-	@RequestMapping("/admin/pqDetail")
-	public ModelAndView pqDetail(@RequestParam("num") int num, HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		ModelAndView mav = new ModelAndView("admin/pqDetail");
-		if (session == null) {
-			mav.setViewName("redirect:/admin/loginForm");
-		}
+	
+	
+	
 
-		PqReply pq = pqService.getPqReply(num);
-		System.out.println(pq.toString());
-
-		mav.addObject("pq", pq);
-		return mav;
-	}
-}
-	/*
+	
 	@RequestMapping("/admin/pList")
 	public ModelAndView pList(HttpServletRequest req) {
 
@@ -606,7 +595,30 @@ public class AdminController {
 			mav.setViewName("redirect:/admin/loginForm"); // 관리자 로그인 페이지로 가도록 설정하고.
 			return mav; // 관리자 로그인 페이지로 이동시킨다.
 		}
+		
+		ArrayList<Pquestion> plist = (ArrayList<Pquestion>) pService.getAll();
+		// 이후 ModelAndView 객체에 list를 담고
+		mav.addObject("plist", plist);
+		// 이를 리턴한다.
+		return mav;
+	}
+		
+		
+	@RequestMapping("/admin/pqDetail")
+	public ModelAndView pqDetail(@RequestParam("num") int pqnum, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		ModelAndView mav = new ModelAndView("admin/pqDetail");
+		if (session == null) {
+			mav.setViewName("redirect:/admin/loginForm");
+		}
+
+		Pquestion pq = pService.getDetail(pqnum);
+		System.out.println(pq.toString());
+
+		mav.addObject("pq", pq);
+		return mav;
+	}
 	
 }
-*/
+
 

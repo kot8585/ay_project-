@@ -49,15 +49,13 @@
 	<c:forEach var="pq" items="${plist}">
 		<div>
 			<hr>
-			질문 ${pq.writer } 님 <fmt:formatDate pattern="yyyy-MM-dd" value="${pq.p_date}" /><br><br> 
 			
-<%-- 			<a href="${pageContext.request.contextPath }/pquestion/pDetail?num=${pq.num }" class="text-secondary"> --%>
-			${pq.title} 
-            
-        
-                  
-			
-		</div>
+			질문 ${pq.writer } 님 <fmt:formatDate pattern="yyyy-MM-dd" value="${pq.p_date}" /><br><br>
+			</div>
+			<div> 
+			<a href="${pageContext.request.contextPath }/pquestion/pDetail?num=${pq.num }" class="text-secondary">${pq.content} 
+			</a></div>
+		
 	</c:forEach>
 	</nav>
 	

@@ -8,7 +8,7 @@
 		<result property="pqnum" column="pqnum"/>
 		<result property="writer" column="writer"/>
 		<result property="content" column="content"/>
-		<result property="pq_date" column="pq_date"/>
+		<result property="pqdate" column="pqdate"/>
 	</resultMap>
 	
 	<select id="getPqReplyById" parameterType="String" resultMap="pqrep">
@@ -20,7 +20,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.example.demo.pqreply.PqReply">
-		insert into pqreply(num, pqnum, writer, content, pq_date) values(seq_pqreply.nextval, #{pqnum}, #{writer}, #{content}, sysdate)
+		insert into pqreply(num, pqnum, writer,content, pqdate) values(seq_pqreply.nextval, #{pqnum}, #{writer},#{content}, sysdate)
 	</insert>
 	
 	<select id="select" resultMap="pqrep" parameterType="int">

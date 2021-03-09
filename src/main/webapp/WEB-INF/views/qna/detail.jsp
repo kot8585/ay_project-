@@ -47,7 +47,60 @@
 .table th{
 width:40%
 }
+
+
+div#side_left{
+width:200px;
+height:400px;
+/* background-color:yellow; */
+float:left;
+margin:5px;
+}
+#side_left_box{
+width:95%;
+height:45%;
+/* background-color:blue; */
+float:left;
+margin:5px;
+}
+#mid_content{
+width:400px;
+height:400px;
+/* background-color:green; */
+float:left;
+margin:5px;
+}
+#side_content_box{
+display: inline;
+/* background-color:white; */
+margin:500px;
+}
+#side_rigth{
+width:200px;
+height:400px;
+/* background-color:red; */
+float:left;
+margin:5px;
+}
+#side_rigth_box{
+width:95%;
+height:45%;
+/* background-color:skyblue; */
+margin:5px;
+margin-top:95%;
+}
+
+input:focus {outline:none;}
+input{
+border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+}
+.inputStyle{
+border:1px;
+}
+
 </style>
+
+
 <script>
 
 //댓글 목록 보여주는 함수
@@ -327,7 +380,7 @@ function showList(qnum){replyService.getList(qnum, function(list){
      <div class="float-start"><h6>Reply List</h6></div>
      <c:if test="${sessionScope.id eq 'admin' }">
      <div class="float-end">
-    	<button type="button" id="addReplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button>
+    	<button type="button" id="addReplyBtn" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button>
     </div>
     </c:if>
     <br><br>

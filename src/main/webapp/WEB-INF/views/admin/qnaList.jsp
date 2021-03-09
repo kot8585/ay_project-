@@ -23,7 +23,7 @@ function go(i) {
 	alert("click");
 	location.href = "${pageContext.request.contextPath}/admin/qnaDetail?num="+i;
 }
-</script>
+</script>	
 </head>
 <body>
 <c:if test="${empty list }">
