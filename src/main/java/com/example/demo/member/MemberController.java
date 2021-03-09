@@ -42,14 +42,12 @@ public class MemberController {
 		// main.jsp를 불러와 화면에 보여준다.
 		return "/member/main";
 	}
-
 	@RequestMapping("/member/joinForm")
 	public void joinForm(HttpServletRequest req) {
 		// joinForm.jsp를 불러와 화면에 보여준다.
 		HttpSession session = req.getSession();
 		session.setAttribute("idCheck", false);
 	}
-
 	@PostMapping(value = "/member/idCheck")
 	public ModelAndView idCheck(HttpServletRequest req, @RequestParam(value = "id") String id) {
 		System.out.println("MemController.idCheck() id : " + id);
@@ -68,7 +66,6 @@ public class MemberController {
 		mav.addObject("result", result);
 		return mav;
 	}
-
 	@PostMapping("/member/join")
 	public String join(Member m) {
 		// joinForm에 작성한 값이 없거나 "admin"일때 joinForm으로 되돌린다
@@ -80,13 +77,11 @@ public class MemberController {
 			return "redirect:/member/loginForm";
 		}
 	}
-
 	@RequestMapping("/member/loginForm")
 	public String loginForm() {
 		// loginForm.jsp를 불러와 화면에 보여준다
 		return "member/loginForm";
 	}
-
 	@PostMapping("/member/login")
 	public String login(Member m, HttpServletRequest req) {
 		// loginForm에서 입력받은 값을 m에 담고 해당하는 아이디에 대한 db 값을 m2에 담는다
@@ -102,35 +97,30 @@ public class MemberController {
 			return "/member/main";
 		}
 	}
-
 	@RequestMapping("/member/editCheckForm")
 	public void editCheckForm() {
 		// editCheckForm.jsp를 불러와 화면에 보여준다.
 	}
-
 	@PostMapping("/member/editpwdCheck")
 	public ModelAndView editpwdCheck(HttpServletRequest req, @RequestParam("password") String password) {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 		Member m1 = service.getMember(id);
-		
-
-		ModelAndView mav = new ModelAndView("member/editpwdResult");
+		ModelAndView mav = new ModelAndView("member/editCheckResult");
 		String result = "";
 		if (m1 == null) {
-			result = "로그인을 해주세요!";
-			mav.setViewName("/member/editpwdResult");
+			result = "1";
 			mav.addObject("result", result);
 		} else if (m1 != null && m1.getPassword().equals(password)) {
-			result = "비밀번호가 일치합니다!";
+			result = "2";
 			mav.addObject("result", result);
 		} else {
-			result = "비밀번호가 다릅니다!";
+			result = "3";
 			mav.addObject("result", result);
 		}
+		System.out.println(result);
 		return mav;
 	}
-
 	/*
 	 * if(m2 == null || !m2.getPassword().equals(m.getPassword())){ return
 	 * "member/main"; }else{ return "member/editForm"; } }
@@ -142,7 +132,6 @@ public class MemberController {
 	public String findForm() {
 		return "/member/findForm";
 	}
-
 	/**
 	 * 
 	 * @param email 회원정보를 찾기 위해 입력 받은 email

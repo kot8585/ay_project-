@@ -26,18 +26,22 @@
 
 <script>
 $(document).ready(function() {
-	$("#pwdcheck").click(function () {
+	$("#pwdcheck").click(function () {	    
 			if($("#password").val() == ""){
 				alert("비밀번호를 입력해주세요");
 				return;
 			}else{
 				 $.post("/member/editpwdCheck", {id: $("#id").val(), password: $("#password").val()})
 				 .done(function(data) {
-					if(data === "로그인을 해주세요!"){
+					var result_data = eval("("+data+")")
+					if(result_data.result == "1"){
 						alert("로그인을 해주세요!");
-					}else if(data === "비밀번호가 일치합니다!"){
-						alert("비밀번호가 일치합니다!");
-					}else{
+					}
+					if(result_data.result == "2"){
+						$("#f").attr("action", "${pageContext.request.contextPath }/member/editForm");
+					$("#f").submit();
+					}
+					if(result_data.result == "3"){
 						alert("비밀번호가 다릅니다!");
 					} 
 				})
@@ -82,16 +86,13 @@ $(document).ready(function() {
 	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
 </c:if>
 </header>
-<form name="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
+<form name="f" id="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
 <table class="table table-bordered">
 				<thead class="table-dark">
 <tr>
 <td colspan="2">비밀번호확인</td>
 </tr>
 </thead>
-<tr>
-<input type="hidden" name="id" id="id" value="${m.id }">
-</tr>
 <tr>
 <td>비밀번호</td>
 <td><input type="password" name="password" id="password"></td>
