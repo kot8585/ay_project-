@@ -25,7 +25,7 @@
 <https://docs.google.com/document/d/1p9yy0XjjMeEDrma2DaXRJbBw7V3_MmQsG6LFGy-Rwz8/edit#heading=h.z6ne0og04bp5>    
 
 ## 참여 개발자 프로필 
-* 김현진 (팀장, 회원 관련 기능 구현 기여) : eful5678@gmail.com 
+* 김현진 (팀장, 상품 리뷰 기능 구현 기여) : eful5678@gmail.com 
 * 김평기 (팀원, 운영자 관련 기능 구현 기여, 문서 책임자) : aorca603@gmail.com
 * 이동준 (팀원, 회원 관련 기능 구현 기여) : ljkljs0805@gmail.com
 * 최준영 (팀원, 상품 관련 기능 구현 기여) : ansgywjd321@gmail.com
