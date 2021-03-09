@@ -25,11 +25,7 @@
 	<select id="getMember" resultMap="member" parameterType="String">
 		select * from member where id=#{id}
 	</select>
-	
-	<select id="getMember1" resultMap="member" parameterType="String">
-		select * from member where password=#{password}
-	</select>
-	
+
 	<update id="update" parameterType="com.example.demo.member.Member">
 		UPDATE member SET password=#{password}, name=#{name}, birth=#{birth}, gender=#{gender}, postalCode=#{postalCode}, roadAddress=#{roadAddress}, address=#{address}, tel=#{tel}, email=#{email} WHERE id = #{id} 
 	</update>
