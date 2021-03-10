@@ -116,11 +116,9 @@ public class ReviewController {
 	
 	@RequestMapping("/review/img")
 	public ResponseEntity<byte[]> getImg(String fname, int num){
-		
 		String path = basePath + num + "\\" + fname;
 		System.out.println("fname : " + fname);
-		
-		 
+
 		File f = new File(path);
 		HttpHeaders header = new HttpHeaders();
 		ResponseEntity<byte[]> result = null;
@@ -151,8 +149,6 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 	}
-
-	
 
 	/**
 	 * 
@@ -208,6 +204,12 @@ public class ReviewController {
 		return mav;
 	}
 	
+	/**
+	 * 
+	 * @param what 리뷰 정렬 조건(좋아요/최신..)을 받는 파라메터
+	 * @param p_num 상품 번호를 받는 파라메터
+	 * @return what으로 받은 정렬 조건에 따라 결과를 list에 저장해서 화면으로 보내준다.
+	 */
 	@RequestMapping("/review/list")
 	   public ModelAndView list(@RequestParam("what")String what, @RequestParam(value="p_num",required=false)int p_num) {
 	      System.out.println("input value : " + what);
@@ -224,7 +226,6 @@ public class ReviewController {
 	            // star += "★";
 	            star.append("★");
 	         }
-	         
 	         for (int i = 0; i < 5-blackstar; i++) {
 	            // star += "☆";
 	            star.append("☆");
@@ -266,8 +267,6 @@ public class ReviewController {
 						else if(j == 1) {
 							reviewlist.get(i).setPath2(files[1]);
 						}
-						
-						
 						mav.addObject("file" + j, files[j]);
 					}
 				}
@@ -291,12 +290,15 @@ public class ReviewController {
 	 * @return 특정번호에 해당하는 리뷰를 화면에 출력
 	 */
 	@RequestMapping("/review/reviewDetail")
-	public ModelAndView detail(@RequestParam("num") int num) {
+	public ModelAndView detail(@RequestParam("num") int num, @RequestParam("p_num")int p_num) {
 		// 특정 번호에 해당하는 리뷰에 대한 정보를 가져와 객체에 담는다.
 		Review r = service.getDetail(num);	
 		// 객체에 담긴 정보를 reviewDetail.jsp에 보냄
+		
+		Product p = pservice.getProductByNum(p_num);
 		ModelAndView mav = new ModelAndView("review/reviewDetail");
 		mav.addObject("r", r);
+		mav.addObject("p", p);
 		return mav;
 	}
 	
@@ -311,8 +313,6 @@ public class ReviewController {
 		service.editReview(r);
 		return "/member/main";
 	}
-	
-
 	
 	/**
 	 * 
@@ -346,21 +346,11 @@ public class ReviewController {
 			}
 			
 		}
-		
-		
-		
-		
 		System.out.println(result);
 		ModelAndView mav = new ModelAndView("review/pwdCheck");
 		mav.addObject("result", result);
 		
 		return mav;
-		
-		
-		
-		
-		
-		
 	}
 	
 	/**
@@ -375,6 +365,13 @@ public class ReviewController {
 		return "redirect:/member/main";	
 	}
 	
+	/**
+	 * 
+	 * @param req 좋아요 중복 방지를 위한 아이디 값을 받기 위해 사용
+	 * @param num Review 객체의 정보를 불러오기 위한 리뷰 번호 파라메터
+	 * @param type 좋아요/싫어요 기능 구분을 위한 파라메터
+	 * @return
+	 */
 	@RequestMapping("/review/reviewRating")
 	public ModelAndView rating(HttpServletRequest req, @RequestParam("num") int num, @RequestParam("type")String type) {
 		String id="";
@@ -398,19 +395,8 @@ public class ReviewController {
 					if(like.get(i).getRnum()==num) {
 						exist = "exist";
 					}
-					
 				}
 			}
-			
-			System.out.println(exist);
-			
-			System.out.println("like table : " + like);
-		
-			System.out.println(like.contains(12));
-			System.out.println(like.contains("aa"));
-			
-			
-			
 			if(id.equals("")) {
 				System.out.println("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.");
 				message = "로그인을 하여야 좋아요 기능을 이용할 수 있습니다.";
@@ -435,10 +421,6 @@ public class ReviewController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
-		System.out.println(r);
-		
-	
 		
 		ModelAndView mav = new ModelAndView("review/reviewRating");
 		if(message.equals("로그인을 하여야 좋아요 기능을 이용할 수 있습니다.") || message.equals("이미 좋아요를 누르셨습니다.")) {
@@ -448,11 +430,6 @@ public class ReviewController {
 		}else {
 			mav.addObject("r", r);
 		}
-		
 		return mav;
 	}
-	
-
 }
-
-
