@@ -32,6 +32,11 @@
     margin : 1rem!important;
    
 }
+
+h2{
+		text-align:center;
+	}
+
 </style> 
 
 <script type="text/javascript" src="/js/header.js"></script>
@@ -136,17 +141,10 @@ var ext = fileName.split('.').pop().toLowerCase();
 </script>
 </head>
 <body>
-<h1>1:1문의하기</h1>
+<h2>1:1문의하기</h2>
 	<div class="container-fluid vertical-center justify-content-center">
-<span class="border border-dark">
+<span class="border border-danger">
 	<form id="qnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data" style="width: 500px;">
-		
-		<!-- 주문 내역 o --> 
-<!-- 		<select name="o_num" id="o_num"> -->
-<!-- 			<option value="">--주문내역을 선택해주세요--</option> -->
-<!-- 		</select> -->
-		
-		<!-- 문의 폼/date안 전해줫는데 괜찮겟지? -->
 
 		<table class="table-dark">
 	
@@ -189,8 +187,8 @@ var ext = fileName.split('.').pop().toLowerCase();
 			  </div>
 			
 			 <div class="mb-3">
-			 	<input type="reset" value="취소"class="btn btn-primary">
-			 	 <input class="btn btn-primary" type="submit" name="submit" id="submit" value="작성">
+			 	<input class="btn btn-danger" type="reset" value="취소">
+			 	 <input class="btn btn-danger" type="submit" name="submit" id="submit" value="작성">
 			 </div>
 		</table>
 		
