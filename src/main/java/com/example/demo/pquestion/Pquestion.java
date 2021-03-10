@@ -10,6 +10,7 @@ public class Pquestion {
 	private String title;
 	private String content;
 	private Date p_date;
+
 	
 	public Pquestion() {
 		super();

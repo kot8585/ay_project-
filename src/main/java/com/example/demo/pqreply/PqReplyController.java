@@ -78,17 +78,17 @@ public class PqReplyController {
 		 * @param num : 댓글 번호
 		 * @return HTTP 상태코드
 		 */
-//		@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
-//				value = "/pqrep/edit/{pqnum}",
-//				consumes = "application/json",
-//				produces = {MediaType.TEXT_PLAIN_VALUE})
-//		public ResponseEntity<String> edit(
-//				@RequestBody PqReply pq,
-//				@PathVariable("pqnum") int pqnum) {
-//			return service.editPqReply(pq) == 1 
-//					? new ResponseEntity<>("success", HttpStatus.OK)
-//					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
+		@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
+				value = "/pqrep/edit/{pqnum}",
+				consumes = "application/json",
+				produces = {MediaType.TEXT_PLAIN_VALUE})
+		public ResponseEntity<String> edit(
+				@RequestBody PqReply pq,
+				@PathVariable("pqnum") int pqnum) {
+			return service.editPqReply(pq) == 1 
+					? new ResponseEntity<>("success", HttpStatus.OK)
+					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 		
 		/**
@@ -96,15 +96,15 @@ public class PqReplyController {
 		 * @param num : 삭제할 댓글 번호
 		 * @return HTTP 상태코드
 		 */
-//		@DeleteMapping(value = "/pqrep/del/{num}", 
-//				produces = MediaType.TEXT_PLAIN_VALUE)
-//		public ResponseEntity<String> del(@PathVariable("pqnum") int pqnum) {
-//			log.info("pqreplyController del");
-//			return service.delPqReply(pqnum) == 1 
-//					? new ResponseEntity<>("success", HttpStatus.OK)
-//					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//		
+		@DeleteMapping(value = "/pqrep/del/{num}", 
+				produces = MediaType.TEXT_PLAIN_VALUE)
+		public ResponseEntity<String> del(@PathVariable("num") int pqnum) {
+			log.info("pqreplyController del");
+			return service.delPqReply(pqnum) == 1 
+					? new ResponseEntity<>("success", HttpStatus.OK)
+					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		/**
 		 * 번호에 해당하는 댓글 가져오기
 		 * 댓글을 눌렀을때 해당 데이터를 모달창에 띄우게 하기 위해 사용

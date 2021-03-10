@@ -24,6 +24,9 @@ function move(i) {
 	location.href = "${pageContext.request.contextPath}/admin/pqDetail?num="+i;
 }
 </script>
+
+
+
 </head>
 <body>
 <c:if test="${empty plist }">
@@ -47,7 +50,7 @@ function move(i) {
 	<td>${ pq.content }</td>
 <%-- 	<td>${ pq.updatedate }</td> --%>
 <%-- 	<td>${ pq.state }</td> --%>
-	<td><input type="button" value="답변하기" id="answerBtn" onclick="javascript:move(${pq.num})"></td>
+	<td><input class="form-control" type="button" value="답변하기" id="answerBtn" onclick="javascript:move(${pq.num})"></td>
 </tr>
 </c:forEach>
 </table>

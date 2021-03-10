@@ -72,7 +72,7 @@ public class PqRepService {
 	 * @return : 작성됐다면 1, 작성안되면 0...?
 	 */
 	@Transactional
-	public int editPqReply(PqReply rep) {
-		return mapper.update(rep);
+	public int editPqReply(PqReply pqrep) {
+		return mapper.update(pqrep);
 	}
 }

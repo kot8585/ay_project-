@@ -15,7 +15,7 @@
 	SELECT * FROM pqreply WHERE writer=#{writer}
 	</select>
 	
-	<select id="getPqReplyByPqNum" parameterType="int" resultMap="pqrep">
+	<select id="getPqReplyByPqnum" parameterType="int" resultMap="pqrep">
 	SELECT * FROM pqreply WHERE pqnum=#{pqnum} order by num
 	</select>
 	
