@@ -125,7 +125,7 @@ modalWriteBtn.on("click", function(e){
  					function(result){
  					alert("UPDATED");
  					exampleModal.modal("hide");
- 					showplist(qnum);
+ 					showplist(pqnum);
  				}, function(error){ //error써도 되나 학인학.
  				alert("UPDATE ERR");
  			});
