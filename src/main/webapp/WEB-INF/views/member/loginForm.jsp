@@ -1,70 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <!-- Required meta tags -->
- <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Required meta tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
- <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
 
- <!-- Option 1: Bootstrap Bundle with Popper -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
- 
- 
- <script src="http://code.jquery.com/jquery-latest.min.js"></script>
- <script type="text/javascript"> 
- function goPage() { location.href="${pageContext.request.contextPath}/member/joinForm"; } 
- </script>
- 
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-function go() {
-	var id = document.getElementById("id");
-	var password = document.getElementById("password");
-	
-	if(id.value == ""){
-		alert("아이디를 작성해주세요! ")
-		return
+	function goPage() {
+		location.href = "${pageContext.request.contextPath}/member/joinForm";
 	}
-	if(password.value == ""){
-		alert("비밀번호를 작성해주세요!")
-		return
-	}else{
-		f.submit()
+</script>
+<script type="text/javascript">
+	function go() {
+		var id = document.getElementById("id");
+		var password = document.getElementById("password");
+		if (id.value == "") {
+			alert("아이디를 작성해주세요! ")
+			return
+		}
+		if (password.value == "") {
+			alert("비밀번호를 작성해주세요!")
+			return
+		} else {
+			f.submit()
+		}
 	}
-}	
 </script>
-<script>
-$(document).ready(function(){
-  $('#showPassword').on('click', function(){
-    var passwordField = $('#password');
-    var passwordFieldType = passwordField.attr('type');
-    if(passwordFieldType == 'password')
-    {
-    	passwordField.attr('type', 'text');
-    	$(this).val('Hide');
-    } else {
-    	passwordField.attr('type', 'password');
-    	$(this).val('Show');
-    }
-  });
-});
-</script>
-<style type="text/css">
-.table th {
-    text-align: center;
+<style type ="text/css">
+hr{
+background-color:red;
+
 }
 
-.table {
-    border-radius: 5px;
-    width: 60%;
-    margin: 0px auto;
-    float: none;
+input{
+border:1px;
 }
 
 .vertical-center {
@@ -74,49 +62,52 @@ $(document).ready(function(){
   align-items: center;
 }
 
-.table-bordered {
-	border: 1px;
+h2{
+text-align:center;
+color;
 }
-.table th{
-width:40%
+
+
+ a:link { color: red; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: blue; text-decoration: underline;}
+
+#btn{
+width:575px;
+height:43px;
+fontsize:30px;
 }
 </style>
 </head>
 <body>
-<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
-</header>
-<div class="container-fluid vertical-center d-flex justify-content-center">
-<form name="f" method="POST" action="${pageContext.request.contextPath }/member/login">
-	<table class="table table-hover text-centered table-bordered" border="1">
-		<thead class="table-dark">
-			<tr>
-				<th colspan="2">로그인</th>
-			</tr> 
-		</thead>
-		<tr>
-			<th>아이디</th>
-			<td><input type="text" name="id" id="id"></td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td><input type="password" name="password" id="password">
-			<input type="button" value="show" id="showPassword"></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="button" value="로그인" onclick="go()" id="passwordCheck" >
-				<a href="${pageContext.request.contextPath }/member/findForm">ID/PWD 찾기</a>
-			</td>
-		</tr>
-	</table>
-</form>
-
-</div>
+	<header>
+		<c:if test="${ empty id }">
+			<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
+		</c:if>
+		<c:if test="${ not empty id }">
+			<script type="text/javascript" src="/js/loginSessionExist.js"></script>
+		</c:if>
+	</header>
+	<div class="container-fluid vertical-center d-flex justify-content-center">
+	<form name="f" method="POST" action="${pageContext.request.contextPath }/member/login">
+	<div id="container" class="container">
+	<h2>로그인</h2>
+		<div class="input-group mb-3 input-group-lg">
+      		<div class="input-group-prepend"></div>
+      		<input class="form-control" type="text" name="id" id="id" placeholder="아이디를 입력해주세요.">
+      	</div>
+    	<div class="input-group mb-3 input-group-lg">
+      		<div class="input-group-prepend"></div>
+      		<input class="form-control" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요.">
+    	</div>
+		
+		<div class="card card-outline-secondary my-4">
+			<button class="btn btn-danger" id="btn" onclick="go()">로그인</button>
+		</div>
+		<a id="link1" href="${pageContext.request.contextPath }/member/findForm">ID/PWD찾기</a> |
+		<a id="link1" href="${pageContext.request.contextPath }/member/joinForm">회원가입</a>
+		</div>
+	</form>
+	</div>
 </body>
 </html>

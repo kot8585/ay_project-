@@ -222,12 +222,7 @@
 </head>
 <body>
 	<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
+	<script type="text/javascript" src="/js/loginSessionExist.js"></script>
 </header>
 	<div class="container-fluid vertical-center justify-content-center">
 		<form method="POST"
