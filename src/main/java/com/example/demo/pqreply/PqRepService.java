@@ -29,6 +29,7 @@ public class PqRepService {
 	 * @return 받아온 댓글리스트
 	 */
 	public ArrayList<PqReply> getPqReplyByPqNum(int pqnum) {
+		System.out.println("상품 문의 서비스 호출");
 		return mapper.getPqReplyByPqnum(pqnum);
 	}
 	
