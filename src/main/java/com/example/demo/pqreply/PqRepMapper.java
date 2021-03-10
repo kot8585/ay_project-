@@ -22,5 +22,5 @@ public interface PqRepMapper {
 	
 	public int update(PqReply pqrep);
 
-
+  
 }

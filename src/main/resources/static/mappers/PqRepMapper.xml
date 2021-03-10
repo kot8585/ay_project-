@@ -18,7 +18,7 @@
 	<select id="getPqReplyByPqnum" parameterType="int" resultMap="pqrep">
 	SELECT * FROM pqreply WHERE pqnum=#{pqnum} order by num
 	</select>
-	
+	  
 	<insert id="insert" parameterType="com.example.demo.pqreply.PqReply">
 		insert into pqreply(num, pqnum, writer,content, pqdate) values(seq_pqreply.nextval, #{pqnum}, #{writer},#{content}, sysdate)
 	</insert>

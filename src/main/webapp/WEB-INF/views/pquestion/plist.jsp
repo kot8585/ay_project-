@@ -14,7 +14,7 @@ function go(i){
 }
 
 </script>
-
+  
 <style type ="text/css">
 div#side_left{
 width:200px;

@@ -22,7 +22,7 @@ public class PqRepService {
 	public ArrayList<PqReply> getPqReplyById(String writer) {
 		return mapper.getPqReplyById(writer);
 	}
-
+  
 	/**
 	 * 해당 문의게시판의 댓글 리스트를 받아오는 기능을 제공합니다.
 	 * @param qna_num QnA 번호

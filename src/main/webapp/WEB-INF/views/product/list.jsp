@@ -25,7 +25,7 @@
 <script type="text/javascript">
 function numberWithCommas(num) {
 	var len, point, str; 
-    
+      
     num = num + ""; 
     point = num.length % 3 ;
     len = num.length; 
