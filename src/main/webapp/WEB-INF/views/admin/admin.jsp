@@ -68,13 +68,13 @@
 				$(document).on("click", "input[class='edit1']", function() {
 					if (this.form.edit1.value == '선택') { // 해당 카테고리를 선택하는 기능.
 						this.form.clickIp.disabled = false; // clickIp라는 name을 가진 tag를 활성화.
-						var x = sel1;
+						var x = sel1; // input edit1 에는 setCategory1 이 onclick으로 되어있어 sel1을 미리 설정해줌.
 						$.post("/category/getCategory", { // 해당 카테고리의 서브카테고리를 불러옴.
 							type : 2,
 							c_id : x // 전단계 대분류 
 						}).done(function(data) {
 							var c = eval("(" + data + ")");
-							$("#categoryTable_2").empty();//초기화를 하려면 비우고
+							$("#categoryTable_2").empty(); //초기화를 하려면 비우고
 							$("#categoryTable_2").append("<tr class='table-danger'><td align='center'>카테고리 2</td></tr>");
 							var html = "<tr>";
 							html += "<td align='center'>";
@@ -124,7 +124,6 @@
 							id : sel2,
 							name : this.form.clickIp.value,
 						}).done(function(data) {
-							console.log("[종료] 카테고리2 수정 이벤트");
 						});
 						this.form.edit2.value = '선택';
 					}

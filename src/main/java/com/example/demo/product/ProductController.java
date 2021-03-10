@@ -81,7 +81,9 @@ public class ProductController {
          for(int j = 0; j < files.length; j++) {
             mav.addObject("file" + j, files[j]);
          }
+         
       }
+      
       //mav에 p를 담는다
       mav.addObject("p", p);
       return mav;

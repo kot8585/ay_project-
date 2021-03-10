@@ -64,7 +64,7 @@ public class Order {
 		this.p = p;
 		this.m = m;
 	}
-
+	
 	public int getNum() {
 		return num;
 	}
