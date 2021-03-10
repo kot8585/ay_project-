@@ -59,7 +59,7 @@ public class ReplyController {
 		qnaService.changeState(map);
 		}
 
-		return insertCount ==1 
+		return insertCount == 1 
 		? new ResponseEntity<>("success", HttpStatus.OK) 
 		: new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -82,7 +82,7 @@ public class ReplyController {
 	 * @param num : 댓글 번호
 	 * @return HTTP 상태코드
 	 */
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
+	@RequestMapping(method = {RequestMethod.PUT},
 			value = "/rep/edit/{num}",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
