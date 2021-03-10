@@ -151,7 +151,7 @@ border:1px;
 				</div>
 			</div>
 	
-	
+	  
 <!-- 	<tr>	 -->
 <!-- 		<th>내용</th> -->
 <!-- 		<td><textarea name="content" cols="50" rows="50"></textarea></td> -->

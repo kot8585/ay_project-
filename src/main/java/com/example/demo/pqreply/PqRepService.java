@@ -50,7 +50,7 @@ public class PqRepService {
 	public int addPqReply(PqReply r) {
 		return mapper.insert(r);
 	}
-
+  
 	/**
 	 * 댓글 삭제
 	 * @param num : 댓글 번호
