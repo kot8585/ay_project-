@@ -101,6 +101,8 @@ border:1px;
 	margin:5px;
 	}
 	
+	
+	
 </style>
 
 
@@ -157,7 +159,8 @@ border:1px;
 	
 <!-- 	<tr> -->
 <!-- 	<td> -->
-<div class="d-grid gap-2 d-md-block">
+<div class="d-grid gap-2 d-md-block " >
+<div align="center" style=none; height: 100px;">
 	<input class="btn btn-danger" type="submit" value="문의작성">
 	<input class="btn btn-danger" type="reset" value="지우기">
 	<input type="hidden" name="pnum" value="${pq.num }">

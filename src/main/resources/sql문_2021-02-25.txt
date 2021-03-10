@@ -7,7 +7,9 @@ SELECT * FROM order1;
 SELECT * FROM pquestion;
 SELECT * FROM category1;
 SELECT * FROM category2;
-
+SELECT * FROM pqreply;
+SELECT * FROM qna;
+SELECT * FROM reply;
 
 /*
 ----Review 관련 data table----
@@ -205,6 +207,17 @@ CREATE TABLE qna(
     regdate date default sysdate,
     updatedate date default sysdate,
    path VARCHAR2(50) DEFAULT ''
+);
+
+DROP SEQUENCE seq_pqreply;
+CREATE SEQUENCE seq_pqreply;
+drop table pqreply CASCADE CONSTRAINTS;
+CREATE TABLE pqreply(
+    num NUMBER PRIMARY KEY NOT NULL,
+    pqnum NUMBER NOT NULL REFERENCES pquestion(num) on delete CASCADE,
+    writer VARCHAR2(20) NOT NULL,
+    content VARCHAR2(1000), 
+    pqdate date
 );
 
 commit;
