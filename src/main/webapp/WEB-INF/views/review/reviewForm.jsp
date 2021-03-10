@@ -13,20 +13,60 @@
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script src="/js/header.js"></script>
-<style type="text/css">
+<style type ="text/css">
+div#side_left{
+width:200px;
+height:400px;
+/* background-color:yellow; */
+float:left;
+margin:5px;
+}
+#side_left_box{
+width:95%;
+height:45%;
+/* background-color:blue; */
+float:left;
+margin:5px;
+}
+#mid_content{
+width:400px;
+height:400px;
+/* background-color:green; */
+float:left;
+margin:5px;
+}
+#side_content_box{
+display: inline;
+/* background-color:white; */
+margin:500px;
+}
+#side_rigth{
+width:200px;
+height:400px;
+/* background-color:red; */
+float:left;
+margin:5px;
+}
+#side_rigth_box{
+width:95%;
+height:45%;
+/* background-color:skyblue; */
+margin:5px;
+margin-top:95%;
+}
 
-	textarea {
-		height: 200px;
-	}
+input:focus {outline:none;}
+input{
+border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+}
+.inputStyle{
+border:1px;
+}
+
 	h2{
 		text-align:center;
 	}
-	div#side_left{
-	width:200px;
-	height:400px;
-	float:left;
-	margin:5px;
-	}
+
 </style>
 <title>Review Form</title>
 
@@ -49,13 +89,22 @@
 		}
 		console.log(length);
 		var title = document.getElementById("title");
-		var pattern = /\s/g;
+		var content = document.getElementById("content");
+		var pattern = /^ss*$/;
 		getByte(title.value);
+		console.log("type length : " + title.value.length);
 		if(title.value.match(pattern) || title.value.length < 5){
 			document.getElementById("titleReg").innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
+			
 		}else{
 			document.getElementById("titleReg").innerHTML = "";
 			
+			
+		}
+		if(content.value.match(pattern) || content.value.length < 5){
+			document.getElementById("contentReg").innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
+		}else{
+			document.getElementById("contentReg").innerHTML = "";
 		}
 		document.getElementById(type+"Span1").innerHTML = document.getElementById(type).value.length;
 		if(document.getElementById(type).value.length > length){
@@ -87,13 +136,14 @@
 </head>
 <body>
 <h2>리뷰 작성</h2>
-<div id="df" class="card-header">
-<form class="row g-3" name="f" id="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
-	<div class="mb-3">
+<form name="f" id="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
+<div class="container">
+	<div class="card card-outline-secondary my-4">
+	<div class="card-header">
 		<label class="form-label">작성자</label>
 		<input class="form-contorl" type="text" name="writer" id="writer" value="${sessionScope.id}" readonly>
 	</div>
-	<div class="mb-3">
+	<div class="card-header">
 		<label class="form-label">제목</label>
 		<input class="form-control" type="text" name="title" id="title" onkeyup="countLetter('title')">
 		<div class="form-text">
@@ -105,19 +155,20 @@
 					<span id="titleReg"></span>
 		</div>
 	</div>
-	<div class="mb-3">
+	<div class="card-header">
 		<label class="form-label">구매후기</label>
 		<textarea class="form-control" name="content" id="content" cols="140" onkeyup="countLetter('content')"></textarea>
 		<div id="contentDiv">
-					<span id="contentSpan1">0</span>/50
+					<span id="contentSpan1">0</span>/500
 					<span id="contentSpan2"></span>
+					<span id="contentReg"></span>
 				</div>	
 	</div>
-	<div class="mb-3">
+	<div class="card-header">
 		<label class="form-label">사진첨부</label>
 		<input class="form-control" type="file" name="uploadFile" multiple>
 	</div>
-	<div class="form-check">
+	<div class="card-header">
 		<input type="radio" name="stars" value="★☆☆☆☆">★
 		<input type="radio" name="stars" value="★★☆☆☆">★★
 		<input type="radio" name="stars" value="★★★☆☆">★★★
@@ -127,9 +178,11 @@
 	<button class="btn btn-danger" onclick="sub()">등록</button>
 	<input type="hidden" name="pnum" value="${p.num }">
 	<input type="hidden" name="path" value="123">
-</form>
+
 </div>
-<hr>
+</div>
+</form>
+
 
 
 <%-- <form name="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">

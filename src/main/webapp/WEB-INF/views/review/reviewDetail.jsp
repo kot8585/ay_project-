@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>	
 <html>
 <head>
@@ -75,9 +75,16 @@ border:1px;
 <script src="/js/header.js"></script>
 <script src="/js/review.js"></script>
 <script>
+
+function getByte(s){
+	var cnt = 0;
+	console.log(s.charAt());
+	console.log(s.charCodeAt());
+}
 	function change(type, num){
 		console.log("선택한 기능(type) : " + type);
-		console.log("type은 타입에 따라 수정, 삭제 중 하나를 선택하는 기능을 합니다.")
+		console.log("type은 타입에 따라 수정, 삭제 중 하나를 선택하는 기능을 합니다.");
+		
 		var pwdCheck = prompt("비밀번호를 입력해주세요");
 		console.log("1단계 : 수정,삭제 권한을 확인하기 위하여 비밀번호 입력")
 		console.log("입력된 값 : " + pwdCheck);
@@ -154,6 +161,7 @@ function countLetter(type){
 </head>
 <body>
 <h2>리뷰 수정</h2>
+<form name="f" method="POST" action="${pageContext.request.contextPath }/review/editReview">
 <div class="container">
 	<div class="card card-outline-secondary my-4">
 		<div class="card-header">
@@ -165,6 +173,10 @@ function countLetter(type){
 			<input class="form-control" type="text" name="pnum" value="${r.pnum }" readonly>
 		</div>
 		<div class="card-header">
+			<label class="form-label">상품명</label>
+			<input class="form-control" type="text" name="pname" value="${p.name }" readonly>
+		</div>
+		<div class="card-header">
 			<label class="form-label">별점</label>
 			<input class="form-control text-danger" value="${r.stars }" readonly>
 		</div>
@@ -172,17 +184,28 @@ function countLetter(type){
 			<label class="form-label">작성자</label>
 			<input class="form-control" type="text" name="writer" value="${r.writer}"readonly>
 		</div>
+
+ 		
+
+ 		
+ 		
+	
 		<div class="card-header">
 			<label class="form-label">제목</label>
-			<input class="form-control" type="text" name="title" id="title" value="${r.title }" onkeyup="countLetter('title')">
+			<input class="form-control" type="text" name="title" id="title" value="${r.title }" onkeyup="countLetter('title')" required>
+				    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+    
         		<div class="form-text">
 					50글자 이내로 입력해주세요.
 				</div>
             	<div id="titleDiv">
             		<span id="titleSpan1">0</span>/50
             		<span id="titleSpan2"></span>
+            		<span id="titleReg"></span>
             	</div>
 		</div>
+	
 		<div class="card-header">
 			<label class="form-label">내용</label>
 			<textarea class="form-control" name="content" id="content" cols="30" rows="30" onkeyup="countLetter('content')">${r.content }</textarea>
@@ -193,12 +216,46 @@ function countLetter(type){
 		</div>
 		<div class="card-header">
 			<label class="form-label">작성일</label>
+			<fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" />
 		</div>
-		<button class="btn btn-danger" onclick="sub()">등록</button>
+		<div class="card-header gap-2 mx-auto">
+		<button class="btn btn-danger" id="edit" onclick="change('edit', ${r.num})">수정</button>
+        <button class="btn btn-danger" id="delete" onclick="change('del', ${r.num})">삭제</button>
+        </div>
 	<input type="hidden" name="pnum" value="${p.num }">
 	<input type="hidden" name="path" value="123">
 	</div>
 </div>
+</form>
+<div class="container">
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+</div>
+
+<div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+  <label for="floatingTextarea">Comments</label>
+</div>
+<form class="was-validated">
+ <div class="form-group">
+    <label for="uname">Username:</label>
+    <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+ </form>
+  
+
+<form class="form-floating">
+  <input type="email" class="form-control is-invalid" id="floatingInputInvalid" placeholder="name@example.com" value="test@example.com">
+  <label for="floatingInputInvalid">Invalid input</label>
+</form>
+</div>
+
+
+
+
 <form name="f" method="POST" action="${pageContext.request.contextPath }/review/editReview">
    <table border="1" cellspacing="0">
       <thead>

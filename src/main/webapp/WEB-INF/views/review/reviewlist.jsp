@@ -59,16 +59,11 @@ function sort(criteria){
 				print(xhttp);
 				
 			}else{
-				
 				console.log("what : " + what.value)
-				
 				highlight(what,xhttp);
-				
 			}
-			
 		}
 	}
-	
 	xhttp.open("POST", "/review/list?p_num=${p.num}&what=" + what.value, true);
 	xhttp.send();
 }
@@ -212,9 +207,6 @@ function newImg(){
 			<div>
 				<input class="form-control me-2" type="text" placeholder="search" id="word" onkeyup="sort('word')">
 			</div>
-				
-				
-				
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown">
 						<select class="form-select" id="byStar" onchange="sort('byStar')">
@@ -240,7 +232,7 @@ function newImg(){
 			<span class="text-danger fs-2">${r.stars }</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${r.pdate}" /><br>
 		</div>
 		<br>
-		<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}" class="text-secondary">${p.name }</a><br><br>
+		<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}&p_num=${p.num }" class="text-secondary">${p.name }</a><br><br>
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
         <br>
