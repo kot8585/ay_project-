@@ -18,32 +18,11 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
  
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<style type="text/css">
-.table th {
-    text-align: center;
-}
 
-.table {
-    border-radius: 5px;
-    width: 30%;
-    margin: 0px auto;
-    float: none;
-}
-
-.vertical-center {
-  min-height: 100%;
-  min-height: 100vh; 
-  display: flex;
-  align-items: center;
-}
-
-.table-bordered {
-	border: 1px;
-}
-.table th{
-width:40%
-}
+<style type ="text/css">
+	h2{text-align:center;}
 </style>
+
 <script>
 $(document).ready(function(){
 	$("#del").click(function(){
@@ -62,66 +41,64 @@ $(document).ready(function(){
 
 </head>
 <body>
-
-<c:if test="${sessionScope.id eq 'admin' }">
-	<c:set var="authority" value="readonly" />
-</c:if>
-
-
-<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
-</header>
-<!-- header 부분 -->
-<c:set var="authority" value="readonly" />
-
-	<form action="${pageContext.request.contextPath }/board/edit" method="post">
-		<table class="table table-hover text-centered " border="1">
-				
-			<tr>
-				<th>작성자</th>
-				<td><input type="text" name="writer" value="${b.writer}" readonly></td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td><input type="text" name="title" value="${b.title}" ${data} ${authority}></td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td><textarea name="content"  rows="15" cols="40" ${authority}>${b.content}</textarea></td>
-			</tr>
-			<tr>
-				<th>작성날짜</th>
-				<td><input type="text" name="updatedate" value="${b.updatedate}" readonly></td>
-			</tr>
-			<tr>
-				<td colspan="2" style="float:rigth;s">		
-					<input type="hidden" name="type" value="${b.type}">
-					
-					<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
-					<c:if test="${sessionScope.id eq 'admin' }">
-						<input class="btn btn-primary" type="submit" value="수정" id="edit">
-						<input class="btn btn-primary" type="button" value="삭제" id="del"> 
-					</c:if>
-					
-					<!-- '목록으로' 누르면 들어오기전 페이지가 반영되도록 -->
-					<form action="/board/${b.type}/list" method="get">
-						<input type="hidden" name="num" value="${b.num}">
-						<input type="hidden" name="pageNum" value="${cri.pageNum}">
-						<input type="hidden" name="amount" value="${cri.amount}">
-						<input class="btn btn-primary" type="submit" value="목록으로">
-					</form>
-				
-				</td>
-			</tr>
-		</table>
-	</form>
-<hr>
+	<header>
+		<c:if test="${ empty id }">
+			<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+		</c:if>
+		<c:if test="${ not empty id }">
+			<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+		</c:if>
+	</header>
 	
-
+	<!-- 관리자가 아니면 수정 못하도록 -->
+	<c:if test="${sessionScope.id eq 'admin' }">
+		<c:set var="authority" value="readonly" />
+	</c:if>
+	
+	<h2>문의 상세</h2>
+	<c:set var="authority" value="readonly" />
+	<div class="container">
+		<form action="${pageContext.request.contextPath }/board/edit" method="post">
+			<table border="1" cellspacing="0">
+				<div class="card card-outline-secondary my-4">
+					<div class="card-header">
+						<label class="form-label">작성자</label>
+						<input class="form-control" type="text" name="writer" value="${b.writer}" readonly>
+					</div>
+					<div class="card-header">
+						<label class="form-label">제목</label>
+						<input class="form-control" type="text" name="title" value="${b.title}" ${data} ${authority}>
+					</div>
+					<div class="card-header">
+						<label class="form-label">내용</label>
+						<textarea class="form-control" name="content"  rows="15" cols="40" ${authority}>${b.content}</textarea>
+					</div>
+					<div class="card-header">
+						<label class="form-label">작성날짜</label>
+						<input class="form-control" type="text" name="updatedate" value="${b.updatedate}" readonly>
+					</div>
+					<div class="card-header gap-2 mx-auto">
+						<input type="hidden" name="type" value="${b.type}">
+							
+						<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
+						<c:if test="${sessionScope.id eq 'admin' }">
+							<input class="btn btn-danger" type="submit" value="수정" id="edit">
+							<input class="btn btn-danger" type="button" value="삭제" id="del"> 
+						</c:if>
+							
+							<!-- '목록으로' 누르면 들어오기전 페이지가 반영되도록 -->
+							<form action="/board/${b.type}/list" method="get">
+								<input type="hidden" name="num" value="${b.num}">
+								<input type="hidden" name="pageNum" value="${cri.pageNum}">
+								<input type="hidden" name="amount" value="${cri.amount}">
+								<input class="btn btn-danger" type="submit" value="목록으로">
+							</form>
+						</div>
+					</div>
+			</table>
+		</form>
+	</div>
+		
+	<hr>
 </body>
 </html>

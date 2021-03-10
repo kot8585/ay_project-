@@ -368,8 +368,8 @@ function showList(qnum){replyService.getList(qnum, function(list){
 	
 			
 			<c:if test="${sessionScope.id eq q.writer}">
-				<input class="btn btn-primary" type="submit" value="수정하기" id="update">
-				<input class="btn btn-primary" type="button" value="삭제하기" id="del">
+				<input class="btn btn-danger" type="submit" value="수정" id="update">
+				<input class="btn btn-danger" type="button" value="삭제" id="del">
 			</c:if>
 				<a class="btn btn-primary" href="/mypage/mypage" role="button">목록으로</a>
 			</td>
