@@ -32,10 +32,10 @@
 <!-- header부분 -->
 <header>
 <c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+	<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
 </c:if>
 <c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+	<script type="text/javascript" src="/js/loginSessionExist.js"></script>
 </c:if>
 </header>
 <!-- header 부분 -->
