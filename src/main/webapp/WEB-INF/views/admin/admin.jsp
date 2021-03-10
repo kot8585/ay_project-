@@ -30,16 +30,6 @@
 		alert("sel2 = " + sel2);
 	}
 	
-	function editButton1(id) {
-		sel1 = id;
-		alert("sel1 = " + sel1);
-		
-	}
-	
-	function editButton2(id) {
-		sel2 = id;
-		alert("sel2 = " + sel2);
-	}
 	
 	$(document).ready(
 			function() {
@@ -59,46 +49,16 @@
 							
 							// 카테고리1 테이블에 카테고리 값들 저장.
 							for (i = 0; i < c.length; i++) {
-								$("#categoryTable_1").append("<tr><td class='clickTd'><form>"
-										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
-										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' readonly='true'>"
-										+ "<input type='button' name='edit1' value='수정' class='edit1'>"
-										+ "<input type='button' value='삭제'>"
+								$("#categoryTable_1").append("<tr><td align='center' class='clickTd'><form>"
+										+ "<input type='hidden' value='"+c[i].id+"' name='c_id' readonly>"
+										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' disabled>"
+										+ "<input type='button' name='edit1' value='선택' onclick='javascript:setCategoty1("+c[i].id+")' class='edit1'>"
+										+ "<input type='button' name='del1' value='삭제' onclick='javascript:setCategoty1("+c[i].id+")' class='del1'>"
 										+ "</form></td></tr>");
 							}
 							console.log("[종료] 카테고리1 리스트 가져오기");
 				});
 				
-				// https://stackoverflow.com/questions/25628080/jquery-click-inputtype-doesnt-work
-				$(document).on("click", "input[name='clickIp']", function() {
-					var x = sel1;
-					$.post("/category/getCategory", {
-						type : 2,
-						c_id : x // 전단계 대분류 
-					}).done(function(data) {
-						var c = eval("(" + data + ")");
-						$("#categoryTable_2").empty();//초기화를 하려면 비우고
-						$("#categoryTable_2").append("<tr><td align='center'>카테고리 2</td></tr>");
-						var html = "<tr>";
-						html += "<td align='center'>";
-						html += "<input type='text' name='name'>";
-						html += "<input type='button' id='addCategory2' value='새 카테고리 추가'>";
-						html += "<input type='hidden' name='id' value='0'>";
-						html += "<input type='hidden' name='type' value='2'>";
-						html += "<input type='hidden' name='c_id' value='"+ x +"'>";
-						html += "</td>";
-						html += "</tr>";
-						$("#categoryTable_2").append(html);
-						for (i = 0; i < c.length; i++) {
-								$("#categoryTable_2").append("<tr><td class='clickTd'>"
-										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
-										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' ondbclick='this.readOnly = false' readonly>"
-										+ "<input type='button' name='edit2' class='edit2' value='수정' onclick='setCategoty2("+ c[i].id +")'>"
-										+ "<input type='button' value='삭제'>"
-										+ "</td></tr>");
-							}
-					});
-				});
 				
 				$("#s1").click(function() {
 					console.log("[시작] 카테고리1 리스트 클릭 이벤트");
@@ -156,20 +116,95 @@
 					this.form.submit();
 				});
 				
+				// https://stackoverflow.com/questions/25628080/jquery-click-inputtype-doesnt-work
 				$(document).on("click", "input[class='edit1']", function() {
-					alert("수정1 체크 : " + sel1);
-					if (this.form.edit1.value == '수정') {
-						this.form.clickIp.readOnly = false;
-						this.form.edit1.value = '완료';
-					} else {
-						this.form.clickIp.readOnly = false;
+					alert("선택 체크 : " + sel1);
+					if (this.form.edit1.value == '선택') {
+						this.form.clickIp.disabled = false;
+						var x = sel1;
+						$.post("/category/getCategory", {
+							type : 2,
+							c_id : x // 전단계 대분류 
+						}).done(function(data) {
+							var c = eval("(" + data + ")");
+							$("#categoryTable_2").empty();//초기화를 하려면 비우고
+							$("#categoryTable_2").append("<tr><td align='center'>카테고리 2</td></tr>");
+							var html = "<tr>";
+							html += "<td align='center'>";
+							html += "<input type='text' name='name'>";
+							html += "<input type='button' id='addCategory2' value='새 카테고리 추가'>";
+							html += "<input type='hidden' name='id' value='0'>";
+							html += "<input type='hidden' name='type' value='2'>";
+							html += "<input type='hidden' name='c_id' value='"+ x +"'>";
+							html += "</td>";
+							html += "</tr>";
+							$("#categoryTable_2").append(html);
+							for (i = 0; i < c.length; i++) {
+									$("#categoryTable_2").append("<tr><td align='center' class='clickTd'><form>"
+											+ "<input type='hidden' value='"+c[i].id+"' name='c_id' readonly>"
+											+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' disabled>"
+											+ "<input type='button' name='edit2' class='edit2' value='선택' onclick='setCategoty2("+ c[i].id +")'>"
+											+ "<input type='button' name='del2' class='del2' value='삭제' onclick='javascript:setCategoty2("+c[i].id+")'>"
+											+ "</form></td></tr>");
+								}
+						});
 						this.form.edit1.value = '수정';
+					} else {
+						this.form.clickIp.disabled = true;
+						$.post("/category/editCategory", {
+							type : 1,// 대분류 번호
+							id : sel1,
+							name : this.form.clickIp.value,
+						}).done(function(data) {
+							console.log("[종료] 카테고리2 수정 이벤트");
+							location.href = "${pageContext.request.contextPath }/admin/admin";
+						});
+						this.form.edit1.value = '선택';
 					}
 					
 				});
 				
+				
+				
 				$(document).on("click", "input[class='edit2']", function() {
 					alert("수정2 체크 : " + sel2);
+					if (this.form.edit2.value == '선택') {
+						this.form.clickIp.disabled = false;
+						var x = sel2;
+						this.form.edit2.value = '수정';
+					} else {
+						this.form.clickIp.disabled = true;
+						$.post("/category/editCategory", {
+							type : 2,// 대분류 번호
+							c_id: sel1,
+							id : sel2,
+							name : this.form.clickIp.value,
+						}).done(function(data) {
+							console.log("[종료] 카테고리2 수정 이벤트");
+							location.href = "${pageContext.request.contextPath }/admin/admin";
+						});
+						this.form.edit2.value = '선택';
+					}
+					
+				});
+				
+				$(document).on("click", "input[class='del1']", function() {
+					$.post("/category/deleteCategory", {
+						type : 1,// 대분류 번호
+						id : sel1
+					}).done(function(data) {
+						location.href = "${pageContext.request.contextPath }/admin/admin";
+					});
+				});
+				
+				$(document).on("click", "input[class='del2']", function() {
+					$.post("/category/deleteCategory", {
+						type : 2,// 대분류 번호
+						id : sel2,
+						c_id: sel1
+					}).done(function(data) {
+						location.href = "${pageContext.request.contextPath }/admin/admin";
+					});
 				});
 				
 				$("#s2").click(function() {
