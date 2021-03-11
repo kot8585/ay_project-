@@ -136,13 +136,13 @@ modalWriteBtn.on("click", function(e){
  		modalDelBtn.on("click", function(e){
  			console.log("modalDelBtn clicked............")
  			let num = exampleModal.data("num");
- 			let r = confirm(num +"번의 답변을 삭제하시겠습니까?");
+ 			let pq = confirm(num +"번의 답변을 삭제하시겠습니까?");
 			
- 			if(!r){
+ 			if(!pq){
  				return;
  			}
 			
- 			if (r) {
+ 			if (pq) {
  				//pqreply.js의 remove함수 호출
  				//pqreplyService.remove(서버에 넘겨줄 번호, 성공했을시 호출할 함수, 실패했을시 호출할 함수)
  				pqreplyService.remove(num, function(result){
@@ -167,49 +167,84 @@ modalWriteBtn.on("click", function(e){
  		$("#del").click(function(){
  			let result = confirm("글을 삭제하시겠습니까?");
  			if(result){
- 				location.href = "${pageContext.request.contextPath}/qna/del?num=${q.num}";
+ 				location.href = "${pageContext.request.contextPath}/pqreply/del?num=${pq.num}";
  			}
  		});
 
  	}); //end document.ready
 </script>
 
+<style type ="text/css">
+
+
+input:focus {outline:none;}
+input{
+border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+}
+.inputStyle{
+border:1px;
+}
+
+	h2{
+		text-align:center;
+	}
+
+	textarea {
+		height: 200px;
+	}
+	h2{
+		text-align:center;
+	}
+	div#side_left{
+	width:200px;
+	height:400px;
+	float:left;
+	margin:5px;
+	}
+	
+</style>
+
 </head>
 <body>
 
 
-
+<h2>상품문의목록</h2>
 	<c:if test="${sessionScope.id ne pq.writer }">
 		<c:set var="data" value="readonly" />
 	</c:if>
-<%-- 	<form action="${pageContext.request.contextPath }/qna/edit" method="post"> --%>
 		<table border="1" cellspacing="0">
 		
-			<tr>
-				<td>작성자</td>
-				<td><input type="text" name="writer" value="${pq.writer}"></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="title" value="${pq.title}" ${data}></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea type="text" name="content" ${data}>${pq.content}</textarea></td>
-			</tr>
-
-		</table>
-			<input type="hidden" name="num" value="${pq.num}">
-		
+		<div class="container">
+	<div class="card card-outline-secondary my-4">
+		<div class="card-header">
+			<label class="form-label">작성자</label>
+			<input class="form-control" type="text" name="writer" value="${pq.writer}">
+			</div>
 			
-			<!-- 관리자는 삭제버튼만 뜨게 하기 -->
-			<c:if test="${sessionScope.id eq 'admin'}">
-				<input type="button" value="삭제하기" id="del">
+	<div class="card-header">
+			<label class="form-label">제목</label>
+			<input class="form-control" type="text" name="writer" value="${pq.writer}">		
+			</div>
+			
+	<div class="card-header">
+			<label class="form-label">내용</label>		
+			<textarea class="form-control" type="text" name="content" ${data}>${pq.content}</textarea>
+			</div>	
+		
+	<div class="d-grid gap-2 d-md-block">	
+		<input class="btn btn-danger" type="hidden" name="num" value="${pq.num}">
+		<c:if test="${sessionScope.id eq 'admin'}">
+				<input class="btn btn-danger" type="button" value="삭제하기" id="del">
 			</c:if>
+		</div>
+		</div>
+		</div>
+		
+
 	
 	<hr>
      <div class="float-start"><h6>pqreply plist</h6></div>
-    <div class="float-end"><button type="button" id="addpqreplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button></div><br><br>
+    <div class="float-end"><button class="btn btn-danger" type="button" id="addpqreplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button></div><br><br>
     	
     	<!-- modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -245,6 +280,7 @@ modalWriteBtn.on("click", function(e){
 
 	<!-- 댓글 작성되면 이 영역에 넣는다 -->
 	<ul class="plist-group" id="pqreplyplist">
+	
   	</ul>
 </body>
 </html>

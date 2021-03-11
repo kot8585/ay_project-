@@ -33,9 +33,28 @@
    
 }
 
+
+#mid_content{
+width:400px;
+height:400px;
+/* background-color:green; */
+float:left;
+margin:5px;
+}
+#side_content_box{
+display: inline;
+/* background-color:white; */
+margin:500px;
+}
+#table, #td{
+border:1px solid red;
+}
+
+
 h2{
 		text-align:center;
 	}
+
 
 </style> 
 
@@ -146,12 +165,11 @@ var ext = fileName.split('.').pop().toLowerCase();
 <span class="border border-danger">
 	<form id="qnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data" style="width: 500px;">
 
-		<table class="table-dark">
-	
-	
+<!-- 		<table class="table-danger"> -->
+			
 		<div class="mb-3">
-		<label class="form-label">문의 유형</label>
-		<select name="q_cate" id="q_cate" class="form-select" aria-label="Default select example">
+		<label class="form-label ">문의 유형</label>
+		<select name="q_cate" id="q_cate" class="form-select aria-label="Default select example" >
 			<option value="" selected="selected">-- 문의유형을 선택해주세요 --</option>
 			<option value="order">주문 상품 문의</option>
 			<option value="p_delivery">배송 관련 문의</option>
@@ -161,7 +179,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 		<!-- 질문 카테고리 -->
 			 <div class="mb-3">
 				<label class="form-label">제목</label>
-				<input class="form-control" type="text" id="title" name="title" onkeyup="countLetter('title')">
+				<input class="form-control type="text" id="title" name="title" onkeyup="countLetter('title')">
 				<div id="titleDiv">
 					<span id="titleSpan1">0</span>/50 
 					<span id="titleSpan2"></span>
@@ -178,7 +196,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 			  </div>
 			 <div class="mb-3">
 				<label class="form-label">첨부파일</label>
-				<input class="form-control" type='file' id="uploadFile" name="uploadFile" multiple >
+				<input class="form-control type='file' id="uploadFile" name="uploadFile" multiple >
 				
 				<!-- 파일 여러개 넣으면 파일 이름 뽑기 -->
 				<div id="fileName">
@@ -191,6 +209,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 			 	 <input class="btn btn-danger" type="submit" name="submit" id="submit" value="작성">
 			 </div>
 		</table>
+		</span>
 		
 		<input type="hidden" name="path" value="123">
 		<input type="hidden" name="writer" value="${sessionScope.id }" >

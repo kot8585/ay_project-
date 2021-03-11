@@ -12,10 +12,10 @@
   <meta name="author" content="">
 
   <title>Shop Homepage - Start Bootstrap Template</title>
-
+  
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  
   <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
 <title>Insert title here</title>
@@ -25,7 +25,7 @@
 <script type="text/javascript">
 function numberWithCommas(num) {
 	var len, point, str; 
-    
+      
     num = num + ""; 
     point = num.length % 3 ;
     len = num.length; 

@@ -17,7 +17,7 @@ var pqreplyService = (function() {
 				if (callback) {
 					callback(result);
 				}
-			},
+			},  
 			error: function(xhr, status, er) {
 				if (error) {
 					error(er);
@@ -25,7 +25,7 @@ var pqreplyService = (function() {
 			}
 		})
 	}
-	
+	    
 	function getplist(pqNum, callback, error){
 		console.log("getplist..........");
 		console.log("pqNum: "+ pqNum);

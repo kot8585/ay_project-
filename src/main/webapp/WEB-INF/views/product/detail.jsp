@@ -11,14 +11,14 @@
   <meta name="author" content="">
 
   <title>Shop Item - Start Bootstrap Template</title>
-
+  
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/shop-item.css" rel="stylesheet">
-  
-  
+    
+    
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
  <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -162,20 +162,19 @@ border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 border:1px;
 }
 
+/* 	a { */
+/*     color: #0d6efd; */
+/*     text-decoration: none; */
+/* } */
 </style>
 
 
-
-
-</style>
 
 </head>
 <body>
 <header>
 <script type="text/javascript" src="/js/header.js"></script>
 </header>
-
-      
 
   <!-- Page Content -->
   <div class="container">
@@ -212,13 +211,12 @@ border:1px;
 <!-- <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script> -->
             
 <!--             메이커 -->
-            <h7>메이커: ${p.maker }</h7><br>
-            
+            <h6><li>메이커: ${p.maker }</li></h6>            
 <!--             원산지 -->
-            <h7>원산지: ${p.origin}</h7><br>
-            
+            <h6><li>원산지: ${p.origin}</li></h6>          
 <!--             재료 -->
-            <h7>재료: ${p.material}</h7><hr>
+            <h6><li>재료: ${p.material}</li></h6>
+            <hr>
            
             
 <!--             남은수량 -->
@@ -237,27 +235,30 @@ border:1px;
  <input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
     <input type="hidden" name="p_name" value="${p.name }">
     <c:if test="${p.quantity == 0}">
-	 	<input type="button" class="btn btn-primary" name="price" value="품절">
+	 	<input type="button" class="btn btn-danger" name="price" value="품절">
     </c:if> 
     <c:if test="${p.quantity != 0}">
-		<input type="submit" class="btn btn-primary" name="price" value="구매">
+		<input type="submit" class="btn btn-danger" name="price" value="구매">
 	</c:if>
    <input type="hidden" id="price" value="${p.price }">
    <input type="hidden" name="p_num" id="p_num" value="${p.num }">
    
    
-   <input type="button" class="btn btn-primary" name="price" value="장바구니로" id="cart">
+   <input type="button" class="btn btn-danger" name="price" value="장바구니로" id="cart">
    
 <%--    <input type="button" class="btn btn-primary" name="price" value="상품문의" onclick="go(${p.num})"> --%>
 </h5>
 </form>
 </div>
 </div>
+
+
+
      
         <!-- /.card -->
-
+<!-- <a id="tag1"><</a> -->
         <div class="card card-outline-secondary my-4">
-        <!-- 리뷰 -->  
+     
           <div class="card-header">
             
 
@@ -268,11 +269,9 @@ border:1px;
       </div>
       <div class="card card-outline-secondary my-4">
           <div class="card-header">
-
-
 <c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
-<hr>
-<input type="button" class="btn btn-primary" name="price" value="상품문의" onclick="go(${p.num})">
+<hr class="bg-danger" size="5px">
+<input type="button" class="btn btn-danger" name="price" value="상품문의" onclick="go(${p.num})">
 </div>
 </div>
 </div>

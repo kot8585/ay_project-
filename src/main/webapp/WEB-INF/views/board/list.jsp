@@ -102,6 +102,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
    });
 
 </script>
+
 </head>
 <body>
 <!-- header부분 -->
@@ -130,9 +131,11 @@ var sessionId = '<%=session.getAttribute("id") %>'
   </div>
 </nav>
 
+
  <hr class='bg-danger'  size='5px'>
 
 <nav class="nav nav-pills nav-fill ">
+
   <a class="nav-link ${type == 'faq'? 'active' : '' }" aria-current="page" href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a>
   <a class="nav-link ${type == 'notice'? 'active' : '' }" href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
 </nav>
