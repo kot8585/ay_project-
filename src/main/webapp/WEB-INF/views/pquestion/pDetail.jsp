@@ -67,6 +67,7 @@ function countLetter(){
 		   });
 	});
 
+
 </script>
     
 <style type ="text/css">
@@ -79,9 +80,9 @@ border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 border:1px;
 }
 
-   h2{
+h2{
       text-align:center;
-   }
+  }
    
 </style>
 </head>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.member.MemberService;
+import com.example.demo.pqreply.PqRepService;
+import com.example.demo.pqreply.PqReply;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
 import com.example.demo.qna.Qna;
@@ -37,9 +39,12 @@ public class PquestionController {
 	@Autowired
 	private MemberService mservice;
 	
+	@Autowired
+	private PqRepService pqservice;
+	
 	
 	/**
-	 * 상품등록폼
+	 * 상품문의등록폼
 	 * @param req : 로그인확인
 	 * @param pnum : 상품의 번호를 확인
 	 * @return : 상품번호를 받아서 mav에 상품문의폼을 담는다.
@@ -68,7 +73,22 @@ public class PquestionController {
 	@RequestMapping("/pquestion/plist")
 	   public ModelAndView list(@RequestParam("pnum") int pnum) {
 		  System.out.println("PquestionController.list()");
-	      ArrayList<Pquestion> plist = (ArrayList<Pquestion>) service.getByPnum(pnum);
+ 
+		  ArrayList<Pquestion> plist = (ArrayList<Pquestion>) service.getByPnum(pnum);
+//		  ArrayList<PqReply> plist = (ArrayList<PqReply>) pqservice.getPqReplyByPqNum(pqnum);
+		  
+		  
+		  for(Pquestion pq : plist) {
+			  int pqnum = pq.getNum();
+			
+			  //상품 문의번호에 맞는 상품문의 댓글 가져오기
+			  ArrayList<PqReply> pqrep = pqservice.getPqReplyByPqNum(pqnum);
+			  
+			  //댓글을 상품문의에 세팅하기
+			  pq.setPqreply(pqrep);
+			  
+		  }
+		  
 		  System.out.println(plist.toString());
 	      ModelAndView mav = new ModelAndView("pquestion/plist");
 	      mav.addObject("plist", plist);

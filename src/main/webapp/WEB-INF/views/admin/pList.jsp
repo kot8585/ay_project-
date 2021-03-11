@@ -38,7 +38,7 @@ function move(i) {
 <thead class="table-warning" >
 <tr><th>번호</th><th>작성자</th>
 <th>제목</th><th>내용</th>
-<th>답변상태</th><th>답변하기</th>
+<th>답변하기</th>
 	</tr>
 </thead>
 <c:forEach var="pq" items="${plist }">
@@ -50,7 +50,7 @@ function move(i) {
 	<td>${ pq.content }</td>
 <%-- 	<td>${ pq.updatedate }</td> --%>
 <%-- 	<td>${ pq.state }</td> --%>
-	<td><input class="form-control" type="button" value="답변하기" id="answerBtn" onclick="javascript:move(${pq.num})"></td>
+	<td><input type="button" value="답변하기" id="answerBtn" onclick="javascript:move(${pq.num})"></td>
 </tr>
 </c:forEach>
 </table>
