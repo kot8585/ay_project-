@@ -8,6 +8,7 @@ public class PqReply {
 	private String writer;
 	private String content;
 	private Date pqdate;
+	
 	public PqReply() {
 		super();
 	}  

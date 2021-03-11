@@ -20,15 +20,16 @@
 	var sel1=0; //선택한 것 저장할 변수 대분류
 	var sel2=0; //선택한 것 저장할 변수 소분류
 	
+	// 카테고리 1 안의 버튼 클릭시 해당 td의 id 저장 
 	function setCategoty1(id) {
 		sel1 = id;
-		alert("sel1 = " + sel1);
 	}
 	
+	// 카테고리 2 안의 버튼 클릭시 해당 td의 id 저장
 	function setCategoty2(id) {
 		sel2 = id;
-		alert("sel2 = " + sel2);
 	}
+	
 	
 	$(document).ready(
 			function() {
@@ -39,156 +40,114 @@
 				}).done(
 						function(data) {
 							var c = eval("(" + data + ")");
-							$("#s1").append("<option value=''>   </option>");
-							for (i = 0; i < c.length; i++) {
-								$("#s1").append(
-										"<option value='"+c[i].id+"'>"
-												+ c[i].name + "</option>"); //대분류 값을 받아와서 추가하고 
-							}
 							
 							// 카테고리1 테이블에 카테고리 값들 저장.
 							for (i = 0; i < c.length; i++) {
-								$("#categoryTable_1").append("<tr><td class='clickTd'>"
-										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
-										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' readonly>"
-										+ "<input type='button' value='수정'>"
-										+ "<input type='button' value='삭제'>"
-										+ "</td></tr>");
+								$("#categoryTable_1").append("<tr><td align='center' class='clickTd'><form>"
+										+ "<input type='hidden' value='"+c[i].id+"' name='c_id' readonly>"
+										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty1("+c[i].id+")' disabled>"
+										+ " <input type='button' name='edit1' value='선택' onclick='javascript:setCategoty1("+c[i].id+")' class='edit1'>"
+										+ " <input type='button' name='del1' value='삭제' onclick='javascript:setCategoty1("+c[i].id+")' class='del1'>"
+										+ "</form></td></tr>");
 							}
-							console.log("[종료] 카테고리1 리스트 가져오기");
 				});
 				
-				// https://stackoverflow.com/questions/25628080/jquery-click-inputtype-doesnt-work
-				$(document).on("click", "input[name='clickIp']", function() {
-					var x = sel1;
-					$.post("/category/getCategory", {
-						type : 2,
-						c_id : x // 전단계 대분류 
-					}).done(function(data) {
-						var c = eval("(" + data + ")");
-						$("#categoryTable_2").empty();//초기화를 하려면 비우고
-						$("#categoryTable_2").append("<tr><td align='center'>카테고리 2</td></tr>");
-						$("#categoryTable_2").append("<tr><td align='center'><input type='text' name='name'><input type='button' id='addCategory2' value='새 카테고리 추가'><input type='hidden' name='id' value='0'></td></tr>")
-						for (i = 0; i < c.length; i++) {
-								$("#categoryTable_2").append("<tr><td class='clickTd'>"
-										+ "<input type='text' value='"+c[i].id+"' name='c_id' readonly>"
-										+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' readonly>"
-										+ "<input type='button' value='수정'>"
-										+ "<input type='button' value='삭제'>"
-										+ "</td></tr>");
-							}
-					});
-				});
 				
-				$("#s1").click(function() {
-					console.log("[시작] 카테고리1 리스트 클릭 이벤트");
-					var x = 0;
-					x = this.options[this.options.selectedIndex].value;
-					console.log("[1] 클릭한 카테고리1 value 저장..." + x);
-					this.form.name.value = this.options[this.options.selectedIndex].text;
-					console.log("[2] 클릭한 카테고리1 text, input text에 저장..."+this.form.name.value);
-					sel1 = x;
-					console.log("[3] 컨트롤러에 /category/getCategory 전송...");
-					$.post("/category/getCategory", {
-						type : 2,
-						c_id : x // 전단계 대분류 
-					}).done(function(data) {
-						var c = eval("(" + data + ")");
-						$("#s2").empty();//초기화를 하려면 비우고 
-						$("#s2").append("<option value=''>"
-								+ "---" + "</option>");
-						for (i = 0; i < c.length; i++) {
-							$("#s2").append("<option value='"+c[i].id+"'>"//추가하고 
-									+ c[i].name + "</option>");
-						}
-					});
-					console.log("[종료] 카테고리1 리스트 클릭 이벤트");
-				});
-
-				$(".add").click(function() {
-					console.log("[시작] 카테고리1 추가 이벤트");
-					if(this.form.elements[0].name=='s2'){//중분류 버튼을 눌렀을 때 sel1의 값을 
-						this.form.c_id.value=sel1;
-						console.log("[시작] 카테고리2 추가 이벤트로 변경");
-					}
-
-					console.log("[1] 셀렉터의 option을 모두 받아와 input text에 입력된 값과 같은 값이 있다면 이미 있다는 메시지를 띄움.");
-					var o = this.form.elements[0].options;
-					for(i=0;i<o.length;i++){						
-						if(o[i].text==this.form.name.value){
-							alert("이미 있는 카테고리입니다.");
-							return;
-						}
-					}
-					console.log("[종료] 카테고리1,2 추가 이벤트, 이후에는 컨트롤러(/category/addCategory)에서 해결");
+				$("#addCategory1").click(function () {
+					// 버튼 클릭시 addCategory 실행
 					this.form.submit();
 				});
 				
-				$("#addCategory1").click(function () {
-					alert("클릭 체크");
-				});
-				
+				// id 가 addcategory2 인 input(type=button)을 클릭하였을 경우 실행
 				$(document).on("click", "input[id='addCategory2']", function () {
-					alert("클릭 체크");
+					// 버튼 클릭시 addCategory 실행
+					this.form.submit();
 				});
 				
-				$("#s2").click(function() {
-					console.log("[시작] 카테고리2 클릭 이벤트");
-					var y = 0;
-					y = this.options[this.options.selectedIndex].value;
-					console.log("[1] 클릭한 카테고리2의 value를 저장..." + y);
-					this.form.name.value = this.options[this.options.selectedIndex].text;
-					console.log("[2] 클릭한 카테고리2 text, input text에 저장..."+this.form.name.value);
-					sel2 = y;
-					console.log("[종료] 카테고리2 클릭 이벤트");
-				});
-				
-				$(".edit").click(function() {
-					if(this.form.elements[0].name=='s2'){//중분류 버튼을 눌렀을 때 sel1의 값을 
-						console.log("[시작] 카테고리2 수정 이벤트");
-						$.post("/category/editCategory", {
-							type : 2,// 대분류 번호
-							id : sel2,
-							name : this.form.name.value,
-							c_id : sel1
+				// https://stackoverflow.com/questions/25628080/jquery-click-inputtype-doesnt-work
+				$(document).on("click", "input[class='edit1']", function() {
+					if (this.form.edit1.value == '선택') { // 해당 카테고리를 선택하는 기능.
+						this.form.clickIp.disabled = false; // clickIp라는 name을 가진 tag를 활성화.
+						var x = sel1;
+						$.post("/category/getCategory", { // 해당 카테고리의 서브카테고리를 불러옴.
+							type : 2,
+							c_id : x // 전단계 대분류 
 						}).done(function(data) {
-							console.log("[종료] 카테고리2 수정 이벤트");
-							location.href = "${pageContext.request.contextPath }/admin/admin";
+							var c = eval("(" + data + ")");
+							$("#categoryTable_2").empty();//초기화를 하려면 비우고
+							$("#categoryTable_2").append("<tr class='table-danger'><td align='center'>카테고리 2</td></tr>");
+							var html = "<tr>";
+							html += "<td align='center'>";
+							html += "<input type='text' name='name'> ";
+							html += "<input type='button' id='addCategory2' value='새 카테고리 추가'>";
+							html += "<input type='hidden' name='id' value='0'>";
+							html += "<input type='hidden' name='type' value='2'>";
+							html += "<input type='hidden' name='c_id' value='"+ x +"'>";
+							html += "</td>";
+							html += "</tr>";
+							$("#categoryTable_2").append(html);
+							for (i = 0; i < c.length; i++) {
+									$("#categoryTable_2").append("<tr><td align='center' class='clickTd'><form>"
+											+ "<input type='hidden' value='"+c[i].id+"' name='c_id' readonly>"
+											+ "<input type='text' name='clickIp' value='"+c[i].name+"' onclick='javascript:setCategoty2("+c[i].id+")' disabled>"
+											+ " <input type='button' name='edit2' class='edit2' value='선택' onclick='setCategoty2("+ c[i].id +")'>"
+											+ " <input type='button' name='del2' class='del2' value='삭제' onclick='javascript:setCategoty2("+c[i].id+")'>"
+											+ "</form></td></tr>");
+								}
 						});
+						this.form.edit1.value = '수정';
 					} else {
-						console.log("[시작] 카테고리1 수정 이벤트");
+						this.form.clickIp.disabled = true;
 						$.post("/category/editCategory", {
 							type : 1,// 대분류 번호
 							id : sel1,
-							name : this.form.name.value
+							name : this.form.clickIp.value,
 						}).done(function(data) {
-							console.log("[종료] 카테고리1 수정 이벤트");
-							location.href = "${pageContext.request.contextPath }/admin/admin";
 						});
+						this.form.edit1.value = '선택';
 					}
+					
 				});
 				
-				$(".delete").click(function() {
-					if(this.form.elements[0].name=='s2'){//중분류 버튼을 눌렀을 때 sel1의 값을 
-						console.log("[시작] 카테고리2 삭제 이벤트");
-						$.post("/category/deleteCategory", {
-							type : 2,// 대분류 번호
-							id : sel2
-						}).done(function(data) {
-							console.log("[종료] 카테고리2 삭제 이벤트");
-							location.href = "${pageContext.request.contextPath }/admin/admin";
-						});
+				
+				
+				$(document).on("click", "input[class='edit2']", function() {
+					if (this.form.edit2.value == '선택') {
+						this.form.clickIp.disabled = false;
+						var x = sel2;
+						this.form.edit2.value = '수정';
 					} else {
-						console.log("[시작] 카테고리1 삭제 이벤트");
-						$.post("/category/deleteCategory", {
-							type : 1,// 대분류 번호
-							id : sel1
+						this.form.clickIp.disabled = true;
+						$.post("/category/editCategory", {
+							type : 2,// 대분류 번호
+							c_id: sel1,
+							id : sel2,
+							name : this.form.clickIp.value,
 						}).done(function(data) {
-							console.log("[종료] 카테고리1 삭제 이벤트");
-							location.href = "${pageContext.request.contextPath }/admin/admin";
+							console.log("[종료] 카테고리2 수정 이벤트");
 						});
+						this.form.edit2.value = '선택';
 					}
+					
 				});
+				
+				$(document).on("click", "input[class='del1']", function() {
+					$.post("/category/deleteCategory", {
+						type : 1,// 대분류 번호
+						id : sel1
+					}).done(function(data) {
+					});
+				});
+				
+				$(document).on("click", "input[class='del2']", function() {
+					$.post("/category/deleteCategory", {
+						type : 2,// 대분류 번호
+						id : sel2,
+						c_id: sel1
+					}).done(function(data) {
+					});
+				});
+				
 				
 			});
 	
@@ -240,39 +199,10 @@
 <h3 id="category">&nbsp;</h3><br>
 <h3>카테고리</h3>
 	<br><br>
-	<div style="float: left;">
-		<h4>카테고리 1</h4>
-		<form id="f1"action="${pageContext.request.contextPath }/category/addCategory" onsubmit="return false" method="post">
-			<select id="s1" name="s1"></select> 
-			<input type="text" id="n1" name="name">
-			<input type="hidden" name="type" value="1">
-			<input type="button" id="b1" class="add" value="추가">
-			<input type="button" id="e1" class="edit" value="수정">
-			<input type="button" id="d1" class="delete" value="삭제">
-		</form>	
-	</div>
-	
-	<div style="float: left; margin-left: 10em;">	
-		<h4>카테고리 2</h4>
-		<form id="f2" action="${pageContext.request.contextPath }
-		/category/addCategory" onsubmit="return false"  method="post">
-			<select id="s2"  name="s2"></select> 
-			<input type="text" id="n2" name="name">
-			<input type="hidden" name="type" value="2">
-			<input type="hidden" id="h1" name="c_id" value="">
-			<input type="button" id="b2" class="add" value="추가">
-			<input type="button" id="e2" class="edit" value="수정">
-			<input type="button" id="d2" class="delete" value="삭제">
-		</form>
-	</div>
-	
-
-<p>&nbsp;</p>
-<br><br><br>
 	<div class="d-flex justify-content-center">
 		<form action="${pageContext.request.contextPath }/category/addCategory" method="post" onsubmit="return false">
-			<table border="1" id="categoryTable_1" style="caption-side: top;">
-				<tr>
+			<table border="1" class="table table-bordered" id="categoryTable_1" style="caption-side: top;">
+				<tr class="table-danger">
 					<td align="center">카테고리 1</td>
 				</tr>
 				<tr>
@@ -287,8 +217,8 @@
 		</form>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<form action="">
-			<table border="1" id="categoryTable_2" style="caption-side: top;">
+		<form action="${pageContext.request.contextPath }/category/addCategory" method="post" onsubmit="return false">
+			<table border="1" class="table table-bordered" id="categoryTable_2" style="caption-side: top;">
 				
 			</table>
 		</form>

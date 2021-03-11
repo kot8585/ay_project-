@@ -67,6 +67,26 @@ CREATE TABLE member(
 ---------------------------------------
 */
 
+
+/*
+----Product 관련 data table----
+마지막 업데이트 : 2021.03.10
+*/
+DROP SEQUENCE seq_pqreply;
+CREATE SEQUENCE seq_pqreply;
+drop table pqreply CASCADE CONSTRAINTS;
+CREATE TABLE pqreply(
+    num NUMBER PRIMARY KEY NOT NULL,
+    pqnum NUMBER NOT NULL REFERENCES pquestion(num) on delete CASCADE,
+    writer VARCHAR2(20) NOT NULL,
+    content VARCHAR2(1000), 
+    pqdate date
+);
+
+/*
+---------------------------------------
+*/
+
 DROP TABLE event CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_event;
 CREATE SEQUENCE seq_event;

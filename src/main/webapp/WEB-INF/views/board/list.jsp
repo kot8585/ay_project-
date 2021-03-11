@@ -17,6 +17,45 @@
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<style type="text/css">
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #6c757d;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    color: #6c757d;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+nav nav-pills nav-fill.nav-link {
+  border: 1px solid #ced4da;
+      font-size: 20px;
+}
+
+.nav-pills .nav-link {
+    border: 1px solid #ced4da;
+    
+}
+</style>
 
 <script>
 var sessionId = '<%=session.getAttribute("id") %>'
@@ -76,33 +115,34 @@ var sessionId = '<%=session.getAttribute("id") %>'
 </c:if>
 </header>
 
-  
+<div class="container">  
 <!-- visual 부분 -->
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar border navbar-light border-danger" >
   <div class="container-fluid">
-    <h1>고객센터</h1>
+    <h1 class="text-danger">고객센터</h1>
     
     <!-- 검색하기 -->
     <form class="d-flex" id="searchForm" action="/board/faq/list" method='get'>
       <input class="form-control me-2" name="keyword" type="search" placeholder="자주묻는 질문검색" aria-label="Search">
-      <button class="btn btn-outline-success">search</button>
+      <button class="btn btn-outline-danger">search</button>
     </form>
-    
-    <button type="button" id="qnaWrite" class="btn btn-lg btn-primary">1:1문의하기</button>
+
+    <button type="button" id="qnaWrite" class="btn btn-lg btn-danger">1:1문의하기</button>
   </div>
 </nav>
 
-<nav class="nav nav-pills nav-fill " >
+
+ <hr class='bg-danger'  size='5px'>
+
+<nav class="nav nav-pills nav-fill ">
+
   <a class="nav-link ${type == 'faq'? 'active' : '' }" aria-current="page" href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a>
   <a class="nav-link ${type == 'notice'? 'active' : '' }" href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
 </nav>
 
 	
-<c:if test="${sessionScope.id eq 'admin' }">
-	<a href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
-</c:if>
 
-
+<br>
 <!-- 글 목록 -->
 <c:if test="${empty list }">
  작성된 글이 없습니다.
@@ -110,14 +150,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
 
 <c:if test="${not empty list }">
 	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>글번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성날짜</th>
-			</tr>
-		</thead>
+
 		<c:forEach var="b" items="${list}">
 			<tr>
 
@@ -132,7 +165,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
 
 
 <!-- 페이지 버튼 -->
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example nav-outline-danger">
    <ul class="pagination justify-content-center">
   
   <c:if test="${pageMaker.prev }">
@@ -157,9 +190,12 @@ var sessionId = '<%=session.getAttribute("id") %>'
       </a>
     </li>
    </c:if>
+    <c:if test="${sessionScope.id eq 'admin' }">
+		<a class="btn btn-danger" href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
+	</c:if>
   </ul>
 </nav>
-
+</div>
 	
 	<!-- 페이지 번호를 누르면 실제로 동작하는 부분 -->
 	<form id="actionForm" action="/board/${type}/list" method='get'>

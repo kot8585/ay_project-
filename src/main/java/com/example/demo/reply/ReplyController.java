@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.qna.QnaService;
 
 /**
+ * 참고 : https://maxcomfem.tistory.com/49  더 자셍한 사항은 '코드로 배우는 스프링 웹 프로젝트 댓글'으로 검색
+ * 
  * 비동기 방식으로만 댓글 처리
  * 관리자가 1:1문의게시판(QnA)에 답변을 달 때 사용됩니다.
  * Rest방식으로 작성하였는데 Rest방식은 요청받은 데이터타입과 응답할 데이터타입을 정확하게 명시해야한다.
@@ -59,7 +61,7 @@ public class ReplyController {
 		qnaService.changeState(map);
 		}
 
-		return insertCount ==1 
+		return insertCount == 1 
 		? new ResponseEntity<>("success", HttpStatus.OK) 
 		: new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -82,7 +84,7 @@ public class ReplyController {
 	 * @param num : 댓글 번호
 	 * @return HTTP 상태코드
 	 */
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
+	@RequestMapping(method = {RequestMethod.PUT},
 			value = "/rep/edit/{num}",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})

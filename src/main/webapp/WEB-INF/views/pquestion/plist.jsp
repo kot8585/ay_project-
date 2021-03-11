@@ -109,6 +109,8 @@ border:1px;
 			<a href="${pageContext.request.contextPath }/pquestion/pDetail?num=${pq.num }" class="text-secondary">${pq.content} 
 			</a></div>
 		
+			
+		
 	</c:forEach>
 	</nav>
 	</table>

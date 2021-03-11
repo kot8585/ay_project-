@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   	
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,42 +25,55 @@
 	crossorigin="anonymous"></script>
 
 <script>
-$(document).ready(function() {
-	$("#pwdcheck").click(function () {	    
-			if($("#password").val() == ""){
-				alert("비밀번호를 입력해주세요");
-				return;
-			}else{
-				 $.post("/member/editpwdCheck", {id: $("#id").val(), password: $("#password").val()})
-				 .done(function(data) {
-					var result_data = eval("("+data+")")
-					if(result_data.result == "1"){
-						alert("로그인을 해주세요!");
-					}
-					if(result_data.result == "2"){
-						$("#f").attr("action", "${pageContext.request.contextPath }/member/editForm");
-					$("#f").submit();
-					}
-					if(result_data.result == "3"){
-						alert("비밀번호가 다릅니다!");
-					} 
-				})
-			}	
-	});
-});
+	$(document)
+			.ready(
+					function() {
+						$("#pwdcheck")
+								.click(
+										function() {
+											if ($("#password").val() == "") {
+												alert("비밀번호를 입력해주세요");
+												return;
+											} else {
+												$
+														.post(
+																"/member/editpwdCheck",
+																{
+																	id : $(
+																			"#id")
+																			.val(),
+																	password : $(
+																			"#password")
+																			.val()
+																})
+														.done(
+																function(data) {
+																	var result_data = eval("("
+																			+ data
+																			+ ")")
+																	if (result_data.result == "1") {
+																		alert("로그인을 해주세요!");
+																	}
+																	if (result_data.result == "2") {
+																		$("#f")
+																				.attr(
+																						"action",
+																						"${pageContext.request.contextPath }/member/editForm");
+																		$("#f")
+																				.submit();
+																	}
+																	if (result_data.result == "3") {
+																		alert("비밀번호가 다릅니다!");
+																	}
+																})
+											}
+										});
+					});
 </script>
 <style type="text/css">
-.table th {
-	text-align: center;
+.container{
+width:575px;
 }
-
-.table {
-	border-radius: 5px;
-	width: 50%;
-	margin: 0px auto;
-	float: none;
-}
-
 .vertical-center {
 	min-height: 100%;
 	min-height: 100vh;
@@ -68,39 +81,42 @@ $(document).ready(function() {
 	align-items: center;
 }
 
-.table-bordered {
+input {
 	border: 1px;
 }
 
-.table td {
-	width: 30%
+h2 {
+	text-align: center;
+	
+}
+
+#btn {
+	width: 575px;
+	height: 43px;
+	fontsize: 30px;
+}
+{
+width:500px;
 }
 </style>
 <body>
-<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
-</header>
-<form name="f" id="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
-<table class="table table-bordered">
-				<thead class="table-dark">
-<tr>
-<td colspan="2">비밀번호확인</td>
-</tr>
-</thead>
-<tr>
-<td>비밀번호</td>
-<td><input type="password" name="password" id="password"></td>
-</tr>
-<tr>
-<td colspan="2"><input type="button" value="확인" id="pwdcheck"></td>
-</tr>
-</table>
-</form>
+	<header>
+		<script type="text/javascript" src="/js/loginSessionExist.js"></script>
+	</header>
+	<div class="container-fluid vertical-center d-flex justify-content-center">
+		<form name="f" id="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
+			<div id="container" class="container">
+				<h2>비밀 번호 확인</h2>
+				<div class="input-group mb-3 input-group-lg">
+					<div class="input-group-prepend"></div>
+					<input class="form-control" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요.">
+				</div>
+				<div class="card card-outline-secondary my-4">
+					<button class="btn btn-danger" id="pwdcheck" onclick="go()">확인</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 
 </html>

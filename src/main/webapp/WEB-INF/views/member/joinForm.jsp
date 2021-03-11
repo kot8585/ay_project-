@@ -241,125 +241,93 @@ $(function(){
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
  
- <script src="/js/header.js"></script>
+
 <style type="text/css">
-.table th {
-    text-align: center;
-}
-.table {
-    border-radius: 5px;
-    width: 60%;
-    margin: 0px auto;
-    float: none;
-}
+
 .vertical-center {
   min-height: 100%;
   min-height: 100vh; 
   display: flex;
   align-items: center;
 }
-.table-bordered {
-	border: 1px;
-}
-.table th{
-width:40%
-}
-</style> 
-<style>
-#join {
-background-color: blue;
-color : white;
-}
-#reset{
-background-color:red;
-color : white;
+div{
+width:290px;
 }
 
-</style>
+button{
+width:115px;
+}
+h2{
+text-align:center;
+color;
+}
+</style> 
+
  <script type="text/javascript"> 
  function goPage() { location.href="${pageContext.request.contextPath}/member/joinForm"; } 
  </script>
 </head>
 <body>
-	<header>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <c:if test="${ empty sessionScope.id }">
-	        <li class="nav-item active">
-	          	<a class="nav-link" href="${ pageContext.request.contextPath }/member/loginForm">로그인</a>
-	        </li>
-        </c:if>
-        <c:if test="${not empty sessionScope.id }">
-        	<li class="nav-item">
-          		<a class="nav-link" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a>
-        	</li>
-        </c:if>
-        <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/mypage/mypage">마이페이지</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/board/faq/list">고객센터</a>
-        </li>
-        <li>
-          <button type="button" class="btn btn-outline-primary me-2" onclick="goPage()">회원가입</button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<header>
+	<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
 </header>
+				<h2>회원가입</h2>
 	<div class="container-fluid vertical-center justify-content-center">
 	<form name="f" method="POST" action="${pageContext.request.contextPath }/member/join">
-		<table class="table table-bordered">
-			<thead class="table-dark">
-				<tr>
-					<th colspan="2">회원가입</th>
-				</tr>
-			</thead>
-			<tr>
-				<th>아이디</th>
-				<td colspan="2">
-					<input type="text" name="id" id="id" placeholder="4~16자의 영문 소문자, 숫자만 사용가능" style="width:350px;height:30px;font-size:16px;" >
-					<span class="check_font" id="id_check"></span>
-					<input type="button" value="id중복확인" id="idCheck"> 
-					<span id="idResult"></span>
-					
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" name="password" id="password1" placeholder="4~16자의 영문 대소문자, 숫자만 사용가능" style="width:350px;height:30px;font-size:16px;">
-				<input type="button" value="show" id="showPassword">
-				<span class="check_font" id="pwd1_check"></span></td>
-			</tr>
-			<tr>
-				<th>비밀번호확인</th>
-				<td><input type="password"  id="password2" placeholder="비밀번호확인">
-				<input type="button" value="show" id="showPassword1">
-				<span class="check_font" id="pwd2_check"></span></td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="name" id="name"placeholder="2~6자의 한글만 사용가능" style="width:350px;height:30px;font-size:16px;">
-				<span class="check_font" id="name_check"></span></td>
-			</tr>
-			<tr>
-				<th>생일</th>
-				<td><input type="text" name="birth" id="datepicker"></td>
-			</tr>
-			<tr>
-				<th>성별</th>
-				<td><input type="radio" name="gender" value="m" id="gender">남
-					<input type="radio" name="gender" value="f" id="gender">여</td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td><input type="text" id="sample4_postcode" name="postalCode" placeholder="우편번호">
-					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample4_roadAddress" name="roadAddress" placeholder="도로명주소"> 
-					<input type="text" id="sample4_jibunAddress" name="address" placeholder="지번주소"> 
-					<span id="guide" style="color: #999"></span> 
-					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
-					<script>function sample4_execDaumPostcode() {
+		<div id="container" class="container">
+		<h6>아이디</h6>
+			<div class="input-group mb-3">
+ 				<input type="text" class="form-control" name="id" id="id" placeholder="4~16자의 영문 소문자, 숫자만 사용가능합니다." aria-label="4~16자의 영문 소문자, 숫자만 사용가능합니다." aria-describedby="button-addon2">
+  				<button class="btn-danger btn-outline-secondary text-light" type="button" id="idCheck">id중복확인</button>
+			</div>
+            <div>
+				<span class="check_font" id="id_check"></span>
+				<span id="idResult"></span>
+      		</div>
+		<h6>비밀번호</h6>
+			<div class="input-group mb-3">
+  				<input type="password" class="form-control" name="password" id="password1" placeholder="4~16자의 영문 대소문자, 숫자만 사용가능합니다." aria-label="4~16자의 영문 대소문자, 숫자만 사용가능합니다." aria-describedby="button-addon2">
+  				<button class="btn-danger btn-outline-secondary text-light" type="button" id="showPassword">show</button>
+			</div>
+			<div>
+				<span class="check_font" id="pwd1_check"></span>
+		    </div>
+		<h6>비밀번호확인</h6>
+		    <div class="input-group mb-3">
+ 				<input type="password" class="form-control" id="password2" placeholder="비밀번호확인" aria-label="비밀번호확인" aria-describedby="button-addon2">
+  				<button class="btn-danger btn-outline-secondary text-light" type="button" id="showPassword1">show</button>
+			</div>
+			<div>
+				<span class="check_font" id="pwd2_check"></span>
+			</div>
+		<h6>이름</h6>
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control" placeholder="2~6자의 한글만 사용가능합니다" aria-label="2~6자의 한글만 사용가능합니다."> 
+			</div>
+			<div>
+				<span class="check_font" id="name_check"></span>
+			</div>	 
+		<h6>생일</h6>
+			<div class="input-group mb-3">
+ 	 			<input type="text" class="form-control" name="birth" id="datepicker" placeholder="이곳을 눌러 생일을 선택해주세요." aria-label="이곳을 눌러 생일을 선택해주세요." aria-describedby="button-addon2">
+			</div>
+		<h6>성별</h6>
+				<button type="button" name="gender" id="gender" class="btn-danger btn-primary btn">남자</button>
+                <button type="button" name="gender" id="gender" class="btn-danger btn-secondary btn">여자</button>
+		<h6>주소</h6>
+			<div class="input-group mb-3">
+ 				<input type="text" class="form-control" id="sample4_postcode" name="postalCode" placeholder="우편번호" aria-label="우편번호" aria-describedby="button-addon2">
+  				<button class="btn-danger btn-outline-secondary text-light" type="button" onclick="sample4_execDaumPostcode()">우편번호찾기</button>
+			</div>
+			<div class="input-group mb-3">
+ 				<input type="text" class="form-control" id="sample4_roadAddress" name="roadAddress" placeholder="도로명주소" aria-label="도로명주소" aria-describedby="button-addon2">
+			</div>
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control" id="sample4_jibunAddress" name="address" placeholder="지번주소" aria-label="지번주소" aria-describedby="button-addon2">
+				<span id="guide" style="color: #999"></span>
+			</div>
+				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
+				<script>function sample4_execDaumPostcode() {
 								new daum.Postcode({oncomplete : function(data) {
 									let fullRoadAddr = data.roadAddress;
 									let extraRoadAddr = '';
@@ -390,28 +358,22 @@ color : white;
 									}
 								}).open();
 								}
-						</script></td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td><input type="text" name="tel" id="tel"placeholder="전화번호를 작성해주세요." style="width:350px;height:30px;font-size:16px;">
-				<span class="check_font" id="tel_check"></span></td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td><input type="text" name="email" id="email"placeholder="이메일을 작성해주세요." style="width:350px;height:30px;font-size:16px;">
-				<span class="check_font" id="email_check"></span></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-				<input type="button" value="회원가입" id="join">
-				<input type="reset" value="재입력" id="reset">
-				</td>
-				
-			</tr>
-
-
-		</table>
+						</script>
+			</div>
+		<h6>전화번호</h6>
+			<div class="input-group mb-3 input-group-lg">
+      		<div class="input-group-prepend"></div>
+				<input class="form-control" type="text" name="tel" id="tel"placeholder="전화번호를 작성해주세요.">
+				<span class="check_font" id="tel_check"></span>
+			</div>
+		<h6>이메일</h6>
+			<div class="input-group mb-3 input-group-lg">
+      		<div class="input-group-prepend"></div>
+				<input class="form-control" type="text" name="email" id="email"placeholder="이메일을 작성해주세요.">
+				<span class="check_font" id="email_check"></span>
+			</div>
+				<button type="button" id="join" class="btn-danger btn-sm">회원가입</button>
+    	        <button type="button" type="reset" id="reset" class="btn-danger btn-secondary btn-sm">재입력</button>
 	</form>
 	</div>
 </body>

@@ -16,7 +16,9 @@
 	</select>
 	
 	<select id="getPqReplyByPqnum" parameterType="int" resultMap="pqrep">
-	SELECT * FROM pqreply WHERE pqnum=#{pqnum} order by num
+
+		SELECT * FROM pqreply WHERE pqnum=#{pqnum} order by num
+
 	</select>
 	  
 	<insert id="insert" parameterType="com.example.demo.pqreply.PqReply">
