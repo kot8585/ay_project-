@@ -243,17 +243,25 @@ height:800px;
 			</div>
 	    <h6>생일</h6>
 				<div class="input-group mb-3">
- 	 			<input type="text" class="form-control" name="birth" id="datepicker" value="${m.birth }" placeholder="이곳을 눌러 생일을 선택해주세요." aria-label="이곳을 눌러 생일을 선택해주세요." aria-describedby="button-addon2">
+ 	 			<input type="text" class="form-control" name="birth" id="datepicker" value="${m.birth }" placeholder="이곳을 눌러 생일을 선택해주세요." aria-label="이곳을 눌러 생일을 선택해주세요." aria-describedby="button-addon2" autocomplete="off">
 			</div>
 		<h6>성별</h6>
-					<c:if test="${ m.gender == 'm' }">
-						<button type="button" name="gender" id="gender" value="m" class="btn-danger btn-primary btn">남자</button>
-						<button type="button" name="gender" id="gender" value="f" class="btn-danger btn-secondary btn">여자</button>
-					</c:if>
-					<c:if test="${ m.gender == 'f' }">
-						<button type="button" name="gender" id="gender" value="m" class="btn-danger btn-primary btn">남자</button>
-						<button type="button" name="gender" id="gender" value="f" class="btn-danger btn-secondary btn">여자</button>
-					</c:if>
+			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+				<c:if test="${ m.gender == 'm' }">
+	  				<input type="radio" class="btn-check" name="gender" value="m" id="btnradio1" autocomplete="off" checked="checked">
+  					<label class="btn btn-outline-danger" for="btnradio1">남자</label>
+
+  					<input type="radio" class="btn-check" name="gender"  value="f" id="btnradio2" autocomplete="off">
+  					<label class="btn btn-outline-danger" for="btnradio2">여자</label>
+				</c:if>
+				<c:if test="${ m.gender == 'f' }">
+	  				<input type="radio" class="btn-check" name="gender" value="m" id="btnradio1" autocomplete="off">
+  					<label class="btn btn-outline-danger" for="btnradio1">남자</label>
+
+  					<input type="radio" class="btn-check" name="gender"  value="f" id="btnradio2" autocomplete="off" checked="checked">
+  					<label class="btn btn-outline-danger" for="btnradio2">여자</label>
+				</c:if>
+ 			</div>
 		<h6>주소</h6>
 			<div class="input-group mb-3">
  				<input type="text" class="form-control" id="sample4_postcode" name="postalCode" value="${m.postalCode }" placeholder="우편번호" aria-label="우편번호" aria-describedby="button-addon2">
