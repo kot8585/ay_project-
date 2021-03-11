@@ -196,7 +196,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 			  </div>
 			 <div class="mb-3">
 				<label class="form-label">첨부파일</label>
-				<input class="form-control type='file' id="uploadFile" name="uploadFile" multiple >
+				<input class="form-control" type='file' id="uploadFile" name="uploadFile" multiple >
 				
 				<!-- 파일 여러개 넣으면 파일 이름 뽑기 -->
 				<div id="fileName">

@@ -77,7 +77,7 @@
 	        point += 3; 
 	    } 
 	     
-	    return str + '원';
+	    document.write(str + "원");
 	}
 
 
@@ -206,7 +206,7 @@ border:1px;
             <td><h1><input type="text" name="name" value="${p.name }" readonly></h1>
 </td>
 <!--             가격 -->
-            <h3><script>document.getElementById("cost").value = numberWithCommas(${p.price })</script>${p.price }원</h3><hr>
+            <h3><script>numberWithCommas(${p.price })</script></h3><hr>
             <input type="hidden" id="cost" value="${p.price }" >
 <!-- <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script> -->
             

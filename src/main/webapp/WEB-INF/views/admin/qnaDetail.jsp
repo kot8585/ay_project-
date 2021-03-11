@@ -178,6 +178,36 @@
 	}); //end document.ready
 </script>
 
+<style type ="text/css">
+
+
+input:focus {outline:none;}
+input{
+border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+}
+.inputStyle{
+border:1px;
+}
+
+	h2{
+		text-align:center;
+	}
+
+	textarea {
+		height: 200px;
+	}
+	h2{
+		text-align:center;
+	}
+	div#side_left{
+	width:200px;
+	height:400px;
+	float:left;
+	margin:5px;
+	}
+	
+</style>
+
 </head>
 <body>
 	<!-- modal -->
