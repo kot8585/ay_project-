@@ -104,7 +104,7 @@ public class PqReplyController {
 					? new ResponseEntity<>("success", HttpStatus.OK)
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
+  
 		/**
 		 * 번호에 해당하는 댓글 가져오기
 		 * 댓글을 눌렀을때 해당 데이터를 모달창에 띄우게 하기 위해 사용

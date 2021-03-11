@@ -10,7 +10,7 @@ public class PqReply {
 	private Date pqdate;
 	public PqReply() {
 		super();
-	}
+	}  
 	public PqReply(int num, int pqnum, String writer, String content, Date pqdate) {
 		super();
 		this.num = num;

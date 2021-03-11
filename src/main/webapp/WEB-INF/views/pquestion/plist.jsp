@@ -12,7 +12,7 @@
 function go(i){
 	location.href="${pageContext.request.contextPath}/pquestion/pquestionForm?pnum="+i;
 }
-  
+    
 </script>
   
 <style type ="text/css">

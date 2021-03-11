@@ -40,7 +40,7 @@ public class PqRepService {
 	public PqReply getPqReply(int num) {
 		return mapper.select(num);
 	}
-
+  
 	/**
 	 * 댓글 추가
 	 * @param r : 작성된 댓글

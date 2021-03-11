@@ -25,8 +25,8 @@ function move(i) {
 }
 </script>
 
-
-
+  
+  
 </head>
 <body>
 <c:if test="${empty plist }">
