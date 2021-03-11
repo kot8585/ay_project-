@@ -61,10 +61,10 @@ $(document).ready(function(){
 	
 	$("#password2").keyup(function(){
 		if($("#password1").val() == $("#password2").val()){
-			$("#pwd2_check").text('가능');
+			$("#pwd2_check").text('비밀번호 일치');
 			$('#pwd2_check').css('color', 'green');
 		}else{
-			$("#pwd2_check").text('불가능');
+			$("#pwd2_check").text('비밀번호 다름');
 			$('#pwd2_check').css('color', 'red');
 		};
 	});
@@ -243,23 +243,28 @@ $(function(){
  
 
 <style type="text/css">
-
-.vertical-center {
-  min-height: 100%;
-  min-height: 100vh; 
-  display: flex;
-  align-items: center;
-}
 div{
-width:290px;
-}
+width:500px;
+height:-24px;
 
-button{
-width:115px;
 }
+.vertical-center {
+	min-height: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+}
+button{
+width:123px;
+}
+span{}
 h2{
 text-align:center;
-color;
+color:;
+}
+
+#layout{
+	vertical-align: top;
 }
 </style> 
 
@@ -271,14 +276,15 @@ color;
 <header>
 	<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
 </header>
-				<h2>회원가입</h2>
-	<div class="container-fluid vertical-center justify-content-center">
-	<form name="f" method="POST" action="${pageContext.request.contextPath }/member/join">
-		<div id="container" class="container">
+		<h2 class="text-dark">회원가입</h2>
+			<div id="layout" class="container-fluid vertical-center justify-content-center">
+			
+				<form name="f" method="POST" action="${pageContext.request.contextPath }/member/join">
+			<div id="container" class="container border border-danger" >
 		<h6>아이디</h6>
 			<div class="input-group mb-3">
  				<input type="text" class="form-control" name="id" id="id" placeholder="4~16자의 영문 소문자, 숫자만 사용가능합니다." aria-label="4~16자의 영문 소문자, 숫자만 사용가능합니다." aria-describedby="button-addon2">
-  				<button class="btn-danger btn-outline-secondary text-light" type="button" id="idCheck">id중복확인</button>
+  				<button type="button" id="idCheck" class="btn-danger btn-primary btn">id중복확인</button>
 			</div>
             <div>
 				<span class="check_font" id="id_check"></span>
@@ -286,23 +292,28 @@ color;
       		</div>
 		<h6>비밀번호</h6>
 			<div class="input-group mb-3">
-  				<input type="password" class="form-control" name="password" id="password1" placeholder="4~16자의 영문 대소문자, 숫자만 사용가능합니다." aria-label="4~16자의 영문 대소문자, 숫자만 사용가능합니다." aria-describedby="button-addon2">
-  				<button class="btn-danger btn-outline-secondary text-light" type="button" id="showPassword">show</button>
+  				<input type="password" class="form-control" name="password" id="password1"
+  				 placeholder="4~16자의 영문 대소문자, 숫자만 사용가능합니다." aria-label="4~16자의 영문 대소문자, 숫자만 사용가능합니다." 
+  				 aria-describedby="button-addon2">
+  				<button type="button" id="showPassword" 
+  				class="btn-danger btn-primary btn">show</button>
 			</div>
 			<div>
 				<span class="check_font" id="pwd1_check"></span>
 		    </div>
 		<h6>비밀번호확인</h6>
 		    <div class="input-group mb-3">
- 				<input type="password" class="form-control" id="password2" placeholder="비밀번호확인" aria-label="비밀번호확인" aria-describedby="button-addon2">
-  				<button class="btn-danger btn-outline-secondary text-light" type="button" id="showPassword1">show</button>
+ 				<input type="password" class="form-control" id="password2" placeholder="비밀번호확인" 
+ 				aria-label="비밀번호확인" aria-describedby="button-addon2">
+  				<button type="button" id="showPassword1" 
+  				class="btn-danger btn-primary btn">show</button>
 			</div>
 			<div>
 				<span class="check_font" id="pwd2_check"></span>
 			</div>
 		<h6>이름</h6>
 			<div class="input-group mb-3">
-  				<input type="text" class="form-control" placeholder="2~6자의 한글만 사용가능합니다" aria-label="2~6자의 한글만 사용가능합니다."> 
+  				<input type="text" class="form-control" name="name" id="name" placeholder="2~6자의 한글만 사용가능합니다" aria-label="2~6자의 한글만 사용가능합니다."> 
 			</div>
 			<div>
 				<span class="check_font" id="name_check"></span>
@@ -317,7 +328,7 @@ color;
 		<h6>주소</h6>
 			<div class="input-group mb-3">
  				<input type="text" class="form-control" id="sample4_postcode" name="postalCode" placeholder="우편번호" aria-label="우편번호" aria-describedby="button-addon2">
-  				<button class="btn-danger btn-outline-secondary text-light" type="button" onclick="sample4_execDaumPostcode()">우편번호찾기</button>
+  				<button type="button" onclick="sample4_execDaumPostcode()" class="btn-danger btn-primary btn">우편번호찾기</button>
 			</div>
 			<div class="input-group mb-3">
  				<input type="text" class="form-control" id="sample4_roadAddress" name="roadAddress" placeholder="도로명주소" aria-label="도로명주소" aria-describedby="button-addon2">
@@ -359,22 +370,27 @@ color;
 								}).open();
 								}
 						</script>
-			</div>
+			
 		<h6>전화번호</h6>
-			<div class="input-group mb-3 input-group-lg">
-      		<div class="input-group-prepend"></div>
-				<input class="form-control" type="text" name="tel" id="tel"placeholder="전화번호를 작성해주세요.">
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control"  name="tel" id="tel" placeholder="전화번호를 작성해주세요. -표시는 제외" aria-label="전화번호를 작성해주세요.">
+			</div>
+			<div>
 				<span class="check_font" id="tel_check"></span>
 			</div>
 		<h6>이메일</h6>
-			<div class="input-group mb-3 input-group-lg">
-      		<div class="input-group-prepend"></div>
-				<input class="form-control" type="text" name="email" id="email"placeholder="이메일을 작성해주세요.">
-				<span class="check_font" id="email_check"></span>
-			</div>
-				<button type="button" id="join" class="btn-danger btn-sm">회원가입</button>
-    	        <button type="button" type="reset" id="reset" class="btn-danger btn-secondary btn-sm">재입력</button>
+		<div class="input-group mb-3">
+  			<input type="text" class="form-control" name="email" id="email"placeholder="이메일을 작성해주세요." aria-label="이메일을 작성해주세요.">
+		</div>
+		<div>
+			<span class="check_font" id="email_check"></span>
+		</div>
+		<div>
+    	    <button type="button" id="join" class="btn-danger btn-primary btn">회원가입</button>
+    	    <button type="reset" id="reset" class="btn-danger btn-primary btn">재입력</button>
+		</div>
+		</div>
 	</form>
+
 	</div>
 </body>
-</html>

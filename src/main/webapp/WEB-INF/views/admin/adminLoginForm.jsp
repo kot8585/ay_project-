@@ -80,59 +80,43 @@ $(document).ready(function(){
 });
 </script>
 <style type="text/css">
-.table th {
-    text-align: center;
+hr{
+background-color:red;
 }
-
-.table {
-    border-radius: 5px;
-    width: 60%;
-    margin: 0px auto;
-    float: none;
-}
-
 .vertical-center {
   min-height: 100%;
   min-height: 100vh; 
   display: flex;
   align-items: center;
 }
-
-.table-bordered {
-	border: 1px;
-	min-width: 100%;
-	vertical-align: middle;
-	 
+h2{
+text-align:center;
+color;
 }
-.table th{
-	width:40%
+input{
+border:1px;
+}
+div{
+width:400px;
 }
 </style>
 </head>
 <body>
-<div class="container-fluid vertical-center d-flex justify-content-center">
+		<h2 class="text-danger">로그인</h2>
+		<hr>
+<div class="container-fluid vertical-top d-flex justify-content-center">
 <form name="formName" method="POST" action="${pageContext.request.contextPath }/admin/login">
-	<table class="table table-hover text-centered table-bordered" border="1">
-		<thead class="table-dark">
-			<tr>
-				<th colspan="2">관리자 로그인</th>
-			</tr> 
-		</thead>
-		<tr>
-			<th>아이디</th>
-			<td><input type="text" name="id" id="id"></td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<!-- nowrap = 줄바꿈이 되지 않도록 막는 역할. -->
-			<td nowrap><input type="password" name="password" id="password">&nbsp;<input type="button" value="show" id="showPassword"></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="button" value="로그인" onclick="go()" id="passwordCheck" >
-			</td>
-		</tr>
-	</table>
+	<div id="container" class="container">
+	<div class="input-group mb-3 input-group-lg">
+      		<input class="form-control" type="text" name="id" id="id" placeholder="아이디를 입력해주세요.">
+      	</div>
+		<div class="input-group mb-3 input-group-lg">
+      		<input class="form-control" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요.">&nbsp;
+    	</div>
+			<div class="card card-outline-secondary my-4">
+			<button class="btn btn-danger" onclick="go()" id="passwordCheck" onclick="go()">로그인</button>
+		</div>
+		</div>
 </form>
 
 </div>
