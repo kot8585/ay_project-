@@ -191,6 +191,9 @@
 	    <li class="nav-item active">
 	        <a class="nav-link" href="#boardList">전체 문의 목록</a>
 	    </li>
+	    <li class="nav-item active">
+	        <a class="nav-link" href="/board/faq/list">고객센터</a>
+	    </li>
       </ul>
     </div>
 </nav>

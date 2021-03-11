@@ -105,13 +105,13 @@ public class PquestionController {
 	/**
 	 * 상품문의리스트수정
 	 * @param pq : 상품문의리스트의 번호
-	 * @return 상품문의리스트 수정후 메인으로 이동
+	 * @return 상품문의리스트 수정후 상품 상세페이지으로 이동
 	 */
 	@RequestMapping("/pquestion/editpquestion")
 	public String pquestion(Pquestion pq) {
 		// 수정 폼에 입력된 자료를 DB에 저장
 		service.editPquestion(pq);
-		return "/member/main";
+		return "redirect:/product/detail?num=" + pq.getpnum();
 	}
 	
 		

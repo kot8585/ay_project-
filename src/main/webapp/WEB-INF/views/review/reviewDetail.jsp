@@ -224,7 +224,7 @@ function countLetter(type){
 	<input type="hidden" name="pnum" value="${p.num }">
 	<input type="hidden" name="path" value="123">
 	</div>
-			<div align="center" style=none; height: 100px;">
+			<div align="center" style="none; height: 100px;">
 		<button class="btn btn-danger" id="edit" onclick="change('edit', ${r.num})">수정</button>
         <button class="btn btn-danger" id="delete" onclick="change('del', ${r.num})">삭제</button>
         </div>
