@@ -42,12 +42,12 @@ $(document).ready(function(){
 </head>
 <body>
 	<header>
-		<c:if test="${ empty id }">
-			<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-		</c:if>
-		<c:if test="${ not empty id }">
-			<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-		</c:if>
+	<c:if test="${empty sessionScope.id }">
+		<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
+	</c:if>
+	<c:if test="${not empty sessionScope.id }">
+		<script type="text/javascript" src="/js/loginSessionExist.js"></script>
+	</c:if>
 	</header>
 	
 	<!-- 관리자가 아니면 수정 못하도록 -->
