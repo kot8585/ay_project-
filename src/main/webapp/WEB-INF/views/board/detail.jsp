@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +58,6 @@ $(document).ready(function(){
 	<h2>문의 상세</h2>
 	<div class="container">
 		<form action="${pageContext.request.contextPath }/board/edit" method="post">
-			<table border="1" cellspacing="0">
 				<div class="card card-outline-secondary my-4">
 					<div class="card-header">
 						<label class="form-label">작성자</label>
@@ -77,32 +76,24 @@ $(document).ready(function(){
 						<input class="form-control" type="text" name="updatedate" value="${b.updatedate}" readonly>
 					</div>
 						<input type="hidden" name="type" value="${b.type}">
-							
-						<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
-						
-							
-
-						</div>
-						<c:if test="${sessionScope.id eq 'admin' }">
-						<div align="center" style="none; height: 100px;">
-						
-							<input class="btn btn-danger" type="submit" value="수정" id="edit">
-							<input class="btn btn-danger" type="button" value="삭제" id="del"> 
-											
-						</c:if>
-						
-							
-							<!-- '목록으로' 누르면 들어오기전 페이지가 반영되도록 -->
-							
-							<form action="/board/${b.type}/list" method="get">
-								<input type="hidden" name="num" value="${b.num}">
-								<input type="hidden" name="pageNum" value="${cri.pageNum}">
-								<input type="hidden" name="amount" value="${cri.amount}">
-								<input class="btn btn-danger" type="submit" value="목록으로">
-							</form>
-						
-							</div>
-			</table>
+				</div>
+				
+				<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
+				<div align="center" style="none; height: 100px;">
+					<c:if test="${sessionScope.id eq 'admin' }">
+						<input class="btn btn-danger" type="submit" value="수정" id="edit">
+						<input class="btn btn-danger" type="button" value="삭제" id="del"> 
+					</c:if>
+					
+					<!-- '목록으로' 누르면 들어오기전 페이지가 반영되도록 -->
+					<form action="/board/${b.type}/list" method="get">
+						<input type="hidden" name="num" value="${b.num}">
+						<input type="hidden" name="pageNum" value="${cri.pageNum}">
+						<input type="hidden" name="amount" value="${cri.amount}">
+						<input class="btn btn-danger" type="submit" value="목록으로">
+					</form>
+					
+				</div>
 		</form>
 	</div>
 		
