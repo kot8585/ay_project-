@@ -69,18 +69,7 @@
 		    <version>2.1.3</version>
 		    <scope>test</scope>
 		</dependency>
-	<!-- tilesViewResolver -->
-	<dependency>
-		<groupId>org.apache.tiles</groupId>
-		<artifactId>tiles-jsp</artifactId>
-		<version>3.0.8</version>
-		</dependency>	
-		
-	<dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.8.5</version>
-</dependency>
+
 
 <!-- 정적파일 변경 바로 적용 -->
    <dependency>

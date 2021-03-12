@@ -12,6 +12,17 @@ SELECT * FROM qna;
 SELECT * FROM reply;
 
 /*
+----Board 관련 data table----
+마지막 업데이트 : 21.03.11
+여러번 실행해주세요. 행이 200개정도 될때까지요
+insert into board(num, type, writer, title, content, regdate, updatedate)
+    select seq_board.nextval, type, writer, title, content, sysdate, sysdate from board;
+    
+commit;
+*/
+
+
+/*
 ----Review 관련 data table----
 마지막 업데이트 : 21.03.04
 */

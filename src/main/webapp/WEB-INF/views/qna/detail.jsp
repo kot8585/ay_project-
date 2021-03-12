@@ -23,80 +23,14 @@
 
 <script type="text/javascript" src="/js/reply.js"></script>
 <style type="text/css">
-.table th {
-    text-align: center;
-}
 
-.table {
-    border-radius: 5px;
-    width: 30%;
-    margin: 0px auto;
-    float: none;
-}
-
-.vertical-center {
-  min-height: 100%;
-  min-height: 100vh; 
-  display: flex;
-  align-items: center;
-}
-
-.table-bordered {
-	border: 1px;
-}
-.table th{
-width:40%
-}
-
-
-div#side_left{
-width:200px;
-height:400px;
-/* background-color:yellow; */
-float:left;
-margin:5px;
-}
-#side_left_box{
-width:95%;
-height:45%;
-/* background-color:blue; */
-float:left;
-margin:5px;
-}
-#mid_content{
-width:400px;
-height:400px;
-/* background-color:green; */
-float:left;
-margin:5px;
-}
-#side_content_box{
-display: inline;
-/* background-color:white; */
-margin:500px;
-}
-#side_rigth{
-width:200px;
-height:400px;
-/* background-color:red; */
-float:left;
-margin:5px;
-}
-#side_rigth_box{
-width:95%;
-height:45%;
-/* background-color:skyblue; */
-margin:5px;
-margin-top:95%;
 }
 
 input:focus {outline:none;}
 input{
 border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 }
-.inputStyle{
-border:1px;
-}
+
 
 </style>
 
@@ -316,66 +250,77 @@ function showList(qnum){replyService.getList(qnum, function(list){
 	<c:if test="${sessionScope.id ne q.writer }">
 		<c:set var="data" value="readonly" />
 	</c:if>
+		<div class="container">
 	<form action="${pageContext.request.contextPath }/qna/edit" method="post">
-		<table class="table table-hover text-centered " border="1">
+	<div class="card card-outline-secondary my-4">
 		
-			<tr>
-				<th>작성자</th>
-				<td><input type="text" name="writer" value="${q.writer}" readonly></td>
-			</tr>
-			<tr>	
-				<th>문의 유형</th>	
-				<td>		
-				<select name="q_cate" id="q_cate">	
+		
+		<div class="card-header">
+			<label class="form-label">작성자</label>
+			<input class="form-control" type="text" name="writer" value="${q.writer}">
+			</div>
+
+			
+			<div class="card-header">
+			<label class="form-label">문의유형</label>
+			<select  class="form-control" name="q_cate" id="q_cate">	
 					<option value="order" >주문 상품 문의</option>	
 					<option value="p_delivery">배송 관련 문의</option>	
 					<option value="system">시스템 개선 의견</option>	
-				</select>	
-				</td>	
-			</tr>
+				</select>		
+			</div>
 			
-			<tr>
-				<th>제목</th>
-				<td><input type="text" name="title" value='<c:out value="${q.title}"/>' ${data}></td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td><textarea type="text" name="content" ${data}><c:out value="${q.content}" /></textarea></td>
-			</tr>
-			<tr>
-				<th>작성날짜</th>
-				<td><input type="text" name="updatedate" value='<c:out value="${q.updatedate}" />' readonly></td>
+			<div class="card-header">
+			<label class="form-label">제목</label>
+			<input class="form-control" type="text" name="title" value="${q.title}">		
+			</div>
+
+			<div class="card-header">
+			<label class="form-label">내용</label>
+			<textarea class="form-control" type="text" name="content" ${data}><c:out value="${q.content}" /></textarea>		
+			</div>
+
 			
-			</tr>
-		<tr>
-         <th>이미지</th>
-         <td><c:if test="${empty file0 }">
+			<div class="card-header">
+			<label class="form-label">작성날짜</label>
+			<input class="form-control" type="text" name="updatedate" value='<c:out value="${q.updatedate}" />' readonly>
+			</div>
+
+			
+			<div class="card-header">
+			<label class="form-label">이미지</label>		
+			
+			<c:if test="${empty file0 }">
                등록된 이미지가 없습니다.
                </c:if> 
                <c:if test="${not empty file0 }">
-               <table>
-                  <tr>
-                     <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file0 }&num=${q.num }" class="img" width="50" height="50"></td>
-                     <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file1 }&num=${q.num }" class="img" width="50" height="50"></td>
-                     <td><img src="${pageContext.request.contextPath }/qna/img?fname=${file2 }&num=${q.num }" class="img" width="50" height="50"></td>
-               </table>
+               	
+                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file0 }&num=${q.num }" class="img" width="50" height="50">
+                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file1 }&num=${q.num }" class="img" width="50" height="50">
+                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file2 }&num=${q.num }" class="img" width="50" height="50">
+               
             </c:if>
-            </td>
-      </tr>
-		<tr>
-			<td colspan="2">
+            </div>
+
+
+			<div align="center" style="none; height: 100px;">
 			<input type="hidden" name="num" value="${q.num}">
-	
-			
 			<c:if test="${sessionScope.id eq q.writer}">
-				<input class="btn btn-danger" type="submit" value="수정" id="update">
+			
+	<input class="btn btn-danger" type="submit" value="수정" id="update">
 				<input class="btn btn-danger" type="button" value="삭제" id="del">
+				
 			</c:if>
-				<a class="btn btn-primary" href="/mypage/mypage" role="button">목록으로</a>
-			</td>
-		</tr>
-		</table>
+			
+				<a class="btn btn-danger" href="/mypage/mypage" role="button">목록으로</a>
+
+		</div>
+	
 	</form>
+	</div>
+	
+	
+	
 	<hr>
      <div class="float-start"><h6>Reply List</h6></div>
      <c:if test="${sessionScope.id eq 'admin' }">

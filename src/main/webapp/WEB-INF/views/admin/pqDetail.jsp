@@ -167,7 +167,7 @@ modalWriteBtn.on("click", function(e){
  		$("#del").click(function(){
  			let result = confirm("글을 삭제하시겠습니까?");
  			if(result){
- 				location.href = "${pageContext.request.contextPath}/pqreply/del?num=${pq.num}";
+ 				location.href = "${pageContext.request.contextPath}/pquestion/delpquestion?num=${pq.num}";
  			}
  		});
 
@@ -175,33 +175,12 @@ modalWriteBtn.on("click", function(e){
 </script>
 
 <style type ="text/css">
-
-
-input:focus {outline:none;}
-input{
-border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
-}
-.inputStyle{
-border:1px;
-}
-
-	h2{
-		text-align:center;
-	}
-
 	textarea {
 		height: 200px;
 	}
 	h2{
 		text-align:center;
 	}
-	div#side_left{
-	width:200px;
-	height:400px;
-	float:left;
-	margin:5px;
-	}
-	
 </style>
 
 </head>
@@ -212,7 +191,7 @@ border:1px;
 	<c:if test="${sessionScope.id ne pq.writer }">
 		<c:set var="data" value="readonly" />
 	</c:if>
-		<table border="1" cellspacing="0">
+
 		
 		<div class="container">
 	<div class="card card-outline-secondary my-4">
@@ -230,16 +209,17 @@ border:1px;
 			<label class="form-label">내용</label>		
 			<textarea class="form-control" type="text" name="content" ${data}>${pq.content}</textarea>
 			</div>	
-		
-	<div class="d-grid gap-2 d-md-block">	
+			</div>
+			
+		<div align="center" style="none; height: 100px;">
 		<input class="btn btn-danger" type="hidden" name="num" value="${pq.num}">
 		<c:if test="${sessionScope.id eq 'admin'}">
 				<input class="btn btn-danger" type="button" value="삭제하기" id="del">
 			</c:if>
+	
 		</div>
 		</div>
-		</div>
-		
+
 
 	
 	<hr>

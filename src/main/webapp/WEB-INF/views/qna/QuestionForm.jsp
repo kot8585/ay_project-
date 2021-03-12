@@ -33,7 +33,6 @@
    
 }
 
-
 #mid_content{
 width:400px;
 height:400px;
@@ -50,15 +49,11 @@ margin:500px;
 border:1px solid red;
 }
 
-
-h2{
-		text-align:center;
-	}
+h2{ text-align:center; }
 
 
 </style> 
 
-<script type="text/javascript" src="/js/header.js"></script>
 <script type="text/javascript">
 function countLetter(type){
 	var typeLen = $('#'+type).val().length;
@@ -74,7 +69,7 @@ function countLetter(type){
 	$('#'+type+"Span1").html(typeLen);
 	if(typeLen > length){
 		$('#'+type+"Div").css("color","red");
-		$('#'+type+"Span2").html("글자수 초과!!");
+		$('#'+type+"Span2").html("글자수가 초과되었습니다.");
 		return false;
 	}else{
 		$('#'+type+"Div").css("color","black");
@@ -82,8 +77,6 @@ function countLetter(type){
 	}	
 	return true;
 }
-
-
 
 var maxSize = 5242880 //5MB
 function checkExtension(fileName, fileSize){
@@ -123,6 +116,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 			var titleVal = $("#title").val();
 			var contentVal = $("#content").val();
 			var qCateVal = $("#q_cate option:selected").val();
+			var blank_pattern = /^\s+|\s+$/g;
 			
 			if(qCateVal == '' || qCateVal == null ){
 			    alert( '문의유형을 선택해주세요');
@@ -130,13 +124,28 @@ var ext = fileName.split('.').pop().toLowerCase();
 			    return false;
 			}
 			
+			//공백만 입력하는거 허용안하도록
+			if(titleVal.replace(blank_pattern, '' ) == "" ){
+				alert('공백만 입력할 수 없습니다.');
+			    $("#title").focus();
+			    return false;
+			}
+			
+			if(contentVal.replace(blank_pattern, '' ) == "" ){
+				alert('공백만 입력할 수 없습니다.');
+				 $("#content").focus();
+				 return false;
+			}
+			
 			if(titleVal == '' || titleVal == null ){
 			    alert( '제목을 입력해주세요');
+			    $("#title").focus();
 			    return false;
 			}
 			
 			if(contentVal == '' || contentVal == null ){
 			    alert( '내용을 입력해주세요');
+			    $("#content").focus();
 			    return false;
 			}
 			
@@ -146,27 +155,32 @@ var ext = fileName.split('.').pop().toLowerCase();
 				return false;
 			}
 			
-			if(contentVal>500){
-				alert("본문의 글자수가 초과되었습니다.")
+			if(contentVal.length > 500){
+				alert("본문의 글자수가 초과되었습니다.");
 				$("#content").focus();
 				return false;
 			}
 
 		});
-		
-		
-		
 	});
 </script>
 </head>
 <body>
+
+<header>
+<c:if test="${empty sessionScope.id }">
+	<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
+</c:if>
+<c:if test="${not empty sessionScope.id }">
+	<script type="text/javascript" src="/js/loginSessionExist.js"></script>
+</c:if>
+</header>
+
 <h2>1:1문의하기</h2>
 	<div class="container-fluid vertical-center justify-content-center">
 <span class="border border-danger">
 	<form id="qnaForm" action="${pageContext.request.contextPath }/qna/write" method="post"  enctype="multipart/form-data" style="width: 500px;">
 
-<!-- 		<table class="table-danger"> -->
-			
 		<div class="mb-3">
 		<label class="form-label ">문의 유형</label>
 		<select name="q_cate" id="q_cate" class="form-select aria-label="Default select example" >
@@ -196,7 +210,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 			  </div>
 			 <div class="mb-3">
 				<label class="form-label">첨부파일</label>
-				<input class="form-control type='file' id="uploadFile" name="uploadFile" multiple >
+				<input class="form-control" type='file' id="uploadFile" name="uploadFile" multiple >
 				
 				<!-- 파일 여러개 넣으면 파일 이름 뽑기 -->
 				<div id="fileName">
@@ -204,18 +218,20 @@ var ext = fileName.split('.').pop().toLowerCase();
 				</div>
 			  </div>
 			
+			<div align="center" style="none;">
 			 <div class="mb-3">
+			 
 			 	<input class="btn btn-danger" type="reset" value="취소">
 			 	 <input class="btn btn-danger" type="submit" name="submit" id="submit" value="작성">
 			 </div>
-		</table>
+			 </div>
 		</span>
 		
 		<input type="hidden" name="path" value="123">
 		<input type="hidden" name="writer" value="${sessionScope.id }" >
 		<input type="hidden" name="state" value="답변대기"> 
 	</form>
-	</span>
+	
 	</div>
 </body>
 </html>

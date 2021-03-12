@@ -87,8 +87,8 @@ border:1px;
     text-decoration: none;
 }
 
-.my-box { border:1px solid; padding:1px; width: 35px; background-color: gray; font-size: 15px;}
-
+.my-box1 { border:1px solid; padding:1px; width: 35px; background-color: gray; font-size: 15px;}
+.my-box2 { border:1px solid; padding:1px; width: 35px; background-color: blue; font-size: 15px;}
 </style>
 
 </head>
@@ -102,14 +102,25 @@ border:1px;
 	<c:forEach var="pq" items="${plist}">
 		<div>
 			<hr class="bg-danger" size="5px">
-			<div class="my-box text-light">질문</div>
+			<div class="my-box1 text-light bg-gray;">질문</div>
 			${pq.writer } 님 <fmt:formatDate pattern="yyyy-MM-dd" value="${pq.p_date}" /><br><br>
 			</div>
 			<div> 
 			<a href="${pageContext.request.contextPath }/pquestion/pDetail?num=${pq.num }" class="text-secondary">${pq.content} 
 			</a></div>
 		
-			
+			<div>
+			<hr class="bg-dark" size="5px">
+			<c:if test="${not empty pq.pqreply}">
+				<div class="my-box2 text-light" >답변</div>
+				${pq.pqreply.get(0).writer}  ${pq.pqreply.get(0).pqdate}<br><br>
+				</div>
+				
+				<div>
+				${pq.pqreply.get(0).content}
+				</div>
+			</c:if>
+
 		
 	</c:forEach>
 	</nav>

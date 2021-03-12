@@ -42,21 +42,20 @@ $(document).ready(function(){
 </head>
 <body>
 	<header>
-		<c:if test="${ empty id }">
-			<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-		</c:if>
-		<c:if test="${ not empty id }">
-			<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-		</c:if>
+	<c:if test="${empty sessionScope.id }">
+		<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
+	</c:if>
+	<c:if test="${not empty sessionScope.id }">
+		<script type="text/javascript" src="/js/loginSessionExist.js"></script>
+	</c:if>
 	</header>
 	
 	<!-- 관리자가 아니면 수정 못하도록 -->
-	<c:if test="${sessionScope.id eq 'admin' }">
+	<c:if test="${sessionScope.id ne 'admin' }">
 		<c:set var="authority" value="readonly" />
 	</c:if>
 	
 	<h2>문의 상세</h2>
-	<c:set var="authority" value="readonly" />
 	<div class="container">
 		<form action="${pageContext.request.contextPath }/board/edit" method="post">
 			<table border="1" cellspacing="0">
@@ -77,24 +76,32 @@ $(document).ready(function(){
 						<label class="form-label">작성날짜</label>
 						<input class="form-control" type="text" name="updatedate" value="${b.updatedate}" readonly>
 					</div>
-					<div class="card-header gap-2 mx-auto">
 						<input type="hidden" name="type" value="${b.type}">
 							
 						<!-- 관리자만 수정 삭제 버튼 볼수 있음 -->
+						
+							
+
+						</div>
 						<c:if test="${sessionScope.id eq 'admin' }">
+						<div align="center" style="none; height: 100px;">
+						
 							<input class="btn btn-danger" type="submit" value="수정" id="edit">
 							<input class="btn btn-danger" type="button" value="삭제" id="del"> 
+											
 						</c:if>
+						
 							
 							<!-- '목록으로' 누르면 들어오기전 페이지가 반영되도록 -->
+							
 							<form action="/board/${b.type}/list" method="get">
 								<input type="hidden" name="num" value="${b.num}">
 								<input type="hidden" name="pageNum" value="${cri.pageNum}">
 								<input type="hidden" name="amount" value="${cri.amount}">
 								<input class="btn btn-danger" type="submit" value="목록으로">
 							</form>
-						</div>
-					</div>
+						
+							</div>
 			</table>
 		</form>
 	</div>
