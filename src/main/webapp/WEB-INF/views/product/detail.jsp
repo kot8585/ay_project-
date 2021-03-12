@@ -12,6 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+
 <title>Shop Item - Start Bootstrap Template</title>
 
 <!-- Bootstrap core CSS -->
@@ -19,6 +20,10 @@
 
 <!-- Custom styles for this template -->
 <link href="css/shop-item.css" rel="stylesheet">
+
+
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 
 <link
@@ -183,141 +188,113 @@ input {
 	boder-left: 0px;
 	boder-bottom: 0px;
 }
-
-.inputStyle {
-	border: 1px;
-}
-</style>
-
-
+=
 </head>
 <body>
-	<header>
-		<script type="text/javascript" src="/js/header.js"></script>
-	</header>
+<header>
+<script type="text/javascript" src="/js/header.js"></script>
+</header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-2">
+        <h1 class="my-4">카테고리</h1>
+        <div class="list-group">
+          <a href="#" class="list-group-item active">Category 1</a>
+          <a href="#" class="list-group-item">Category 2</a>
+          <a href="#" class="list-group-item">Category 3</a>
+        </div>
+      </div>
+      <div class="col-lg-9">
+
+<!--         <div class="card mt-4"> -->
+        
+        <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
+          
+<!--         <div id = "side_content_box"> -->
+        <img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"style="width:300px;height:300px">
+    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${p.num }"style="width:300px;height:300px">
+    	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }"style="width:300px;height:300px"> 
+       
+          <div class="card-body">
+<!--           상품명 -->
+<%--             <h1 class="card-title">${p.name }</h1><hr> --%>
+            <td><h1><input type="text" name="name" value="${p.name }" readonly></h1>
+</td>
+<!--             가격 -->
+            <h3><script>numberWithCommas(${p.price })</script></h3><hr>
+            <input type="hidden" id="cost" value="${p.price }" >
+<!-- <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script> -->
+            
+<!--             메이커 -->
+            <h6><li>메이커: ${p.maker }</li></h6>            
+<!--             원산지 -->
+            <h6><li>원산지: ${p.origin}</li></h6>          
+<!--             재료 -->
+            <h6><li>재료: ${p.material}</li></h6>
+            <hr>
+           
+            
+<!--             남은수량 -->
+            <h5><c:if test="${p.quantity == 0}">
+					<input type="text" value="품절되었습니다." name="inventory" readonly="readonly">
+					</c:if> 
+					<c:if test="${p.quantity != 0}">
+						<input type="text" value="${p.quantity }" name="inventory" readonly="readonly">
+					</c:if>
+					개 남음</h5>
+<!-- 					선택수량 -->
+			<h5>
+			<input type="text" name="quantity" class="inputStyle" placeholder="수량을 선택해주세요"> 개 선택
+			</h5>
+			<h5>
+ <input type="hidden" name="m_id" id="m_id" value="${ sessionScope.id }">
+    <input type="hidden" name="p_name" value="${p.name }">
+    <c:if test="${p.quantity == 0}">
+	 	<input type="button" class="btn btn-danger" name="price" value="품절">
+    </c:if> 
+    <c:if test="${p.quantity != 0}">
+		<input type="submit" class="btn btn-danger" name="price" value="구매">
+	</c:if>
+   <input type="hidden" id="price" value="${p.price }">
+   <input type="hidden" name="p_num" id="p_num" value="${p.num }">
+   
+   
+   <input type="button" class="btn btn-danger" name="price" value="장바구니로" id="cart">
+   
+<%--    <input type="button" class="btn btn-primary" name="price" value="상품문의" onclick="go(${p.num})"> --%>
+</h5>
+</form>
+</div>
+</div>
 
 
 
-	<!-- Page Content -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<h1 class="my-4">카테고리</h1>
-				<div class="list-group">
-					<a href="#" class="list-group-item active">Category 1</a> <a
-						href="#" class="list-group-item">Category 2</a> <a href="#"
-						class="list-group-item">Category 3</a>
-				</div>
-			</div>
-			<div class="col-lg-9">
+     
+        <!-- /.card -->
+<!-- <a id="tag1"><</a> -->
+        <div class="card card-outline-secondary my-4">
+     
+          <div class="card-header">
+            
 
-				<!--         <div class="card mt-4"> -->
+			<c:import url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
 
-				<form name="f"
-					action="${ pageContext.request.contextPath }/order/orderForm"
-					method="post" onsubmit="return check()">
+        </div>
 
-					
-					<!--         <div id = "side_content_box"> -->
-					<img class="card-img-top img-fluid" img id="bigImg"
-						src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"
-						style="width: 300px; height: 300px"> <img
-						class="card-img-top img-fluid" img id="bigImg"
-						src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${p.num }"
-						style="width: 300px; height: 300px"> <img
-						class="card-img-top img-fluid" img id="bigImg"
-						src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }"
-						style="width: 300px; height: 300px">
+      </div>
+      <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+<c:import url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
+<hr class="bg-danger" size="5px">
+<input type="button" class="btn btn-danger" name="price" value="상품문의" onclick="go(${p.num})">
+</div>
+</div>
+</div>
 
-					<div class="card-body">
-						<!-- 상품명 -->
-						<%--             <h1 class="card-title">${p.name }</h1><hr> --%>
-						<td><h1>
-								<input type="text" name="name" value="${p.name }" readonly>
-							</h1></td>
-						<!-- 가격 -->
-						<h3>
-							<script type="text/javascript">numberWithCommas(${p.price })</script>
-						</h3>
-						<hr>
-						<input type="hidden" id="cost" value="${p.price }">
-						<!-- <script>document.getElementById('cost').value = numberWithCommas(${p.price })</script> -->
-
-						<!--             메이커 -->
-						<h7>메이커: ${p.maker }</h7>
-						<br>
-
-						<!--             원산지 -->
-						<h7>원산지: ${p.origin}</h7>
-						<br>
-
-						<!--             재료 -->
-						<h7>재료: ${p.material}</h7>
-						<hr>
-
-
-						<!--             남은수량 -->
-						<h5>
-							<c:if test="${p.quantity == 0}">
-								<input type="text" value="품절되었습니다." name="inventory"
-									readonly="readonly">
-							</c:if>
-							<c:if test="${p.quantity != 0}">
-								<input type="text" value="${p.quantity }" name="inventory"
-									readonly="readonly">
-							</c:if>
-							개 남음
-						</h5>
-						<!-- 					선택수량 -->
-						<h5>
-							<input type="text" name="quantity" class="inputStyle"
-								placeholder="수량을 선택해주세요"> 개 선택
-						</h5>
-						<h5>
-							<input type="hidden" name="m_id" id="m_id"
-								value="${ sessionScope.id }"> <input type="hidden"
-								name="p_name" value="${p.name }">
-							<c:if test="${p.quantity == 0}">
-								<input type="button" class="btn btn-primary" name="price" value="품절">
-							</c:if>
-							<c:if test="${p.quantity != 0}">
-								<input type="submit" class="btn btn-primary" name="price" value="구매">
-							</c:if>
-							<input type="hidden" id="price" value="${p.price }"> 
-							<input type="hidden" name="p_num" id="p_num" value="${p.num }">
-							<input type="button" class="btn btn-primary" name="price" value="장바구니로" id="cart">
-
-							<%--    <input type="button" class="btn btn-primary" name="price" value="상품문의" onclick="go(${p.num})"> --%>
-						</h5>
-				</form>
-			</div>
-		</div>
-
-		<!-- /.card -->
-
-		<div class="card card-outline-secondary my-4">
-			<!-- 리뷰 -->
-			<div class="card-header">
-
-
-				<c:import
-					url="${ pageContext.request.contextPath }/review/reviewlist?p_num=${ p.num }&what=basic"></c:import>
-
-			</div>
-
-		</div>
-		<div class="card card-outline-secondary my-4">
-			<div class="card-header">
-
-
-				<c:import
-					url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
-				<hr>
-				<input type="button" class="btn btn-primary" name="price"
-					value="상품문의" onclick="go(${p.num})">
-			</div>
-		</div>
-	</div>
 
 </body>
 </html>

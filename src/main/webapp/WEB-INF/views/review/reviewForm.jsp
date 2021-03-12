@@ -71,7 +71,6 @@ border:1px;
 <title>Review Form</title>
 
 <script>
-
 	function getByte(s){
 		var cnt = 0;
 		console.log(s.charAt());
@@ -80,7 +79,6 @@ border:1px;
 	
 	// 글자 수를 체크하는 기능
 	function countLetter(type){
-		
 		console.log(type);
 		if(type === "title"){
 			var length = 50;
@@ -89,22 +87,21 @@ border:1px;
 		}
 		console.log(length);
 		var title = document.getElementById("title");
+		var titleReg = document.getElementById("titleReg");
 		var content = document.getElementById("content");
+		var contentReg = document.getElementById("contentReg");
 		var pattern = /^ss*$/;
 		getByte(title.value);
 		console.log("type length : " + title.value.length);
 		if(title.value.match(pattern) || title.value.length < 5){
-			document.getElementById("titleReg").innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
-			
+			titleReg.innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
 		}else{
-			document.getElementById("titleReg").innerHTML = "";
-			
-			
+			titleReg.innerHTML = "";
 		}
 		if(content.value.match(pattern) || content.value.length < 5){
-			document.getElementById("contentReg").innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
+			contentReg.innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
 		}else{
-			document.getElementById("contentReg").innerHTML = "";
+			contentReg.innerHTML = "";
 		}
 		document.getElementById(type+"Span1").innerHTML = document.getElementById(type).value.length;
 		if(document.getElementById(type).value.length > length){
@@ -128,11 +125,8 @@ border:1px;
 			f.submit();
 		}
 	}
-	
-	function upload(){
-		
-	}
 </script>
+
 </head>
 <body>
 <h2>리뷰 작성</h2>
@@ -182,62 +176,5 @@ border:1px;
 </div>
 </div>
 </form>
-
-
-
-<%-- <form name="f" action="${pageContext.request.contextPath }/review/write" enctype="multipart/form-data" method="POST">
-	<table border="1">
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="title" id="title" onkeyup="countLetter('title')">
-				<div id="titleDiv">
-					<span id="titleSpan1">0</span>/50 
-					<span id="titleSpan2"></span>
-					<span id="titleReg"></span>
-				</div>
-
-			</td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td><input type="text" name="writer" value="${sessionScope.id }" readonly></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea name="content" id="content" cols="50" rows="50" onkeyup="countLetter('content')"></textarea>
-				<div id="contentDiv">
-					<span id="contentSpan1">0</span>/50
-					<span id="contentSpan2"></span>
-				</div>	
-			</td>
-		</tr>
-		<tr>
-			<th>사진 업로드</th>
-			<td><input class="form-control" type="file" name="uploadFile" multiple></td>
-		</tr>
-		<tr>
-			<th>별점</th>
-			<td>
-				<input type="radio" name="stars" value="★☆☆☆☆">★
-				<input type="radio" name="stars" value="★★☆☆☆">★★
-				<input type="radio" name="stars" value="★★★☆☆">★★★
-				<input type="radio" name="stars" value="★★★★☆">★★★★
-				<input type="radio" name="stars" value="★★★★★">★★★★★
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="button" value="작성" onclick="sub()">
-				<input type="reset" value="지우기">
-				
-				<input type="hidden" name="pnum" value="${p.num }">
-			</td>
-		</tr>
-	</table>
-	
-	<input type="hidden" name="path" value="123">
-</form> --%>
 </body>
 </html>

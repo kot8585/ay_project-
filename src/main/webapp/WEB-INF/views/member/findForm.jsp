@@ -44,10 +44,35 @@ $(document).ready(function(){
 })
    
 </script>
+<style type="text/css">
+div{
+width:500px;
+height:-24px;
+margin:-5px;
+}
+.vertical-center {
+	min-height: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+}
+button{
+width:122px;
+}
+
+h2{
+text-align:center;
+color:;
+}
+#container{
+	height: 200px;
+}
+</style> 
+
 </head>
 <body>
 <header>
-<script src="/js/header.js"></script>
+<script src="/js/loginSessionNotExist.js"></script>
  <!-- Required meta tags -->
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,35 +82,29 @@ $(document).ready(function(){
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </header>
+		<h2>ID/PWD 찾기</h2>
 <p align="center">회원가입 시 입력한 E-mail주소와 이름을 입력해주세요.</p>
-<div class="container-fluid vertical-center d-flex justify-content-center">
-<form>
-   <table class="table table-hover text-centered table-bordered" border="1">
-		<thead class="table-dark">
-		<tr>
-		<th colspan="2">ID/PWD 찾기</th>
-		</tr>
-		</thead>
-      <tr>
-         <th>이메일</th>
-         <td><input type="text" name="email" id="email"></td>
-      </tr>
-      <tr>
-         <th>이름</th>
-         <td><input type="text" name="name"id="name"></td>
-      </tr>
-      <tr>
-         <td colspan="2"><input type="button" id="find" value="찾기" onclick="checkEmpty()">
-         <input type="button" id="btn" value="로그인" onclick="location.href='/member/loginForm'">
-      </td>
-      </tr>
-      
-   </table>
-</form>
+<div class="container-fluid vertical-top d-flex justify-content-center">
 
+<form>
+<div id="container" class="container border border-danger">
+        <h6>이메일</h6>
+		<div class="input-group mb-3">
+  			<input type="text" class="form-control" name="email" id="email"placeholder="이메일을 작성해주세요." aria-label="이메일을 작성해주세요.">
+		</div>
+         <h6>이름</h6>
+			<div class="input-group mb-3">
+  				<input type="text" name="name" id="name" class="form-control" placeholder="2~6자의 한글만 사용가능합니다" aria-label="2~6자의 한글만 사용가능합니다."> 
+			</div>
+        	<div>
+    	    	<button type="button" id="find" onclick="checkEmpty()" class="btn-danger btn-primary btn">찾기</button>
+    	    	<button type="button" id="btn"  onclick="location.href='/member/loginForm'" class="btn-danger btn-primary btn">로그인</button>
+    	   </div>
+   </div>
+<span id="findId"></span>
+</form>
 </div>
 <div class="container-fluid vertical-center d-flex justify-content-center">
-<span id="findId"></span>
 </div>
 </body>
 </html>

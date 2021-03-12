@@ -102,17 +102,19 @@ var sessionId = '<%=session.getAttribute("id") %>'
    });
 
 </script>
+
 </head>
 <body>
 <!-- header부분 -->
 <header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
+<c:if test="${empty sessionScope.id }">
+	<script type="text/javascript" src="/js/loginSessionNotExist.js"></script>
 </c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+<c:if test="${not empty sessionScope.id }">
+	<script type="text/javascript" src="/js/loginSessionExist.js"></script>
 </c:if>
 </header>
+<!-- header 부분 -->
 
 <div class="container">  
 <!-- visual 부분 -->
@@ -130,9 +132,11 @@ var sessionId = '<%=session.getAttribute("id") %>'
   </div>
 </nav>
 
+
  <hr class='bg-danger'  size='5px'>
 
 <nav class="nav nav-pills nav-fill ">
+
   <a class="nav-link ${type == 'faq'? 'active' : '' }" aria-current="page" href="${pageContext.request.contextPath }/board/faq/list">자주묻는 질문</a>
   <a class="nav-link ${type == 'notice'? 'active' : '' }" href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
 </nav>
@@ -162,6 +166,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
 
 
 <!-- 페이지 버튼 -->
+<div>
 <nav aria-label="Page navigation example nav-outline-danger">
    <ul class="pagination justify-content-center">
   
@@ -187,12 +192,18 @@ var sessionId = '<%=session.getAttribute("id") %>'
       </a>
     </li>
    </c:if>
+   </div>
+
     <c:if test="${sessionScope.id eq 'admin' }">
+<div align="right" style=none; height: 100px;">
 		<a class="btn btn-danger" href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
 	</c:if>
+</div>
+</div>
+
   </ul>
 </nav>
-</div>
+
 	
 	<!-- 페이지 번호를 누르면 실제로 동작하는 부분 -->
 	<form id="actionForm" action="/board/${type}/list" method='get'>

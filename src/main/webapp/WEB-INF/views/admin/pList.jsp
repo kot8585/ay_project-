@@ -24,6 +24,9 @@ function move(i) {
 	location.href = "${pageContext.request.contextPath}/admin/pqDetail?num="+i;
 }
 </script>
+
+  
+  
 </head>
 <body>
 <c:if test="${empty plist }">
@@ -35,7 +38,7 @@ function move(i) {
 <thead class="table-warning" >
 <tr><th>번호</th><th>작성자</th>
 <th>제목</th><th>내용</th>
-<th>답변상태</th><th>답변하기</th>
+<th>답변하기</th>
 	</tr>
 </thead>
 <c:forEach var="pq" items="${plist }">

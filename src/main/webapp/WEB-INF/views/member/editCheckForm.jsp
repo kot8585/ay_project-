@@ -25,50 +25,34 @@
 	crossorigin="anonymous"></script>
 
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#pwdcheck")
-								.click(
-										function() {
-											if ($("#password").val() == "") {
-												alert("비밀번호를 입력해주세요");
-												return;
-											} else {
-												$
-														.post(
-																"/member/editpwdCheck",
-																{
-																	id : $(
-																			"#id")
-																			.val(),
-																	password : $(
-																			"#password")
-																			.val()
-																})
-														.done(
-																function(data) {
-																	var result_data = eval("("
-																			+ data
-																			+ ")")
-																	if (result_data.result == "1") {
-																		alert("로그인을 해주세요!");
-																	}
-																	if (result_data.result == "2") {
-																		$("#f")
-																				.attr(
-																						"action",
-																						"${pageContext.request.contextPath }/member/editForm");
-																		$("#f")
-																				.submit();
-																	}
-																	if (result_data.result == "3") {
-																		alert("비밀번호가 다릅니다!");
-																	}
-																})
-											}
-										});
-					});
+	$(document).ready(function() {
+		$("#pwdcheck").click(function() {
+			if ($("#password").val() == "") {
+				alert("비밀번호를 입력해주세요");
+				return;
+			} else {
+				$.post("/member/editpwdCheck",{id : $("#id").val(),password : $("#password").val()})
+				.done(function(data) {
+					var result_data = eval("("+ data+ ")")
+					console.log(result_data);
+					if (result_data.result == "1") {
+						alert("로그인을 해주세요!");
+					return;
+					}
+					if (result_data.result == "2") {
+						location.href = "${pageContext.request.contextPath }/member/editForm";
+						console.log(result_data);
+					}
+					if (result_data.result == "3") {
+						console.log(result_data);
+						alert("비밀번호가 다릅니다!");
+						location.href = "${pageContext.request.contextPath }/member/editCheckForm";
+						
+					}
+					})
+				}
+			});
+		});
 </script>
 <style type="text/css">
 .container{
@@ -103,10 +87,10 @@ width:500px;
 	<header>
 		<script type="text/javascript" src="/js/loginSessionExist.js"></script>
 	</header>
-	<div class="container-fluid vertical-center d-flex justify-content-center">
+	<div class="container-fluid vertical-top d-flex justify-content-center">
 		<form name="f" id="f" method="post" action="${pageContext.request.contextPath }/member/editpwdCheck">
 			<div id="container" class="container">
-				<h2>비밀 번호 확인</h2>
+				<h2 class="text-danger">비밀 번호 확인</h2>
 				<div class="input-group mb-3 input-group-lg">
 					<div class="input-group-prepend"></div>
 					<input class="form-control" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요.">

@@ -22,7 +22,7 @@ public class PqRepService {
 	public ArrayList<PqReply> getPqReplyById(String writer) {
 		return mapper.getPqReplyById(writer);
 	}
-
+  
 	/**
 	 * 해당 문의게시판의 댓글 리스트를 받아오는 기능을 제공합니다.
 	 * @param qna_num QnA 번호
@@ -41,7 +41,7 @@ public class PqRepService {
 	public PqReply getPqReply(int num) {
 		return mapper.select(num);
 	}
-
+  
 	/**
 	 * 댓글 추가
 	 * @param r : 작성된 댓글
@@ -51,7 +51,7 @@ public class PqRepService {
 	public int addPqReply(PqReply r) {
 		return mapper.insert(r);
 	}
-
+  
 	/**
 	 * 댓글 삭제
 	 * @param num : 댓글 번호
@@ -73,7 +73,7 @@ public class PqRepService {
 	 * @return : 작성됐다면 1, 작성안되면 0...?
 	 */
 	@Transactional
-	public int editPqReply(PqReply rep) {
-		return mapper.update(rep);
+	public int editPqReply(PqReply pqrep) {
+		return mapper.update(pqrep);
 	}
 }
