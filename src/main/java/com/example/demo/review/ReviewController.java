@@ -99,6 +99,7 @@ public class ReviewController {
 		//작성한 폼을 DB에 저장한다.
 		System.out.println("getUploadFile : " + r.getUploadFile());
 		
+		// 리뷰 글의 번호를 지정한다.
 		int num = service.getNum();
 		System.out.println("번호 : " +num);
 		r.setNum(num);
@@ -109,7 +110,6 @@ public class ReviewController {
 				saveQnaImg(num, multipartFile);
 			}
 		}
-		
 		service.addReview(r);
 		return "redirect:/member/main";
 	}
@@ -188,18 +188,13 @@ public class ReviewController {
 					else if(j == 1) {
 						reviewlist.get(i).setPath2(files[1]);
 					}
-					
-					
 					mav.addObject("file" + j, files[j]);
 				}
 			}
 			
 		}
 		System.out.println("경로 : " + path);
-		
 		// 리스트에 저장된 리뷰들을 reviewlist.jsp에 보냄
-		
-		//mav.setViewName("review/list");
 		mav.addObject("list", reviewlist);
 		return mav;
 	}
@@ -214,10 +209,11 @@ public class ReviewController {
 	   public ModelAndView list(@RequestParam("what")String what, @RequestParam(value="p_num",required=false)int p_num) {
 	      System.out.println("input value : " + what);
 	      System.out.println("pnum : " + p_num);
+	      // 선택된 상품 번호에 별점을 입력하기 위해 HashMap 사용
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      ArrayList<Review> reviewlist = null;
 	      ModelAndView mav = new ModelAndView("review/list");
-
+	      // 리뷰 정렬조건-별점별 정렬
 	      if(what.equals("1") || what.equals("2") || what.equals("3") || what.equals("4") || what.equals("5")) {
 	         int blackstar = Integer.parseInt(what);
 	         // = String star = "";
@@ -233,13 +229,16 @@ public class ReviewController {
 	         map.put("pnum", p_num);
 	         map.put("stars", star.toString());
 	         reviewlist = (ArrayList<Review>) service.getDetailByStar(map);
-	         
+	      // 리뷰 정렬조건-조건이 없을 때
 	      } else if(what.equals("basic") || what.equals("none")) {
 	            reviewlist = (ArrayList<Review>) service.getByPnum(p_num);
+	      // 리뷰 정렬조건-최신순으로 정렬
 	      } else if(what.equals("latest")) {
 	            reviewlist = (ArrayList<Review>) service.getDetailByDate(p_num);
+	      // 리뷰 정렬조건-좋아요 순으로 정렬
 	      } else if(what.equals("like")) {
 	            reviewlist = (ArrayList<Review>) service.getDetailByLike(p_num);
+	      // 리뷰 정렬조건-특정 단어 검색
 	      } else {
 	    	  System.out.println("search");
 	    	  map.put("pnum", p_num);
@@ -282,8 +281,6 @@ public class ReviewController {
 	      return mav;
 	   }
 	
-
-	
 	/**
 	 * 
 	 * @param num 특정번호에 해당하는 리뷰를 가져오기 위한 파라메터
@@ -293,9 +290,9 @@ public class ReviewController {
 	public ModelAndView detail(@RequestParam("num") int num, @RequestParam("p_num")int p_num) {
 		// 특정 번호에 해당하는 리뷰에 대한 정보를 가져와 객체에 담는다.
 		Review r = service.getDetail(num);	
-		// 객체에 담긴 정보를 reviewDetail.jsp에 보냄
-		
+		// 상품이름을 리스트에 출력하기 위해, 상품 번호로 해당 상품의 정보를 가져와 객체에 저장
 		Product p = pservice.getProductByNum(p_num);
+		// 객체에 담긴 정보를 reviewDetail.jsp에 보냄
 		ModelAndView mav = new ModelAndView("review/reviewDetail");
 		mav.addObject("r", r);
 		mav.addObject("p", p);
@@ -322,15 +319,17 @@ public class ReviewController {
 	 */
 	@RequestMapping("/review/pwdCheck")
 	public ModelAndView pwdCheck(HttpServletRequest req, @RequestParam("password")String pwd, @RequestParam("wid")String wid) {
+		// 해당 id의 비밀번호를 비교하기 위해 현재 접속된 id 값을 받아온다
 		HttpSession session = req.getSession(false);
 		String id = (String) session.getAttribute("id");
-		
 		System.out.println("session id : " + id);
 		System.out.println(pwd);
 		System.out.println("Writer : " + wid);
 		String result = "";
+		// 로그인을 하지 않아 session에 id값이 없는 경우
 		if(id == null) {
 			result = "로그인부터 해주세요.";
+		// 로그인이 되어있어 session에 id 값이 있는 경우 -> session id 값으로 db에 저장된 id 값과 pwd 값을 가져와 입력된 값과 비교
 		}else {
 			Member m = mservice.getMember(id);
 			
@@ -344,7 +343,6 @@ public class ReviewController {
 					result = "비밀번호가 다릅니다.";
 				}
 			}
-			
 		}
 		System.out.println(result);
 		ModelAndView mav = new ModelAndView("review/pwdCheck");
@@ -377,12 +375,14 @@ public class ReviewController {
 		String id="";
 		System.out.println("Parameter : " + num);
 		System.out.println("Type : " + type);
+		// 특정 리뷰글의 좋아요를 설정하기 위해 리뷰글 번호를 통해 해당 리뷰글의 정보를 가져온다
 		Review r = service.getDetail(num);
 		Review review = service.getDetail(num);
 		HttpSession session = req.getSession(false);
 		String exist = "";
 		String message="";
 		
+		// 한 개의 id당 특정 글에 1번의 좋아요만 할 수 있도록 session에서 id 값을 가져와 비교
 		try {
 			id = (String)session.getAttribute("id");
 			if(id==null) {
