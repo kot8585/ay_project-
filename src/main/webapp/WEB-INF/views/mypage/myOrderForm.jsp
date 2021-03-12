@@ -50,7 +50,17 @@
 	<td>${ p.tel }</td>
 	<td>${ p.o_date }</td>
 	<td>${ p.cost }</td>
-	<td>${ p.state }</td>
+	<td>
+		<c:if test="${p.state == 0 }">
+		배송준비
+		</c:if>
+		<c:if test="${p.state == 1 }">
+		배송중
+		</c:if>
+		<c:if test="${p.state == 2 }">
+		배송완료
+		</c:if>
+	</td>
 	<td><input type="button" value="리뷰작성" onclick="ordergo(${p.p_num})"></td>
 </tr>
 </c:forEach>
