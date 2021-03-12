@@ -131,7 +131,7 @@ public class PquestionController {
 	public String pquestion(Pquestion pq) {
 		// 수정 폼에 입력된 자료를 DB에 저장
 		service.editPquestion(pq);
-		return "redirect:/product/detail?num=" + pq.getpnum();
+		return "redirect:/product/detail?num=" + pq.getPnum();
 	}
 	
 		

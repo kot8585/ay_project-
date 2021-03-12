@@ -111,16 +111,15 @@ border:1px;
 		
 			<div>
 			<hr class="bg-dark" size="5px">
-			
-			<div class="my-box2 text-light" >답변</div>
-			${pq.pqreply.get(0).writer}  ${pq.pqreply.get(0).pqdate}<br><br>
-			</div>
-			
-			<div>
-			
-			${pq.pqreply.get(0).content}
-			</div>
-			
+			<c:if test="${not empty pq.pqreply}">
+				<div class="my-box2 text-light" >답변</div>
+				${pq.pqreply.get(0).writer}  ${pq.pqreply.get(0).pqdate}<br><br>
+				</div>
+				
+				<div>
+				${pq.pqreply.get(0).content}
+				</div>
+			</c:if>
 
 		
 	</c:forEach>

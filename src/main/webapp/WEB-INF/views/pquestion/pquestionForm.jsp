@@ -80,9 +80,7 @@ input:focus {outline:none;}
 input{
 border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 }
-.inputStyle{
-border:1px;
-}
+
 
 	h2{
 		text-align:center;
@@ -127,7 +125,7 @@ border:1px;
 	
 	<div class="card-header">
 			<label class="form-label">제목</label>
-			<input class="form-control" type="text" name="title" id="title" onkeyup="countLetter('title')">
+			<input class="form-control" type="hidden" name="title" id="title" onkeyup="countLetter('title')">
 			<div class="form-text">
 			
 			</div>
@@ -150,26 +148,17 @@ border:1px;
 					<span id="contentSpan2"></span>
 				</div>
 			</div>
-	  
-	  
-<!-- 	<tr>	 -->
-<!-- 		<th>내용</th> -->
-<!-- 		<td><textarea name="content" cols="50" rows="50"></textarea></td> -->
-<!-- 	</tr>	 -->
-	
-<!-- 	<tr> -->
-<!-- 	<td> -->
+	</table>  
+	 
 <div class="d-grid gap-2 d-md-block " >
 <div align="center" style=none; height: 100px;">
 	<input class="btn btn-danger" type="submit" value="문의작성">
 	<input class="btn btn-danger" type="reset" value="지우기">
 	<input type="hidden" name="pnum" value="${pq.num }">
-<!-- 	</td> -->
-<!-- 	</tr> -->
 	</div>
 	</div>
   
-	</table>
+	
 </form>
 </body>
 </html>

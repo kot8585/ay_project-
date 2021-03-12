@@ -218,9 +218,12 @@ var ext = fileName.split('.').pop().toLowerCase();
 				</div>
 			  </div>
 			
+			<div align="center" style="none;">
 			 <div class="mb-3">
+			 
 			 	<input class="btn btn-danger" type="reset" value="취소">
 			 	 <input class="btn btn-danger" type="submit" name="submit" id="submit" value="작성">
+			 </div>
 			 </div>
 		</span>
 		
@@ -228,7 +231,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 		<input type="hidden" name="writer" value="${sessionScope.id }" >
 		<input type="hidden" name="state" value="답변대기"> 
 	</form>
-	</span>
+	
 	</div>
 </body>
 </html>

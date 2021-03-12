@@ -61,10 +61,13 @@ function countLetter(){
 		});
 		
 		  
-		   $("#del").click(function() {
-		      $("#f1").attr('action', '${ pageContext.request.contextPath }/pquestion/delpquestion');
-		      $("#f1").submit();
-		   });
+		//게시판 삭제
+ 		$("#del").click(function(){
+ 			let result = confirm("글을 삭제하시겠습니까?");
+ 			if(result){
+ 				location.href = "${pageContext.request.contextPath}/pquestion/delpquestion?num=${pq.num}";
+ 			}
+ 		});
 	});
 
 
