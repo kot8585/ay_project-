@@ -102,16 +102,19 @@ public class QnaController {
 		Qna q = service.getQnaByNum(num);
 
 		String path = basePath + q.getNum();
+		String[] files = null;
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
 			System.out.println("이미지 등록을 안했는데 디렉토리가 있따고?");
-			String[] files  = imgDir.list();
-			for (int j = 0; j < files.length; j++) {
-				System.out.println(files[j].toString());
-				mav.addObject("file" + j, files[j]); 
-			}
-			q.setPath(files[0]);
+			files  = imgDir.list();
+			System.out.println("이거 이미지 이름인가?"+ files);
+//			for (int j = 0; j < files.length; j++) {
+//				System.out.println(files[j].toString());
+//				mav.addObject("file" + j, files[j]); 
+//			}
+//			q.setPath(files[0]);
 		}
+		mav.addObject("files", files); 
 		mav.addObject("q", q);
 		return mav;
 }

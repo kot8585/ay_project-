@@ -23,15 +23,11 @@
 
 <script type="text/javascript" src="/js/reply.js"></script>
 <style type="text/css">
-
-}
-
-input:focus {outline:none;}
-input{
-border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
-}
-
-
+	h2 { text-align:center; }
+	h3 { text-align:center; }
+	.w-100 {
+    width: 90%!important;
+	}
 </style>
 
 
@@ -50,9 +46,9 @@ function showList(qnum){replyService.getList(qnum, function(list){
 	
 	for(let i=0, len = list.length||0; i<len; i++){
 		htmls+=  '<li class="list-group-item" data-num="'+list[i].num+'">'
-		htmls+=    '<div class="d-flex w-100 justify-content-between">'
-		htmls+=    '<strong class="mb-1">'+list[i].writer+'</strong>'
-		htmls+=   '<small>'+list[i].r_date+'</small>'
+		htmls+=    '<div class="d-flex bd-highlight">'
+		htmls+=    '<strong class="p-2 w-100 bd-highlight">'+list[i].writer+'</strong>'
+		htmls+=   '<small class="p-2 flex-shrink-1 bd-highlight">'+list[i].r_date+'</small>'
 		htmls+=   '</div>'
 		htmls+=	   '<p class="repContent">'+list[i].content+'</p>'
 		htmls+=  '</li>'
@@ -155,8 +151,6 @@ function showList(qnum){replyService.getList(qnum, function(list){
 					alert("UPDATED");
 					exampleModal.modal("hide");
 					showList(qnum);
-				}, function(error){ //error써도 되나 학인학.
-				alert("UPDATE ERR");
 			});
 		});
 		
@@ -165,23 +159,20 @@ function showList(qnum){replyService.getList(qnum, function(list){
 		modalDelBtn.on("click", function(e){
 			console.log("modalDelBtn clicked............")
 			let num = exampleModal.data("num");
-			let r = confirm(num +"번의 답변을 삭제하시겠습니까?");
+			let confirmResult = confirm(num +"번의 답변을 삭제하시겠습니까?");
 			
-			if(!r){
+			if(!confirmResult){
 				return;
 			}
 			
-			if (r) {
+			if (confirmResult) {
 				//reply.js의 remove함수 호출
 				//replyService.remove(서버에 넘겨줄 번호, 성공했을시 호출할 함수, 실패했을시 호출할 함수)
 				replyService.remove(num, function(result){
 					if(result === "success"){
 						alert(num +"번의 답변이 삭제되었습니다.");
 					}
-				}, function(error){
-					alert("DELETE ERROR");
 				});
-				
 			} //end if(r)
 				repWriter.val("");
 				repContent.val("");
@@ -205,133 +196,121 @@ function showList(qnum){replyService.getList(qnum, function(list){
 
 </head>
 <body>
-<!-- header부분 -->
-<header>
-<c:if test="${ empty id }">
-	<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
-</c:if>
-<c:if test="${ not empty id }">
-	<script type="text/javascript" src="/js/headerSessionExist.js"></script>
-</c:if>
-</header>
-
-	<!-- modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label>작성자</label>
-            <input type="text" class="form-control" id="writer" name="writer" value="admin" readonly>
-          </div>
-          <div class="form-group">
-            <label>답변내용</label>
-            <textarea class="form-control" id="content" name="content"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-      <button type="button" id="modalEditBtn" class="btn btn-danger">수정</button>
-      <button type="button" id="modalDelBtn" class="btn btn-danger">삭제</button>
-        <button type="button" id="modalWriteBtn" class="btn btn-primary">등록</button>
-        <button type="button" id="modalCloseBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /.modal -->
-
-
-	<c:if test="${sessionScope.id ne q.writer }">
-		<c:set var="data" value="readonly" />
+	<header>
+	<c:if test="${ empty id }">
+		<script type="text/javascript" src="/js/headerSessionNotExist.js"></script>
 	</c:if>
-		<div class="container">
-	<form action="${pageContext.request.contextPath }/qna/edit" method="post">
-	<div class="card card-outline-secondary my-4">
-		
-		
-		<div class="card-header">
-			<label class="form-label">작성자</label>
-			<input class="form-control" type="text" name="writer" value="${q.writer}">
-			</div>
-
-			
-			<div class="card-header">
-			<label class="form-label">문의유형</label>
-			<select  class="form-control" name="q_cate" id="q_cate">	
-					<option value="order" >주문 상품 문의</option>	
-					<option value="p_delivery">배송 관련 문의</option>	
-					<option value="system">시스템 개선 의견</option>	
-				</select>		
-			</div>
-			
-			<div class="card-header">
-			<label class="form-label">제목</label>
-			<input class="form-control" type="text" name="title" value="${q.title}">		
-			</div>
-
-			<div class="card-header">
-			<label class="form-label">내용</label>
-			<textarea class="form-control" type="text" name="content" ${data}><c:out value="${q.content}" /></textarea>		
-			</div>
-
-			
-			<div class="card-header">
-			<label class="form-label">작성날짜</label>
-			<input class="form-control" type="text" name="updatedate" value='<c:out value="${q.updatedate}" />' readonly>
-			</div>
-
-			
-			<div class="card-header">
-			<label class="form-label">이미지</label>		
-			
-			<c:if test="${empty file0 }">
-               등록된 이미지가 없습니다.
-               </c:if> 
-               <c:if test="${not empty file0 }">
-               	
-                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file0 }&num=${q.num }" class="img" width="50" height="50">
-                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file1 }&num=${q.num }" class="img" width="50" height="50">
-                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file2 }&num=${q.num }" class="img" width="50" height="50">
-               
-            </c:if>
-            </div>
-
-
-			<div align="center" style="none; height: 100px;">
-			<input type="hidden" name="num" value="${q.num}">
-			<c:if test="${sessionScope.id eq q.writer}">
-			
-	<input class="btn btn-danger" type="submit" value="수정" id="update">
-				<input class="btn btn-danger" type="button" value="삭제" id="del">
-				
-			</c:if>
-			
-				<a class="btn btn-danger" href="/mypage/mypage" role="button">목록으로</a>
-
-		</div>
+	<c:if test="${ not empty id }">
+		<script type="text/javascript" src="/js/headerSessionExist.js"></script>
+	</c:if>
+	</header>
 	
-	</form>
+	<h2>문의사항</h2>
+	<!-- 답변 modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+     			 <div class="modal-header">
+        			<h5 class="modal-title" id="exampleModalLabel">답변하기kxdms </h5>
+        			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      			</div>
+     		 	<div class="modal-body">
+        			<form>
+         				 <div class="form-group">
+            				<label>작성자</label>
+            				<input type="text" class="form-control" id="writer" name="writer" value="admin" readonly>
+          				</div>
+          				<div class="form-group">
+           		 			<label>답변내용</label>
+           					<textarea class="form-control" id="content" name="content"></textarea>
+       				   </div>
+        			</form>
+    		 	</div>
+      		  	<div class="modal-footer">
+      			  	<button type="button" id="modalEditBtn" class="btn btn-danger">수정</button>
+      			  	<button type="button" id="modalDelBtn" class="btn btn-danger">삭제</button>
+       			 	 <button type="button" id="modalWriteBtn" class="btn btn-primary">등록</button>
+        		 	 <button type="button" id="modalCloseBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      			</div>
+    		</div>
+  		</div>
 	</div>
+	<!-- /.modal -->
 	
+	<!-- 고객센터 문의 본문 -->
+	<div class="container">
+		<c:if test="${sessionScope.id ne q.writer }">
+			<c:set var="data" value="readonly" />
+		</c:if>
+		<form action="${pageContext.request.contextPath }/qna/edit" method="post">
+			<div class="card card-outline-secondary my-4">
+				<div class="card-header">
+					<label class="form-label">작성자</label>
+					<input class="form-control" type="text" name="writer" value="${q.writer}">
+				</div>
+				
+				<div class="card-header">
+					<label class="form-label">문의유형</label>
+					<select  class="form-control" name="q_cate" id="q_cate">	
+						<option value="order" >주문 상품 문의</option>	
+						<option value="p_delivery">배송 관련 문의</option>	
+						<option value="system">시스템 개선 의견</option>	
+					</select>		
+				</div>
+				
+				<div class="card-header">
+					<label class="form-label">제목</label>
+					<input class="form-control" type="text" name="title" value="${q.title}">		
+				</div>
 	
+				<div class="card-header">
+					<label class="form-label">내용</label>
+					<textarea class="form-control" type="text" name="content" ${data}><c:out value="${q.content}" /></textarea>		
+				</div>
+				
+				<div class="card-header">
+					<label class="form-label">작성날짜</label>
+					<input class="form-control" type="text" name="updatedate" value='<c:out value="${q.updatedate}" />' readonly>
+				</div>
+				
+				<div class="card-header">
+					<label class="form-label">이미지</label><br>		
+					<c:if test="${empty files }">
+	             	  등록된 이미지가 없습니다.
+	                </c:if> 
+	                <c:forEach var="file" items="${files }">
+	                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file }&num=${q.num }" class="img" width="150" height="150">
+	               </c:forEach>
+	            </div>
+			</div>
 	
+			<div align="center">
+				<input type="hidden" name="num" value="${q.num}">
+				<c:if test="${sessionScope.id eq q.writer}">
+					<input class="btn btn-danger" type="submit" value="수정" id="update">
+					<input class="btn btn-danger" type="button" value="삭제" id="del">
+				</c:if>
+				
+				<a class="btn btn-danger" href="/mypage/mypage" role="button">목록으로</a>
+			</div>
+		</form>
+	
+
+	<!-- 답변-->	
 	<hr>
-     <div class="float-start"><h6>Reply List</h6></div>
+     <div class="float-start">
+     	<h3>답변</h3>
+     </div>
      <c:if test="${sessionScope.id eq 'admin' }">
-     <div class="float-end">
-    	<button type="button" id="addReplyBtn" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button>
-    </div>
+	     <div class="float-end">
+	    	<button type="button" id="addReplyBtn" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button>
+	     </div>
     </c:if>
     <br><br>
     
 	<!-- 댓글 작성되면 이 영역에 넣는다 -->
 	<ul class="list-group" id="replyList">
   	</ul>
+  	</div>
 </body>
 </html>

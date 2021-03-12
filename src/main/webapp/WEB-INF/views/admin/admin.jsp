@@ -188,7 +188,7 @@
 	        <a class="nav-link" href="#productList">전체 상품 목록</a>
 	    </li>
 	    <li class="nav-item active">
-	        <a class="nav-link" href="#boardList">전체 문의 목록</a>
+	        <a class="nav-link" href="#qnaList">전체 문의 목록</a>
 	    </li>
 	    <li class="nav-item active">
 	        <a class="nav-link" href="/board/faq/list">고객센터</a>
@@ -242,7 +242,7 @@
 <h3>전체 상품 목록</h3>
 <c:import url="${ pageContext.request.contextPath }/admin/productList"></c:import>
 <hr>
-<h3 id="boardList">&nbsp;</h3><br>
+<h3 id="qnaList">&nbsp;</h3><br>
 <h3>전체 문의 목록</h3>
 <c:import url="${ pageContext.request.contextPath }/admin/qnaList"></c:import>
 
