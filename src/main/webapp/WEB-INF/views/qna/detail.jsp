@@ -211,7 +211,7 @@ function showList(qnum){replyService.getList(qnum, function(list){
   		<div class="modal-dialog">
     		<div class="modal-content">
      			 <div class="modal-header">
-        			<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        			<h5 class="modal-title" id="exampleModalLabel">답변하기kxdms </h5>
         			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       			</div>
      		 	<div class="modal-body">
@@ -274,15 +274,13 @@ function showList(qnum){replyService.getList(qnum, function(list){
 				</div>
 				
 				<div class="card-header">
-					<label class="form-label">이미지</label>		
-					<c:if test="${empty file0 }">
+					<label class="form-label">이미지</label><br>		
+					<c:if test="${empty files }">
 	             	  등록된 이미지가 없습니다.
 	                </c:if> 
-	                <c:if test="${not empty file0 }">
-	                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file0 }&num=${q.num }" class="img" width="50" height="50">
-	                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file1 }&num=${q.num }" class="img" width="50" height="50">
-	                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file2 }&num=${q.num }" class="img" width="50" height="50">
-	               </c:if>
+	                <c:forEach var="file" items="${files }">
+	                     <img src="${pageContext.request.contextPath }/qna/img?fname=${file }&num=${q.num }" class="img" width="150" height="150">
+	               </c:forEach>
 	            </div>
 			</div>
 	
