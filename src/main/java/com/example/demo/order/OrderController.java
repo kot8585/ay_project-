@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,6 +30,8 @@ public class OrderController {
 	 */
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	public static String basePath = "C:\\shopimg\\p";
+	
 	@Autowired
 	private OrderService orderService;
 	
@@ -51,13 +54,29 @@ public class OrderController {
 		Product p = productService.getProductByNum(o.getP_num());
 		// 보내진 구매 정보의 고객ID를 이용하여 Member DB로부터 해당 Member를 받아옴.
 		Member m = memberService.getMember(o.getM_id()); 
-		// o에다 Product 세팅
-		o.setP(p);
+		
 		// o에다 Member 세팅
 		o.setM(m);
-		// mav에 구매 정보 담기
+
+	    //path에 basePath의 이미지와 상품번호를 담는다
+	    String path = basePath + p.getNum() + "\\";
 		
+		//imgDir에 path를 저장
+	    File imgDir = new File(path);
+	    if(imgDir.exists()) {
+	    	//files에 imgDir의 리스트를 저장
+	        String[] files = imgDir.list();
+	        for(int j = 0; j < files.length; j++) {
+	           p.setImgPath(files[0]);
+	        }   
+	    }
+	    
+	    // o에다 Product 세팅
+	 	o.setP(p);
+		
+	    // mav에 구매 정보 담기
 		mav.addObject("order", o);
+		
 		// 리턴
 		return mav;
 	}

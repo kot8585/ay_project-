@@ -44,20 +44,6 @@
          
 <c:import url="${ pageContext.request.contextPath }/product/list"></c:import>
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 </body>
 </html>

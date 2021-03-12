@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -6,31 +7,48 @@
 <head>
 <meta charset="UTF-8">
 <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-  <title>Shop Item - Start Bootstrap Template</title>
-  
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/shop-item.css" rel="stylesheet">
-    
+<title>Shop Item - Start Bootstrap Template</title>
+
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/shop-item.css" rel="stylesheet">
+
+
     
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
- <!-- Option 1: Bootstrap Bundle with Popper -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script>
 
 <!-- Required meta tags -->
- <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
- <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
 
- 
+
 
 
 <title>Insert title here</title>
@@ -112,64 +130,65 @@
 </script>
 
 
-<style type ="text/css">
-div#side_left{
-width:200px;
-height:400px;
-/* background-color:yellow; */
-float:left;
-margin:5px;
-}
-#side_left_box{
-width:95%;
-height:45%;
-/* background-color:blue; */
-float:left;
-margin:5px;
-}
-#mid_content{
-width:400px;
-height:400px;
-/* background-color:green; */
-float:left;
-margin:5px;
-}
-#side_content_box{
-display: inline;
-/* background-color:white; */
-margin:500px;
-}
-#side_rigth{
-width:200px;
-height:400px;
-/* background-color:red; */
-float:left;
-margin:5px;
-}
-#side_rigth_box{
-width:95%;
-height:45%;
-/* background-color:skyblue; */
-margin:5px;
-margin-top:95%;
+<style type="text/css">
+div#side_left {
+	width: 200px;
+	height: 400px;
+	/* background-color:yellow; */
+	float: left;
+	margin: 5px;
 }
 
-input:focus {outline:none;}
-input{
-border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+#side_left_box {
+	width: 95%;
+	height: 45%;
+	/* background-color:blue; */
+	float: left;
+	margin: 5px;
 }
-.inputStyle{
-border:1px;
+
+#mid_content {
+	width: 400px;
+	height: 400px;
+	/* background-color:green; */
+	float: left;
+	margin: 5px;
 }
 
-/* 	a { */
-/*     color: #0d6efd; */
-/*     text-decoration: none; */
-/* } */
-</style>
+#side_content_box {
+	display: inline;
+	/* background-color:white; */
+	margin: 500px;
+}
 
+#side_rigth {
+	width: 200px;
+	height: 400px;
+	/* background-color:red; */
+	float: left;
+	margin: 5px;
+}
 
+#side_rigth_box {
+	width: 95%;
+	height: 45%;
+	/* background-color:skyblue; */
+	margin: 5px;
+	margin-top: 95%;
+}
 
+input:focus {
+	outline: none;
+}
+
+input {
+	border: none;
+	border-right: 0px;
+	border-top: 0px;
+	boder-left: 0px;
+	boder-bottom: 0px;
+}
+=
 </head>
 <body>
 <header>
@@ -275,6 +294,7 @@ border:1px;
 </div>
 </div>
 </div>
+
 
 </body>
 </html>

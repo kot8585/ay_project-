@@ -53,7 +53,7 @@
 </c:if>
 <c:if test="${not empty list }">
 <table class="table table-bordered">
-<thead class="table-warning">
+<thead class="table-danger">
 	<tr>
 		<th>구매번호</th><th>상품이미지</th><th>고객ID</th><th>상품번호</th>
 		<th>주문수량</th><th>상세주소</th><th>전화번호</th>
@@ -63,7 +63,7 @@
 </thead>
 <c:forEach var="p" items="${list }">
 <tr>
-	<td>${ p.num }</td>
+	<th>${ p.num }</th>
 	<td><img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${p.imgPath }&num=${p.p_num}" style="width:60px;height:60px"></td>
 	<td>${ p.m_id }</td>
 	<td>${ p.p_num }</td>
