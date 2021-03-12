@@ -25,11 +25,6 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-	function goPage() {
-		location.href = "${pageContext.request.contextPath}/member/joinForm";
-	}
-</script>
-<script type="text/javascript">
 	function go() {
 		var id = document.getElementById("id");
 		var password = document.getElementById("password");
@@ -88,10 +83,11 @@ fontsize:30px;
 			<script type="text/javascript" src="/js/loginSessionExist.js"></script>
 		</c:if>
 	</header>
-	<div class="container-fluid vertical-center d-flex justify-content-center">
+	<h2 class="text-danger">로그인</h2>
+	<hr>
+	<div class="container-fluid vertical-top d-flex justify-content-center">
 	<form name="f" method="POST" action="${pageContext.request.contextPath }/member/login">
 	<div id="container" class="container">
-	<h2>로그인</h2>
 		<div class="input-group mb-3 input-group-lg">
       		<div class="input-group-prepend"></div>
       		<input class="form-control" type="text" name="id" id="id" placeholder="아이디를 입력해주세요.">

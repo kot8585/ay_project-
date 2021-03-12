@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -193,7 +194,7 @@ public class MemberController {
 		return "redirect:/member/main";
 	}
 
-	@PostMapping(value = "/member/out")
+	@GetMapping(value = "/member/out")
 	public String out(HttpServletRequest req) {
 		// 로그인된 아이디 값을 session을 통해 받아온다.
 		HttpSession session = req.getSession(false);

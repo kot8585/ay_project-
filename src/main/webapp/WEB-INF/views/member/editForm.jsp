@@ -174,49 +174,34 @@
 </script>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<script type="text/javascript"
-	src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script>
-	$(function() {
-		$("#birth").datepicker({});
+$(function(){
+	 $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
+
 	});
 </script>
 <style type="text/css">
-.table th {
-	text-align: center;
+div{
+width:500px;
+height:-24px;
+margin:-5px;
 }
-
-.table {
-	border-radius: 5px;
-	width: 50%;
-	margin: 0px auto;
-	float: none;
-}
-
 .vertical-center {
 	min-height: 100%;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
 }
-
-.table-bordered {
-	border: 1px;
+button{
+width:122px;
 }
-
-.table td {
-	width: 30%
+h2{
+text-align:center;
+color:;
 }
-</style>
-<style>
-#edit {
-	background-color: red;
-	color: white;
-}
-
-#reset {
-	background-color: blue;
-	color: white;
+#box{
+height:800px;
 }
 </style>
 </head>
@@ -224,69 +209,73 @@
 	<header>
 	<script type="text/javascript" src="/js/loginSessionExist.js"></script>
 </header>
-	<div class="container-fluid vertical-center justify-content-center">
-		<form method="POST"
-			action="${pageContext.request.contextPath }/member/edit">
-			<table class="table table-bordered">
-				<thead class="table-dark">
-					<tr>
-						<th colspan="2">회원정보수정</th>
-					</tr>
-				</thead>
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="id" value="${m.id }" readonly></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="text" name="password" id="password1"
-						placeholder="비밀번호"> <input type="button" value="show"
-						id="showPassword"> <span class="check_font"
-						id="pwd1_check"></span>
-						<div>*4~16자의 영문 소문자, 숫자만 사용가능</div></td>
-				</tr>
-				<tr>
-					<td>비밀번호 확인</td>
-					<td><input type="password" id="password2"
-						placeholder="비밀번호 확인"> <input type="button" value="show"
-						id="showPassword1"> <span class="check_font"
-						id="pwd2_check"></span></td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td colspan="2"><input type="text" name="name" id="name"
-						value="${m.name }"> <span class="check_font"
-						id="name_check"></span>
-						<div>*2~6자의 한글만 사용가능</div></td>
-				</tr>
-				<tr>
-					<td>생일</td>
-					<td><input type="date" name="birth" value="${m.birth }"></td>
-				</tr>
-				<tr>
-					<td>성별</td>
-					<c:if test="${ m.gender == 'm' }">
-						<td colspan="2">
-						<input type="radio" name="gender" id="gender" value="m" checked="checked">남자 
-						<input type="radio" name="gender" id="gender" value="f">여자</td>
-					</c:if>
-					<c:if test="${ m.gender == 'f' }">
-						<td colspan="2">
-						<input type="radio" name="gender" id="gender" value="m">남자
-						 <input type="radio" name="gender" id="gender" value="f" checked="checked">여자</td>
-					</c:if>
-				</tr>
-				<tr>
-					<td>주소</td>
-					<td><input type="text" id="sample4_postcode" name="postalCode"
-						placeholder="우편번호" value="${m.postalCode }"> <input
-						type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample4_roadAddress" name="roadAddress"
-						placeholder="도로명주소" value="${m.roadAddress }"> <input
-						type="text" id="sample4_jibunAddress" name="address"
-						placeholder="지번주소" value="${m.address }"> <span id="guide"
-						style="color: #999"></span> <script
-							src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<h2 class="text-danger">회원정보수정</h2>
+			<div class="container-fluid vertical-center justify-content-center">
+				<span id="box" class="border border-danger">
+				<form method="POST" action="${pageContext.request.contextPath }/member/edit">
+			<div id="container" class="container">
+		<h6>아이디</h6>
+			<div class="input-group mb-3">
+ 				<input type="text" class="form-control" name="id" value="${m.id }" readonly>
+			</div>
+		<h6>비밀번호</h6>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" name="password" id="password1" placeholder="4~16자의 영문 대소문자, 숫자만 사용가능합니다."> 
+				<button type="button" id="showPassword" class="btn-danger btn-primary btn">show</button> 
+            </div>
+			<div>	
+				<span class="check_font" id="pwd1_check"></span>
+			</div>
+		<h6>비밀번호 확인</h6>
+			<div class="input-group mb-3">
+				<input type="password" class="form-control" id="password2" placeholder="비밀번호확인">
+			    <button type="button" id="showPassword1" class="btn-danger btn-primary btn">show</button>
+			</div>
+			<div>
+			    <span class="check_font"id="pwd2_check"></span>
+		    </div>
+		<h6>이름</h6>
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control"  name="name" id="name" value="${m.name }" placeholder="2~6자의 한글만 사용가능합니다" aria-label="2~6자의 한글만 사용가능합니다."> 
+  			</div>
+  			<div>
+	     		<span class="check_font" id="name_check"></span>
+			</div>
+	    <h6>생일</h6>
+				<div class="input-group mb-3">
+ 	 			<input type="text" class="form-control" name="birth" id="datepicker" value="${m.birth }" placeholder="이곳을 눌러 생일을 선택해주세요." aria-label="이곳을 눌러 생일을 선택해주세요." aria-describedby="button-addon2" autocomplete="off">
+			</div>
+		<h6>성별</h6>
+			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+				<c:if test="${ m.gender == 'm' }">
+	  				<input type="radio" class="btn-check" name="gender" value="m" id="btnradio1" autocomplete="off" checked="checked">
+  					<label class="btn btn-outline-danger" for="btnradio1">남자</label>
+
+  					<input type="radio" class="btn-check" name="gender"  value="f" id="btnradio2" autocomplete="off">
+  					<label class="btn btn-outline-danger" for="btnradio2">여자</label>
+				</c:if>
+				<c:if test="${ m.gender == 'f' }">
+	  				<input type="radio" class="btn-check" name="gender" value="m" id="btnradio1" autocomplete="off">
+  					<label class="btn btn-outline-danger" for="btnradio1">남자</label>
+
+  					<input type="radio" class="btn-check" name="gender"  value="f" id="btnradio2" autocomplete="off" checked="checked">
+  					<label class="btn btn-outline-danger" for="btnradio2">여자</label>
+				</c:if>
+ 			</div>
+		<h6>주소</h6>
+			<div class="input-group mb-3">
+ 				<input type="text" class="form-control" id="sample4_postcode" name="postalCode" value="${m.postalCode }" placeholder="우편번호" aria-label="우편번호" aria-describedby="button-addon2">
+  				<button type="button" onclick="sample4_execDaumPostcode()" class="btn-danger btn-primary btn">우편번호찾기</button>
+			</div>
+			<div class="input-group mb-3">
+ 				<input type="text" class="form-control" id="sample4_roadAddress" name="roadAddress" value="${m.roadAddress }" placeholder="도로명주소" aria-label="도로명주소" aria-describedby="button-addon2">
+			</div>
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control" id="sample4_jibunAddress" name="address"  value="${m.address }" placeholder="지번주소" aria-label="지번주소" aria-describedby="button-addon2">
+				<span id="guide" style="color: #999"></span>
+			</div>
+					<span id="guide" style="color: #999"></span> 
+					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 						<script>
 							function sample4_execDaumPostcode() {
 								new daum.Postcode(
@@ -338,26 +327,28 @@
 											}
 										}).open();
 							}
-						</script></td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td><input type="text" name="tel" id="tel" value="${m.tel }">
-						<span class="check_font" id="tel_check"></span></td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td><input type="text" name="email" id="email"
-						value="${m.email }"> <span class="check_font"
-						id="email_check"></span></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="button" id="edit" value="수정"
-						style="float: center;"> <input type="reset" value="재입력"
-						id="reset"></td>
-				</tr>
-			</table>
+						</script>
+		<h6>전화번호</h6>
+		<div class="input-group mb-3">
+  				<input type="text" class="form-control" value="${m.tel }" name="tel" id="tel" placeholder="전화번호를 작성해주세요." aria-label="전화번호를 작성해주세요.">
+			</div>
+			<div>
+				<span class="check_font" id="tel_check"></span>
+			</div>	
+		<h6>이메일</h6>
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control" name="email" id="email" value="${m.email }" placeholder="이메일을 작성해주세요." aria-label="이메일을 작성해주세요.">
+			</div>
+			<div>
+				<span class="check_font" id="email_check"></span>
+			</div>	
+			<div>
+    	    	<button type="button" id="edit" class="btn-danger btn-primary btn">수정</button>
+    	    	<button type="reset" id="reset" class="btn-danger btn-primary btn">재입력</button>
+			</div>
+			</div>
 		</form>
+		</span>
 	</div>
 </body>
 </html>
