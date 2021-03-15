@@ -223,7 +223,7 @@ modalWriteBtn.on("click", function(e){
 
 	
 	<hr>
-     <div class="float-start"><h6>pqreply plist</h6></div>
+     <div class="float-start"><h3>답변</h3></div>
     <div class="float-end"><button class="btn btn-danger" type="button" id="addpqreplyBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">답변하기</button></div><br><br>
     	
     	<!-- modal -->
@@ -231,7 +231,7 @@ modalWriteBtn.on("click", function(e){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">답변하기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

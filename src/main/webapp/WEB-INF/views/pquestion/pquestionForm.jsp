@@ -17,60 +17,54 @@
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/header.js"></script>
 <script>
 
-	function getByte(s){
-		var cnt = 0;
-		console.log(s.charAt());
-		console.log(s.charCodeAt());
-	}
+function countLetter(){
+	var typeLen = $('#content').val().length;
+	var length = 500;
 	
-	// 글자 수를 체크하는 기능
-	function countLetter(type){
+	$('#contentSpan1').html(typeLen);
+	if(typeLen > length){
+		$('#contentDiv').css("color","red");
+		$('#contentSpan2').html("글자수가 초과되었습니다.");
+		return false;
+	}else{
+		$('#contentDiv').css("color","black");
+		$('#contentSpan2').html('');
+	}	
+	return true;
+}
+
+	$(document).ready(function(){
 		
-		console.log(type);
-		if(type === "title"){
-			var length = 50;
-		}else if(type === "content"){
-			var length = 500;
-		}
-		console.log(length);
-		var title = document.getElementById("title");
-		var pattern = /\s/g;
-		getByte(title.value);
-		if(title.value.match(pattern) || title.value.length < 5){
-			document.getElementById("titleReg").innerHTML = "빈칸 안되고, 5글자 이상 입력하세여해요..";
-		}else{
-			document.getElementById("titleReg").innerHTML = "";
+		$("#f1").submit(function(){
+			var contentVal = $("#content").val();
+			var blank_pattern = /^\s+|\s+$/g;
+
+			if(contentVal.replace(blank_pattern, '' ) == "" ){
+				alert('공백만 입력할 수 없습니다.');
+				 $("#content").focus();
+				 return false;
+			}
 			
-		}
-		document.getElementById(type+"Span1").innerHTML = document.getElementById(type).value.length;
-		if(document.getElementById(type).value.length > length){
-			document.getElementById(type+"Div").style.color="red";
-			document.getElementById(type+"Span2").innerHTML = "글자수 초과!!";
-		}else{
-			document.getElementById(type+"Div").style.color="black";
-			document.getElementById(type+"Span2").innerHTML = "";
-		}	
-	}
-	
-	// 글자수가 조건에 위배되었는지를 체크
-	function sub(){
-		var titleLength = 50;
-		var contentLength = 500;
-		var title = document.getElementById("title");
-		var content = document.getElementById("content");
-		if(title.value.length > titleLength || content.value.length > contentLength){
-			alert("글자수가 초과되었습니다.");
-		}else if(title.value.length <= titleLength && content.value.length <= contentLength){
-			f.submit();
-		}
-	}
-	
-	function upload(){
+			if(contentVal == '' || contentVal == null ){
+			    alert( '내용을 입력해주세요');
+			    $("#content").focus();
+			    return false;
+			}
+			
+			if(contentVal.length > 500){
+				alert("본문의 글자수가 초과되었습니다.");
+				$("#content").focus();
+				return false;
+			}
+
+		});
 		
-	}
+	});
+
 </script>
 
 <style type ="text/css">
@@ -108,55 +102,51 @@ border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 </head>
 <body>
 <h2>상품문의작성</h2>
+	<div class="container">
 
-<form action="${pageContext.request.contextPath }/pquestion/write">
+<form id="f1" action="${pageContext.request.contextPath }/pquestion/write">
 	<table border="1" cellspacing="0">
 	
-	<div class="container">
 	<div class="card card-outline-secondary my-4">
+	
 		<div class="card-header">
 			<label class="form-label">작성자</label>
-<!-- 	<tr>	 -->
-<!-- 		<th>작성자</th>	 -->
-<!-- 		<td> -->
+
 		<input class="form-control" type="text" name="writer" value="${sessionScope.id }" readonly></td>
-<!-- 	</tr> -->	
 	</div>
-	
-	<div class="card-header">
-			<label class="form-label">제목</label>
-			<input class="form-control" type="hidden" name="title" id="title" onkeyup="countLetter('title')">
-			<div class="form-text">
+
+<!-- 	<div class="card-header"> -->
+<!-- 			<label class="form-label">내용</label> -->
+<!-- 			<textarea class="form-control" name="content" id="content" cols="20" rows="70" onkeyup="countLetter('content')"></textarea> -->
+<!-- 				<div id="contentDiv"> -->
+<!-- 					<span id="contentSpan1">0</span>/50 -->
+<!-- 					<span id="contentSpan2"></span> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			
-			</div>
-			<div id="titleDiv">
-					<span id="titleSpan1">0</span>/50 
-					<span id="titleSpan2"></span>
-					<span id="titleReg"></span>
-		</div>
-<!-- 	<tr> -->
-<!-- 		<th>제목</th> -->
-<!-- 		<td><input type="text" name="title"></td> -->
-<!-- 	</tr> -->
-	
-	
-	<div class="card-header">
-			<label class="form-label">내용</label>
-			<textarea class="form-control" name="content" id="content" cols="20" rows="70" onkeyup="countLetter('content')"></textarea>
-				<div id="contentDiv">
-					<span id="contentSpan1">0</span>/50
-					<span id="contentSpan2"></span>
-				</div>
-			</div>
+			<div class="card-header">
+		         <label class="form-label">내용</label>
+		         <textarea class="form-control" name="content" id="content" cols="30" rows="10" onkeyup="countLetter()"></textarea>
+	             <div class="form-text">
+	               	500글자 이내로 입력해주세요.
+	           	 </div>
+	             <div id="contentDiv">
+		             <span id="contentSpan1">0</span>/500
+		             <span id="contentSpan2"></span>
+		         </div>   
+	      	</div>
 	</table>  
+	
 	 
 <div class="d-grid gap-2 d-md-block " >
 <div align="center" style=none; height: 100px;">
 	<input class="btn btn-danger" type="submit" value="문의작성">
 	<input class="btn btn-danger" type="reset" value="지우기">
 	<input type="hidden" name="pnum" value="${pq.num }">
+	<input type="hidden" name="state" value="답변대기"> 
 	</div>
 	</div>
+	
   
 	
 </form>

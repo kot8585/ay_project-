@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.qna.Qna;
+
 
 @Service
 public class PquestionService {
@@ -18,7 +20,7 @@ public class PquestionService {
 	
 	/**
 	 * 상품문의 추가
-	 * @param pq : 상품문의내용을 qp에 저장
+	 * @param pq : 상품문의내용을 pq에 저장
 	 */
 	@Transactional
 	public void addPquestion(Pquestion pq) {
@@ -61,10 +63,10 @@ public class PquestionService {
 	    * @param p_num : 상품의 번호를 검색
 	    * @return
 	    */
-	public ArrayList<Pquestion> getByPnum(int p_num) {
-		// TODO Auto-generated method stub
-		return mapper.selectByPnum(p_num);
-	}
+	   public ArrayList<Pquestion> getByPnum(int p_num) {
+			// TODO Auto-generated method stub
+			return mapper.selectByPnum(p_num);
+		}
 	
 	
 	public ArrayList<Pquestion> getAll() {
@@ -72,8 +74,17 @@ public class PquestionService {
 	}
 
 	public void changeState(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
+		mapper.updateState(map);
 		
 	}
+	
+	public int getNum() {
+		return mapper.getNum();
+	}
+
+	public ArrayList<Pquestion> getmyPqeustionByWriter(String writer) {
+		return mapper.selectByWriter(writer);
+	}
+	
 	
 }

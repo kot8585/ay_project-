@@ -343,18 +343,18 @@ public class AdminController {
 			}
 			// 디렉토리가 존재한다면
 			// P.S. 파일을 여러 개 집어넣고 싶을 경우에는, 아래의 else 부분 메소드를 수정하거나 주석 처리할 것.
-			else {
-				// 디렉토리의 리스트를 받고, 이를 String 배열로 받아온다.
-				String[] files = dir.list();
-				// 최적화용
-				int f_length = files.length;
-				for (int j = 0; j < f_length; j++) {
-					// 해당 경로에 파일이 있으면
-					File del = new File(basePath + "p" + num + "\\" + files[j]);
-					// 삭제한다.
-					del.delete();
-				}
-			}
+//			else {
+//				// 디렉토리의 리스트를 받고, 이를 String 배열로 받아온다.
+//				String[] files = dir.list();
+//				// 최적화용
+//				int f_length = files.length;
+//				for (int j = 0; j < f_length; j++) {
+//					// 해당 경로에 파일이 있으면
+//					File del = new File(basePath + "p" + num + "\\" + files[j]);
+//					// 삭제한다.
+//					del.delete();
+//				}
+//			}
 			// 이미지 경로에 대하여 참조하는 객체를 생성한다.
 			File f = new File(basePath + "p" + num + "\\" + fileName);
 			try {

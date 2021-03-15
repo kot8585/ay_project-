@@ -36,7 +36,7 @@ public class PqReplyController {
 
 		/**
 		 * JSON방식의 데이터만 처리하고, 문자열을 반환
-		 * @param r : JSON데이터를 pqreply타입으로 변환하도록 지정
+		 * @param pq : JSON데이터를 pqreply타입으로 변환하도록 지정
 		 * @return : 성공 여부인 String 타입
 		 */
 		@PostMapping(value= "/pqrep/write",
@@ -44,16 +44,18 @@ public class PqReplyController {
 				produces = {MediaType.TEXT_PLAIN_VALUE })
 		public ResponseEntity<String> write(@RequestBody PqReply pq) {
 			int insertCount = service.addPqReply(pq);
-			log.info("insertCount : " + insertCount);
+			System.out.println("**************insertCount 뭐가 될까여?**** : " + insertCount);
 			
 			//성공적으로 이루어졌으면 답변 상태 바꾸기
-//			if(insertCount == 1) {
-//			HashMap<String, Object> map = new HashMap<>();
-//			map.put("pqnum", pq.getPqnum());
-//			map.put("state", "답변완료");
-//			pqService.changeState(map);
-//			}
-//
+			if(insertCount == 1) {
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("pqnum", pq.getPqnum());
+			System.out.println(pq.getPqnum());
+			map.put("state", "답변완료");
+			pqService.changeState(map);
+			System.out.println("PqReplyController.write()");
+			}	
+
 			return insertCount ==1 
 			? new ResponseEntity<>("success", HttpStatus.OK) 
 			: new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);

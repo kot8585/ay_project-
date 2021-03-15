@@ -7,13 +7,14 @@
 	<result column="num" property="num" />
 	<result column="pnum" property="pnum" />
 	<result column="writer" property="writer" />
-	<result column="title" property="title" />
 	<result column="content" property="content" />
+	<result property="state" column="state"/>
+	<result property="updatedate" column="updatedate"/>
 	<result column="p_date" property="p_date" />
 </resultMap>
 
 <insert id="insert" parameterType="com.example.demo.pquestion.Pquestion">
-insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{writer}, #{title}, #{content}, sysdate)
+insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{writer}, #{content},#{state}, sysdate,  sysdate)
 </insert>
 
 <select id="select" resultMap="pquestion" parameterType="int">
@@ -29,16 +30,29 @@ insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{writer}, #{title}
 	</select>
 	
 <update id="update" parameterType="com.example.demo.pquestion.Pquestion">
-		UPDATE pquestion SET content=#{content}, p_date=SYSDATE WHERE num=#{num}
+		UPDATE pquestion SET content=#{content}, updatedate=sysdate WHERE num=#{pqnum}
 	</update>
 	
 <delete id="delete" parameterType="int">
 		delete pquestion WHERE num=#{num}	
 	</delete>
+	
+	<update id="updateState" parameterType="java.util.HashMap">
+		update pquestion set state=#{state} where num=#{pqnum}
+	</update>
+	
+	
+	<select id="getNum" resultType="int">
+		select seq_qna.nextval from dual
+	</select>
 
 <select id="selectByPnum" resultMap="pquestion" parameterType="int">
 		SELECT * FROM pquestion WHERE pnum=#{pnum} ORDER BY num
 	</select>
 
+<select id="selectByWriter" resultMap="pquestion" parameterType="String">
+		select * from pquestion where writer=#{writer} order by num
+	</select>
+	
 </mapper>
 

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.board.BoardService;
 import com.example.demo.order.Order;
 import com.example.demo.order.OrderService;
+import com.example.demo.pquestion.Pquestion;
+import com.example.demo.pquestion.PquestionService;
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductService;
 import com.example.demo.qna.Qna;
@@ -42,6 +44,10 @@ public class MyPageController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private PquestionService pqService;
+	
 	
 	/**
 	 * 마이페이지(/mypage/mypage) 이동
@@ -178,6 +184,32 @@ public class MyPageController {
 		// 문의내역 리스트를 mav에 담아 리턴한다.
 		mav.addObject("list", list);
 		System.out.println("list에 담긴것을 출력하자: " + list);
+		return mav;
+	}
+	
+	
+	@RequestMapping("/mypage/mypqQuestionForm")
+	public ModelAndView mypqQuestionForm(HttpServletRequest req) {
+		// ModelAndView 생성
+		ModelAndView mav = new ModelAndView("mypage/mypqQuestionForm");
+		
+		String id = "";
+		
+		// 세션 받아오기.
+		HttpSession session = req.getSession(false);
+		id= (String) session.getAttribute("id");
+		
+		
+		// 문의내역 리스트를 받아오고, foreach 문을 활용해 각 문의내역에 달린 댓글 또한 받아와 set함.  
+		ArrayList<Pquestion> plist = pqService.getmyPqeustionByWriter(id);
+//		for (Qna qna : list) {
+//			ArrayList<Reply> reply = repService.getReplyByBoardNum(qna.getNum());
+//			qna.setReps(reply);
+//		}
+		
+		// 문의내역 리스트를 mav에 담아 리턴한다.
+		mav.addObject("plist", plist);
+		System.out.println("list에 담긴것을 출력하자: " + plist);
 		return mav;
 	}
 	

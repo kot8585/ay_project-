@@ -33,6 +33,11 @@
 <c:import url="${ pageContext.request.contextPath }/mypage/myQuestionForm"></c:import>
 <hr>
 <br>
+<c:import url="${ pageContext.request.contextPath }/mypage/mypqQuestionForm"></c:import>
+<hr>
+<br>
+
+
 
 </c:if>
 </body>
