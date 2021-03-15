@@ -43,7 +43,7 @@
 			 SELECT ROWNUM as rn, A.num, A.title, A.writer, A.updatedate 
   			 FROM (
      			   SELECT * FROM board 
-     			   WHERE type=#{type} AND title LIKE '%'||#{cri.keyword}||'%' ORDER BY regdate DESC) A 
+     			   WHERE type=#{type} AND title LIKE '%'||#{cri.keyword}||'%' ORDER BY num DESC) A 
    			  WHERE rownum <=#{cri.pageNum} * #{cri.amount}) B 
 		WHERE rn>(#{cri.pageNum}-1) * #{cri.amount}]]>
 

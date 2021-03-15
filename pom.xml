@@ -71,7 +71,7 @@
 		</dependency>
 
 
-<!-- 정적파일 변경 바로 적용 -->
+	<!-- 정적파일 변경 바로 적용 -->
    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

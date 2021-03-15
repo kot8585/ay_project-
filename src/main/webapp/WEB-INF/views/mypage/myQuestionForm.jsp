@@ -41,9 +41,9 @@
 	<td><c:out value="${ p.num }"/></td>
 	<td><c:out value="${ p.writer }"></c:out></td>
 	<td><a href="${ pageContext.request.contextPath }/qna/detail?num=${ p.num }"><c:out value="${ p.title }" /></a></td>
-	<td>${ p.content }</td>
-	<td>${ p.state }</td>
-	<td>${ p.regdate }</td>
+	<td><c:out value="${ p.content }"/></td>
+	<td><c:out value="${ p.state }"/></td>
+	<td><c:out value="${ p.updatedate }"/></td>
 </tr>
 <!-- 추후 아래에 td을 생성하여 문의답변을 바로 확인하도록 만듦 -->
 </c:forEach>

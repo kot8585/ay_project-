@@ -21,7 +21,7 @@
 <script type="text/javascript">
 function go(i) {
 	alert("click");
-	location.href = "${pageContext.request.contextPath}/admin/qnaDetail?num="+i;
+	location.href = "${pageContext.request.contextPath}/qna/detail?num="+i;
 }
 </script>	
 </head>
@@ -33,14 +33,12 @@ function go(i) {
 
 <table class="table table-bordered">
 <thead class="table-warning" >
-<tr><th>num</th><th>writer</th>
-<th>title</th><th>content</th><th>updatedate</th>
-<th>답변상태</th><th>답변하기</th>
-	</tr>
+<tr align="center"><th>글번호</th><th>작성자</th><th>글제목</th><th>글내용</th><th>답변상황</th><th>작성날짜</th><th>답변하기</th></tr>
 </thead>
 <c:forEach var="p" items="${list }">
 <tr>
-	<td>${ p.num }</td>	
+
+	<td>${ p.num }</td>
 	<td>${ p.writer }</td>
 	<td>${ p.title }</td>
 	<td>${ p.content }</td>

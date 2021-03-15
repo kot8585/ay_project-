@@ -33,11 +33,8 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 
-	public static String basePath = "C:\\shopimg\\";
-
 	/**
 	 * 타입에 맞는 게시물의 목록을 제공하는 기능
-	 * 
 	 * @param type
 	 * @param cri
 	 * @return
@@ -51,7 +48,7 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView("board/list");
 		mav.addObject("list", list);
 		mav.addObject("type", type);
-		mav.addObject("pageMaker", new PageDTO(cri, total)); // 총 개수 구현해야함
+		mav.addObject("pageMaker", new PageDTO(cri, total)); 
 		return mav;
 	}
 
@@ -68,7 +65,6 @@ public class BoardController {
 
 	/**
 	 * 게시판 수정 기능 담당
-	 * 
 	 * @param b 수정한 게시판 데이터
 	 * @return 수정하고 이동할 페이지
 	 */
@@ -82,7 +78,6 @@ public class BoardController {
 
 	/**
 	 * 게시판 삭제기능 담당
-	 * 
 	 * @param num 게시판 번호
 	 * @return 게시판 삭제하고 이동할 페이지
 	 */

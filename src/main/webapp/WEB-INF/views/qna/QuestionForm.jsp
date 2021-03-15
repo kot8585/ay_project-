@@ -193,7 +193,7 @@ var ext = fileName.split('.').pop().toLowerCase();
 		<!-- 질문 카테고리 -->
 			 <div class="mb-3">
 				<label class="form-label">제목</label>
-				<input class="form-control type="text" id="title" name="title" onkeyup="countLetter('title')">
+				<input class="form-control" type="text" id="title" name="title" onkeyup="countLetter('title')">
 				<div id="titleDiv">
 					<span id="titleSpan1">0</span>/50 
 					<span id="titleSpan2"></span>
@@ -210,8 +210,10 @@ var ext = fileName.split('.').pop().toLowerCase();
 			  </div>
 			 <div class="mb-3">
 				<label class="form-label">첨부파일</label>
-				<input class="form-control" type='file' id="uploadFile" name="uploadFile" multiple >
-				
+				<input class="form-control" type='file' id="uploadFile" name="uploadFile" accept=".gif, .png, .jpg, .jpeg, .bmp" multiple >
+				<div class="form-text">
+					이미지 형식(.gif, .png, .jpg, .jpeg, .bmp)만 가능합니다.
+				</div>
 				<!-- 파일 여러개 넣으면 파일 이름 뽑기 -->
 				<div id="fileName">
 					
