@@ -30,7 +30,7 @@ insert into pquestion values(seq_pquestion.NEXTVAL, #{pnum}, #{writer}, #{conten
 	</select>
 	
 <update id="update" parameterType="com.example.demo.pquestion.Pquestion">
-		UPDATE pquestion SET content=#{content}, updatedate=sysdate WHERE num=#{pqnum}
+		UPDATE pquestion SET content=#{content}, updatedate=sysdate WHERE num=#{pnum}
 	</update>
 	
 <delete id="delete" parameterType="int">
