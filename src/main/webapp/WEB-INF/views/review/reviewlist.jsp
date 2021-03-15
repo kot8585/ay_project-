@@ -234,7 +234,8 @@ function newImg(){
 		<br>
 		<a href="${pageContext.request.contextPath }/review/reviewDetail?num=${r.num}&p_num=${p.num }" class="text-secondary">${p.name }</a><br><br>
         <img src="${pageContext.request.contextPath }/review/img?fname=${r.path }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
-        <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px">
+        <img src="${pageContext.request.contextPath }/review/img?fname=${r.path1 }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
+        <img src="${pageContext.request.contextPath }/review/img?fname=${r.path2 }&num=${r.num }" style="width:150px;height:150px" onclick="newImg()">
         <br>
         <div id="content1">
         <input id="content2" type="hidden" value="${r.content }">
