@@ -1,11 +1,13 @@
 package com.example.demo.pquestion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.board.Board;
+import com.example.demo.qna.Qna;
 import com.example.demo.review.Review;
 
 @Mapper
@@ -31,5 +33,11 @@ public interface PquestionMapper {
 	void delete(int num);
 
 	ArrayList<Pquestion> selectByPnum(int p_num);
+
+	int getNum();
+	
+	void updateState(HashMap<String, Object> map);
+
+	ArrayList<Pquestion> selectByWriter(String writer);
 	
 }

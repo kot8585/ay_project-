@@ -40,8 +40,7 @@ function go(i) {
 </thead>
 <c:forEach var="p" items="${list }">
 <tr>
-	<td>${ p.num }</td>
-	
+	<td>${ p.num }</td>	
 	<td>${ p.writer }</td>
 	<td>${ p.title }</td>
 	<td>${ p.content }</td>

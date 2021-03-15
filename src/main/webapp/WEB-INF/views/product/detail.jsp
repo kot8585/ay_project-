@@ -194,11 +194,14 @@ border:1px;
 <!--         <div class="card mt-4"> -->
         
         <form name="f" action="${ pageContext.request.contextPath }/order/orderForm" method="post" onsubmit="return check()">
-          
-<!--         <div id = "side_content_box"> -->
+
+
+		          
         <img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file0 }&num=${p.num }"style="width:300px;height:300px">
     	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file1 }&num=${p.num }"style="width:300px;height:300px">
     	<img class="card-img-top img-fluid" img id="bigImg" src="${pageContext.request.contextPath }/img?fname=${file2 }&num=${p.num }"style="width:300px;height:300px"> 
+       
+       
        
           <div class="card-body">
 <!--           상품명 -->

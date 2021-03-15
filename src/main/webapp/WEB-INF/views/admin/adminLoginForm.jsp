@@ -102,7 +102,7 @@ width:400px;
 </style>
 </head>
 <body>
-		<h2 class="text-danger">로그인</h2>
+		<h2 class="text-danger">관리자로그인</h2>
 		<hr>
 <div class="container-fluid vertical-top d-flex justify-content-center">
 <form name="formName" method="POST" action="${pageContext.request.contextPath }/admin/login">
