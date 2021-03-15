@@ -181,13 +181,13 @@ border:1px;
 
     <div class="row">
 
-      <div class="col-lg-2">
-        <h1 class="my-4">카테고리</h1>
-        <div class="list-group">
-          <a href="#" class="list-group-item active">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
-        </div>
+<!--       <div class="col-lg-2"> -->
+<!--         <h1 class="my-4">카테고리</h1> -->
+<!--         <div class="list-group"> -->
+<!--           <a href="#" class="list-group-item active">Category 1</a> -->
+<!--           <a href="#" class="list-group-item">Category 2</a> -->
+<!--           <a href="#" class="list-group-item">Category 3</a> -->
+<!--         </div> -->
       </div>
       <div class="col-lg-9">
 

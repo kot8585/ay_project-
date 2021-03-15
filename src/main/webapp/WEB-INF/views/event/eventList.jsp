@@ -32,12 +32,12 @@
   <c:forEach var="e" items="${list}" varStatus="vs">
   	<c:if test="${vs.first }">
 	  	<div class="carousel-item active">
-	      <img src="${pageContext.request.contextPath }/event/img?fname=${e.imgPath }&num=${e.num}" class="d-block w-100" alt="e1" style="width:1000px;height:500px">
+	      <img src="${pageContext.request.contextPath }/event/img?fname=${e.imgPath }&num=${e.num}" class="d-block w-100" alt="e1" style="width:1000px;height:400px">
 	    </div>
   	</c:if>
   	<c:if test="${not vs.first }">
 	    <div class="carousel-item">
-	      <img src="${pageContext.request.contextPath }/event/img?fname=${e.imgPath }&num=${e.num}" class="d-block w-100" alt="e2" style="width:1000px;height:500px">
+	      <img src="${pageContext.request.contextPath }/event/img?fname=${e.imgPath }&num=${e.num}" class="d-block w-100" alt="e2" style="width:100px;height:400px">
 	    </div>
 	</c:if>    
   	</c:forEach>

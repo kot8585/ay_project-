@@ -34,14 +34,14 @@
 <table class="table table-bordered">
 <!-- c:out 사용 이유 : https://2ham-s.tistory.com/274 -->
 <thead class="table-danger">
-<tr align="center"><th>글번호</th><th>작성자</th><th>글제목</th><th>글내용</th><th>답변상황</th><th>작성날짜</th></tr>
+<tr align="center"><th>글번호</th><th>작성자</th><th>글내용</th><th>답변상황</th><th>작성날짜</th></tr>
 </thead>
 <c:forEach var="pq" items="${plist }">
 <tr align="center" valign="middle">
 	<td><c:out value="${ pq.num }"/></td>
 	<td><c:out value="${ pq.writer }"></c:out></td>
-	<td><a href="${ pageContext.request.contextPath }/pquestion/detail?num=${ pq.num }"><c:out value="${ pq.title }" /></a></td>
-	<td>${ pq.content }</td>
+	<td><a href="${ pageContext.request.contextPath }/pquestion/pDetail?num=${ pq.num }"><c:out value="${ pq.content }" /></a></td>
+<%-- 	<td>${ pq.content }</td> --%>
 	<td>${ pq.state }</td>
 	<td>${ pq.p_date }</td>
 </tr>

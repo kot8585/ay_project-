@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -68,6 +68,7 @@ function numberWithCommas(num) {
       </thead>
       
 <!--        <div class="col-lg-9"> -->
+      
       
       <c:forEach var="p" items="${list}" varStatus="vs">
             <td style="width:16.66%"  colspan="1" align="center">
