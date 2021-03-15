@@ -186,7 +186,9 @@ public class ReviewController {
 						reviewlist.get(i).setPath(files[0]);
 					}
 					else if(j == 1) {
-						reviewlist.get(i).setPath2(files[1]);
+						reviewlist.get(i).setPath1(files[1]);
+					}else if(j == 2) {
+						reviewlist.get(i).setPath2(files[2]);
 					}
 					mav.addObject("file" + j, files[j]);
 				}

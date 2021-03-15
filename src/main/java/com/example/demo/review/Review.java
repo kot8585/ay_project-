@@ -21,6 +21,7 @@ public class Review {
 	private String likey;
 	private MultipartFile[] uploadFile;
 	private String path;
+	private String path1;
 	private String path2;
 	private Date pdate;
 	private String id;
@@ -53,6 +54,22 @@ public class Review {
 		this.id = id;
 		this.pname = pname;
 		this.what = what;
+	}
+
+
+
+
+
+	public String getPath1() {
+		return path1;
+	}
+
+
+
+
+
+	public void setPath1(String path1) {
+		this.path1 = path1;
 	}
 
 
