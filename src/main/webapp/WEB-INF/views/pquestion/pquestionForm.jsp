@@ -114,15 +114,6 @@ border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 
 		<input class="form-control" type="text" name="writer" value="${sessionScope.id }" readonly></td>
 	</div>
-
-<!-- 	<div class="card-header"> -->
-<!-- 			<label class="form-label">내용</label> -->
-<!-- 			<textarea class="form-control" name="content" id="content" cols="20" rows="70" onkeyup="countLetter('content')"></textarea> -->
-<!-- 				<div id="contentDiv"> -->
-<!-- 					<span id="contentSpan1">0</span>/50 -->
-<!-- 					<span id="contentSpan2"></span> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 			
 			<div class="card-header">
 		         <label class="form-label">내용</label>
@@ -139,7 +130,7 @@ border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 	
 	 
 <div class="d-grid gap-2 d-md-block " >
-<div align="center" style=none; height: 100px;">
+<div align="center" "style=none; height: 100px;">
 	<input class="btn btn-danger" type="submit" value="문의작성">
 	<input class="btn btn-danger" type="reset" value="지우기">
 	<input type="hidden" name="pnum" value="${pq.num }">
