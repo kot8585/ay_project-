@@ -68,76 +68,76 @@ function sort(criteria){
 	xhttp.send();
 }
 
-function highlight(what, xhttp){
+// function highlight(what, xhttp){
 	
-	if(what.value==""){
-		print(xhttp);
-	}else{
-		var reAll = new RegExp(what.value, "g");
-		console.log(reAll);	
-		console.log(xhttp.responseText.indexOf("<pre>"));
-		console.log(xhttp.responseText.lastIndexOf("</pre>"));
-		var start = xhttp.responseText.indexOf("<pre>");
-		var end = xhttp.responseText.lastIndexOf("</pre>");
-		var c = xhttp.responseText[start]+xhttp.responseText[end];
-		var b = 0;
-		console.log("type of start : " + typeof(start));
-		console.log(a);
-		console.log("범위 : " + xhttp.responseText[start,end].replace(reAll, "XX"));
-		console.log(end-start);
-		var key = [];
-		for(var i = start; i <= end; i++){
+// 	if(what.value==""){
+// 		print(xhttp);
+// 	}else{
+// 		var reAll = new RegExp(what.value, "g");
+// 		console.log(reAll);	
+// 		console.log(xhttp.responseText.indexOf("<pre>"));
+// 		console.log(xhttp.responseText.lastIndexOf("</pre>"));
+// 		var start = xhttp.responseText.indexOf("<pre>");
+// 		var end = xhttp.responseText.lastIndexOf("</pre>");
+// 		var c = xhttp.responseText[start]+xhttp.responseText[end];
+// 		var b = 0;
+// 		console.log("type of start : " + typeof(start));
+// 		console.log(a);
+// 		console.log("범위 : " + xhttp.responseText[start,end].replace(reAll, "XX"));
+// 		console.log(end-start);
+// 		var key = [];
+// 		for(var i = start; i <= end; i++){
 			
-			b += xhttp.responseText[i];
+// 			b += xhttp.responseText[i];
 			
-		}
-		console.log("b : " + b);
+// 		}
+// 		console.log("b : " + b);
 		
-		var a = document.querySelector("#ntable");
-		var q = document.querySelector("#content2");
-		var z = document.querySelector("#content3");
-		var l = document.querySelector("#content1");
-		
-		
-		console.log(q);
-		
-		console.log(a);
-		console.log(z);
-		
-		//a.innerHTML = xhttp.responseText.replace(reAll, "<font color='red'>" + what.value + "</font>");
-		//t.innerHTML = b.replace(reAll, "<font color='red'>" + what.value + "</font>");
-		//console.log("t : " + xhttp.responseText.b);
-		a.innerHTML = xhttp.responseText;
-		var t = document.getElementsByTagName("PRE");
-		
-		console.log("t : " + t.value);
-		
-		//z.innerHTML = "asdfasdf";	
-		//q.innerHTML = "dfdf";
-		
-		console.log("pre : " );
-		console.log("div : " + l);
-		//z.innerHTML = z.replace(reAll, "<font color='red'>" + what.value + "</font>");
-		console.log("D : "  + document.querySelector("#content3").replace(reAll, "<font color='red'>" + what.value + "</font>"));
-		
-		//a.innerHTML = xhttp.responseText[].replace(reAll, "<font color='red'>" + what.value + "</font>");
-		
-		//a.innerHTML = xhttp.responseText[b].replace(reAll, "<font color='red'>" + what.value + "</font>");
+// 		var a = document.querySelector("#ntable");
+// 		var q = document.querySelector("#content2");
+// 		var z = document.querySelector("#content3");
+// 		var l = document.querySelector("#content1");
 		
 		
+// 		console.log(q);
 		
-		//console.log(a.innerHTML);
+// 		console.log(a);
+// 		console.log(z);
 		
+// 		//a.innerHTML = xhttp.responseText.replace(reAll, "<font color='red'>" + what.value + "</font>");
+// 		//t.innerHTML = b.replace(reAll, "<font color='red'>" + what.value + "</font>");
+// 		//console.log("t : " + xhttp.responseText.b);
+// 		a.innerHTML = xhttp.responseText;
+// 		var t = document.getElementsByTagName("PRE");
 		
-		//content.innerHTML // PRE replacee
+// 		console.log("t : " + t.value);
+		
+// 		//z.innerHTML = "asdfasdf";	
+// 		//q.innerHTML = "dfdf";
+		
+// 		console.log("pre : " );
+// 		console.log("div : " + l);
+// 		//z.innerHTML = z.replace(reAll, "<font color='red'>" + what.value + "</font>");
+// 		console.log("D : "  + document.querySelector("#content3").replace(reAll, "<font color='red'>" + what.value + "</font>"));
+		
+// 		//a.innerHTML = xhttp.responseText[].replace(reAll, "<font color='red'>" + what.value + "</font>");
+		
+// 		//a.innerHTML = xhttp.responseText[b].replace(reAll, "<font color='red'>" + what.value + "</font>");
 		
 		
 		
-	}
+// 		//console.log(a.innerHTML);
+		
+		
+// 		//content.innerHTML // PRE replacee
+		
+		
+		
+// 	}
 	
 
 	
-}
+// }
 
 function print(xhttp){
 	
