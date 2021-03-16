@@ -44,7 +44,7 @@
   			 FROM (
      			   SELECT * FROM board 
      			   WHERE type=#{type} AND title LIKE '%'||#{cri.keyword}||'%' ORDER BY num DESC) A 
-     			   ㅂ
+     			   
    			  WHERE rownum <=#{cri.pageNum} * #{cri.amount}) B 
 		WHERE rn>(#{cri.pageNum}-1) * #{cri.amount}]]>
 

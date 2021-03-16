@@ -39,6 +39,7 @@ public class BoardController {
 	 * @param cri
 	 * @return
 	 */
+	
 	@RequestMapping(value = "/{type}/list")
 	public ModelAndView list(@PathVariable String type, Criteria cri) {
 		System.out.println("board/type = " + type);

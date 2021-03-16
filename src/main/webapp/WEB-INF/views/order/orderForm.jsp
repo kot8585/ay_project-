@@ -65,18 +65,18 @@
 			</div>
 			<div class="col">
 				<h2>${ order.p.name }</h2>
-				<hr>
+				<hr class="bg-danger" size="5px">
 				<h3>${ order.quantity }개 주문</h3>
-				<hr>
-				<h3>개당 가격 <script type="text/javascript">numberWithCommas(${ order.p.price })</script></h3>
-				<hr>
-				<h3>주문총액  <script type="text/javascript">numberWithCommas(${ order.quantity * order.p.price })</script></h3>
-				<hr>
+				<hr class="bg-danger" size="5px">
+				<h3>개당 가격 : <script type="text/javascript">numberWithCommas(${ order.p.price })</script></h3>
+				<hr class="bg-danger" size="5px">
+				<h3>주문총액 : <script type="text/javascript">numberWithCommas(${ order.quantity * order.p.price })</script></h3>
+				<hr class="bg-danger" size="5px">
 				<form action="${ pageContext.request.contextPath }/order/order" method="post">
 					<h3>주소 <input type="text" name="address" value="${ order.m.address }" size="30"></h3>
-					<hr>
+					<hr class="bg-danger" size="5px">
 					<h3>전화번호 <input type="text" name="tel" value="${ order.m.tel }"></h3>
-					<hr>
+					<hr class="bg-danger" size="5px">
 					<input type="hidden" name="m_id" value="${ sessionScope.id }">
 					<input type="hidden" name="p_num" value="${ order.p_num }">
 					<input type="hidden" name="p_name" value="${ order.p.name }">
