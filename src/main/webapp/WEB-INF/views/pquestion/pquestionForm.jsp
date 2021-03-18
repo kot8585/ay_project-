@@ -42,7 +42,14 @@ function countLetter(){
 		$("#f1").submit(function(){
 			var contentVal = $("#content").val();
 			var blank_pattern = /^\s+|\s+$/g;
-
+			 var sessionId = '<%=session.getAttribute("id") %>'
+			      
+		    	  if(sessionId == '' || sessionId == 'null'){
+		    	         alert("로그인을 먼저 해주세요");
+		    	         location.href= "${pageContext.request.contextPath }/member/loginForm";
+		      return false;
+		    	  }
+			 
 			if(contentVal.replace(blank_pattern, '' ) == "" ){
 				alert('공백만 입력할 수 없습니다.');
 				 $("#content").focus();
