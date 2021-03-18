@@ -77,11 +77,11 @@ $(document).ready(function() {
 
 		var name = $("#p_table > tbody > tr > td:nth-child(7n+3):contains('" + k + "')");
 
-		var price = $("#p_table > tbody > tr > td:nth-child(7n+5):contains('" + k + "')");
+// 		var price = $("#p_table > tbody > tr > td:nth-child(7n+5):contains('" + k + "')");
 
         $(name).parent().show();
 
-        $(price).parent().show();
+//         $(price).parent().show();
 
     })
 
@@ -103,23 +103,11 @@ a {
 	<h3>상품리스트</h3>
 	<div align="right" "style=""height: 100px;">
 		<h3>
-			검색<input type="text" id="search" placeholder="상품명, 가격">
+			검색<input type="text" id="search" placeholder="상품명">
 		</h3>
 	</div>
 	<div class="container-fluid justify-content-center">
-		<table border="1" class="table table-bordedark" id="p_table">
-			<thead class="table-warning"
-				style="border: 0px solid white; text-align: center;">
-				<!--          <tr> -->
-				<!--             <th style="width:10%">이벤트순</th> -->
-				<!--             <th style="width:10%">신상품순</th> -->
-				<!--             <th style="width:10%">낮은가격순</th> -->
-				<!--             <th style="width:10%">높은가격순</th> -->
-				<!--             <td align="right" style="width:30%; background-color:white;" colspan="2"> -->
-				<!--             	<input type="search"><input type="button" value="검색" onclick="javascript:search()"> -->
-				<!--             </td> -->
-				<!--          </tr> -->
-			</thead>
+		<table border="1" class="table table-boarddark" id="p_table">
 
 			<tbody>
 				<c:forEach var="p" items="${list}" varStatus="vs">
@@ -132,10 +120,10 @@ a {
 
 						<td>
 							<h3>
-								<a
-									href="${pageContext.request.contextPath }/product/detail?num=${p.num}">${p.name}</a>
+								<a href="${pageContext.request.contextPath }/product/detail?num=${p.num}">${p.name}</a>
 							</h3>
 						</td>
+<!-- 						가격검색안됨 확인좀 -->
 						<td>
 							<h3>
 								<script type="text/javascript">numberWithCommas(${p.price})</script>
@@ -153,10 +141,11 @@ a {
 								</c:if>
 								개 남음
 							</h5> <!-- 					선택수량 -->
-						</td>
-				</c:forEach>
 
-			</tbody>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>		
 		</table>
 	</div>
 </body>

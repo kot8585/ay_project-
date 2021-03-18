@@ -98,6 +98,14 @@
   
    function check() {
       var quantity = document.f.quantity;
+      var sessionId = '<%=session.getAttribute("id") %>'
+      
+    	  if(sessionId == '' || sessionId == 'null'){
+    	         alert("로그인을 먼저 해주세요");
+    	         location.href= "${pageContext.request.contextPath }/member/loginForm";
+      return false;
+    	  }
+      
       if (quantity.value == "") {
          alert("주문수량을 기재해주세요.");
          quantity.value = "";
@@ -118,9 +126,11 @@
 		}
 		return true;
    }
+   
    function go(i){
       location.href="${pageContext.request.contextPath}/pquestion/pquestionForm?pnum="+i;
    }
+   
   
 </script>
 
@@ -283,7 +293,7 @@ input {
 			<c:import
 				url="${ pageContext.request.contextPath }/pquestion/plist?pnum=${ p.num }"></c:import>
 			<hr class="bg-danger" size="5px">
-			<input type="button" class="btn btn-danger" name="price" value="상품문의"
+			<input type="button" id="Write" class="btn btn-danger" name="price" value="상품문의"
 				onclick="go(${p.num})">
 		</div>
 	</div>

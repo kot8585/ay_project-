@@ -24,7 +24,6 @@
 <script type="text/javascript" src="/js/header.js"></script>
 <script>
 
-
 	$(document).ready(function(){
 		let pqnum = ${pq.num};
 		console.log(${pq.num});
@@ -50,12 +49,12 @@
 				}
 				
 				for(let i=0, len = plist.length||0; i<len; i++){
-					htmls+=  '<li class="plist-group-item" data-num="'+plist[i].num+'">'
-					htmls+=    '<div class="d-flex w-100 ">'
-					htmls+=    '<strong class="mb-1">'+plist[i].writer+'</strong>'					
-					htmls+=   '<small>'+plist[i].pqdate+'</small>'
+					htmls+=  '<li class="list-group-item" data-num="'+plist[i].num+'">'
+					htmls+=    '<div class="d-flex bd-highlight">'
+					htmls+=    '<strong class="p-2 w-100 bd-highlight">'+plist[i].writer+'</strong>'
+					htmls+=   '<small class="p-2 flex-shrink-1 bd-highlight">'+plist[i].pqdate+'</small>'
 					htmls+=   '</div>'
-					htmls+=	   '<p class="pqrepContent">'+plist[i].content+'</p>'
+					htmls+=	   '<p class="repContent">'+plist[i].content+'</p>'
 					htmls+=  '</li>'
 				}
 				$("#pqreplyplist").html(htmls);

@@ -10,10 +10,11 @@ SELECT * FROM category2;
 SELECT * FROM pqreply;
 SELECT * FROM qna;
 SELECT * FROM reply;
+SELECT * FROM cart;
 
 /*
 ----Board 관련 data table----
-마지막 업데이트 : 21.03.11
+마지막 업데이트 : 21.03.15
 
 DROP SEQUENCE seq_board;
 CREATE SEQUENCE seq_board;
@@ -31,15 +32,15 @@ create table board(
 INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '[배송]자주묻는 질문사항', '배송은 대략 일주일 정도 걸립니다.', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '[환불]자주묻는 질문', '환불은 일주일 이내로만 가능합니다.', sysdate, sysdate);
 INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '[주문취소]자주묻는 질문', '주문 취소는 배송준비단계전까지만 가능합니다.', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문', '자주묻는 내용', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문', '자주묻는 내용', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '자주묻는 질문', '자주묻는 내용', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '[주문취소]자주묻는 질문', '자주묻는 내용', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '[주문]자주묻는 질문', '자주묻는 내용', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'faq', 'admin', '[주문]자주묻는 질문', '자주묻는 내용', sysdate, sysdate);
 
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '설연휴 관련 공지사항', '설에는 배송하지 않습니다.', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항', '공지사항내용입니다', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항', '공지사항내용입니다', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항', '공지사항내용입니다', sysdate, sysdate);
-INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '공지사항', '공지사항내용입니다', sysdate,sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '[공지]설연휴 관련 공지사항', '설에는 배송하지 않습니다.', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '[공지]위해 상품정보 안내', '공지사항내용입니다', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '[공지]위해 상품정보 안내', '공지사항내용입니다', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '[공지]위해 상품정보 안내', '공지사항내용입니다', sysdate, sysdate);
+INSERT INTO board VALUES(seq_board.nextval, 'notice', 'admin', '[공지]개인정보 처리방침 개정 안내', '공지사항내용입니다', sysdate,sysdate);
 commit;
 
 *********************************************여러번 실행해주세요. 행이 200개정도 될때까지요***********************
@@ -48,8 +49,6 @@ insert into board(num, type, writer, title, content, regdate, updatedate)
     
 commit;
 */
-
-
 /*
 ----Review 관련 data table----
 마지막 업데이트 : 21.03.04

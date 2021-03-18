@@ -16,36 +16,7 @@
 </script>
 
 <style type="text/css">
-input:focus {
-	outline: none;
-}
 
-input {
-	border: none;
-	border-right: 0px;
-	border-top: 0px;
-	boder-left: 0px;
-	boder-bottom: 0px;
-}
-
-.inputStyle {
-	border: 1px;
-}
-
-textarea {
-	height: 200px;
-}
-
-h2 {
-	text-align: center;
-}
-
-div#side_left {
-	width: 200px;
-	height: 400px;
-	float: left;
-	margin: 5px;
-}
 
 a {
 	color: #0d6efd;
@@ -87,8 +58,8 @@ a {
 					<br>
 				</div>
 				<div>
-					<a
-						href="${pageContext.request.contextPath }/pquestion/pDetail?num=${pq.num }"
+					<a 
+<%-- 					href="${pageContext.request.contextPath }/pquestion/pDetail?num=${pq.num }" --%>
 						class="text-secondary">${pq.content} </a>
 				</div>
 
