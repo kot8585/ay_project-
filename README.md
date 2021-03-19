@@ -28,9 +28,9 @@
 * 김현진 (팀장, 상품 리뷰 기능 구현 기여) : eful5678@gmail.com 
 * 김평기 (팀원, 운영자 관련 기능 구현 기여, 문서 책임자) : aorca603@gmail.com
 * 이동준 (팀원, 회원 관련 기능 구현 기여) : ljkljs0805@gmail.com
-* 최준영 (팀원, 상품 관련 기능 구현 기여) : ansgywjd321@gmail.com
-* 문효정 (팀원, 게시판 기능 구현 기여) : cjyoung012@gmail.com
- 
+* 최준영 (팀원, 상품 관련 기능 구현 기여) : cjyoung012@gmail.com
+* 문효정 (팀원, 게시판 기능 구현 기여) :  ansgywjd321@gmail.com
+
 ## 제작 기간
 2021-01-25 ~ 2021-04-12(예정)
 
