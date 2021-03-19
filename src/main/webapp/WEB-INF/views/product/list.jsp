@@ -16,10 +16,8 @@
 <title>Shop Homepage - Start Bootstrap Template</title>
 
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="css/shop-homepage.css" rel="stylesheet">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js">
 </script>
@@ -97,8 +95,6 @@ a {
 <body>
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<h3>상품리스트</h3>
 	<div align="right" "style=""height: 100px;">
