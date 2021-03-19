@@ -60,7 +60,7 @@ function sort(criteria){
 				
 			}else{
 				console.log("what : " + what.value)
-				highlight(what,xhttp);
+				print(xhttp);
 			}
 		}
 	}
