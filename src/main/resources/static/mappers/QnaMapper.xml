@@ -44,7 +44,7 @@
 	</update>
 	
 	<select id="getNum" resultType="int">
-		select seq_qna.nextval from dual
+		SELECT nextval('Test') FROM DUAL
 	</select>
 	
 	<select id="selectO_history" resultType="String" parameterType="String">

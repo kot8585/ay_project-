@@ -14,7 +14,7 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="com.example.demo.board.Board">
-		insert into board values(seq_board.nextval, #{type}, #{writer},	#{title}, #{content}, sysdate, sysdate)
+		insert into board(type, writer, title, content, regdate, updatedate) values(#{type}, #{writer},	#{title}, #{content}, now(), now())
 	</insert>
 	
 	<select id="select" resultMap="board" parameterType="int">
@@ -34,10 +34,11 @@
 	</update>
 
 	<select id="countAll" resultType="int" >
-		select count(*) from board where type=#{type} AND title LIKE '%'||#{keyword}||'%'
+		select count(*) from board where type=#{type} AND title LIKE concat('%', #{keyword},'%')
 	</select>
-	
-	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
+
+	<!-- 오라클 페이징-->
+<!--	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
 		<![CDATA[SELECT B.num, B.title, B.writer, B.updatedate
 		FROM(
 			 SELECT ROWNUM as rn, A.num, A.title, A.writer, A.updatedate 
@@ -47,6 +48,24 @@
      			   
    			  WHERE rownum <=#{cri.pageNum} * #{cri.amount}) B 
 		WHERE rn>(#{cri.pageNum}-1) * #{cri.amount}]]>
+	</select>(#{cri.pageNum}-1) * #{cri.amount}-->
 
+	<select id="getListWithPaging" resultMap="board" parameterType="java.util.HashMap">
+		SELECT *
+		FROM board
+		WHERE type=#{type} AND title LIKE concat('%', #{cri.keyword},'%')
+		order by num desc
+		LIMIT #{cri.offset}, #{cri.amount}
+	</select>
+
+	<select id="getListWithPagingCursor" resultMap="board" parameterType="java.util.HashMap">
+		SELECT * FROM board
+			WHERE type=#{type}
+			AND title LIKE concat('%', #{cri.keyword},'%')
+			<if test= "cri.cursorId != null">
+		<![CDATA[AND num < #{cri.cursorId}]]>
+			</if>
+			order by num desc
+			LIMIT #{cri.amount}
 	</select>
 </mapper>

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ import com.example.demo.qna.QnaService;
  * @version main 1
  */
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
 	/**
@@ -47,29 +49,14 @@ public class AdminController {
 	 */
 	public static String basePath = "C:\\shopimg\\";
 
-	@Autowired
-	private AdminService adminService;
-
-	@Autowired
-	private OrderService orderService;
-
-	@Autowired
-	private ProductService productService;
-
-	@Autowired
-	private BoardService boardService;
-
-	@Autowired
-	private QnaService qnaService;
-
-	@Autowired
-	private EventService eventService;
-
-	@Autowired
-	private PquestionService pService;
-
-	@Autowired
-	private PqRepService pqService;
+	private final AdminService adminService;
+	private final OrderService orderService;
+	private final ProductService productService;
+	private final BoardService boardService;
+	private final QnaService qnaService;
+	private final EventService eventService;
+	private final PquestionService pService;
+	private final PqRepService pqService;
 
 	/**
 	 * 기본 url에 /admin 추가시 관리자 로그인 페이지로 이동하도록 url을 자동 리턴하는 메소드입니다.
@@ -205,9 +192,7 @@ public class AdminController {
 
 	/**
 	 * 전체 상품 목록을 확인 해당 페이지(/admin/productList.jsp)에서 아래 기능들을 제공.
-	 * {@link #write(Product)}, {@link #detail(int, HttpServletRequest)} @see
-	 * {@link com.example.demo.product.ProductController#getImg(fname, p_id)}
-	 * 
+	 *
 	 * @param req 세션을 받아오기 위한 HttpServletRequest 객체.
 	 * @return Redirect할 Url, 가져온 리스트
 	 */
@@ -231,13 +216,9 @@ public class AdminController {
 		int size = list.size(); // 최적화용
 		// 모든 상품 목록의 갯수만큼 for문을 돌려서
 		for (int i = 0; i < size; i++) {
-			// list에 담긴 상품번호를 이용해 상품 이미지 경로를 설정한다.
 			String path = basePath + "p" + list.get(i).getNum() + "\\";
-			// 상품 이미지 경로에 대하여 참조하는 객체를 생성한다.
 			File imgDir = new File(path);
-			// 이후 디렉토리의 리스트를 받고, 이를 String 배열로 받아온다.
 			String[] files = imgDir.list();
-			// 해당 경로의 디렉토리가 존재한다면
 			if (imgDir.exists()) {
 				// 최적화용
 				int f_length = files.length;
@@ -308,7 +289,6 @@ public class AdminController {
 	 * 상품 추가 페이지에서 product에 관련된 내용들이 submit되었을시 실행되는 메소드입니다. 상품 이미지를 분류자와 상품번호(ex.
 	 * num이 1일시 basePath/p1/)에 저장 이후 입력된 내용을 DB에 저장.
 	 * 
-	 * @param 저장할 p 상품 정보가 담긴 DTO 객체
 	 * @return Redirect할 Url
 	 */
 	@PostMapping("/admin/write")

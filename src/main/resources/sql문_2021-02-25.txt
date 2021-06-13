@@ -1,3 +1,101 @@
+--------------mysql----------------------------------------------------------------------
+CREATE TABLE admin(id VARCHAR(20) PRIMARY KEY,  password VARCHAR(20) NOT NULL);
+insert into admin values('admin', 'admin');
+
+create table board(
+    num int not null auto_increment primary KEY,
+    type VARCHAR(20) NOT NULL,
+    writer VARCHAR(20) NOT NULL REFERENCES admin(id) on delete CASCADE,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(1000),
+    regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedate DATETIME DEFAULT CURRENT_TIMESTAMP
+)ENGINE = InnoDB;
+
+INSERT INTO board(type, writer, title, content, regdate, updatedate) VALUES('faq', 'admin', '[배송]자주묻는 질문사항', '배송은 대략 일주일 정도 걸립니다.', now(), now());
+select * from board;
+
+CREATE TABLE product(
+    num int PRIMARY KEY not null,
+    name VARCHAR(20) NOT NULL,
+    maker VARCHAR(20) NOT NULL,
+    price bigint NOT NULL,
+    origin VARCHAR(20) NOT NULL,
+    material VARCHAR(20) NOT NULL,
+    quantity int NOT NULL,
+    imgPath VARCHAR(200) DEFAULT '',
+    category1 bigint REFERENCES category1(id) on delete cascade,
+    category2 bigint REFERENCES category2(id) on delete cascade,
+    event_num bigint REFERENCES event(num) on delete SET NULL
+);
+
+CREATE TABLE review(
+    num int not null auto_increment PRIMARY KEY,
+    pnum bigint REFERENCES product(num) on delete CASCADE,
+    title VARCHAR(50) NOT NULL,
+    writer VARCHAR(20) NOT NULL,
+    content VARCHAR(500) NOT NULL,
+    stars VARCHAR(20) NOT NULL,
+    likey VARCHAR(20) NOT NULL,
+    path VARCHAR(50) DEFAULT '',
+    pdate DATETIME DEFAULT CURRENT_TIMESTAMP)ENGINE = InnoDB;
+
+    CREATE TABLE member(
+    id VARCHAR(200) PRIMARY KEY,
+    password VARCHAR(200) NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    birth DATETIME,
+    gender VARCHAR(5) NOT NULL,
+    postalCode VARCHAR(500) NOT NULL,
+   roadAddress VARCHAR(500) NOT NULL,
+    address VARCHAR(500) NOT NULL,
+    tel VARCHAR(500) NOT NULL,
+    email VARCHAR(500) NOT NULL
+);
+
+CREATE TABLE pqreply(
+    num int auto_increment PRIMARY KEY NOT NULL,
+    pqnum bigint NOT NULL REFERENCES pquestion(num) on delete CASCADE,
+    writer VARCHAR(20) NOT NULL,
+    content VARCHAR(1000),
+    pqdate DATETIME
+);
+
+
+CREATE TABLE pquestion(
+    num int auto_increment PRIMARY KEY NOT NULL,
+    pnum bigint REFERENCES product(num) on delete CASCADE,
+    writer VARCHAR(20) NOT NULL REFERENCES member(id) on delete CASCADE,
+    content VARCHAR(1000),
+    state VARCHAR(50) NOT NULL,
+    updatedate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    p_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+create table category1(
+id int auto_increment PRIMARY KEY NOT NULL,
+name VARCHAR(50) not null);
+
+create table category2(
+id int auto_increment PRIMARY KEY NOT NULL,
+name VARCHAR(50) not null,
+c_id bigint references category1(id) on delete cascade);
+
+CREATE TABLE qna(
+	num int auto_increment PRIMARY KEY NOT NULL,
+	writer VARCHAR(20) REFERENCES member(id) on delete CASCADE,
+    q_cate VARCHAR(50) NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(500) NOT NULL,
+    state VARCHAR(50) NOT NULL,
+    regdate DATETIME DEFAULT CURRENT_TIMESTAMP ,
+    updatedate DATETIME DEFAULT CURRENT_TIMESTAMP ,
+   path VARCHAR(50) DEFAULT ''
+);
+
+------------------------------------------------------------------------------------------
+
+
 SELECT * FROM member;
 SELECT * FROM product;
 SELECT * FROM review;

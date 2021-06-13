@@ -4,6 +4,7 @@ package com.example.demo.reply;
 import java.util.HashMap;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,24 +32,23 @@ import com.example.demo.qna.QnaService;
  *
  */
 @RestController
+@Slf4j
 public class ReplyController {
 	@Autowired
 	private RepService service;
 
 	@Autowired
 	private QnaService qnaService;
-	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
 
 	/**
 	 * JSON방식의 데이터만 처리하고, 문자열을 반환
 	 * @param r : JSON데이터를 Reply타입으로 변환하도록 지정
 	 * @return : 성공 여부인 String 타입
 	 */
-	@PostMapping(value= "/rep/write",
+	@PostMapping(value= "/reply/new",
 			consumes = "application/json",
-			produces = {MediaType.TEXT_PLAIN_VALUE })
+			produces = {MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<String> write(@RequestBody Reply r) {
 		int insertCount = service.addReply(r);
 		log.info("insertCount : " + insertCount);
@@ -62,7 +62,7 @@ public class ReplyController {
 		}
 
 		return insertCount == 1 
-		? new ResponseEntity<>("success", HttpStatus.OK) 
+		? new ResponseEntity<>("success", HttpStatus.CREATED)
 		: new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

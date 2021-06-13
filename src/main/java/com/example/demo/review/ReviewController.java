@@ -65,10 +65,12 @@ public class ReviewController {
 	private MemberService mservice;
 	
 	public static String basePath = "C:\\shopimg\\r";
-	
-	AdminController admin = new AdminController();
-	
-	QnaController qna = new QnaController();
+
+	@Autowired
+	AdminController admin;
+
+	@Autowired
+	QnaController qna;
 	
 	/**
 	 * 

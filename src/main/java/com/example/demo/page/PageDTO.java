@@ -1,5 +1,12 @@
 package com.example.demo.page;
 
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * by 문효정
+ */
+
 public class PageDTO {
 	private int startPage; //화면에서 보여지는 페이지의 시작 번호
 	private int endPage; //화면에서 보여지는 페이지의 끝 번호

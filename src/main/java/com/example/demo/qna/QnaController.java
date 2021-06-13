@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,16 +29,12 @@ import com.example.demo.reply.RepService;
 import com.example.demo.reply.Reply;
 
 @Controller
+@RequiredArgsConstructor
 public class QnaController {
 	
-	@Autowired
-	private QnaService service;
-	
-	@Autowired
-	private RepService repService;
-	
-	@Autowired
-	private OrderService orderService;
+	private final QnaService service;
+	private final RepService repService;
+	private final OrderService orderService;
 	
 	private static String basePath = "C:\\shopimg\\q";
 	
@@ -58,11 +56,11 @@ public class QnaController {
 	}
 	
 	
-	@PostMapping("/qna/write")
+	@PostMapping("/qna/new")
 	public String write(Qna q) {
 		int num = service.getNum();
-		System.out.println("q_cate : " + q.getQ_cate());
-		System.out.println("getUploadFile : " + q.getUploadFile());
+		log.info("q_cate : " + q.getQ_cate());
+		log.info("getUploadFile : " + q.getUploadFile());
 		q.setNum(num);
 		for(MultipartFile multipartFile : q.getUploadFile()) {
 			String fileName = multipartFile.getOriginalFilename();
@@ -105,14 +103,7 @@ public class QnaController {
 		String[] files = null;
 		File imgDir = new File(path);
 		if(imgDir.exists()) {
-			System.out.println("이미지 등록을 안했는데 디렉토리가 있따고?");
 			files  = imgDir.list();
-			System.out.println("이거 이미지 이름인가?"+ files);
-//			for (int j = 0; j < files.length; j++) {
-//				System.out.println(files[j].toString());
-//				mav.addObject("file" + j, files[j]); 
-//			}
-//			q.setPath(files[0]);
 		}
 		mav.addObject("files", files); 
 		mav.addObject("q", q);
@@ -122,7 +113,7 @@ public class QnaController {
 	@RequestMapping("/qna/img")
 	public ResponseEntity<byte[]> getImg(String fname, int num){
 		
-		String path = basePath+ num ;
+		String path = basePath+ num;
 		File f = new File(path, fname);
 		HttpHeaders header = new HttpHeaders();
 		ResponseEntity<byte[]> result = null;
@@ -141,8 +132,8 @@ public class QnaController {
 		return "redirect:/mypage/mypage";
 	}
 	
-	@RequestMapping("/qna/del")
-	public String del(int num) {
+	@PostMapping("/qna/{num}/delete")
+	public String del(@PathVariable int num) {
 		System.out.println("BoardController.del()");
 		service.delQna(num);
 		

@@ -53,7 +53,7 @@ nav nav-pills nav-fill.nav-link {
 
 .nav-pills .nav-link {
     border: 1px solid #ced4da;
-    
+
 }
 </style>
 
@@ -65,21 +65,21 @@ var sessionId = '<%=session.getAttribute("id") %>'
          alert("로그인을 먼저 해주세요");
          location.href= "${pageContext.request.contextPath }/member/loginForm";
       } else {
-         
+
          location.href="${pageContext.request.contextPath }/qna/QuestionForm";
       }});
-   
-   
+
+
 		var actionForm = $("#actionForm")
 		   	 //페이지 번호 누르면 동작
 		   	 $(".page-item a").on("click", function(e){
 		   		 e.preventDefault();
 		   		 console.log("click");
-		   		 
+
 		   		 actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		   		 actionForm.submit();
 		   	 });
-		   	
+
 			//키워드 검색
 		   	var searchForm = $("#searchForm");
 		   	$("#searchForm button").on("click", function(){
@@ -87,10 +87,10 @@ var sessionId = '<%=session.getAttribute("id") %>'
 		   			alert("키워드를 입력하세요");
 		   			return false;
 		   		}
-		   		
+
 		   		searchForm.submit();
 		   	});
-		   	
+
 		   	//detail페이지로 이동할때 현재페이지번호와 amount를 전달해주기위해 실제 동작하는 부분을 따로 만듬
 		   	$(".move").on("click", function(e){
 		   		e.preventDefault();
@@ -98,7 +98,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
 		   		actionForm.attr("action", "/board/detail");
 		   		actionForm.submit();
 		   	});
-   	 
+
    });
 
 </script>
@@ -116,12 +116,12 @@ var sessionId = '<%=session.getAttribute("id") %>'
 </header>
 <!-- header 부분 -->
 
-<div class="container">  
+<div class="container">
 <!-- visual 부분 -->
 <nav class="navbar border navbar-light border-danger" >
   <div class="container-fluid">
     <h1 class="text-danger">고객센터</h1>
-    
+
     <!-- 검색하기 -->
     <form class="d-flex" id="searchForm" action="/board/faq/list" method='get'>
       <input class="form-control me-2" name="keyword" type="search" placeholder="자주묻는 질문검색" aria-label="Search">
@@ -129,6 +129,11 @@ var sessionId = '<%=session.getAttribute("id") %>'
     </form>
 
     <button type="button" id="qnaWrite" class="btn btn-lg btn-danger">1:1문의하기</button>
+
+    <c:if test="${sessionScope.id eq 'admin' }">
+    <div align="right" style=none; height: 100px;">
+    		<a class="btn btn-danger" href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
+    	</c:if>
   </div>
 </nav>
 
@@ -141,7 +146,7 @@ var sessionId = '<%=session.getAttribute("id") %>'
   <a class="nav-link ${type == 'notice'? 'active' : '' }" href="${pageContext.request.contextPath }/board/notice/list">공지사항</a>
 </nav>
 
-	
+
 
 <br>
 <!-- 글 목록 -->
@@ -163,52 +168,17 @@ var sessionId = '<%=session.getAttribute("id") %>'
 	</table>
 </c:if>
 
-
-<!-- 페이지 버튼 -->
-<div>
-<nav aria-label="Page navigation example nav-outline-danger">
-   <ul class="pagination justify-content-center">
-  
-  <c:if test="${pageMaker.prev }">
-    <li class="page-item">
-      <a class="page-link" href="${pageMaker.startPage-1 }" aria-label="Previous">
-        <span aria-hidden="true">&lt;</span>
-      </a>
-    </li>
-   </c:if>
-
-  <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-    <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : '' } ">
-    	<a class="page-link" href="${num}">${num }</a>
-    </li>
-  </c:forEach>    
-  
-  
-  <c:if test="${pageMaker.next }">
-    <li class="page-item">
-      <a class="page-link" href="${pageMaker.endPage+1 }" aria-label="Next">
-        <span aria-hidden="true">&gt;</span>
-      </a>
-    </li>
-   </c:if>
-   </div>
-
-    <c:if test="${sessionScope.id eq 'admin' }">
-<div align="right" style=none; height: 100px;">
-		<a class="btn btn-danger" href="${ pageContext.request.contextPath }/admin/writeBoard">글쓰기</a>
-	</c:if>
-</div>
 </div>
 
   </ul>
 </nav>
+<button id="addBtn" onclick="moreList();"><span>더보기</span></button>
 
-	
 	<!-- 페이지 번호를 누르면 실제로 동작하는 부분 -->
 	<form id="actionForm" action="/board/${type}/list" method='get'>
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
-	</form> 
+	</form>
 </body>
 </html>
